@@ -1,5 +1,6 @@
 package com.home.mec888;
 
+import com.home.mec888.dao.UserDao;
 import com.home.mec888.entity.User;
 import com.home.mec888.util.HibernateUtil;
 import javafx.application.Application;
@@ -49,23 +50,10 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        User u1 = new User("user5", "email5");
+        User u1 = new User("user6", "password6", "email6");
+        UserDao userDao = new UserDao();
+        userDao.save(u1);
 
 
-        Session session = HibernateUtil.getSessionFactory().openSession();
-
-        Transaction transaction = session.beginTransaction();
-
-        session.save(u1);
-
-        transaction.commit();
-
-        // test logging by slf4j
-        Logger logger = LoggerFactory.getLogger(Main.class);
-        logger.info("User saved successfully");
-
-        session.close();
-
-        HibernateUtil.shutdown();
     }
 }

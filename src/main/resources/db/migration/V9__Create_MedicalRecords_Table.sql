@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS medical_records (
     treatment TEXT,
     notes TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT fk_medrec_patient FOREIGN KEY (patient_id) REFERENCES patients(id),
     CONSTRAINT fk_medrec_doctor FOREIGN KEY (doctor_id) REFERENCES doctors(id),
     CONSTRAINT fk_medrec_appointment FOREIGN KEY (appointment_id) REFERENCES appointments(id)
