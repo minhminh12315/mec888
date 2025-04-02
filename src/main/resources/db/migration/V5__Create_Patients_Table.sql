@@ -9,5 +9,6 @@ CREATE TABLE IF NOT EXISTS patients (
     emergency_contact VARCHAR(50),
     medical_history TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT fk_patients_user FOREIGN KEY (user_id) REFERENCES users(id)
 );

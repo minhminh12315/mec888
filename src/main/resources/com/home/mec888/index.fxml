@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.Region?>
+<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.home.mec888.controller.IndexController">
+    <!-- Header -->
+    <top>
+        <HBox alignment="CENTER" spacing="20" style="-fx-background-color: #2c3e50; -fx-padding: 10 10 10 20;">
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="Hotel Pro"/>
+            </HBox>
+
+            <Region HBox.hgrow="ALWAYS" />
+
+            <HBox alignment="CENTER_RIGHT" spacing="15">
+                <MenuButton fx:id="logoutButton" style="-fx-background-color: #fff; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold;" text="User Name">
+<!--                    <items>-->
+<!--                        <MenuItem onAction="#handleLogout" style="-fx-padding: 10" text="Logout" />-->
+<!--                    </items>-->
+                </MenuButton>
+            </HBox>
+        </HBox>
+    </top>
+
+    <!-- Sidebar -->
+    <left>
+        <VBox spacing="10" style="-fx-background-color: #34495e; -fx-padding: 10 30 10 30;">
+<!--            <Button fx:id="btnHome" onAction="#handleDashboard" style="-fx-background-color: #34495e; -fx-text-fill: white;" styleClass="red" text="Home" />-->
+<!--            <Button fx:id="btnRoomManagement" onAction="#handleRoomManagement" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="Room Management" />-->
+<!--            <Button fx:id="btnEmployeeManagement" onAction="#handleEmployeeManagement" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="Employee Management" />-->
+<!--            <Button fx:id="btnServicesManagement" onAction="#handleServicesManagement" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="Services Management" />-->
+<!--            <Button fx:id="btnCustomerManagement" onAction="#handleCustomerManagement" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="Customer Management" />-->
+<!--            <Button fx:id="btnBookingManagement" onAction="#handleBookingManagement" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="Booking Management" />-->
+<!--            <Button fx:id="btnProductManagement" onAction="#handleProductManagement" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="Product Management" />-->
+        </VBox>
+    </left>
+
+    <!-- Main Content -->
+    <center>
+        <ScrollPane fx:id="contentScrollPane" fitToHeight="true" fitToWidth="true" style="-fx-padding: 10;">
+            <VBox fx:id="contentArea" spacing="10">
+
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

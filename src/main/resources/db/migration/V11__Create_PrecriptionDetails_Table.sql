@@ -6,6 +6,8 @@ CREATE TABLE IF NOT EXISTS prescription_details (
     frequency VARCHAR(50),
     duration VARCHAR(50),
     instructions TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT fk_prescription_details_prescription FOREIGN KEY (prescription_id) REFERENCES prescriptions(id),
     CONSTRAINT fk_prescription_details_medicine FOREIGN KEY (medicine_id) REFERENCES medicines(id)
 );

@@ -19,6 +19,7 @@
         <property name="hibernate.transaction.jta.platform">org.hibernate.engine.transaction.jta.platform.internal.JBossStandAloneJtaPlatform</property>
 
         <!-- Mapping -->
-        <mapping class="com.home.testhibernate.entity.User"/>
+        <mapping class="com.home.mec888.entity.User"/>
+        <mapping class="com.home.mec888.entity.Role"/>
     </session-factory>
 </hibernate-configuration>
