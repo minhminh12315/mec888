@@ -9,7 +9,7 @@ import java.util.List;
 
 public class UserDao {
 
-    public void save(User user) {
+    public void saveUser(User user) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -23,7 +23,7 @@ public class UserDao {
         }
     }
 
-    public void update(User user) {
+    public void updateUser(User user) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -37,7 +37,7 @@ public class UserDao {
         }
     }
 
-    public User getById(Long id) {
+    public User getUserById(Long id) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.get(User.class, id);
         } catch (Exception e) {
@@ -55,7 +55,7 @@ public class UserDao {
         }
     }
 
-    public void delete(Long id) {
+    public void deleteUser(Long id) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -69,6 +69,17 @@ public class UserDao {
                 transaction.rollback();
             }
             e.printStackTrace();
+        }
+    }
+
+    public User getUserByUsername(String username) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("from User where username = :username", User.class)
+                    .setParameter("username", username)
+                    .uniqueResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

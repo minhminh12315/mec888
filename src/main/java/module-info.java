@@ -16,6 +16,11 @@ module com.home.mec888 {
 
     // Nếu sử dụng JavaFX với FXML, cần mở package chứa controller
     opens com.home.mec888.controller to javafx.fxml;
+    opens com.home.mec888.controller.login to javafx.fxml;
+//    opens com.home.mec888.controller.admin to javafx.fxml;
+//    opens com.home.mec888.controller.doctor to javafx.fxml;
+//    opens com.home.mec888.controller.patient to javafx.fxml;
+//    opens com.home.mec888.controller.staff to javafx.fxml;
 
     requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;

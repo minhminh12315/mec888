@@ -9,7 +9,7 @@ import java.util.List;
 
 public class RoleDao {
 
-    public void save(Role role) {
+    public void saveRole(Role role) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -23,7 +23,7 @@ public class RoleDao {
         }
     }
 
-    public void update(Role role) {
+    public void updateRole(Role role) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -37,7 +37,7 @@ public class RoleDao {
         }
     }
 
-    public Role getById(Long id) {
+    public Role getRoleById(Long id) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.get(Role.class, id);
         } catch (Exception e) {
@@ -55,7 +55,7 @@ public class RoleDao {
         }
     }
 
-    public void delete(Long id) {
+    public void deleteRole(Long id) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();

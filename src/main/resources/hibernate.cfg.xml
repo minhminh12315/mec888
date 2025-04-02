@@ -20,5 +20,6 @@
 
         <!-- Mapping -->
         <mapping class="com.home.mec888.entity.User"/>
+        <mapping class="com.home.mec888.entity.Role"/>
     </session-factory>
 </hibernate-configuration>

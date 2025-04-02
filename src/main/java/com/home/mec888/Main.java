@@ -2,36 +2,31 @@ package com.home.mec888;
 
 import com.home.mec888.dao.UserDao;
 import com.home.mec888.entity.User;
-import com.home.mec888.util.HibernateUtil;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/home/mec888/login/login.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         // title
         stage.setTitle("Hello!");
         stage.setScene(scene);
 
         // css tung thang
-        scene.getStylesheets().add(getClass().getResource("/css/main.css").toExternalForm());
-        scene.getStylesheets().add(getClass().getResource("/css/duong.css").toExternalForm());
-        scene.getStylesheets().add(getClass().getResource("/css/minh.css").toExternalForm());
-        scene.getStylesheets().add(getClass().getResource("/css/quan.css").toExternalForm());
-        scene.getStylesheets().add(getClass().getResource("/css/an.css").toExternalForm());
-        scene.getStylesheets().add(getClass().getResource("/css/cong.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/asset/css/main.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/asset/css/duong.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/asset/css/minh.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/asset/css/quan.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/asset/css/an.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/asset/css/cong.css").toExternalForm());
 
         // Lấy độ phân giải màn hình
         Screen screen = Screen.getPrimary();
@@ -50,10 +45,6 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        User u1 = new User("user6", "password6", "email6");
-        UserDao userDao = new UserDao();
-        userDao.save(u1);
-
-
+        launch();
     }
 }
