@@ -4,5 +4,5 @@ CREATE TABLE IF NOT EXISTS room (
     room_type VARCHAR(50) COMMENT 'consultation, surgery, recovery,…',
     status VARCHAR(20) COMMENT 'available, occupied, maintenance',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
