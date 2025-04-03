@@ -23,5 +23,6 @@
         <mapping class="com.home.mec888.entity.Role"/>
         <mapping class="com.home.mec888.entity.Medicine"/>
         <mapping class="com.home.mec888.entity.AuditLog"/>
+        <mapping class="com.home.mec888.entity.Patient"/>
     </session-factory>
 </hibernate-configuration>

@@ -10,7 +10,7 @@ public class IndexController {
     public static String userRole;
 
     public void handleMedicine(ActionEvent actionEvent) {
-        SceneSwitcher.loadView("admin/medicine/medicine-management.fxml", actionEvent);
+        SceneSwitcher.loadView("admin/patient/patient-management.fxml", actionEvent);
     }
 
     public void logout(ActionEvent actionEvent) {

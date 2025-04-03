@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.home.mec888.controller.admin.patient.PatientAddController">
+    <VBox spacing="24" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="24.0">
+
+        <HBox spacing="500">
+            <!-- Nút quay lại -->
+            <Button fx:id="backButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="30.0" prefWidth="75.0" styleClass="back-btn" text="Back" />
+            <Text styleClass="titlePage" text="Add new movie genre" />
+        </HBox>
+        <VBox spacing="16">
+            <VBox>
+                <Label text="First Name" />
+                <TextField fx:id="first_name" onKeyReleased="#validateInput" />
+                <Label fx:id="fn_error" />
+            </VBox>
+            <VBox>
+                <Label text="Last Name" />
+                <TextField fx:id="last_name" />
+                <Label fx:id="ln_error" />
+            </VBox>
+            <VBox>
+                <Label text="Email" />
+                <TextField fx:id="patient_email" />
+                <Label fx:id="email_error" />
+            </VBox>
+            <VBox>
+                <Label text="Phone" />
+                <TextField fx:id="patient_phone" />
+                <Label fx:id="phone_error" />
+            </VBox>
+            <VBox>
+                <Label text="Date of Birth" />
+                <DatePicker fx:id="date_of_birth" />
+                <Label fx:id="dob_error" />
+            </VBox>
+            <VBox>
+                <Label text="Gender" />
+                <ComboBox fx:id="gender" onAction="#validateGender" promptText="Select Gender">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Male"/>
+                            <String fx:value="Female"/>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+                <Label fx:id="gender_error" />
+            </VBox>
+
+            <VBox>
+                <Label text="Address" />
+                <TextField fx:id="address" />
+                <Label fx:id="address_error" />
+            </VBox>
+            <VBox>
+                <Label text="Emergency Contact" />
+                <TextField fx:id="emergency_contact" />
+                <Label fx:id="contact_error" />
+            </VBox>
+            <VBox>
+                <Label text="Medical History" />
+                <TextField fx:id="medical_history" />
+                <Label fx:id="medical_error" />
+            </VBox>
+            <HBox alignment="CENTER_RIGHT" spacing="24">
+                <Button fx:id="clearButton" mnemonicParsing="false" onAction="#handleClear" prefHeight="30.0" prefWidth="120.0" styleClass="clear-btn" text="Clear" />
+                <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSave" prefHeight="30.0" prefWidth="120.0" styleClass="save-btn" text="Save" />
+            </HBox>
+        </VBox>
+    </VBox>
+</AnchorPane>
