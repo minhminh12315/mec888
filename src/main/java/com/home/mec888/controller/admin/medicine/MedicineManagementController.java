@@ -11,6 +11,7 @@ import javafx.stage.*;
 
 import java.io.*;
 import java.sql.*;
+
 import com.home.mec888.dao.MedicineDao;
 import com.home.mec888.util.SceneSwitcher;
 import javafx.util.Callback;
@@ -107,9 +108,7 @@ public class MedicineManagementController {
             Parent root = loader.load();
             MedicineUpdateController medicineUpdateController = loader.getController();
             medicineUpdateController.setMedicine(medicine);
-
-            Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            SceneSwitcher.switchTo(currentStage, root, "admin/medicine/medicine-update.fxml");
+            SceneSwitcher.loadView("admin/medicine/medicine-update.fxml", actionEvent);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -141,9 +140,7 @@ public class MedicineManagementController {
     }
 
     @FXML
-    private void handleAdd(ActionEvent actionEvent)
-    {
-        Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        SceneSwitcher.switchTo(currentStage, "admin/medicine/medicine-add.fxml");
+    private void handleAdd(ActionEvent actionEvent) {
+        SceneSwitcher.loadView("admin/medicine/medicine-add.fxml", actionEvent);
     }
 }

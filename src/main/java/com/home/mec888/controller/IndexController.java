@@ -10,13 +10,13 @@ public class IndexController {
     public static String userRole;
 
     public void handleMedicine(ActionEvent actionEvent) {
-        Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        SceneSwitcher.switchTo(currentStage, "admin/medicine/medicine-management.fxml");
+        SceneSwitcher.loadView("admin/medicine/medicine-management.fxml", actionEvent);
     }
 
     public void logout(ActionEvent actionEvent) {
         Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        SceneSwitcher.switchTo(currentStage, "login/login.fxml");
+        currentStage.close();
+        SceneSwitcher.switchTo(new Stage(), "login/login.fxml");
     }
 
     public void setRole(String userRole) {

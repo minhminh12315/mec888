@@ -49,7 +49,6 @@ public class MedicineAddController {
             }
 
 
-
             // Create a new Medicine object
             Medicine medicine = new Medicine();
             medicine.setName(medicineName);
@@ -99,8 +98,7 @@ public class MedicineAddController {
     }
 
     private void returnToMedicineManagement(ActionEvent actionEvent) {
-        Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        SceneSwitcher.switchTo(currentStage, "admin/medicine/medicine-management.fxml");
+        SceneSwitcher.loadView("admin/medicine/medicine-management.fxml", actionEvent);
     }
 
 }

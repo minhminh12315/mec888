@@ -61,7 +61,6 @@ public class MedicineUpdateController {
 
         medicineDao.updateMedicine(medicine);
 
-        Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        SceneSwitcher.switchTo(currentStage, "admin/medicine/medicine-management.fxml");
+        SceneSwitcher.loadView("admin/medicine/medicine-management.fxml", actionEvent);
     }
 }
