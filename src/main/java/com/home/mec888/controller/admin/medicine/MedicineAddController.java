@@ -1,7 +1,9 @@
 package com.home.mec888.controller.admin.medicine;
 
 import com.home.mec888.dao.MedicineDao;
+import com.home.mec888.dao.UserDao;
 import com.home.mec888.entity.Medicine;
+import com.home.mec888.entity.User;
 import com.home.mec888.util.SceneSwitcher;
 import javafx.collections.*;
 import javafx.event.ActionEvent;

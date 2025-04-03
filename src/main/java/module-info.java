@@ -12,7 +12,7 @@ module com.home.mec888 {
     requires org.slf4j;
 
     // Mở package chứa entity cho Hibernate ORM (để nó có thể quét bằng reflection)
-    opens com.home.mec888.entity to org.hibernate.orm.core;
+    opens com.home.mec888.entity to org.hibernate.orm.core, javafx.base;
 
     // Nếu sử dụng JavaFX với FXML, cần mở package chứa controller
     opens com.home.mec888.controller to javafx.fxml;

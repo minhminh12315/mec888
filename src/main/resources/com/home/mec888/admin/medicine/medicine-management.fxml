@@ -33,13 +33,16 @@
             <!--                       promptText="Search by Seat Number" styleClass="search"-->
             <!--                       stylesheets="@../../../../../css/admin.css"/>-->
         </HBox>
-<!--        <TableView fx:id="genreTable" layoutX="250.0" layoutY="86.0" prefHeight="460.0" prefWidth="660.0"-->
-<!--                   styleClass="table">-->
-<!--            <columns>-->
-<!--                <TableColumn fx:id="idColumn" prefWidth="84.0" text="ID"/>-->
-<!--                <TableColumn fx:id="genreColumn" prefWidth="270.0" text="Genre"/>-->
-<!--                <TableColumn fx:id="actionColumn" minWidth="0.0" prefWidth="208.0" text="Action"/>-->
-<!--            </columns>-->
-<!--        </TableView>-->
+        <TableView fx:id="medicineManagementTable" layoutX="250.0" layoutY="86.0" prefHeight="460.0" prefWidth="660.0"
+                   styleClass="table">
+            <columns>
+                <TableColumn fx:id="idColumn" prefWidth="84.0" text="ID"/>
+                <TableColumn fx:id="nameColumn" prefWidth="270.0" text="Genre"/>
+                <TableColumn fx:id="descriptionColumn" minWidth="0.0" prefWidth="208.0" text="Desription"/>
+                <TableColumn fx:id="priceColumn" minWidth="0.0" prefWidth="208.0" text="Price"/>
+                <TableColumn fx:id="manufacturerColumn" minWidth="0.0" prefWidth="208.0" text="Manufacturer"/>
+                <TableColumn fx:id="actionColumn" minWidth="0.0" prefWidth="208.0" text="Actions"/>
+            </columns>
+        </TableView>
     </VBox>
 </AnchorPane>
