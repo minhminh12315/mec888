@@ -1,41 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox fx:id="root" xmlns:fx="http://javafx.com/fxml" fx:controller="com.home.mec888.controller.login.LoginController">
-    <VBox alignment="CENTER" spacing="20.0" styleClass="login-form" style="
-                        -fx-background-color: #f8f9fa;
-                        -fx-pref-width: 400px;
-                        -fx-padding: 40px;
-                        -fx-alignment: center;
-                    ">
-        <Label text="Login to HotelPro" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
-        <children>
-            <TextField fx:id="usernameField" promptText="Username" styleClass="form-control" style="
-                                -fx-pref-width: 100%;
-                                -fx-padding: 12px;
-                                -fx-font-size: 16px;
-                                -fx-border-color: #ced4da;
-                                -fx-border-radius: 5px;
-                                -fx-background-radius: 5px;
-                            "/>
-            <PasswordField fx:id="passwordField" promptText="Password" styleClass="form-control" style="
-                                -fx-pref-width: 100%;
-                                -fx-padding: 12px;
-                                -fx-font-size: 16px;
-                                -fx-border-color: #ced4da;
-                                -fx-border-radius: 5px;
-                                -fx-background-radius: 5px;
-                            "/>
-            <Label fx:id="errorLabel" styleClass="error-label" style="
-                                -fx-text-fill: red;
-                                -fx-font-size: 14px;
-                            "/>
-            <Button text="Login"
-                    style="-fx-font-size: 14px; -fx-pref-width: 100px; -fx-pref-height: 35px; -fx-background-color: #3498db; -fx-text-fill: white; -fx-cursor: hand; -fx-background-radius: 8px; -fx-font-weight: bold;"
-                    onAction="#handleLogin"/>
-        </children>
-    </VBox>
-</VBox>
+<BorderPane maxHeight="400" maxWidth="520" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.home.mec888.controller.login.LoginController">
+    <left>
+        <AnchorPane prefHeight="400.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <ImageView fitHeight="141.0" fitWidth="200.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../../asset/images/login.jpg" />
+                    </image>
+                </ImageView>
+            </children>
+        </AnchorPane>
+    </left>
+    <right>
+        <AnchorPane prefHeight="400.0" prefWidth="320.0" style="-fx-background-color: #ECECE7;" BorderPane.alignment="CENTER">
+            <children>
+                <!--left imagae-->
+                <ImageView fitHeight="100.0" fitWidth="50.0" layoutX="123.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../../asset/images/padlock.png" />
+                    </image>
+                </ImageView>
+                <!--username-->
+                <TextField fx:id="usernameField" layoutX="35.0" layoutY="150.0" prefHeight="30.0" prefWidth="225.0" promptText="Username" style="-fx-font-weight: bold;">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </TextField>
+                <Label fx:id="usernameError" layoutX="35.0" layoutY="180.0" style="-fx-font-size: 12px;" textFill="red" />
+
+                <!--password-->
+                <PasswordField fx:id="passwordField" layoutX="35.0" layoutY="205.0" prefHeight="30.0" prefWidth="225.0" promptText="Password" style="-fx-font-weight: bold;">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </PasswordField>
+                <Label fx:id="passwordError" layoutX="35.0" layoutY="235.0" style="-fx-font-size: 12px;" textFill="red" />
+
+                <Button fx:id="loginButton" layoutX="73.0" layoutY="260.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #111827; -fx-font-weight: bold;" text="Login" textFill="WHITE">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                </Button>
+            </children>
+        </AnchorPane>
+    </right>
+</BorderPane>

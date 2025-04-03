@@ -29,6 +29,7 @@ module com.home.mec888 {
     requires java.persistence;
     requires junit;
     requires mysql.connector.j;
+    requires spring.security.crypto;
 
     opens com.home.mec888 to javafx.fxml;
     exports com.home.mec888;

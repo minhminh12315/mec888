@@ -6,6 +6,7 @@ import com.home.mec888.dao.UserDao;
 import com.home.mec888.entity.AuditLog;
 import com.home.mec888.entity.Role;
 import com.home.mec888.entity.User;
+import com.home.mec888.session.UserSession;
 import com.home.mec888.util.SceneSwitcher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,30 +27,35 @@ public class LoginController {
     private VBox root;
     @FXML
     private TextField usernameField;
-
     @FXML
     private PasswordField passwordField;
-
     @FXML
-    private Label errorLabel;
+    private Label usernameError;
+    @FXML
+    private Label passwordError;
 
     private UserDao userDao = new UserDao();
     private RoleDao roleDao = new RoleDao();
 
     @FXML
     private void handleLogin(ActionEvent actionEvent) {
-        String username = usernameField.getText();
-        String password = passwordField.getText();
+        String username = usernameField.getText().trim();
+        String password = passwordField.getText().trim();
 
-        User user = userDao.getUserByUsername(username);
-        Role role = roleDao.getRoleById(Long.valueOf(user.getRoleId()));
-        if (user != null && user.getPassword().equals(password)) {
+        if (!validateFields(username, password)) {
+            return;
+        }
+
+        User user = userDao.login(username, password);
+        if (user != null) {
+            Role role = roleDao.getRoleById(Long.valueOf(user.getRoleId()));
 
             AuditLogDao auditLogDao = new AuditLogDao();
-            AuditLog auditLog = new AuditLog( user.getId().intValue(), "Login", "Login");
+            AuditLog auditLog = new AuditLog(user.getId().intValue(), "Login", "Login");
             auditLogDao.saveAuditLog(auditLog);
 
-            errorLabel.setText("Login successful!");
+            UserSession.getInstance().setUser(user);
+//            errorLabel.setText("Login successful!");
             switch (role.getName()) {
                 case "admin":
                     Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -71,9 +77,38 @@ public class LoginController {
             }
 
         } else {
-            errorLabel.setText("Invalid username or password.");
+            System.out.println("login failed");
+            showError(usernameField, usernameError, "Invalid username or password");
+            showError(passwordField, passwordError, "Invalid username or password");
         }
     }
 
+    public boolean validateFields(String username, String password) {
+        boolean isValid = true;
 
+
+        if (username.isEmpty()) {
+            showError(usernameField, usernameError, "username must not leave empty");
+            isValid = false;
+        }
+        if (password.isEmpty()) {
+            showError(passwordField, passwordError, "password must not leave empty");
+            isValid = false;
+            return isValid;
+        }
+        if (password.length() < 8) {
+            showError(passwordField, passwordError, "at least 8 characters");
+            isValid = false;
+            return isValid;
+        }
+
+
+        return isValid;
+    }
+
+    public void showError(TextField field, Label errorLabel, String message) {
+        field.setStyle("-fx-border-color: -fx-secondary-color");
+        errorLabel.setText(message);
+        errorLabel.setStyle("-fx-color: -fx-secondary-color");
+    }
 }

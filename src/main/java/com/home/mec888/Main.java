@@ -37,10 +37,10 @@ public class Main extends Application {
         Rectangle2D bounds = screen.getVisualBounds();
 
         // Đặt kích thước ứng dụng khớp với màn hình
-        stage.setX(bounds.getMinX());
-        stage.setY(bounds.getMinY());
-        stage.setWidth(bounds.getWidth());
-        stage.setHeight(bounds.getHeight());
+//        stage.setX(bounds.getMinX());
+//        stage.setY(bounds.getMinY());
+//        stage.setWidth(bounds.getWidth());
+//        stage.setHeight(bounds.getHeight());
 
         // Không dùng full-screen
         // stage.setFullScreen(true); // Không sử dụng dòng này

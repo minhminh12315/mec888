@@ -4,6 +4,7 @@ import com.home.mec888.entity.User;
 import com.home.mec888.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import java.util.List;
 
@@ -81,5 +82,20 @@ public class UserDao {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public User login(String username, String password) {
+        try {
+            User user = getUserByUsername(username);
+            if (user != null) {
+                String hashedPassword = user.getPassword();
+                if(BCrypt.checkpw(password, hashedPassword)){
+                    return user;
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 }
