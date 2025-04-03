@@ -21,5 +21,7 @@
         <!-- Mapping -->
         <mapping class="com.home.mec888.entity.User"/>
         <mapping class="com.home.mec888.entity.Role"/>
+        <mapping class="com.home.mec888.entity.Medicine"/>
+        <mapping class="com.home.mec888.entity.AuditLog"/>
     </session-factory>
 </hibernate-configuration>

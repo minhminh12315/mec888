@@ -1,36 +1,44 @@
 package com.home.mec888.entity;
 
 import jakarta.persistence.*;
-
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "roles")
-public class Role {
+@Table(name = "medicines")
+public class Medicine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = true, unique = true, length = 255)
+    @Column(nullable = false, length = 255)
     private String name;
 
-    @Column(nullable = false, unique = true, length = 255)
+    @Column(columnDefinition = "TEXT")
     private String description;
 
+    @Column(precision = 10)
+    private Double price;
+
+    @Column(length = 255)
+    private String manufacturer;
+
     @Column(name = "created_at", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private java.sql.Timestamp createdAt;
+    private Timestamp createdAt;
 
     @Column(name = "updated_at", nullable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-    private java.sql.Timestamp updatedAt;
+    private Timestamp updatedAt;
 
-    public Role() {
+    public Medicine() {
     }
 
-    public Role(Long id, String name, String description) {
-        this.id = id;
+    public Medicine(String name, String description, Double price, String manufacturer) {
         this.name = name;
         this.description = description;
+        this.price = price;
+        this.manufacturer = manufacturer;
     }
+
+    // Getters and setters
 
     public Long getId() {
         return id;
@@ -56,6 +64,22 @@ public class Role {
         this.description = description;
     }
 
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
     public Timestamp getCreatedAt() {
         return createdAt;
     }
@@ -74,10 +98,12 @@ public class Role {
 
     @Override
     public String toString() {
-        return "Role{" +
+        return "Medicine{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
+                ", price=" + price +
+                ", manufacturer='" + manufacturer + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';

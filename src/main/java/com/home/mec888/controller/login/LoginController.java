@@ -1,7 +1,9 @@
 package com.home.mec888.controller.login;
 
+import com.home.mec888.dao.AuditLogDao;
 import com.home.mec888.dao.RoleDao;
 import com.home.mec888.dao.UserDao;
+import com.home.mec888.entity.AuditLog;
 import com.home.mec888.entity.Role;
 import com.home.mec888.entity.User;
 import com.home.mec888.util.SceneSwitcher;
@@ -42,6 +44,10 @@ public class LoginController {
         User user = userDao.getUserByUsername(username);
         Role role = roleDao.getRoleById(Long.valueOf(user.getRoleId()));
         if (user != null && user.getPassword().equals(password)) {
+
+            AuditLogDao auditLogDao = new AuditLogDao();
+            AuditLog auditLog = new AuditLog( user.getId().intValue(), "Login", "Login");
+            auditLogDao.saveAuditLog(auditLog);
 
             errorLabel.setText("Login successful!");
             switch (role.getName()) {
