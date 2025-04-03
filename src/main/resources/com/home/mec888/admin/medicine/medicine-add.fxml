@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<?import org.controlsfx.control.CheckComboBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.TextArea?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            prefHeight="400.0" prefWidth="600.0"
+            fx:controller="com.home.mec888.controller.admin.medicine.MedicineAddController">
+    <VBox spacing="24" AnchorPane.bottomAnchor="24.0"
+          AnchorPane.leftAnchor="24.0"
+          AnchorPane.rightAnchor="24.0"
+          AnchorPane.topAnchor="24.0">
+
+        <HBox spacing="500">
+            <!-- Nút quay lại -->
+            <Button fx:id="backButton" layoutX="14.0" layoutY="14.0"
+                    mnemonicParsing="false" onAction="#handleBack"
+                    prefHeight="30.0" prefWidth="75.0" styleClass="back-btn" text="Back"/>
+            <Text text="Add new movie genre" styleClass="titlePage"/>
+        </HBox>
+        <VBox spacing="16">
+            <VBox>
+                <Label styleClass="label-input" text="Medicine name :"/>
+                <TextField fx:id="nameField" styleClass="input-field"/>
+            </VBox>
+            <VBox>
+                <Label styleClass="label-input" text="Description :"/>
+                <TextArea fx:id="descriptionField" styleClass="input-field"/>
+            </VBox>
+            <VBox>
+                <Label styleClass="label-input" text="Price :"/>
+                <TextField fx:id="priceField" styleClass="input-field"/>
+            </VBox>
+            <VBox>
+                <Label styleClass="label-input" text="Manufacturer :"/>
+                <TextField fx:id="manufacturerField" styleClass="input-field"/>
+            </VBox>
+            <HBox alignment="CENTER_RIGHT" spacing="24">
+                <Button fx:id="clearButton" mnemonicParsing="false"
+                        onAction="#handleClear" prefHeight="30.0" prefWidth="120.0" styleClass="clear-btn"
+                        text="Clear"/>
+                <Button fx:id="saveButton" mnemonicParsing="false"
+                        onAction="#handleSave" prefHeight="30.0" prefWidth="120.0" styleClass="save-btn"
+                        text="Save"/>
+            </HBox>
+        </VBox>
+
+    </VBox>
+</AnchorPane>

@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS staff (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT UNIQUE,
     department_id INT,
-    position VARCHAR(50),
+    position VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT fk_staff_user FOREIGN KEY (user_id) REFERENCES users(id),

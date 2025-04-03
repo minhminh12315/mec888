@@ -2,53 +2,79 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Region?>
-<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.home.mec888.controller.IndexController">
-    <!-- Header -->
-    <top>
-        <HBox alignment="CENTER" spacing="20" style="-fx-background-color: #2c3e50; -fx-padding: 10 10 10 20;">
-            <HBox alignment="CENTER_LEFT" spacing="10">
-                <Label style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="Hotel Pro"/>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.home.mec888.controller.IndexController">
+    <BorderPane fx:id="mainBorderPane" layoutX="190.0" layoutY="89.0" prefHeight="600.0" prefWidth="1200.0"
+                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                AnchorPane.topAnchor="0.0">
+        <left>
+            <AnchorPane prefHeight="600.0" prefWidth="160.0"
+                        style="-fx-background-color: #111827; -fx-margin-top: 48px;"
+                        BorderPane.alignment="CENTER_LEFT">
+                <VBox>
+                    <!--dashboard-->
+                    <!--                    <Button mnemonicParsing="false" onAction="#dashBoardScene" styleClass="nav-btn"-->
+                    <!--                            stylesheets="@../../../../css/admin.css" text="Dashboard" textFill="WHITE"/>-->
+                    <!--button movie-->
+                    <Button mnemonicParsing="false" onAction="#handleMedicine" styleClass="nav-btn"
+                             text="Medicine" textFill="WHITE"/>
+                    <!--button movie genre -->
+<!--                    <Button mnemonicParsing="false" onAction="#genreScene" styleClass="nav-btn"-->
+<!--                            stylesheets="@../../../../css/admin.css" text="Movie Genre" textFill="WHITE"/>-->
+<!--                    &lt;!&ndash;button user&ndash;&gt;-->
+<!--                    <Button mnemonicParsing="false" onAction="#managementUser" styleClass="nav-btn"-->
+<!--                            stylesheets="@../../../../css/admin.css" text="User" textFill="WHITE"/>-->
+<!--                    &lt;!&ndash;Room&ndash;&gt;-->
+<!--                    <Button mnemonicParsing="false" onAction="#managementRoom" styleClass="nav-btn"-->
+<!--                            stylesheets="@../../../../css/admin.css" text="Room" textFill="WHITE"/>-->
+<!--                    &lt;!&ndash;People Films&ndash;&gt;-->
+<!--                    &lt;!&ndash; <Button mnemonicParsing="false" onAction="#managementPeopleFilms" styleClass="nav-btn"-->
+<!--                            stylesheets="@../../../../css/admin.css" text="People Films" textFill="WHITE"/> &ndash;&gt;-->
+<!--                    &lt;!&ndash;Showtime &ndash;&gt;-->
+<!--                    <Button mnemonicParsing="false" onAction="#managementShowtime" styleClass="nav-btn"-->
+<!--                            stylesheets="@../../../../css/admin.css" text="Showtime" textFill="WHITE"/>-->
+<!--                    &lt;!&ndash;Seat &ndash;&gt;-->
+<!--                    <Button mnemonicParsing="false" onAction="#managementSeat" styleClass="nav-btn"-->
+<!--                            stylesheets="@../../../../css/admin.css" text="Seat" textFill="WHITE"/>-->
+<!--                    &lt;!&ndash;Seat Type&ndash;&gt;-->
+<!--                    <Button mnemonicParsing="false" onAction="#managementSeatType" styleClass="nav-btn"-->
+<!--                            stylesheets="@../../../../css/admin.css" text="Seat Type" textFill="WHITE"/>-->
+
+<!--                    &lt;!&ndash; Booking&ndash;&gt;-->
+<!--                    <Button mnemonicParsing="false" onAction="#managementBooking" styleClass="nav-btn"-->
+<!--                            stylesheets="@../../../../css/admin.css" text="Booking" textFill="WHITE"/>-->
+<!--                    &lt;!&ndash; Payment&ndash;&gt;-->
+<!--                    <Button mnemonicParsing="false" onAction="#managementPayment" styleClass="nav-btn"-->
+<!--                            stylesheets="@../../../../css/admin.css" text="Payment" textFill="WHITE"/>-->
+                </VBox>
+            </AnchorPane>
+        </left>
+        <top>
+            <HBox styleClass="headerAdmin">
+                <ImageView fitHeight="28.0" fitWidth="80">
+                    <image>
+<!--                        <Image url="@../../../../images/logo-phim.png"/>-->
+                    </image>
+                </ImageView>
+                <Region HBox.hgrow="ALWAYS"/>
+                <!-- HBox đóng vai trò là button -->
+                <Button fx:id="buttonLogout" styleClass="btn-logout" text="Logout"
+                        onAction="#logout"/>
             </HBox>
-
-            <Region HBox.hgrow="ALWAYS" />
-
-            <HBox alignment="CENTER_RIGHT" spacing="15">
-                <MenuButton fx:id="logoutButton" style="-fx-background-color: #fff; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold;" text="User Name">
-<!--                    <items>-->
-<!--                        <MenuItem onAction="#handleLogout" style="-fx-padding: 10" text="Logout" />-->
-<!--                    </items>-->
-                </MenuButton>
-            </HBox>
-        </HBox>
-    </top>
-
-    <!-- Sidebar -->
-    <left>
-        <VBox spacing="10" style="-fx-background-color: #34495e; -fx-padding: 10 30 10 30;">
-<!--            <Button fx:id="btnHome" onAction="#handleDashboard" style="-fx-background-color: #34495e; -fx-text-fill: white;" styleClass="red" text="Home" />-->
-<!--            <Button fx:id="btnRoomManagement" onAction="#handleRoomManagement" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="Room Management" />-->
-<!--            <Button fx:id="btnEmployeeManagement" onAction="#handleEmployeeManagement" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="Employee Management" />-->
-<!--            <Button fx:id="btnServicesManagement" onAction="#handleServicesManagement" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="Services Management" />-->
-<!--            <Button fx:id="btnCustomerManagement" onAction="#handleCustomerManagement" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="Customer Management" />-->
-<!--            <Button fx:id="btnBookingManagement" onAction="#handleBookingManagement" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="Booking Management" />-->
-<!--            <Button fx:id="btnProductManagement" onAction="#handleProductManagement" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="Product Management" />-->
-        </VBox>
-    </left>
-
-    <!-- Main Content -->
-    <center>
-        <ScrollPane fx:id="contentScrollPane" fitToHeight="true" fitToWidth="true" style="-fx-padding: 10;">
-            <VBox fx:id="contentArea" spacing="10">
-
-            </VBox>
-        </ScrollPane>
-    </center>
-</BorderPane>
+        </top>
+        <center>
+        </center>
+    </BorderPane>
+</AnchorPane>
