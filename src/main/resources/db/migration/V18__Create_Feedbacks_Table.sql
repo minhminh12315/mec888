@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS feedbacks (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT,
-    appointment_id INT,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT,
+    appointment_id BIGINT,
     rating INT COMMENT 'điểm đánh giá, vd: 1-5',
     comments TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

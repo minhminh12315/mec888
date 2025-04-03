@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS prescription_details (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    prescription_id INT,
-    medicine_id INT,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    prescription_id BIGINT,
+    medicine_id BIGINT,
     dosage VARCHAR(255),
     frequency VARCHAR(255),
     duration VARCHAR(255),

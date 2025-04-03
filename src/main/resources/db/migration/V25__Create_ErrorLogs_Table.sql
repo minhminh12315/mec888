@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS error_logs (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
     error_code VARCHAR(255),
     message TEXT,
     details TEXT,

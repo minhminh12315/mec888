@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS invoices (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    payment_id INT,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    payment_id BIGINT,
     invoice_number VARCHAR(255) UNIQUE,
     invoice_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     total_amount DECIMAL(10,2),

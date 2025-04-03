@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS payments (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    patient_id INT,
-    appointment_id INT,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    patient_id BIGINT,
+    appointment_id BIGINT,
     amount DECIMAL(10,2),
     payment_method VARCHAR(20) COMMENT 'cash, card, transfer,...',
     payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

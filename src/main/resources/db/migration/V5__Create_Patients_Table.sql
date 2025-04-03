@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS patients (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT UNIQUE,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT UNIQUE,
     first_name VARCHAR(255),
     last_name VARCHAR(255),
     date_of_birth DATE,

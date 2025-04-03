@@ -1,8 +1,8 @@
 CREATE TABLE IF NOT EXISTS medical_records (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    patient_id INT,
-    doctor_id INT,
-    appointment_id INT,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    patient_id BIGINT,
+    doctor_id BIGINT,
+    appointment_id BIGINT,
     diagnosis TEXT,
     treatment TEXT,
     notes TEXT,

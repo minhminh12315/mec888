@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS prescriptions (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    record_id INT,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    record_id BIGINT,
     issued_date DATE,
     notes TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
