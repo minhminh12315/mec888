@@ -8,3 +8,12 @@
 .nav-btn:hover{
     -fx-background-color: #1071e1;
 }
+
+.headerAdmin{
+    -fx-background-color: #111827;
+    -fx-padding:16px;
+}
+.titlePage{
+    -fx-font-size: 28px;
+    -fx-font-weigth: 900;
+}

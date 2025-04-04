@@ -75,8 +75,8 @@ public class SceneSwitcher {
         }
     }
 
-    public static FXMLLoader loadViToUpdate(String fxmlFile) {
-        FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/com/cinema/starplex/" + fxmlFile));
+    public static FXMLLoader loadViewToUpdate(String fxmlFile) {
+        FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/com/home/mec888/" + fxmlFile));
         try {
             loader.load(); // Load FXML trước
             return loader; // Trả về loader để lấy Controller

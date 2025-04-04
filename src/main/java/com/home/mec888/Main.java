@@ -52,7 +52,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
 
-//        launch();
+        launch();
 
 
 
@@ -61,8 +61,8 @@ public class Main extends Application {
 //        Medicine medicine = new Medicine("Paracetamol", "Pain reliever", 10.0, "ABC Pharma");
 //        medicineDao.saveMedicine(medicine);
 
-        DepartmentDao departmentDao = new DepartmentDao();
-        Department department = new Department("andan","dạhdbajhbajhd");
-        departmentDao.saveDeparment(department);
+//        DepartmentDao departmentDao = new DepartmentDao();
+//        Department department = new Department("andan","dạhdbajhbajhd");
+//        departmentDao.saveDeparment(department);
     }
 }

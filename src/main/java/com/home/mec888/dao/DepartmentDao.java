@@ -9,9 +9,9 @@ import org.hibernate.Transaction;
 import java.util.List;
 
 public class DepartmentDao {
-    public void saveDeparment(Department department){
+    public void saveDeparment(Department department) {
         Transaction transaction = null;
-        try(Session session = HibernateUtil.getSessionFactory().openSession()){
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.save(department);
             transaction.commit();
@@ -29,6 +29,36 @@ public class DepartmentDao {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public void deleteDepartment(Long id) {
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            Department department = session.get(Department.class, id);
+            if (department != null) {
+                session.delete(department);
+                transaction.commit();
+            }
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+    public void updateDepartment(Department department){
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            session.update(department);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
         }
     }
 }
