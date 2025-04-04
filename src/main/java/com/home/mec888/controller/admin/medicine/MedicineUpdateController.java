@@ -31,7 +31,7 @@ public class MedicineUpdateController {
         this.medicine = medicine;
         System.out.println("setMedicine: " + medicine);
         // Cập nhật giao diện ngay sau khi dữ liệu được set
-        if(medicine != null) {
+        if (medicine != null) {
             nameField.setText(medicine.getName());
             descriptionField.setText(medicine.getDescription());
             priceField.setText(String.valueOf(medicine.getPrice()));
@@ -61,6 +61,21 @@ public class MedicineUpdateController {
 
         medicineDao.updateMedicine(medicine);
 
+        returnToMedicineManagement(actionEvent);
+    }
+
+    private void returnToMedicineManagement(ActionEvent actionEvent) {
         SceneSwitcher.loadView("admin/medicine/medicine-management.fxml", actionEvent);
+    }
+
+    public void handleBack(ActionEvent event) {
+        returnToMedicineManagement(event);
+    }
+
+    public void handleClear(ActionEvent event) {
+        nameField.clear();
+        descriptionField.clear();
+        manufacturerField.clear();
+        priceField.clear();
     }
 }

@@ -6,17 +6,46 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.home.mec888.controller.admin.medicine.MedicineUpdateController">
-    <VBox spacing="10" AnchorPane.topAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.bottomAnchor="20.0">
-        <Label text="Update Medicine" styleClass="title"/>
-        <Label text="Name:"/>
-        <TextField fx:id="nameField"/>
-        <Label text="Description:"/>
-        <TextField fx:id="descriptionField"/>
-        <Label text="Price:"/>
-        <TextField fx:id="priceField"/>
-        <Label text="Manufacturer:"/>
-        <TextField fx:id="manufacturerField"/>
-        <Button text="Update" onAction="#handleUpdate"/>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            prefHeight="600.0" prefWidth="800.0"
+            fx:controller="com.home.mec888.controller.admin.medicine.MedicineUpdateController">
+    <VBox spacing="24" AnchorPane.bottomAnchor="24.0"
+          AnchorPane.leftAnchor="24.0"
+          AnchorPane.rightAnchor="24.0"
+          AnchorPane.topAnchor="24.0">
+        <HBox spacing="500">
+            <!-- Back button -->
+            <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleBack"
+                    prefHeight="30.0" prefWidth="75.0" styleClass="back-btn" text="Back"/>
+            <Text text="Update Medicine" styleClass="titlePage"/>
+        </HBox>
+        <VBox spacing="16">
+            <VBox>
+                <Label text="Name:"/>
+                <TextField fx:id="nameField" styleClass="input-field"/>
+            </VBox>
+            <VBox>
+                <Label text="Description:"/>
+                <TextField fx:id="descriptionField" styleClass="input-field"/>
+            </VBox>
+            <VBox>
+                <Label text="Price:"/>
+                <TextField fx:id="priceField" styleClass="input-field"/>
+            </VBox>
+            <VBox>
+                <Label text="Manufacturer:"/>
+                <TextField fx:id="manufacturerField" styleClass="input-field"/>
+            </VBox>
+            <HBox alignment="CENTER_RIGHT" spacing="24">
+                <Button fx:id="clearButton" mnemonicParsing="false"
+                        onAction="#handleClear" prefHeight="30.0" prefWidth="120.0" text="Clear"/>
+                <Button fx:id="saveButton" mnemonicParsing="false"
+                        onAction="#handleUpdate" prefHeight="30.0" prefWidth="120.0" text="Save"/>
+            </HBox>
+        </VBox>
+
     </VBox>
 </AnchorPane>

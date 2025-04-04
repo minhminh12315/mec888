@@ -1,12 +1,16 @@
 package com.home.mec888.controller.admin.medicine;
 
+import com.home.mec888.controller.admin.doctor.DoctorUpdateController;
+import com.home.mec888.entity.Doctor;
 import com.home.mec888.entity.Medicine;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
+import javafx.geometry.Pos;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Paint;
 import javafx.stage.*;
 
 import java.io.*;
@@ -15,8 +19,12 @@ import java.sql.*;
 import com.home.mec888.dao.MedicineDao;
 import com.home.mec888.util.SceneSwitcher;
 import javafx.util.Callback;
+import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 public class MedicineManagementController {
+    @FXML
+    public TextField searchField;
     @FXML
     private TableView<Medicine> medicineManagementTable;
 
@@ -63,54 +71,63 @@ public class MedicineManagementController {
 
     }
 
-    private void addButtonToTable() {
-        Callback<TableColumn<Medicine, Void>, TableCell<Medicine, Void>> cellFactory = new Callback<>() {
-            @Override
-            public TableCell<Medicine, Void> call(final TableColumn<Medicine, Void> param) {
-                final TableCell<Medicine, Void> cell = new TableCell<>() {
+    public void addButtonToTable() {
+        actionColumn.setCellFactory(param -> new TableCell<>() {
+            private final HBox actionBox = new HBox(10);
 
-                    private final Button updateButton = new Button("Update");
-                    private final Button deleteButton = new Button("Delete");
+            private final FontIcon editIcon = new FontIcon(FontAwesomeSolid.EDIT);
+            private final FontIcon deleteIcon = new FontIcon(FontAwesomeSolid.TRASH_ALT);
 
-                    {
-                        updateButton.setOnAction((ActionEvent event) -> {
-                            Medicine medicine = getTableView().getItems().get(getIndex());
-                            handleUpdate(medicine, event);
-                        });
-                        deleteButton.setOnAction((ActionEvent event) -> {
-                            Medicine medicine = getTableView().getItems().get(getIndex());
-                            handleDelete(medicine);
-                        });
-                    }
+            {
+                // Đặt kích thước và màu sắc cho các biểu tượng
+                editIcon.setIconSize(20);
+                editIcon.setIconColor(Paint.valueOf("#4CAF50")); // Màu xanh lá cho "Sửa"
 
-                    @Override
-                    public void updateItem(Void item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                        } else {
-                            HBox buttons = new HBox(updateButton, deleteButton);
-                            setGraphic(buttons);
-                        }
-                    }
-                };
-                return cell;
+                deleteIcon.setIconSize(20);
+                deleteIcon.setIconColor(Paint.valueOf("#F44336")); // Màu đỏ cho "Xóa"
+
+                actionBox.getChildren().addAll(editIcon, deleteIcon);
+                actionBox.setAlignment(Pos.CENTER); // Căn giữa HBox
             }
-        };
 
-        actionColumn.setCellFactory(cellFactory);
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    Medicine medicine = getTableView().getItems().get(getIndex());
+                    setActionHandlers(actionBox, medicine);
+                    setGraphic(actionBox);
+                }
+            }
+        });
     }
+    private void setActionHandlers(HBox actionBox, Medicine medicine) {
+        FontIcon editIcon = (FontIcon) actionBox.getChildren().get(0);
+        FontIcon trashIcon = (FontIcon) actionBox.getChildren().get(1);
 
+        editIcon.setOnMouseClicked(event -> handleUpdate(medicine));
+        trashIcon.setOnMouseClicked(event -> handleDelete(medicine));
+    }
     @FXML
-    private void handleUpdate(Medicine medicine, ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/home/mec888/admin/medicine/medicine-update.fxml"));
-            Parent root = loader.load();
-            MedicineUpdateController medicineUpdateController = loader.getController();
-            medicineUpdateController.setMedicine(medicine);
-            SceneSwitcher.loadView("admin/medicine/medicine-update.fxml", actionEvent);
-        } catch (IOException e) {
-            e.printStackTrace();
+    private void handleUpdate(Medicine medicine) {
+        FXMLLoader loader = SceneSwitcher.loadViewToUpdate("admin/medicine/medicine-update.fxml");
+        if (loader != null) {
+            MedicineUpdateController controller = loader.getController();
+            controller.setMedicine(medicine);
+
+            Parent newView = loader.getRoot();
+            AnchorPane anchorPane = (AnchorPane) medicineManagementTable.getScene().getRoot();
+            BorderPane mainPane = (BorderPane) anchorPane.lookup("#mainBorderPane");
+
+            if (mainPane != null) {
+                mainPane.setCenter(newView);
+            } else {
+                System.err.println("BorderPane with ID 'mainBorderPane' not found");
+            }
+        } else {
+            System.err.println("Could not load edit-showtime.fxml");
         }
     }
 

@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.Region?>
 <AnchorPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.home.mec888.controller.admin.medicine.MedicineManagementController">
@@ -20,18 +21,16 @@
             <Text text="Medicine Management" styleClass="titlePage" textAlignment="CENTER"/>
         </HBox>
         <HBox>
-            <Button layoutX="33.0" layoutY="34.0" mnemonicParsing="false" onAction="#handleAdd"
-                    prefHeight="30.0" prefWidth="75.0" styleClass="add-new-btn"
-                    text="Add" >
+            <!--            Search Field-->
+            <TextField fx:id="searchField" prefHeight="29.0" prefWidth="380.0" promptText="Search by Doctor Name"
+                       styleClass="search"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button mnemonicParsing="false" onAction="#handleAdd" prefHeight="30.0" prefWidth="75.0"
+                    styleClass="add-new-btn" text="Add">
                 <font>
                     <Font name="System Bold Italic" size="12.0"/>
                 </font>
             </Button>
-
-            <!-- Search Field -->
-            <!--            <TextField fx:id="searchField" layoutX="163.0" layoutY="34.0" prefHeight="30.0"-->
-            <!--                       promptText="Search by Seat Number" styleClass="search"-->
-            <!--                       stylesheets="@../../../../../css/admin.css"/>-->
         </HBox>
         <TableView fx:id="medicineManagementTable" layoutX="250.0" layoutY="86.0" prefHeight="460.0" prefWidth="660.0"
                    styleClass="table">
