@@ -20,14 +20,19 @@
                 AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                 AnchorPane.topAnchor="0.0">
         <left>
-            <AnchorPane prefHeight="600.0" prefWidth="160.0"
+            <AnchorPane prefHeight="600.0" prefWidth="240.0"
                         style="-fx-background-color: #111827; -fx-margin-top: 48px;"
                         BorderPane.alignment="CENTER_LEFT">
                 <VBox>
-
-                    <Button mnemonicParsing="false" onAction="#handleMedicine" styleClass="nav-btn"
-                             text="Medicine"/>
-
+                    <!--button medicine-->
+                    <Button prefWidth="240.0" fx:id="moveMedicineButton" mnemonicParsing="false" onAction="#handleMedicine" styleClass="nav-btn"
+                             text="Medicine" textFill="WHITE"/>
+<!--                    button department-->
+                    <Button prefWidth="240.0" fx:id="moveDepartmentButton" mnemonicParsing="false" onAction="#handleDepartment" styleClass="nav-btn"
+                            text="Department" textFill="WHITE"/>
+<!--                    button doctor-->
+                    <Button prefWidth="240.0" fx:id="moveDoctorButton" mnemonicParsing="false" onAction="#handleDoctor" styleClass="nav-btn"
+                            text="Doctor" textFill="WHITE"/>
                 </VBox>
             </AnchorPane>
         </left>

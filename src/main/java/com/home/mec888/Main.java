@@ -1,9 +1,11 @@
 package com.home.mec888;
 
 import com.home.mec888.dao.AuditLogDao;
+import com.home.mec888.dao.DepartmentDao;
 import com.home.mec888.dao.MedicineDao;
 import com.home.mec888.dao.UserDao;
 import com.home.mec888.entity.AuditLog;
+import com.home.mec888.entity.Department;
 import com.home.mec888.entity.Medicine;
 import com.home.mec888.entity.User;
 import javafx.application.Application;
@@ -52,5 +54,15 @@ public class Main extends Application {
 
         launch();
 
+
+
+
+//        MedicineDao medicineDao = new MedicineDao();
+//        Medicine medicine = new Medicine("Paracetamol", "Pain reliever", 10.0, "ABC Pharma");
+//        medicineDao.saveMedicine(medicine);
+
+//        DepartmentDao departmentDao = new DepartmentDao();
+//        Department department = new Department("andan","dạhdbajhbajhd");
+//        departmentDao.saveDeparment(department);
     }
 }
