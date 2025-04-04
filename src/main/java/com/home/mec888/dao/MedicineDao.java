@@ -71,4 +71,15 @@ public class MedicineDao {
             e.printStackTrace();
         }
     }
+
+    public Medicine getMedicineByName(String name) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("from Medicine where lower(name) = :name", Medicine.class)
+                    .setParameter("name", name)
+                    .uniqueResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
