@@ -1,5 +1,4 @@
 module com.home.mec888 {
-    requires javafx.controls;
     requires javafx.fxml;
 
 
@@ -19,6 +18,10 @@ module com.home.mec888 {
     opens com.home.mec888.controller.login to javafx.fxml;
 //    opens com.home.mec888.controller.admin to javafx.fxml;
     opens com.home.mec888.controller.admin.medicine to javafx.fxml;
+    opens com.home.mec888.controller.admin.department to javafx.fxml;
+    opens com.home.mec888.controller.admin.doctor to javafx.fxml;
+    opens com.home.mec888.controller.admin.user to javafx.fxml;
+//    opens com.home.mec888.controller.admin to javafx.fxml;
     opens com.home.mec888.controller.admin.patient to javafx.fxml;
 //    opens com.home.mec888.controller.doctor to javafx.fxml;
 //    opens com.home.mec888.controller.patient to javafx.fxml;
@@ -30,6 +33,8 @@ module com.home.mec888 {
     requires junit;
     requires mysql.connector.j;
     requires spring.security.crypto;
+    requires org.kordamp.ikonli.fontawesome5;
+    requires org.kordamp.ikonli.javafx;
 
     opens com.home.mec888 to javafx.fxml;
 

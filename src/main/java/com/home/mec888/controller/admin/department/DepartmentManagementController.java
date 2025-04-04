@@ -1,75 +1,60 @@
-package com.home.mec888.controller.admin.medicine;
+package com.home.mec888.controller.admin.department;
 
-import com.home.mec888.controller.admin.doctor.DoctorUpdateController;
-import com.home.mec888.entity.Doctor;
-import com.home.mec888.entity.Medicine;
+import com.home.mec888.dao.DepartmentDao;
+import com.home.mec888.entity.Department;
+import com.home.mec888.util.SceneSwitcher;
 import javafx.event.ActionEvent;
-import javafx.fxml.*;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.*;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
-import javafx.stage.*;
-
-import java.io.*;
-import java.sql.*;
-
-import com.home.mec888.dao.MedicineDao;
-import com.home.mec888.util.SceneSwitcher;
-import javafx.util.Callback;
 import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-public class MedicineManagementController {
-    @FXML
-    public TextField searchField;
-    @FXML
-    private TableView<Medicine> medicineManagementTable;
+import java.io.IOException;
+import java.util.List;
 
+public class DepartmentManagementController {
     @FXML
-    private TableColumn<Medicine, Integer> idColumn;
-
+    public TableView<Department> departmentManagementTable;
     @FXML
-    private TableColumn<Medicine, String> nameColumn;
-
+    public TableColumn<Department, Integer> idColumn;
     @FXML
-    private TableColumn<Medicine, String> descriptionColumn;
-
+    public TableColumn<Department, String> nameColumn;
     @FXML
-    private TableColumn<Medicine, String> priceColumn;
-
+    public TableColumn<Department, String> descriptionColumn;
     @FXML
-    private TableColumn<Medicine, String> manufacturerColumn;
+    public TableColumn<Department, Void> actionColumn;
 
-    @FXML
-    private TableColumn<Medicine, Void> actionColumn;
-
-    private MedicineDao medicineDao;
+    private DepartmentDao departmentDao;
 
     @FXML
     private void initialize() {
-        medicineDao = new MedicineDao();
-        loadMedicineData();
+        departmentDao = new DepartmentDao();
+        loadDepartmentData();
         addButtonToTable();
     }
 
-    private void loadMedicineData() {
+    public void loadDepartmentData() {
+        System.out.println("--------------------");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
-        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-        manufacturerColumn.setCellValueFactory(new PropertyValueFactory<>("manufacturer"));
 
-        // Load data from the database
-        medicineManagementTable.getItems().clear();
-//        for (Medicine medicine : medicineDao.getAllMedicines()) {
-//            medicineManagementTable.getItems().add(medicine);
-//        }
-        medicineManagementTable.getItems().addAll(medicineDao.getAllMedicines());
+        departmentManagementTable.getItems().clear();
+
+        List<Department> departments = departmentDao.getAllDepartments();
+        departmentManagementTable.getItems().addAll(departments);
+        departmentManagementTable.getItems().addAll(departmentDao.getAllDepartments());
 
     }
+
 
     public void addButtonToTable() {
         actionColumn.setCellFactory(param -> new TableCell<>() {
@@ -96,29 +81,30 @@ public class MedicineManagementController {
                 if (empty) {
                     setGraphic(null);
                 } else {
-                    Medicine medicine = getTableView().getItems().get(getIndex());
-                    setActionHandlers(actionBox, medicine);
+                    Department department = getTableView().getItems().get(getIndex());
+                    setActionHandlers(actionBox, department);
                     setGraphic(actionBox);
                 }
             }
         });
     }
-    private void setActionHandlers(HBox actionBox, Medicine medicine) {
+
+    private void setActionHandlers(HBox actionBox, Department department) {
         FontIcon editIcon = (FontIcon) actionBox.getChildren().get(0);
         FontIcon trashIcon = (FontIcon) actionBox.getChildren().get(1);
 
-        editIcon.setOnMouseClicked(event -> handleUpdate(medicine));
-        trashIcon.setOnMouseClicked(event -> handleDelete(medicine));
+        editIcon.setOnMouseClicked(event -> handleUpdate(department));
+        trashIcon.setOnMouseClicked(event -> handleDelete(department));
     }
-    @FXML
-    private void handleUpdate(Medicine medicine) {
-        FXMLLoader loader = SceneSwitcher.loadViewToUpdate("admin/medicine/medicine-update.fxml");
+
+    private void handleUpdate(Department department) {
+        FXMLLoader loader = SceneSwitcher.loadViewToUpdate("admin/department/department-update.fxml");
         if (loader != null) {
-            MedicineUpdateController controller = loader.getController();
-            controller.setMedicine(medicine);
+            DepartmentUpdateController controller = loader.getController();
+            controller.setDepartment(department);
 
             Parent newView = loader.getRoot();
-            AnchorPane anchorPane = (AnchorPane) medicineManagementTable.getScene().getRoot();
+            AnchorPane anchorPane = (AnchorPane) departmentManagementTable.getScene().getRoot();
             BorderPane mainPane = (BorderPane) anchorPane.lookup("#mainBorderPane");
 
             if (mainPane != null) {
@@ -131,7 +117,8 @@ public class MedicineManagementController {
         }
     }
 
-    private void handleDelete(Medicine medicine) {
+    private void handleDelete(Department department) {
+        System.out.println(department);
         // Show a confirmation dialog before deleting
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete Confirmation");
@@ -146,18 +133,21 @@ public class MedicineManagementController {
                 alert.close();
             } else if (response == confirmButton) {
                 // User chose delete, proceed with deletion
-                medicineDao.deleteMedicine(medicine.getId());
-                loadMedicineData();
+                departmentDao.deleteDepartment(department.getId());
+                loadDepartmentData();
             }
         });
-
-        // Implement the delete logic here
-        medicineDao.deleteMedicine(medicine.getId());
-        loadMedicineData();
     }
 
-    @FXML
-    private void handleAdd(ActionEvent actionEvent) {
-        SceneSwitcher.loadView("admin/medicine/medicine-add.fxml", actionEvent);
+    public void handleAdd(ActionEvent event) {
+        SceneSwitcher.loadView("admin/department/department-add.fxml", event);
+    }
+
+    private void showAlert(String title, String message, Alert.AlertType type) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

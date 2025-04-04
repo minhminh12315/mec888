@@ -74,4 +74,15 @@ public class SceneSwitcher {
             e.printStackTrace();
         }
     }
+
+    public static FXMLLoader loadViewToUpdate(String fxmlFile) {
+        FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/com/home/mec888/" + fxmlFile));
+        try {
+            loader.load(); // Load FXML trước
+            return loader; // Trả về loader để lấy Controller
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

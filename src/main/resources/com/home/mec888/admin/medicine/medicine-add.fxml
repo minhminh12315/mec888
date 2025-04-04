@@ -27,22 +27,32 @@
                     prefHeight="30.0" prefWidth="75.0" styleClass="back-btn" text="Back"/>
             <Text text="Add new movie genre" styleClass="titlePage"/>
         </HBox>
+
+
         <VBox spacing="16">
-            <VBox>
-                <Label styleClass="label-input" text="Medicine name :"/>
+            <!-- Medicine name -->
+            <VBox spacing="4">
+                <Label styleClass="label-input" text="Medicine name:"/>
                 <TextField fx:id="nameField" styleClass="input-field"/>
+                <Label fx:id="nameErrorLabel" textFill="red" visible="false" style="-fx-font-size: 11px;"/>
             </VBox>
-            <VBox>
-                <Label styleClass="label-input" text="Description :"/>
+            <!-- Description -->
+            <VBox spacing="4">
+                <Label styleClass="label-input" text="Description:"/>
                 <TextArea fx:id="descriptionField" styleClass="input-field"/>
+                <Label fx:id="descriptionErrorLabel" textFill="red" visible="false" style="-fx-font-size: 11px;"/>
             </VBox>
-            <VBox>
-                <Label styleClass="label-input" text="Price :"/>
+            <!-- Price -->
+            <VBox spacing="4">
+                <Label styleClass="label-input" text="Price:"/>
                 <TextField fx:id="priceField" styleClass="input-field"/>
+                <Label fx:id="priceErrorLabel" textFill="red" visible="false" style="-fx-font-size: 11px;"/>
             </VBox>
-            <VBox>
-                <Label styleClass="label-input" text="Manufacturer :"/>
+            <!-- Manufacturer -->
+            <VBox spacing="4">
+                <Label styleClass="label-input" text="Manufacturer:"/>
                 <TextField fx:id="manufacturerField" styleClass="input-field"/>
+                <Label fx:id="manufacturerErrorLabel" textFill="red" visible="false" style="-fx-font-size: 11px;"/>
             </VBox>
             <HBox alignment="CENTER_RIGHT" spacing="24">
                 <Button fx:id="clearButton" mnemonicParsing="false"
@@ -53,6 +63,7 @@
                         text="Save"/>
             </HBox>
         </VBox>
+
 
     </VBox>
 </AnchorPane>

@@ -20,44 +20,28 @@
                 AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                 AnchorPane.topAnchor="0.0">
         <left>
-            <AnchorPane prefHeight="600.0" prefWidth="160.0"
+            <AnchorPane prefHeight="600.0" prefWidth="240.0"
                         style="-fx-background-color: #111827; -fx-margin-top: 48px;"
                         BorderPane.alignment="CENTER_LEFT">
                 <VBox>
-                    <!--dashboard-->
-                    <!--                    <Button mnemonicParsing="false" onAction="#dashBoardScene" styleClass="nav-btn"-->
-                    <!--                            stylesheets="@../../../../css/admin.css" text="Dashboard" textFill="WHITE"/>-->
-                    <!--button movie-->
-                    <Button mnemonicParsing="false" onAction="#handleMedicine" styleClass="nav-btn"
-                             text="Medicine" textFill="WHITE"/>
-                    <!--button movie genre -->
-<!--                    <Button mnemonicParsing="false" onAction="#genreScene" styleClass="nav-btn"-->
-<!--                            stylesheets="@../../../../css/admin.css" text="Movie Genre" textFill="WHITE"/>-->
-<!--                    &lt;!&ndash;button user&ndash;&gt;-->
-<!--                    <Button mnemonicParsing="false" onAction="#managementUser" styleClass="nav-btn"-->
-<!--                            stylesheets="@../../../../css/admin.css" text="User" textFill="WHITE"/>-->
-<!--                    &lt;!&ndash;Room&ndash;&gt;-->
-<!--                    <Button mnemonicParsing="false" onAction="#managementRoom" styleClass="nav-btn"-->
-<!--                            stylesheets="@../../../../css/admin.css" text="Room" textFill="WHITE"/>-->
-<!--                    &lt;!&ndash;People Films&ndash;&gt;-->
-<!--                    &lt;!&ndash; <Button mnemonicParsing="false" onAction="#managementPeopleFilms" styleClass="nav-btn"-->
-<!--                            stylesheets="@../../../../css/admin.css" text="People Films" textFill="WHITE"/> &ndash;&gt;-->
-<!--                    &lt;!&ndash;Showtime &ndash;&gt;-->
-<!--                    <Button mnemonicParsing="false" onAction="#managementShowtime" styleClass="nav-btn"-->
-<!--                            stylesheets="@../../../../css/admin.css" text="Showtime" textFill="WHITE"/>-->
-<!--                    &lt;!&ndash;Seat &ndash;&gt;-->
-<!--                    <Button mnemonicParsing="false" onAction="#managementSeat" styleClass="nav-btn"-->
-<!--                            stylesheets="@../../../../css/admin.css" text="Seat" textFill="WHITE"/>-->
-<!--                    &lt;!&ndash;Seat Type&ndash;&gt;-->
-<!--                    <Button mnemonicParsing="false" onAction="#managementSeatType" styleClass="nav-btn"-->
-<!--                            stylesheets="@../../../../css/admin.css" text="Seat Type" textFill="WHITE"/>-->
+                    <!--button medicine-->
+                    <Button prefWidth="240.0" fx:id="moveMedicineButton" mnemonicParsing="false"
+                            onAction="#handleMedicine" styleClass="nav-btn"
+                            text="Medicine" textFill="WHITE"/>
+                    <!--                    button department-->
+                    <Button prefWidth="240.0" fx:id="moveDepartmentButton" mnemonicParsing="false"
+                            onAction="#handleDepartment" styleClass="nav-btn"
+                            text="Department" textFill="WHITE"/>
+                    <!--                    button doctor-->
+                    <Button prefWidth="240.0" fx:id="moveDoctorButton" mnemonicParsing="false" onAction="#handleDoctor"
+                            styleClass="nav-btn"
+                            text="Doctor" textFill="WHITE"/>
 
-<!--                    &lt;!&ndash; Booking&ndash;&gt;-->
-<!--                    <Button mnemonicParsing="false" onAction="#managementBooking" styleClass="nav-btn"-->
-<!--                            stylesheets="@../../../../css/admin.css" text="Booking" textFill="WHITE"/>-->
-<!--                    &lt;!&ndash; Payment&ndash;&gt;-->
-<!--                    <Button mnemonicParsing="false" onAction="#managementPayment" styleClass="nav-btn"-->
-<!--                            stylesheets="@../../../../css/admin.css" text="Payment" textFill="WHITE"/>-->
+                    <Button prefWidth="240.0" fx:id="moveUserButton" mnemonicParsing="false" onAction="#handleUser"
+                            styleClass="nav-btn"
+                            text="User"/>
+                    <Button prefWidth="240.0" fx:id="movePatientButton" mnemonicParsing="false" onAction="#handlePatient" styleClass="nav-btn"
+                            text="Patient" textFill="WHITE"/>
                 </VBox>
             </AnchorPane>
         </left>
@@ -65,7 +49,7 @@
             <HBox styleClass="headerAdmin">
                 <ImageView fitHeight="28.0" fitWidth="80">
                     <image>
-<!--                        <Image url="@../../../../images/logo-phim.png"/>-->
+                        <!--                        <Image url="@../../../../images/logo-phim.png"/>-->
                     </image>
                 </ImageView>
                 <Region HBox.hgrow="ALWAYS"/>

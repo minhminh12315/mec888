@@ -22,7 +22,7 @@ public class User {
     private String phone;
 
     @Column(name = "role_id")
-    private Long roleId;
+    private Integer roleId;
 
     @Column(name = "created_at", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private java.sql.Timestamp createdAt;
@@ -39,7 +39,7 @@ public class User {
         this.email = email;
     }
 
-    public User(String username, String password, String email, String phone, Long roleId) {
+    public User(String username, String password, String email, String phone, Integer roleId) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -89,11 +89,11 @@ public class User {
         this.phone = phone;
     }
 
-    public Long getRoleId() {
+    public Integer getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Long roleId) {
+    public void setRoleId(Integer roleId) {
         this.roleId = roleId;
     }
 

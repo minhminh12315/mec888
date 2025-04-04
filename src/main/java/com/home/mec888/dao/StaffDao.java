@@ -1,18 +1,19 @@
 package com.home.mec888.dao;
 
-import com.home.mec888.entity.Patient;
+import com.home.mec888.entity.Staff;
 import com.home.mec888.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
 
-public class PatientDao {
-    public void savePatient(Patient patient){
+public class StaffDao {
+
+    public void saveStaff(Staff staff) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.persist(patient);
+            session.save(staff);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -22,11 +23,11 @@ public class PatientDao {
         }
     }
 
-    public void updatePatient(Patient patient) {
+    public void updateStaff(Staff staff) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.update(patient);
+            session.update(staff);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -36,31 +37,22 @@ public class PatientDao {
         }
     }
 
-    public Patient getPatientById(Long id) {
+    public Staff getStaffById(Long id) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.get(Patient.class, id);
+            return session.get(Staff.class, id);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public List<Patient> getAllPatients() {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("from Patient", Patient.class).list();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public void deletePatient(Long id) {
+    public void deleteStaff(Long id) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            Patient patient = session.get(Patient.class, id);
-            if (patient != null) {
-                session.delete(patient);
+            Staff staff = session.get(Staff.class, id);
+            if (staff != null) {
+                session.delete(staff);
                 transaction.commit();
             }
         } catch (Exception e) {
@@ -68,6 +60,16 @@ public class PatientDao {
                 transaction.rollback();
             }
             e.printStackTrace();
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Staff> getAllStaff() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("from Staff").list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

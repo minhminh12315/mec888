@@ -56,7 +56,6 @@ public class Patient {
         this.medical_history = medical_history;
     }
 
-
     public Long getId() {
         return id;
     }

@@ -1,33 +1,20 @@
 package com.home.mec888.dao;
 
+import com.home.mec888.entity.Department;
 import com.home.mec888.entity.Medicine;
+import com.home.mec888.entity.User;
 import com.home.mec888.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
 
-public class MedicineDao {
-
-    public void saveMedicine(Medicine medicine) {
+public class DepartmentDao {
+    public void saveDeparment(Department department) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.save(medicine);
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null && transaction.isActive()) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        }
-    }
-
-    public void updateMedicine(Medicine medicine) {
-        Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            session.update(medicine);
+            session.save(department);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -37,31 +24,22 @@ public class MedicineDao {
         }
     }
 
-    public Medicine getMedicineById(Long id) {
+    public List<Department> getAllDepartments() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.get(Medicine.class, id);
+            return session.createQuery("from Department order by createdAt desc", Department.class).list();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public List<Medicine> getAllMedicines() {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("from Medicine order by createdAt desc", Medicine.class).list();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public void deleteMedicine(Long id) {
+    public void deleteDepartment(Long id) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            Medicine medicine = session.get(Medicine.class, id);
-            if (medicine != null) {
-                session.delete(medicine);
+            Department department = session.get(Department.class, id);
+            if (department != null) {
+                session.delete(department);
                 transaction.commit();
             }
         } catch (Exception e) {
@@ -72,11 +50,23 @@ public class MedicineDao {
         }
     }
 
-    public Medicine getMedicineByName(String name) {
+    public void updateDepartment(Department department) {
+        Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("from Medicine where lower(name) = :name", Medicine.class)
-                    .setParameter("name", name)
-                    .uniqueResult();
+            transaction = session.beginTransaction();
+            session.update(department);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+
+    public Department getDepartmentById(Long id) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.get(Department.class, id);
         } catch (Exception e) {
             e.printStackTrace();
             return null;

@@ -1,10 +1,12 @@
 package com.home.mec888;
 
 import com.home.mec888.dao.AuditLogDao;
+import com.home.mec888.dao.DepartmentDao;
 import com.home.mec888.dao.MedicineDao;
 import com.home.mec888.dao.PatientDao;
 import com.home.mec888.dao.UserDao;
 import com.home.mec888.entity.AuditLog;
+import com.home.mec888.entity.Department;
 import com.home.mec888.entity.Medicine;
 import com.home.mec888.entity.Patient;
 import com.home.mec888.entity.User;
@@ -52,27 +54,10 @@ public class Main extends Application {
 
     public static void main(String[] args) {
 
-//        launch();
+        launch();
 
-        UserDao userDao = new UserDao();
-        User user = new User("patient3", "a", "patient3@gmail.com", "1231233", 4L);
-        userDao.saveUser(user);
 
-        User retrievedUser = userDao.getUserByUsername("patient3");
-        if (retrievedUser != null) {
-            System.out.println("User found: " + retrievedUser.getUsername());
-        } else {
-            System.out.println("User not found.");
-        }
 
-        PatientDao patientDao = new PatientDao();
-
-        if (retrievedUser != null) {
-            Patient patient = new Patient(retrievedUser.getId(), "Nguyen Van A", "Nguyen Van A", new java.sql.Date(System.currentTimeMillis()), "Nam", "123 ABC", "0987654321", "Khong co");
-            patientDao.savePatient(patient);
-        } else {
-            System.out.println("User not found.");
-        }
 
 
 

@@ -1,7 +1,6 @@
 package com.home.mec888.controller.admin.patient;
 
 import com.home.mec888.dao.PatientDao;
-import com.home.mec888.dao.RoleDao;
 import com.home.mec888.dao.UserDao;
 import com.home.mec888.entity.Patient;
 import com.home.mec888.entity.User;
@@ -13,14 +12,10 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Random;
 
-public class PatientAddController {
+public class PatientUpdateController {
     public TextField first_name;
     public TextField last_name;
     public TextField patient_email;
@@ -36,53 +31,95 @@ public class PatientAddController {
     @FXML
     public Button clearButton, saveButton, backButton;
 
-    private static final String word = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    private static final String digits = "0123456789";
-    private static final Random random = new Random();
+    private Patient patient;
+    private PatientDao patientDao;
+    private UserDao userDao;
+    private User user;
 
+    public void setPatient(Patient patient, User user) {
+        this.patient = patient;
+        this.user = user;
 
-    public void handleSave() {
-        try {
-            String username = randomUsername();
-            String password = hashPassword(randomPassword());
-            String email = patient_email.getText();
-            String phone = patient_phone.getText();
-
-            UserDao userDao = new UserDao();
-            User user = new User(username, password, email, phone, 4);
-
-            if (userDao.getUserByEmail(email) != null) {
-                email_error.setText("Email already exist. Please enter a new one");
-                return;
-            }
-            userDao.saveUser(user);
-
-            User retrievedUser = userDao.getUserByUsername(username);
-
-            PatientDao patientDao = new PatientDao();
-            Patient patient = new Patient(retrievedUser.getId(), first_name.getText(), last_name.getText(),
-                    Date.valueOf(date_of_birth.getValue()), gender.getValue(), address.getText(),
-                    emergency_contact.getText(), medical_history.getText());
-            patientDao.savePatient(patient);
-
-            showAlert("Success", "Save patient successfully", Alert.AlertType.INFORMATION);
-            handleClear();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            showAlert("Error", "Failed to save patient", Alert.AlertType.ERROR);
+        if (patient != null) {
+            first_name.setText(patient.getFirst_name());
+            last_name.setText(patient.getLast_name());
+            patient_email.setText(user.getEmail());
+            patient_phone.setText(user.getPhone());
+            date_of_birth.setValue(patient.getDate_of_birth().toLocalDate());
+            gender.setValue(patient.getGender());
+            address.setText(patient.getAddress());
+            emergency_contact.setText(patient.getEmergency_contact());
+            medical_history.setText(patient.getMedical_history());
         }
     }
 
-    private void showAlert(String title, String message, Alert.AlertType type) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+    @FXML
+    private void initialize() {
+        patientDao = new PatientDao();
+        userDao = new UserDao();
     }
 
     @FXML
-    public void validateInput(KeyEvent event) {
+    private void handleUpdate(ActionEvent actionEvent) {
+        String fname = first_name.getText();
+        String lname = last_name.getText();
+        String email = patient_email.getText();
+        String phone = patient_phone.getText();
+        Date dob = Date.valueOf(date_of_birth.getValue());
+        String genderSelected = gender.getValue();
+        String address = this.address.getText();
+        String emergencyContact = this.emergency_contact.getText();
+        String medicalHistory = this.medical_history.getText();
+
+        patient.setFirst_name(fname);
+        patient.setLast_name(lname);
+        patient.setAddress(address);
+        patient.setDate_of_birth(dob);
+        patient.setEmergency_contact(emergencyContact);
+        patient.setGender(genderSelected);
+        patient.setMedical_history(medicalHistory);
+        user.setPhone(phone);
+        user.setEmail(email);
+
+        patientDao.updatePatient(patient);
+        userDao.updateUser(user);
+
+        SceneSwitcher.loadView("admin/patient/patient-management.fxml", actionEvent);
+    }
+
+    public void handleClear() {
+        first_name.clear();
+        last_name.clear();
+        date_of_birth.setValue(null);
+        gender.getSelectionModel().clearSelection();
+        address.clear();
+        emergency_contact.clear();
+        medical_history.clear();
+
+        fn_error.setText("");
+        ln_error.setText("");
+        dob_error.setText("");
+        phone_error.setText("");
+        address_error.setText("");
+        contact_error.setText("");
+        email_error.setText("");
+        gender_error.setText("");
+        medical_error.setText("");
+
+        saveButton.setDisable(true);
+    }
+
+    public void handleBack(ActionEvent actionEvent) {
+        returnToPatientManagement(actionEvent);
+    }
+
+    public void returnToPatientManagement(ActionEvent actionEvent) {
+        Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        SceneSwitcher.switchTo(currentStage, "admin/patient/patient-management.fxml");
+    }
+
+    @FXML
+    public void validateUpdate(KeyEvent event) {
         Object source = event.getSource();
 
         if (source == first_name) {
@@ -176,67 +213,5 @@ public class PatientAddController {
             gender_error.setText("");
             saveButton.setDisable(false);
         }
-    }
-
-    public void handleClear() {
-        first_name.clear();
-        last_name.clear();
-        date_of_birth.setValue(null);
-        gender.getSelectionModel().clearSelection();
-        address.clear();
-        emergency_contact.clear();
-        medical_history.clear();
-
-        fn_error.setText("");
-        ln_error.setText("");
-        dob_error.setText("");
-        phone_error.setText("");
-        address_error.setText("");
-        contact_error.setText("");
-        email_error.setText("");
-        gender_error.setText("");
-        medical_error.setText("");
-
-        saveButton.setDisable(true);
-    }
-
-    public void handleBack(ActionEvent actionEvent) {
-        returnToPatientManagement(actionEvent);
-    }
-
-    public void returnToPatientManagement(ActionEvent actionEvent) {
-        Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        SceneSwitcher.switchTo(currentStage, "admin/patient/patient-management.fxml");
-    }
-
-    public String randomUsername() {
-        StringBuilder username = new StringBuilder();
-
-        for (int i = 0; i < 6; i++) {
-            int index = random.nextInt(word.length());
-            username.append(word.charAt(index));
-        }
-        return username.toString();
-    }
-
-    public String randomPassword() {
-        StringBuilder password = new StringBuilder();
-
-        for (int i = 0; i < 6; i++) {
-            int index = random.nextInt(word.length());
-            password.append(word.charAt(index));
-        }
-
-        for (int i = 0; i < 2; i++) {
-            int index = random.nextInt(digits.length());
-            password.append(digits.charAt(index));
-        }
-
-        return password.toString();
-    }
-
-    private String hashPassword(String password) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        return encoder.encode(password);
     }
 }

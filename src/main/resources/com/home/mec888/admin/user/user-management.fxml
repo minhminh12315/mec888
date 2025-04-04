@@ -6,24 +6,22 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Text?>
+
 <?import javafx.scene.layout.Region?>
 <AnchorPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.home.mec888.controller.admin.medicine.MedicineManagementController">
+            fx:controller="com.home.mec888.controller.admin.user.UserManagementController">
     <VBox spacing="24" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="24.0"
           AnchorPane.rightAnchor="24.0"
           AnchorPane.topAnchor="24.0">
         <HBox alignment="CENTER">
-            <Text text="Medicine Management" styleClass="titlePage" textAlignment="CENTER"/>
+            <Text text="User Management" styleClass="titlePage" textAlignment="CENTER"/>
         </HBox>
         <HBox>
-            <!--            Search Field-->
-            <TextField fx:id="searchField" prefHeight="29.0" prefWidth="380.0" promptText="Search by Doctor Name"
-                       styleClass="search"/>
+            <TextField fx:id="searchField" prefHeight="29.0" prefWidth="380.0" promptText="Search by username, email or phone" styleClass="search"/>
             <Region HBox.hgrow="ALWAYS"/>
             <Button mnemonicParsing="false" onAction="#handleAdd" prefHeight="30.0" prefWidth="75.0"
                     styleClass="add-new-btn" text="Add">
@@ -32,15 +30,15 @@
                 </font>
             </Button>
         </HBox>
-        <TableView fx:id="medicineManagementTable" layoutX="250.0" layoutY="86.0" prefHeight="460.0" prefWidth="660.0"
+        <TableView fx:id="userManagementTable" layoutX="250.0" layoutY="86.0" prefHeight="460.0" prefWidth="660.0"
                    styleClass="table">
             <columns>
-                <TableColumn fx:id="idColumn" prefWidth="84.0" text="ID"/>
-                <TableColumn fx:id="nameColumn" prefWidth="270.0" text="Genre"/>
-                <TableColumn fx:id="descriptionColumn" minWidth="0.0" prefWidth="208.0" text="Desription"/>
-                <TableColumn fx:id="priceColumn" minWidth="0.0" prefWidth="208.0" text="Price"/>
-                <TableColumn fx:id="manufacturerColumn" minWidth="0.0" prefWidth="208.0" text="Manufacturer"/>
-                <TableColumn fx:id="actionColumn" minWidth="0.0" prefWidth="208.0" text="Actions"/>
+                <TableColumn fx:id="idColumn" prefWidth="60.0" text="ID"/>
+                <TableColumn fx:id="usernameColumn" prefWidth="200.0" text="Username"/>
+                <TableColumn fx:id="emailColumn" minWidth="0.0" prefWidth="240.0" text="Email"/>
+                <TableColumn fx:id="phoneColumn" minWidth="0.0" prefWidth="150.0" text="Phone"/>
+                <TableColumn fx:id="roleColumn" minWidth="0.0" prefWidth="150.0" text="Role"/>
+                <TableColumn fx:id="actionColumn" minWidth="0.0" prefWidth="200.0" text="Actions"/>
             </columns>
         </TableView>
     </VBox>
