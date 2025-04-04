@@ -197,12 +197,12 @@ public class UserUpdateController {
     }
 
     private boolean isValidEmail(String email) {
-        String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
+        String emailRegex = "^[A-Za-z0-9+_.-]+@gmail\\.com$";
         return email.matches(emailRegex);
     }
 
     private boolean isValidPhone(String phone) {
-        String phoneRegex = "^[0-9]{10}$";  // Simple 10-digit validation
+        String phoneRegex = "\\d+";
         return phone.matches(phoneRegex);
     }
 
