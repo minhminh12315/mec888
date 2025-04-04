@@ -45,6 +45,8 @@ public class UserAddController {
     private UserDao userDao = new UserDao();
     private RoleDao roleDao = new RoleDao();
 
+    private boolean clearError = true;
+
     @FXML
     private void initialize() {
         // Load roles into combo box
@@ -86,80 +88,78 @@ public class UserAddController {
         String phone = phoneField.getText();
         Role selectedRole = roleComboBox.getValue();
 
-        // Reset error labels
-        usernameErrorLabel.setText("");
-        passwordErrorLabel.setText("");
-        emailErrorLabel.setText("");
-        phoneErrorLabel.setText("");
-        roleErrorLabel.setText("");
+        // Validate fields with compact checks
+        boolean isValid = true;
 
-        // Validate fields
         if (username.isEmpty()) {
             showError(usernameField, usernameErrorLabel, "Username cannot be empty.");
-            return;
+            isValid = false;
+        } else if (userDao.isUsernameExists(username)) {
+            showError(usernameField, usernameErrorLabel, "Username already exists!");
+            isValid = false;
+        } else {
+            clearError(usernameField, usernameErrorLabel);
         }
-//        if (password.isEmpty()) {
-//            showError(passwordField, passwordErrorLabel, "Password cannot be empty.");
-//            return;
-//        }
+
+        if (password.isEmpty()) {
+            showError(passwordField, passwordErrorLabel, "Password cannot be empty.");
+            isValid = false;
+        } else {
+            clearError(passwordField, passwordErrorLabel);
+        }
+
         if (email.isEmpty()) {
             showError(emailField, emailErrorLabel, "Email cannot be empty.");
-            return;
-        }
-        if (selectedRole == null) {
-            showError(roleComboBox, roleErrorLabel, "Role cannot be empty.");
-            return;
+            isValid = false;
+        } else if (!isValidEmail(email)) {
+            showError(emailField, emailErrorLabel, "Invalid email format!");
+            isValid = false;
+        } else if (userDao.isEmailExists(email)) {
+            showError(emailField, emailErrorLabel, "Email already exists!");
+            isValid = false;
+        } else {
+            clearError(emailField, emailErrorLabel);
         }
 
         if (phone.isEmpty()) {
             showError(phoneField, phoneErrorLabel, "Phone cannot be empty.");
-            return;
-        }
-
-        // Validate email format
-        if (!isValidEmail(email)) {
-            showError(emailField, emailErrorLabel, "Invalid email format!");
-            return;
-        }
-
-        // Validate phone format if provided
-        if (!isValidPhone(phone)) {
+            isValid = false;
+        } else if (!isValidPhone(phone)) {
             showError(phoneField, phoneErrorLabel, "Invalid phone format!");
-            return;
+            isValid = false;
+        } else {
+            clearError(phoneField, phoneErrorLabel);
         }
 
-        try {
-            // Check if username already exists
-            if (userDao.isUsernameExists(username)) {
-                showError(usernameField, usernameErrorLabel, "Username already exists!");
-                return;
+        if (selectedRole == null) {
+            showError(roleComboBox, roleErrorLabel, "Role cannot be empty.");
+            isValid = false;
+        } else {
+            clearError(roleComboBox, roleErrorLabel);
+        }
+
+        if (isValid) {
+            try {
+                // Create a new User object
+                User user = new User();
+                user.setUsername(username);
+                user.setPassword(hashPassword(password));
+                user.setEmail(email);
+                user.setPhone(phone);
+                user.setRoleId(Math.toIntExact(selectedRole.getId()));
+
+                // Save the user to the database
+                userDao.saveUser(user);
+                showAlert("Success", "User added successfully!", Alert.AlertType.INFORMATION);
+
+                // Clear the fields after saving
+                handleClear();
+
+                returnToUserManagement(event);
+
+            } catch (Exception e) {
+                showAlert("Error", "Error adding user: " + e.getMessage(), Alert.AlertType.ERROR);
             }
-
-            // Check if email already exists
-            if (userDao.isEmailExists(email)) {
-                showError(emailField, emailErrorLabel, "Email already exists!");
-                return;
-            }
-
-            // Create a new User object
-            User user = new User();
-            user.setUsername(username);
-            user.setPassword(hashPassword(password));
-            user.setEmail(email);
-            user.setPhone(phone);
-            user.setRoleId(Math.toIntExact(selectedRole.getId()));
-
-            // Save the user to the database
-            userDao.saveUser(user);
-            showAlert("Success", "User added successfully!", Alert.AlertType.INFORMATION);
-
-            // Clear the fields after saving
-            handleClear();
-
-            returnToUserManagement(event);
-
-        } catch (Exception e) {
-            showAlert("Error", "Error adding user: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
@@ -201,6 +201,11 @@ public class UserAddController {
         // Display the error message on the respective label
         errorLabel.setText(message);
         errorLabel.setStyle("-fx-text-fill: red");
+    }
+
+    private void clearError(Control field, Label errorLabel){
+        field.setStyle("-fx-border-color: #111827");
+        errorLabel.setText("");
     }
 
     public static String hashPassword(String password) throws NoSuchAlgorithmException {
