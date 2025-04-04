@@ -1,6 +1,7 @@
 package com.home.mec888.entity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
 import java.sql.Date;
 import java.sql.Timestamp;
 
@@ -29,25 +30,22 @@ public class Patient {
     @Column(nullable = false, length = 255)
     private String address;
 
-    @Column(nullable = true, length = 50)
+    @Column(length = 50)
     private String emergency_contact;
 
-    @Column(nullable = true, length = 50)
+    @Column(length = 50)
     private String medical_history;
 
     @Column(name = "created_at", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private java.sql.Timestamp createdAt;
+    private Timestamp createdAt;
 
     @Column(name = "updated_at", nullable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-    private java.sql.Timestamp updatedAt;
+    private Timestamp updatedAt;
 
     public Patient() {
     }
 
-    public Patient(Long id, Long user_id, String first_name, String last_name, Date date_of_birth,
-                   String gender, String address, String emergency_contact, String medical_history,
-                   Timestamp createdAt, Timestamp updatedAt) {
-        this.id = id;
+    public Patient(Long user_id, String first_name, String last_name, Date date_of_birth, String gender, String address, String emergency_contact, String medical_history) {
         this.user_id = user_id;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -56,9 +54,8 @@ public class Patient {
         this.address = address;
         this.emergency_contact = emergency_contact;
         this.medical_history = medical_history;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
     }
+
 
     public Long getId() {
         return id;

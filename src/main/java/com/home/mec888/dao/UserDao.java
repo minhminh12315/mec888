@@ -47,15 +47,6 @@ public class UserDao {
         }
     }
 
-    public User getUserByName(String name) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.get(User.class, name);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     public List<User> getAllUsers() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.createQuery("from User", User.class).list();

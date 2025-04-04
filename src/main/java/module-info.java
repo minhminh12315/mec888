@@ -32,5 +32,12 @@ module com.home.mec888 {
     requires spring.security.crypto;
 
     opens com.home.mec888 to javafx.fxml;
+
+    // Exported packages
     exports com.home.mec888;
+    exports com.home.mec888.entity;
+    exports com.home.mec888.controller;
+    exports com.home.mec888.controller.login;
+    exports com.home.mec888.controller.admin.medicine;
+    exports com.home.mec888.controller.admin.patient;
 }
