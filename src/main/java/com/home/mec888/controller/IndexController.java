@@ -16,6 +16,10 @@ public class IndexController {
     public void handleMedicine(ActionEvent actionEvent) {
         SceneSwitcher.loadView("admin/medicine/medicine-management.fxml", actionEvent);
     }
+    public void handleUser(ActionEvent actionEvent) {
+        SceneSwitcher.loadView("admin/user/user-management.fxml", actionEvent);
+    }
+
 
     public void logout(ActionEvent actionEvent) {
         Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

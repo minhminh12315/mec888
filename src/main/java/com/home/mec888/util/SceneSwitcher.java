@@ -74,4 +74,19 @@ public class SceneSwitcher {
             e.printStackTrace();
         }
     }
+
+    // Add this new method to your SceneSwitcher class
+    public static void loadViewWithPreloadedRoot(Parent preloadedRoot, ActionEvent event) {
+        try {
+            AnchorPane anchorPane = (AnchorPane) ((Node) event.getSource()).getScene().getRoot();
+            BorderPane mainPane = (BorderPane) anchorPane.lookup("#mainBorderPane");
+            if (mainPane != null) {
+                mainPane.setCenter(preloadedRoot);
+            } else {
+                System.err.println("BorderPane with ID 'mainBorderPane' not found");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

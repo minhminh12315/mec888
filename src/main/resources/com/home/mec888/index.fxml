@@ -27,6 +27,8 @@
 
                     <Button mnemonicParsing="false" onAction="#handleMedicine" styleClass="nav-btn"
                              text="Medicine"/>
+                    <Button mnemonicParsing="false" onAction="#handleUser" styleClass="nav-btn"
+                            text="User"/>
 
                 </VBox>
             </AnchorPane>

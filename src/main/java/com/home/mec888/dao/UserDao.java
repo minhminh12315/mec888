@@ -98,4 +98,27 @@ public class UserDao {
         }
         return null;
     }
+
+    public boolean isUsernameExists(String username) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            User user = session.createQuery("from User where username = :username", User.class)
+                    .setParameter("username", username)
+                    .uniqueResult();
+            return user != null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public boolean isEmailExists(String email) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            User user = session.createQuery("from User where email = :email", User.class)
+                    .setParameter("email", email)
+                    .uniqueResult();
+            return user != null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
