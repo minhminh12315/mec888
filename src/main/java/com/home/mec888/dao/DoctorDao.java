@@ -1,20 +1,19 @@
 package com.home.mec888.dao;
 
 import com.home.mec888.entity.Department;
-import com.home.mec888.entity.Medicine;
-import com.home.mec888.entity.User;
+import com.home.mec888.entity.Doctor;
 import com.home.mec888.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
 
-public class DepartmentDao {
-    public void saveDeparment(Department department) {
+public class DoctorDao {
+    public void saveDoctor(Doctor doctor) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.save(department);
+            session.save(doctor);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -23,23 +22,22 @@ public class DepartmentDao {
             e.printStackTrace();
         }
     }
-
-    public List<Department> getAllDepartments() {
+    public List<Doctor> getAllDoctors(){
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("from Department order by createdAt desc", Department.class).list();
+            return session.createQuery("from Doctor order by createdAt desc", Doctor.class).list();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public void deleteDepartment(Long id) {
+    public void deleteDoctor(Long id) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            Department department = session.get(Department.class, id);
-            if (department != null) {
-                session.delete(department);
+            Doctor doctor = session.get(Doctor.class, id);
+            if (doctor != null) {
+                session.delete(doctor);
                 transaction.commit();
             }
         } catch (Exception e) {
@@ -50,26 +48,17 @@ public class DepartmentDao {
         }
     }
 
-    public void updateDepartment(Department department) {
+    public void updateDoctor(Doctor doctor){
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.update(department);
+            session.update(doctor);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
             e.printStackTrace();
-        }
-    }
-
-    public Department getDepartmentById(Long id) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.get(Department.class, id);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
         }
     }
 }

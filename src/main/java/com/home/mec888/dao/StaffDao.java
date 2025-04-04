@@ -1,20 +1,19 @@
 package com.home.mec888.dao;
 
-import com.home.mec888.entity.Department;
-import com.home.mec888.entity.Medicine;
-import com.home.mec888.entity.User;
+import com.home.mec888.entity.Staff;
 import com.home.mec888.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
 
-public class DepartmentDao {
-    public void saveDeparment(Department department) {
+public class StaffDao {
+
+    public void saveStaff(Staff staff) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.save(department);
+            session.save(staff);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -24,22 +23,36 @@ public class DepartmentDao {
         }
     }
 
-    public List<Department> getAllDepartments() {
+    public void updateStaff(Staff staff) {
+        Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("from Department order by createdAt desc", Department.class).list();
+            transaction = session.beginTransaction();
+            session.update(staff);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+
+    public Staff getStaffById(Long id) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.get(Staff.class, id);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public void deleteDepartment(Long id) {
+    public void deleteStaff(Long id) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            Department department = session.get(Department.class, id);
-            if (department != null) {
-                session.delete(department);
+            Staff staff = session.get(Staff.class, id);
+            if (staff != null) {
+                session.delete(staff);
                 transaction.commit();
             }
         } catch (Exception e) {
@@ -50,23 +63,10 @@ public class DepartmentDao {
         }
     }
 
-    public void updateDepartment(Department department) {
-        Transaction transaction = null;
+    @SuppressWarnings("unchecked")
+    public List<Staff> getAllStaff() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            session.update(department);
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        }
-    }
-
-    public Department getDepartmentById(Long id) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.get(Department.class, id);
+            return session.createQuery("from Staff").list();
         } catch (Exception e) {
             e.printStackTrace();
             return null;

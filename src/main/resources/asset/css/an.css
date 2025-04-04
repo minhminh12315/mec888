@@ -8,7 +8,12 @@
 .nav-btn:hover{
     -fx-background-color: #1071e1;
 }
-
+.active-button {
+    -fx-pre-width:100%;
+    -fx-background-color: #1071e1; /* Màu nền khi nút được chọn */
+    -fx-text-fill: white; /* Màu chữ */
+    -fx-font-size: 16px;
+}
 .headerAdmin{
     -fx-background-color: #111827;
     -fx-padding:16px;
@@ -17,3 +22,48 @@
     -fx-font-size: 28px;
     -fx-font-weigth: 900;
 }
+
+.input-field{
+    -fx-pre-width: 100%;
+    -fx-border-color: #111827;
+    -fx-background-color: #fff;
+    -fx-border-radius: 0px 0px 0px 0px;
+}
+
+.input-field:focused{
+    -fx-border-width: 2px;
+}
+.search{
+    -fx-border-color: #1e242e;
+    -fx-background-color: #fff;
+    -fx-font-size: 14px;
+}
+
+.search:focused{
+    -fx-border-width: 2px;
+}
+.add-new-btn{
+    -fx-background-color : #EAB308;
+    -fx-background-radius: 6px;
+    -fx-cursor:hand;
+}
+
+.add-new-btn:hover{
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-transition: all 0.1s ease-in-out;
+}
+.back-btn{
+    -fx-font-size: 14px;
+    -fx-background-color: #1e242e;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.back-btn:hover{
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-transition: all 0.1s ease-in-out;
+}
+
+
