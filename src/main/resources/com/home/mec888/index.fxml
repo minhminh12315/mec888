@@ -24,40 +24,10 @@
                         style="-fx-background-color: #111827; -fx-margin-top: 48px;"
                         BorderPane.alignment="CENTER_LEFT">
                 <VBox>
-                    <!--dashboard-->
-                    <!--                    <Button mnemonicParsing="false" onAction="#dashBoardScene" styleClass="nav-btn"-->
-                    <!--                            stylesheets="@../../../../css/admin.css" text="Dashboard" textFill="WHITE"/>-->
-                    <!--button movie-->
-                    <Button mnemonicParsing="false" onAction="#handleMedicine" styleClass="nav-btn"
-                             text="Medicine" textFill="WHITE"/>
-                    <!--button movie genre -->
-<!--                    <Button mnemonicParsing="false" onAction="#genreScene" styleClass="nav-btn"-->
-<!--                            stylesheets="@../../../../css/admin.css" text="Movie Genre" textFill="WHITE"/>-->
-<!--                    &lt;!&ndash;button user&ndash;&gt;-->
-<!--                    <Button mnemonicParsing="false" onAction="#managementUser" styleClass="nav-btn"-->
-<!--                            stylesheets="@../../../../css/admin.css" text="User" textFill="WHITE"/>-->
-<!--                    &lt;!&ndash;Room&ndash;&gt;-->
-<!--                    <Button mnemonicParsing="false" onAction="#managementRoom" styleClass="nav-btn"-->
-<!--                            stylesheets="@../../../../css/admin.css" text="Room" textFill="WHITE"/>-->
-<!--                    &lt;!&ndash;People Films&ndash;&gt;-->
-<!--                    &lt;!&ndash; <Button mnemonicParsing="false" onAction="#managementPeopleFilms" styleClass="nav-btn"-->
-<!--                            stylesheets="@../../../../css/admin.css" text="People Films" textFill="WHITE"/> &ndash;&gt;-->
-<!--                    &lt;!&ndash;Showtime &ndash;&gt;-->
-<!--                    <Button mnemonicParsing="false" onAction="#managementShowtime" styleClass="nav-btn"-->
-<!--                            stylesheets="@../../../../css/admin.css" text="Showtime" textFill="WHITE"/>-->
-<!--                    &lt;!&ndash;Seat &ndash;&gt;-->
-<!--                    <Button mnemonicParsing="false" onAction="#managementSeat" styleClass="nav-btn"-->
-<!--                            stylesheets="@../../../../css/admin.css" text="Seat" textFill="WHITE"/>-->
-<!--                    &lt;!&ndash;Seat Type&ndash;&gt;-->
-<!--                    <Button mnemonicParsing="false" onAction="#managementSeatType" styleClass="nav-btn"-->
-<!--                            stylesheets="@../../../../css/admin.css" text="Seat Type" textFill="WHITE"/>-->
 
-<!--                    &lt;!&ndash; Booking&ndash;&gt;-->
-<!--                    <Button mnemonicParsing="false" onAction="#managementBooking" styleClass="nav-btn"-->
-<!--                            stylesheets="@../../../../css/admin.css" text="Booking" textFill="WHITE"/>-->
-<!--                    &lt;!&ndash; Payment&ndash;&gt;-->
-<!--                    <Button mnemonicParsing="false" onAction="#managementPayment" styleClass="nav-btn"-->
-<!--                            stylesheets="@../../../../css/admin.css" text="Payment" textFill="WHITE"/>-->
+                    <Button mnemonicParsing="false" onAction="#handleMedicine" styleClass="nav-btn"
+                             text="Medicine"/>
+
                 </VBox>
             </AnchorPane>
         </left>

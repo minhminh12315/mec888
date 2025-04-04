@@ -1,5 +1,6 @@
 package com.home.mec888.controller.login;
 
+import com.home.mec888.controller.IndexController;
 import com.home.mec888.dao.AuditLogDao;
 import com.home.mec888.dao.RoleDao;
 import com.home.mec888.dao.UserDao;
@@ -49,7 +50,8 @@ public class LoginController {
         User user = userDao.login(username, password);
         if (user != null) {
             Role role = roleDao.getRoleById(Long.valueOf(user.getRoleId()));
-
+            IndexController.user = user;
+            IndexController.userRole = role.getName();
             AuditLogDao auditLogDao = new AuditLogDao();
             AuditLog auditLog = new AuditLog(user.getId().intValue(), "Login", "Login");
             auditLogDao.saveAuditLog(auditLog);

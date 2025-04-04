@@ -52,11 +52,5 @@ public class Main extends Application {
 
         launch();
 
-
-
-
-//        MedicineDao medicineDao = new MedicineDao();
-//        Medicine medicine = new Medicine("Paracetamol", "Pain reliever", 10.0, "ABC Pharma");
-//        medicineDao.saveMedicine(medicine);
     }
 }
