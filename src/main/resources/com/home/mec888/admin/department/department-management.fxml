@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+<AnchorPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.home.mec888.controller.admin.department.DepartmentManagementController">
+    <VBox spacing="24" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="24.0"
+          AnchorPane.rightAnchor="24.0"
+          AnchorPane.topAnchor="24.0">
+        <HBox alignment="CENTER">
+            <Text text="Medicine Management" styleClass="titlePage" textAlignment="CENTER"/>
+        </HBox>
+        <HBox>
+            <Button layoutX="33.0" layoutY="34.0" mnemonicParsing="false" onAction="#handleAdd"
+                    prefHeight="30.0" prefWidth="75.0" styleClass="add-new-btn"
+                    text="Add">
+                <font>
+                    <Font name="System Bold Italic" size="12.0"/>
+                </font>
+            </Button>
+
+            <!-- Search Field -->
+            <!--            <TextField fx:id="searchField" layoutX="163.0" layoutY="34.0" prefHeight="30.0"-->
+            <!--                       promptText="Search by Seat Number" styleClass="search"-->
+            <!--                       stylesheets="@../../../../../css/admin.css"/>-->
+        </HBox>
+        <TableView fx:id="departmentManagementTable" layoutX="250.0" layoutY="86.0" prefHeight="460.0" prefWidth="660.0"
+                   styleClass="table">
+            <columns>
+                <TableColumn fx:id="idColumn" prefWidth="84.0" text="ID"/>
+                <TableColumn fx:id="nameColumn" prefWidth="270.0" text="name"/>
+                <TableColumn fx:id="descriptionColumn" minWidth="0.0" prefWidth="208.0" text="Desription"/>
+                <TableColumn fx:id="actionColumn" minWidth="0.0" prefWidth="208.0" text="Actions"/>
+            </columns>
+        </TableView>
+    </VBox>
+</AnchorPane>

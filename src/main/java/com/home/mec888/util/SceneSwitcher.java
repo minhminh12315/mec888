@@ -74,4 +74,15 @@ public class SceneSwitcher {
             e.printStackTrace();
         }
     }
+
+    public static FXMLLoader loadViToUpdate(String fxmlFile) {
+        FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/com/cinema/starplex/" + fxmlFile));
+        try {
+            loader.load(); // Load FXML trước
+            return loader; // Trả về loader để lấy Controller
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

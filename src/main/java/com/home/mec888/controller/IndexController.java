@@ -24,4 +24,7 @@ public class IndexController {
     }
 
 
+    public void handleDepartment(ActionEvent event) {
+        SceneSwitcher.loadView("admin/department/department-management.fxml", event);
+    }
 }

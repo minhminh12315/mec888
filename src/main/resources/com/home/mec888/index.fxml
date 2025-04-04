@@ -30,6 +30,9 @@
                     <!--button movie-->
                     <Button mnemonicParsing="false" onAction="#handleMedicine" styleClass="nav-btn"
                              text="Medicine" textFill="WHITE"/>
+
+                    <Button mnemonicParsing="false" onAction="#handleDepartment" styleClass="nav-btn"
+                            text="Department" textFill="WHITE"/>
                     <!--button movie genre -->
 <!--                    <Button mnemonicParsing="false" onAction="#genreScene" styleClass="nav-btn"-->
 <!--                            stylesheets="@../../../../css/admin.css" text="Movie Genre" textFill="WHITE"/>-->
