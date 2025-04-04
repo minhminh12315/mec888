@@ -122,6 +122,7 @@ public class UserManagementController {
         }
 
         // Tạo danh sách lọc
+        // nhớ sửa dùng sql để lấy dữ liệu,
         List<User> filteredList = new ArrayList<>();
         for (User user : originalUserList) {
             if (user.getUsername().toLowerCase().contains(keyword.toLowerCase()) ||

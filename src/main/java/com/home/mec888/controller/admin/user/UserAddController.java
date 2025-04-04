@@ -111,7 +111,7 @@ public class UserAddController {
             return;
         }
 
-        if (!phone.isEmpty()) {
+        if (phone.isEmpty()) {
             showError(phoneField, phoneErrorLabel, "Phone cannot be empty.");
             return;
         }

@@ -136,6 +136,10 @@ public class UserUpdateController {
             showError(emailField, emailErrorLabel, "Email cannot be empty.");
             return;
         }
+        if (phone.isEmpty()){
+            showError(phoneField, phoneErrorLabel, "Phone cannot be empty.");
+            return;
+        }
         if (selectedRole == null) {
             showError(roleComboBox, roleErrorLabel, "Role cannot be empty.");
             return;
@@ -148,7 +152,7 @@ public class UserUpdateController {
         }
 
         // Validate phone format if provided
-        if (!phone.isEmpty() && !isValidPhone(phone)) {
+        if (!isValidPhone(phone)) {
             showError(phoneField, phoneErrorLabel, "Invalid phone format!");
             return;
         }
