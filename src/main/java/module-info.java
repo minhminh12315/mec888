@@ -20,6 +20,7 @@ module com.home.mec888 {
     opens com.home.mec888.controller.admin.medicine to javafx.fxml;
     opens com.home.mec888.controller.admin.department to javafx.fxml;
     opens com.home.mec888.controller.admin.doctor to javafx.fxml;
+    opens com.home.mec888.controller.admin.user to javafx.fxml;
 //    opens com.home.mec888.controller.admin to javafx.fxml;
 //    opens com.home.mec888.controller.doctor to javafx.fxml;
 //    opens com.home.mec888.controller.patient to javafx.fxml;
@@ -36,5 +37,4 @@ module com.home.mec888 {
 
     opens com.home.mec888 to javafx.fxml;
     exports com.home.mec888;
-
 }

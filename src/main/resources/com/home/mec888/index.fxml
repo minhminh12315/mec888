@@ -33,6 +33,10 @@
 <!--                    button doctor-->
                     <Button prefWidth="240.0" fx:id="moveDoctorButton" mnemonicParsing="false" onAction="#handleDoctor" styleClass="nav-btn"
                             text="Doctor" textFill="WHITE"/>
+
+                    <Button prefWidth="240.0" fx:id="moveUserButton" mnemonicParsing="false" onAction="#handleUser" styleClass="nav-btn"
+                            text="User"/>
+
                 </VBox>
             </AnchorPane>
         </left>
