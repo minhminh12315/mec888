@@ -25,12 +25,16 @@
         </HBox>
         <VBox spacing="16">
             <VBox>
-                <Label styleClass="label-input" text="Medicine name :"/>
+                <Label styleClass="label-input" text="Department name :"/>
                 <TextField fx:id="nameField" styleClass="input-field"/>
+                <Label fx:id="departmentNameError" textFill="red"/> <!-- Thông báo lỗi -->
+
             </VBox>
             <VBox>
                 <Label styleClass="label-input" text="Description :"/>
                 <TextArea fx:id="descriptionField" styleClass="input-field"/>
+                <Label fx:id="departmentDescriptionError" textFill="red"/> <!-- Thông báo lỗi -->
+
             </VBox>
             <HBox alignment="CENTER_RIGHT" spacing="24">
                 <Button fx:id="clearButton" mnemonicParsing="false"

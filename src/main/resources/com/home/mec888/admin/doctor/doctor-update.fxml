@@ -54,9 +54,9 @@
 
             <HBox alignment="CENTER_RIGHT" spacing="24">
                 <Button fx:id="clearButton" mnemonicParsing="false"
-                        onAction="#handleClear" prefHeight="30.0" prefWidth="120.0" text="Clear"/>
+                        onAction="#handleClear" prefHeight="30.0" prefWidth="120.0" text="Clear" styleClass="clear-btn"/>
                 <Button fx:id="saveButton" mnemonicParsing="false"
-                        onAction="#handleSave" prefHeight="30.0" prefWidth="120.0" text="Save"/>
+                        onAction="#handleSave" prefHeight="30.0" prefWidth="120.0" text="Save" styleClass="save-btn"/>
             </HBox>
         </VBox>
     </VBox>

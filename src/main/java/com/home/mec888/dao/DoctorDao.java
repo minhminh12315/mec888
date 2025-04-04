@@ -24,7 +24,7 @@ public class DoctorDao {
     }
     public List<Doctor> getAllDoctors(){
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("from Doctor order by createdAt desc", Doctor.class).list();
+            return session.createQuery("from Doctor order by updatedAt desc", Doctor.class).list();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
