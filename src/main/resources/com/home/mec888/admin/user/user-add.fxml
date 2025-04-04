@@ -32,26 +32,31 @@
             <VBox>
                 <Label styleClass="label-input" text="Username:"/>
                 <TextField fx:id="usernameField" styleClass="input-field"/>
+                <Label fx:id="usernameErrorLabel" textFill="red"/> <!-- Error Label for Username -->
             </VBox>
 
             <VBox>
                 <Label styleClass="label-input" text="Password:"/>
                 <PasswordField fx:id="passwordField" styleClass="input-field"/>
+                <Label fx:id="passwordErrorLabel" textFill="red"/> <!-- Error Label for Password -->
             </VBox>
 
             <VBox>
                 <Label styleClass="label-input" text="Email:"/>
                 <TextField fx:id="emailField" styleClass="input-field"/>
+                <Label fx:id="emailErrorLabel" textFill="red"/> <!-- Error Label for Email -->
             </VBox>
 
             <VBox>
                 <Label styleClass="label-input" text="Phone:"/>
                 <TextField fx:id="phoneField" styleClass="input-field"/>
+                <Label fx:id="phoneErrorLabel" textFill="red"/> <!-- Error Label for Phone -->
             </VBox>
 
             <VBox>
                 <Label styleClass="label-input" text="Role:"/>
                 <ComboBox fx:id="roleComboBox" styleClass="input-field" prefWidth="Infinity"/>
+                <Label fx:id="roleErrorLabel" textFill="red"/> <!-- Error Label for Role -->
             </VBox>
 
             <HBox alignment="CENTER_RIGHT" spacing="24">

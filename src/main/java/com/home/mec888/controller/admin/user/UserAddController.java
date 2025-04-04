@@ -31,6 +31,17 @@ public class UserAddController {
     @FXML
     private ComboBox<Role> roleComboBox;
 
+    @FXML
+    private Label usernameErrorLabel;
+    @FXML
+    private Label passwordErrorLabel;
+    @FXML
+    private Label emailErrorLabel;
+    @FXML
+    private Label phoneErrorLabel;
+    @FXML
+    private Label roleErrorLabel;
+
     private UserDao userDao = new UserDao();
     private RoleDao roleDao = new RoleDao();
 
@@ -75,33 +86,58 @@ public class UserAddController {
         String phone = phoneField.getText();
         Role selectedRole = roleComboBox.getValue();
 
-        if (username.isEmpty() || password.isEmpty() || email.isEmpty() || selectedRole == null) {
-            showAlert("Error", "Please fill in all required fields!", Alert.AlertType.ERROR);
+        // Reset error labels
+        usernameErrorLabel.setText("");
+        passwordErrorLabel.setText("");
+        emailErrorLabel.setText("");
+        phoneErrorLabel.setText("");
+        roleErrorLabel.setText("");
+
+        // Validate fields
+        if (username.isEmpty()) {
+            showError(usernameField, usernameErrorLabel, "Username cannot be empty.");
+            return;
+        }
+//        if (password.isEmpty()) {
+//            showError(passwordField, passwordErrorLabel, "Password cannot be empty.");
+//            return;
+//        }
+        if (email.isEmpty()) {
+            showError(emailField, emailErrorLabel, "Email cannot be empty.");
+            return;
+        }
+        if (selectedRole == null) {
+            showError(roleComboBox, roleErrorLabel, "Role cannot be empty.");
+            return;
+        }
+
+        if (!phone.isEmpty()) {
+            showError(phoneField, phoneErrorLabel, "Phone cannot be empty.");
             return;
         }
 
         // Validate email format
         if (!isValidEmail(email)) {
-            showAlert("Error", "Invalid email format!", Alert.AlertType.ERROR);
+            showError(emailField, emailErrorLabel, "Invalid email format!");
             return;
         }
 
         // Validate phone format if provided
-        if (!phone.isEmpty() && !isValidPhone(phone)) {
-            showAlert("Error", "Invalid phone format!", Alert.AlertType.ERROR);
+        if (!isValidPhone(phone)) {
+            showError(phoneField, phoneErrorLabel, "Invalid phone format!");
             return;
         }
 
         try {
             // Check if username already exists
             if (userDao.isUsernameExists(username)) {
-                showAlert("Error", "Username already exists!", Alert.AlertType.ERROR);
+                showError(usernameField, usernameErrorLabel, "Username already exists!");
                 return;
             }
 
             // Check if email already exists
             if (userDao.isEmailExists(email)) {
-                showAlert("Error", "Email already exists!", Alert.AlertType.ERROR);
+                showError(emailField, emailErrorLabel, "Email already exists!");
                 return;
             }
 
@@ -123,7 +159,7 @@ public class UserAddController {
             returnToUserManagement(event);
 
         } catch (Exception e) {
-            showAlert("Error", "Error saving user: " + e.getMessage(), Alert.AlertType.ERROR);
+            showAlert("Error", "Error adding user: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
@@ -152,6 +188,19 @@ public class UserAddController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    private void showError(Control field, Label errorLabel, String message) {
+        // Set the border color to red for fields with errors
+        if (field instanceof TextField || field instanceof PasswordField) {
+            field.setStyle("-fx-border-color: red");
+        } else if (field instanceof ComboBox) {
+            field.setStyle("-fx-border-color: red");
+        }
+
+        // Display the error message on the respective label
+        errorLabel.setText(message);
+        errorLabel.setStyle("-fx-text-fill: red");
     }
 
     public static String hashPassword(String password) throws NoSuchAlgorithmException {

@@ -38,6 +38,15 @@ public class UserUpdateController {
     @FXML
     private Button cancelButton;
 
+    @FXML
+    private Label usernameErrorLabel;
+    @FXML
+    private Label emailErrorLabel;
+    @FXML
+    private Label phoneErrorLabel;
+    @FXML
+    private Label roleErrorLabel;
+
     private UserDao userDao;
     private RoleDao roleDao;
     private User user;
@@ -108,33 +117,52 @@ public class UserUpdateController {
         String phone = phoneField.getText();
         Role selectedRole = roleComboBox.getValue();
 
-        if (username.isEmpty() || email.isEmpty() || selectedRole == null) {
-            showAlert("Error", "Please fill in all required fields!", Alert.AlertType.ERROR);
+
+        // Reset error labels
+        usernameErrorLabel.setText("");
+        emailErrorLabel.setText("");
+        phoneErrorLabel.setText("");
+        roleErrorLabel.setText("");
+
+        if (username.isEmpty()) {
+            showError(usernameField, usernameErrorLabel, "Username cannot be empty.");
+            return;
+        }
+//        if (password.isEmpty()) {
+//            showError(passwordField, passwordErrorLabel, "Password cannot be empty.");
+//            return;
+//        }
+        if (email.isEmpty()) {
+            showError(emailField, emailErrorLabel, "Email cannot be empty.");
+            return;
+        }
+        if (selectedRole == null) {
+            showError(roleComboBox, roleErrorLabel, "Role cannot be empty.");
             return;
         }
 
         // Validate email format
         if (!isValidEmail(email)) {
-            showAlert("Error", "Invalid email format!", Alert.AlertType.ERROR);
+            showError(emailField, emailErrorLabel, "Invalid email format!");
             return;
         }
 
         // Validate phone format if provided
         if (!phone.isEmpty() && !isValidPhone(phone)) {
-            showAlert("Error", "Invalid phone format!", Alert.AlertType.ERROR);
+            showError(phoneField, phoneErrorLabel, "Invalid phone format!");
             return;
         }
 
         try {
             // Check if username already exists (excluding current user)
             if (!username.equals(user.getUsername()) && userDao.isUsernameExists(username)) {
-                showAlert("Error", "Username already exists!", Alert.AlertType.ERROR);
+                showError(usernameField, usernameErrorLabel, "Username already exists!");
                 return;
             }
 
             // Check if email already exists (excluding current user)
             if (!email.equals(user.getEmail()) && userDao.isEmailExists(email)) {
-                showAlert("Error", "Email already exists!", Alert.AlertType.ERROR);
+                showError(emailField, emailErrorLabel, "Email already exists!");
                 return;
             }
 
@@ -172,6 +200,19 @@ public class UserUpdateController {
     private boolean isValidPhone(String phone) {
         String phoneRegex = "^[0-9]{10}$";  // Simple 10-digit validation
         return phone.matches(phoneRegex);
+    }
+
+    private void showError(Control field, Label errorLabel, String message) {
+        // Set the border color to red for fields with errors
+        if (field instanceof TextField || field instanceof PasswordField) {
+            field.setStyle("-fx-border-color: red");
+        } else if (field instanceof ComboBox) {
+            field.setStyle("-fx-border-color: red");
+        }
+
+        // Display the error message on the respective label
+        errorLabel.setText(message);
+        errorLabel.setStyle("-fx-text-fill: red");
     }
 
     private void showAlert(String title, String message, Alert.AlertType type) {

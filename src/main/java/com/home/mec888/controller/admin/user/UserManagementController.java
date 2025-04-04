@@ -2,8 +2,6 @@ package com.home.mec888.controller.admin.user;
 
 import com.home.mec888.controller.admin.department.DepartmentUpdateController;
 import com.home.mec888.dao.RoleDao;
-import com.home.mec888.entity.Department;
-import com.home.mec888.entity.Doctor;
 import com.home.mec888.entity.Role;
 import com.home.mec888.entity.User;
 import javafx.collections.FXCollections;
@@ -48,7 +46,7 @@ public class UserManagementController {
     private TableColumn<User, String> phoneColumn;
 
     @FXML
-    private TableColumn<User, String> roleColumn;
+    private TableColumn<User, Integer> roleColumn;
 
     @FXML
     private TableColumn<User, Void> actionColumn;
@@ -73,37 +71,41 @@ public class UserManagementController {
         phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
         roleColumn.setCellValueFactory(new PropertyValueFactory<>("roleId"));
         // Take roleId and get role name
-//        roleColumn.setCellFactory(column -> new TableCell<User, String>() {
-//            @Override
-//            protected void updateItem(String roleId, boolean empty) {
-//                super.updateItem(roleId, empty);
-//
-//                if (empty || roleId == null) {
-//                    setText(null);
-//                } else {
-//                    try {
-//                        // Convert roleId to Long for lookup
-//                        Long id = Long.valueOf(roleId);
-//                        // Lookup role name from roleDao
-//                        Role role = roleDao.getRoleById(id);
-//                        if (role != null) {
-//                            setText(role.getName());
-//                        } else {
-//                            setText("Unknown");
-//                        }
-//                    } catch (NumberFormatException e) {
-//                        setText("Invalid");
-//                    }
-//                }
-//            }
-//        });
-        // Load data from the database
-        userManagementTable.getItems().clear();
-        userManagementTable.getItems().addAll(userDao.getAllUsers());
+        roleColumn.setCellFactory(column -> new TableCell<User, Integer>() {
+            @Override
+            protected void updateItem(Integer roleId, boolean empty) {
+                super.updateItem(roleId, empty);
 
-        originalUserList = userDao.getAllUsers();
+                if (empty || roleId == null) {
+                    setText(null);
+                } else {
+                    try {
+                        // Convert roleId to Long for lookup
+                        Long id = roleId.longValue();
+                        // Lookup role name from roleDao
+                        Role role = roleDao.getRoleById(id);
+                        if (role != null) {
+                            setText(role.getName());
+                        } else {
+                            setText("Unknown");
+                        }
+                    } catch (Exception e) {
+                        setText("Invalid");
+                    }
+                }
+            }
+        });
+        // Load data from the database
+        List<User> currentUsers = userDao.getAllUsers();
+        userManagementTable.getItems().clear();
+        userManagementTable.getItems().addAll(currentUsers);
+
+        // Update the original list for filtering
+        originalUserList = new ArrayList<>(currentUsers);
+
+        // Set up search listener
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filterDoctorList(newValue);
+            filterUserList(newValue);
         });
     }
 
@@ -112,7 +114,7 @@ public class UserManagementController {
         userManagementTable.setItems(FXCollections.observableArrayList(users));
     }
 
-    private void filterDoctorList(String keyword) {
+    private void filterUserList(String keyword) {
         if (keyword == null || keyword.trim().isEmpty()) {
             // Nếu không có từ khóa, hiển thị danh sách đầy đủ
             updateTable(originalUserList);
@@ -131,6 +133,7 @@ public class UserManagementController {
 
         // Cập nhật bảng với danh sách lọc
         updateTable(filteredList);
+        addButtonToTable();
     }
 
     public void addButtonToTable() {
