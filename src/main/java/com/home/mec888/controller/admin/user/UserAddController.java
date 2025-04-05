@@ -173,12 +173,12 @@ public class UserAddController {
     }
 
     private boolean isValidEmail(String email) {
-        String emailRegex = "^[A-Za-z0-9+_.-]+@gmail\\.com$";
+        String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
         return email.matches(emailRegex);
     }
 
     private boolean isValidPhone(String phone) {
-        String phoneRegex = "\\d+";
+        String phoneRegex = "^[0-9]{10}$";  // Simple 10-digit validation
         return phone.matches(phoneRegex);
     }
 
