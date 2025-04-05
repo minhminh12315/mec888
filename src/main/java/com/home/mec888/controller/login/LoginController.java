@@ -49,34 +49,22 @@ public class LoginController {
 
         User user = userDao.login(username, password);
         if (user != null) {
+
             Role role = roleDao.getRoleById(Long.valueOf(user.getRoleId()));
+
             IndexController.user = user;
             IndexController.userRole = role.getName();
+
+            // Log the login action
             AuditLogDao auditLogDao = new AuditLogDao();
             AuditLog auditLog = new AuditLog(user.getId().intValue(), "Login", "Login");
             auditLogDao.saveAuditLog(auditLog);
 
+            // Set the user session
             UserSession.getInstance().setUser(user);
-//            errorLabel.setText("Login successful!");
-            switch (role.getName()) {
-                case "admin":
-                    Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-                    SceneSwitcher.switchTo(currentStage, "index.fxml");
-                    break;
 
-                case "staff":
-
-                    break;
-
-                case "doctor":
-
-                    break;
-
-                case "patient":
-
-                    break;
-
-            }
+            Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            SceneSwitcher.switchTo(currentStage, "admin/index.fxml");
 
         } else {
             System.out.println("login failed");
