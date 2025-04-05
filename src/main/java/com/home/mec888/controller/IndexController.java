@@ -27,6 +27,33 @@ public class IndexController {
     public Button movePatientButton;
     private Button currentActiveButton;
 
+//    @FXML
+//    public void initialize() {
+//        configureNavigationButtons();
+//    }
+//
+//    // Cấu hình các nút điều hướng dựa trên vai trò của user
+//    private void configureNavigationButtons() {
+//        if (userRole == null) {
+//            return;
+//        }
+//        if (userRole.equalsIgnoreCase("admin")) {
+//            // Với admin, hiển thị tất cả các nút điều hướng
+//            moveMedicineButton.setVisible(true);
+//            moveDepartmentButton.setVisible(true);
+//            moveDoctorButton.setVisible(true);
+//            moveUserButton.setVisible(true);
+//        } else {
+//            // Với user không phải admin, bạn có thể ẩn đi hoặc hiển thị những nút khác
+//            moveMedicineButton.setVisible(false);
+//            moveDepartmentButton.setVisible(false);
+//            moveDoctorButton.setVisible(false);
+//            // Ví dụ: chỉ hiển thị nút User hoặc thay đổi tên nút thành "Profile"
+//            moveUserButton.setText("Profile");
+//            moveUserButton.setVisible(true);
+//        }
+//    }
+
     public void logout(ActionEvent actionEvent) {
         Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         currentStage.close();
