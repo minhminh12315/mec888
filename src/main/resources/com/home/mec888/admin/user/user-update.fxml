@@ -33,6 +33,15 @@
                 <Label fx:id="usernameErrorLabel" textFill="red"/> <!-- Error Label for Username -->
             </VBox>
 
+<!--            <VBox>-->
+<!--                <HBox>-->
+<!--                    <Label styleClass="label-input" text="Password "/>-->
+<!--                    <Label layoutX="35.0" layoutY="150.0" text="*" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;" />-->
+<!--                </HBox>-->
+<!--                <PasswordField fx:id="passwordField" styleClass="input-field"/>-->
+<!--                <Label fx:id="passwordErrorLabel" textFill="red"/> &lt;!&ndash; Error Label for Password &ndash;&gt;-->
+<!--            </VBox>-->
+
             <VBox>
                 <HBox>
                     <Label styleClass="label-input" text="Email "/>
