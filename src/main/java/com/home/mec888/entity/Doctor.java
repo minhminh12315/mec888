@@ -13,14 +13,19 @@ public class Doctor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "user_id", nullable = false) // Khóa ngoại tới bảng users
     private User user;
 
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "department_id", nullable = false)
     private Department department;
+
+    @Column(length = 255)
+    private String first_name;
+
+    @Column(length = 255)
+    private String last_name;
 
     @Column(nullable = true, length = 255)
     private String specialization;
@@ -90,12 +95,30 @@ public class Doctor {
         this.department = department;
     }
 
+    public String getFirst_name() {
+        return first_name;
+    }
+
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
+    }
+
+    public String getLast_name() {
+        return last_name;
+    }
+
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
+    }
+
     @Override
     public String toString() {
         return "Doctor{" +
                 "id=" + id +
                 ", user=" + user +
                 ", department=" + department +
+                ", first_name='" + first_name + '\'' +
+                ", last_name='" + last_name + '\'' +
                 ", specialization='" + specialization + '\'' +
                 ", license_number='" + license_number + '\'' +
                 ", createdAt=" + createdAt +

@@ -125,14 +125,14 @@
             <version>11.3.2</version>
         </dependency>
 
-<!--        Mã hóa mật khau-->
+        <!--        Mã hóa mật khau-->
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-crypto</artifactId>
             <version>6.4.4</version> <!-- hoặc phiên bản mới nhất -->
         </dependency>
 
-<!--        Icon-->
+        <!--        Icon-->
         <dependency>
             <groupId>org.kordamp.ikonli</groupId>
             <artifactId>ikonli-javafx</artifactId>
@@ -142,6 +142,11 @@
             <groupId>org.kordamp.ikonli</groupId>
             <artifactId>ikonli-fontawesome5-pack</artifactId>
             <version>12.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.2</version>
         </dependency>
     </dependencies>
 

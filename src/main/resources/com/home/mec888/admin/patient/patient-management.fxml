@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.home.mec888.controller.admin.patient.PatientManagementController"
+            prefHeight="600.0" prefWidth="1200.0">
+    <VBox spacing="24" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="24.0"
+          AnchorPane.rightAnchor="24.0"
+          AnchorPane.topAnchor="24.0">
+        <HBox alignment="CENTER">
+            <Text text="Patient Management" styleClass="titlePage" textAlignment="CENTER"/>
+        </HBox>
+        <HBox>
+            <!--            Search Field-->
+            <TextField fx:id="searchField" prefHeight="29.0" prefWidth="380.0" promptText="Search by Patient Name"
+                       styleClass="search"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button mnemonicParsing="false" onAction="#handleAdd" prefHeight="30.0" prefWidth="75.0"
+                    styleClass="add-new-btn" text="Add">
+                <font>
+                    <Font name="System Bold Italic" size="12.0"/>
+                </font>
+            </Button>
+        </HBox>
+        <TableView fx:id="patientManagementTable" layoutX="250.0" layoutY="86.0" prefHeight="460.0" prefWidth="660.0" styleClass="table">
+            <columns>
+                <TableColumn fx:id="patientColId" prefWidth="60.0" text="ID"/>
+                <TableColumn fx:id="userColId" prefWidth="100.0" text="User ID"/>
+                <TableColumn fx:id="patientColFname" prefWidth="100.0" text="First Name"/>
+                <TableColumn fx:id="patientColLname" prefWidth="100.0" text="Last Name"/>
+                <TableColumn fx:id="patientColDOB" prefWidth="100.0" text="Date of Birth"/>
+                <TableColumn fx:id="patientColGender" prefWidth="100.0" text="Gender"/>
+                <TableColumn fx:id="patientColAddress" prefWidth="100.0" text="Address"/>
+                <TableColumn fx:id="patientColEmergency" prefWidth="100.0" text="Emergency"/>
+                <TableColumn fx:id="patientColMedical" prefWidth="100.0" text="Medical"/>
+                <TableColumn fx:id="actionColumn" minWidth="0.0" prefWidth="208.0" text="Action"/>
+            </columns>
+        </TableView>
+    </VBox>
+</AnchorPane>

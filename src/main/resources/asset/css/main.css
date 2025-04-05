@@ -75,4 +75,28 @@
        -fx-border-radius: 4px;
        -fx-alignment: center;
 }
+.save-btn{
+    -fx-font-size: 14px;
+    -fx-background-color: #EAB308;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
 
+.save-btn:hover{
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-transition: all 0.1s ease-in-out;
+}
+
+.clear-btn{
+    -fx-font-size: 14px;
+    -fx-background-color: #FF6464;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.clear-btn:hover{
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-transition: all 0.1s ease-in-out;
+}

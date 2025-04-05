@@ -27,6 +27,14 @@ public class DoctorAddController {
     @FXML
     public TextField licenseField;
     @FXML
+    public TextField firstNameField;
+    @FXML
+    public Label firstNameErrorLabel;
+    @FXML
+    public TextField lastNameField;
+    @FXML
+    public Label lastNameErrorLabel;
+    @FXML
     private Label userErrorLabel;
     @FXML
     private Label departmentErrorLabel;
@@ -97,6 +105,8 @@ public class DoctorAddController {
         departmentErrorLabel.setText("");
         specializationErrorLabel.setText("");
         licenseErrorLabel.setText("");
+        firstNameErrorLabel.setText("");
+        lastNameErrorLabel.setText("");
     }
 
     public void showError(Control field, Label errorLabel, String message) {
@@ -120,19 +130,29 @@ public class DoctorAddController {
         }
         // Kiểm tra ComboBox Department
         if (departmentComboBox.getValue() == null) {
-            showError(departmentComboBox, departmentErrorLabel, "Please select a user.");
+            showError(departmentComboBox, departmentErrorLabel, "Please select a department.");
             isValid = false;
         }
 
         // Kiểm tra Specialization Field
         if (specializationField.getText().trim().isEmpty()) {
-            showError(specializationField, specializationErrorLabel, "Please select a user.");
+            showError(specializationField, specializationErrorLabel, "Please enter specialization.");
             isValid = false;
         }
 
         // Kiểm tra License Field
         if (licenseField.getText().trim().isEmpty()) {
-            showError(licenseField, licenseErrorLabel, "Please select a user.");
+            showError(licenseField, licenseErrorLabel, "Please enter a license.");
+            isValid = false;
+        }
+        // Kiểm tra First Name Field
+        if (firstNameField.getText().trim().isEmpty()) {
+            showError(firstNameField, firstNameErrorLabel, "Please enter first name.");
+            isValid = false;
+        }
+        // Kiểm tra Last Name Field
+        if (lastNameField.getText().trim().isEmpty()) {
+            showError(lastNameField, lastNameErrorLabel, "Please enter last name.");
             isValid = false;
         }
         return isValid;
@@ -146,6 +166,8 @@ public class DoctorAddController {
         // Xóa nội dung của các TextField
         specializationField.clear();
         licenseField.clear();
+        firstNameField.clear();
+        lastNameField.clear();
 
         resetErrorLabels();
     }
@@ -158,6 +180,8 @@ public class DoctorAddController {
         Department department = departmentComboBox.getValue();
         String specialization = specializationField.getText().trim();
         String license_number = licenseField.getText().trim();
+        String firstName = firstNameField.getText().trim();
+        String lastName = lastNameField.getText().trim();
 
         resetErrorLabels(); // Xóa các thông báo lỗi cũ
 
@@ -167,12 +191,15 @@ public class DoctorAddController {
             doctor.setDepartment(department);
             doctor.setSpecialization(specialization);
             doctor.setLicense_number(license_number);
+            doctor.setFirst_name(firstName);
+            doctor.setLast_name(lastName);
 
             doctorDao.saveDoctor(doctor);
 
             showAlert("Success", "Doctor added successfully!", Alert.AlertType.INFORMATION);
             returnToDoctorManagement(event);
         } catch (Exception e) {
+            showAlert("Error", e.getMessage(), Alert.AlertType.ERROR);
             throw new RuntimeException(e);
         }
     }
