@@ -29,7 +29,7 @@ public class PatientAddController {
     public ComboBox<String> gender;
     public TextField address;
     public TextField emergency_contact;
-    public TextField medical_history;
+    public TextArea medical_history;
     @FXML
     public Label fn_error, ln_error, email_error, dob_error, gender_error, address_error,
             contact_error, medical_error, phone_error;
@@ -205,8 +205,7 @@ public class PatientAddController {
     }
 
     public void returnToPatientManagement(ActionEvent actionEvent) {
-        Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        SceneSwitcher.switchTo(currentStage, "admin/patient/patient-management.fxml");
+        SceneSwitcher.loadView("admin/patient/patient-management.fxml", actionEvent);
     }
 
     public String randomUsername() {

@@ -43,8 +43,7 @@ public class PatientManagementController {
 
     @FXML
     public void handleAdd(ActionEvent actionEvent) {
-        Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        SceneSwitcher.switchTo(currentStage, "admin/patient/patient-add.fxml");
+        SceneSwitcher.loadView("admin/patient/patient-add.fxml", actionEvent);
     }
 
     private void loadPatientData() {

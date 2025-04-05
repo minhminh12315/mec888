@@ -11,28 +11,26 @@
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.home.mec888.controller.admin.patient.PatientManagementController"
-            prefHeight="400.0" prefWidth="600.0">
+            prefHeight="600.0" prefWidth="1200.0">
     <VBox spacing="24" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="24.0"
           AnchorPane.rightAnchor="24.0"
           AnchorPane.topAnchor="24.0">
         <HBox alignment="CENTER">
-            <Text text="Patient Management" textAlignment="CENTER"/>
+            <Text text="Patient Management" styleClass="titlePage" textAlignment="CENTER"/>
         </HBox>
         <HBox>
-            <Button layoutX="33.0" layoutY="34.0" mnemonicParsing="false" onAction="#handleAdd"
-                    prefHeight="30.0" prefWidth="75.0"
-                    text="Add">
+            <!--            Search Field-->
+            <TextField fx:id="searchField" prefHeight="29.0" prefWidth="380.0" promptText="Search by Patient Name"
+                       styleClass="search"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button mnemonicParsing="false" onAction="#handleAdd" prefHeight="30.0" prefWidth="75.0"
+                    styleClass="add-new-btn" text="Add">
                 <font>
                     <Font name="System Bold Italic" size="12.0"/>
                 </font>
             </Button>
-
-            <!-- Search Field -->
-            <!--            <TextField fx:id="searchField" layoutX="163.0" layoutY="34.0" prefHeight="30.0"-->
-            <!--                       promptText="Search by Seat Number" styleClass="search"-->
-            <!--                       stylesheets="@../../../../../css/admin.css"/>-->
         </HBox>
-        <TableView fx:id="patientManagementTable" prefHeight="460.0" prefWidth="660.0" styleClass="table">
+        <TableView fx:id="patientManagementTable" layoutX="250.0" layoutY="86.0" prefHeight="460.0" prefWidth="660.0" styleClass="table">
             <columns>
                 <TableColumn fx:id="patientColId" prefWidth="60.0" text="ID"/>
                 <TableColumn fx:id="userColId" prefWidth="100.0" text="User ID"/>
@@ -47,5 +45,4 @@
             </columns>
         </TableView>
     </VBox>
-
 </AnchorPane>

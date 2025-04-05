@@ -114,8 +114,7 @@ public class PatientUpdateController {
     }
 
     public void returnToPatientManagement(ActionEvent actionEvent) {
-        Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        SceneSwitcher.switchTo(currentStage, "admin/patient/patient-management.fxml");
+        SceneSwitcher.loadView("admin/patient/patient-management.fxml", actionEvent);
     }
 
     @FXML
