@@ -35,8 +35,13 @@
             <columns>
                 <TableColumn fx:id="idColumn" prefWidth="60.0" text="ID"/>
                 <TableColumn fx:id="usernameColumn" prefWidth="200.0" text="Username"/>
+                <TableColumn fx:id="firstNameColumn" prefWidth="120.0" text="First Name"/>
+                <TableColumn fx:id="lastNameColumn" prefWidth="120.0" text="Last Name"/>
                 <TableColumn fx:id="emailColumn" minWidth="0.0" prefWidth="240.0" text="Email"/>
                 <TableColumn fx:id="phoneColumn" minWidth="0.0" prefWidth="150.0" text="Phone"/>
+                <TableColumn fx:id="genderColumn" prefWidth="120.0" text="Gender"/>
+                <TableColumn fx:id="dateOfBirthColumn" prefWidth="120.0" text="Date of Birth"/>
+                <TableColumn fx:id="addressColumn" prefWidth="150.0" text="Address"/>
                 <TableColumn fx:id="roleColumn" minWidth="0.0" prefWidth="150.0" text="Role"/>
                 <TableColumn fx:id="actionColumn" minWidth="0.0" prefWidth="200.0" text="Actions"/>
             </columns>

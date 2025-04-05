@@ -13,34 +13,24 @@ import javafx.scene.layout.*;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Date;
+import java.time.LocalDate;
 
 public class UserAddController {
 
     @FXML
-    private TextField usernameField;
-
+    private TextField usernameField, firstNameField, lastNameField, emailField, phoneField, addressField;
     @FXML
     private PasswordField passwordField;
-
-    @FXML
-    private TextField emailField;
-
-    @FXML
-    private TextField phoneField;
-
     @FXML
     private ComboBox<Role> roleComboBox;
-
     @FXML
-    private Label usernameErrorLabel;
+    private ComboBox<String> genderComboBox;
     @FXML
-    private Label passwordErrorLabel;
+    private DatePicker dateOfBirthPicker;
     @FXML
-    private Label emailErrorLabel;
-    @FXML
-    private Label phoneErrorLabel;
-    @FXML
-    private Label roleErrorLabel;
+    private Label usernameErrorLabel, passwordErrorLabel, emailErrorLabel, phoneErrorLabel, roleErrorLabel,
+            firstNameErrorLabel, lastNameErrorLabel, genderErrorLabel, dateOfBirthErrorLabel, addressErrorLabel;
 
     private UserDao userDao = new UserDao();
     private RoleDao roleDao = new RoleDao();
@@ -50,6 +40,12 @@ public class UserAddController {
         // Load roles into combo box
         ObservableList<Role> roles = FXCollections.observableArrayList(roleDao.getAllRoles());
         roleComboBox.setItems(roles);
+
+        // Gender options
+        genderComboBox.setItems(FXCollections.observableArrayList("Male", "Female", "Other"));
+
+        // Date of Birth - Set initial value to null if you want.
+        dateOfBirthPicker.setValue(null);
 
         // Set the cell factory to display only the role name
         roleComboBox.setCellFactory(param -> new ListCell<Role>() {
@@ -85,7 +81,11 @@ public class UserAddController {
         String email = emailField.getText();
         String phone = phoneField.getText();
         Role selectedRole = roleComboBox.getValue();
-
+        String firstName = firstNameField.getText();
+        String lastName = lastNameField.getText();
+        String gender = genderComboBox.getValue();
+        LocalDate dateOfBirth = dateOfBirthPicker.getValue();
+        String address = addressField.getText();
         // Validate fields with compact checks
         boolean isValid = true;
 
@@ -98,6 +98,41 @@ public class UserAddController {
             isValid = false;
         } else {
             clearError(usernameField, usernameErrorLabel);
+        }
+
+        if (firstName.isEmpty()) {
+            showError(firstNameField, firstNameErrorLabel, "First Name cannot be empty.");
+            isValid = false;
+        } else {
+            clearError(firstNameField, firstNameErrorLabel);
+        }
+
+        if (lastName.isEmpty()) {
+            showError(lastNameField, lastNameErrorLabel, "Last Name cannot be empty.");
+            isValid = false;
+        } else {
+            clearError(lastNameField, lastNameErrorLabel);
+        }
+
+        if (gender == null) {
+            showError(genderComboBox, genderErrorLabel, "Gender cannot be empty.");
+            isValid = false;
+        } else {
+            clearError(genderComboBox, genderErrorLabel);
+        }
+
+        if (dateOfBirth == null) {
+            showError(dateOfBirthPicker, dateOfBirthErrorLabel, "Date of Birth cannot be empty.");
+            isValid = false;
+        } else {
+            clearError(dateOfBirthPicker, dateOfBirthErrorLabel);
+        }
+
+        if (address.isEmpty()) {
+            showError(addressField, addressErrorLabel, "Address cannot be empty.");
+            isValid = false;
+        } else {
+            clearError(addressField, addressErrorLabel);
         }
 
         if (password.isEmpty()) {
@@ -146,6 +181,11 @@ public class UserAddController {
                 user.setEmail(email);
                 user.setPhone(phone);
                 user.setRoleId(Math.toIntExact(selectedRole.getId()));
+                user.setFirstName(firstName);
+                user.setLastName(lastName);
+                user.setGender(gender);
+                user.setDateOfBirth(Date.valueOf(dateOfBirth));
+                user.setAddress(address);
 
                 // Save the user to the database
                 userDao.saveUser(user);
@@ -169,6 +209,11 @@ public class UserAddController {
         emailField.clear();
         phoneField.clear();
         roleComboBox.setValue(null);
+        firstNameField.clear();
+        lastNameField.clear();
+        genderComboBox.setValue(null);
+        dateOfBirthPicker.setValue(null);
+        addressField.clear();
     }
 
     private boolean isValidEmail(String email) {

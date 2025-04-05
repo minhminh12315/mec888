@@ -28,26 +28,17 @@ import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 public class UserManagementController {
+
     @FXML
     public TextField searchField;
     @FXML
     private TableView<User> userManagementTable;
-
     @FXML
-    private TableColumn<User, Integer> idColumn;
-
+    private TableColumn<User, Integer> idColumn, roleColumn;
     @FXML
-    private TableColumn<User, String> usernameColumn;
-
+    private TableColumn<User, String> usernameColumn, emailColumn, phoneColumn, firstNameColumn, lastNameColumn, genderColumn, addressColumn;
     @FXML
-    private TableColumn<User, String> emailColumn;
-
-    @FXML
-    private TableColumn<User, String> phoneColumn;
-
-    @FXML
-    private TableColumn<User, Integer> roleColumn;
-
+    private TableColumn<User, Date> dateOfBirthColumn;
     @FXML
     private TableColumn<User, Void> actionColumn;
 
@@ -70,6 +61,12 @@ public class UserManagementController {
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
         roleColumn.setCellValueFactory(new PropertyValueFactory<>("roleId"));
+        firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        dateOfBirthColumn.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
+        addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
+
         // Take roleId and get role name
         roleColumn.setCellFactory(column -> new TableCell<User, Integer>() {
             @Override
@@ -127,7 +124,9 @@ public class UserManagementController {
         for (User user : originalUserList) {
             if (user.getUsername().toLowerCase().contains(keyword.toLowerCase()) ||
                     user.getEmail().toLowerCase().contains(keyword.toLowerCase()) ||
-                    user.getPhone().toLowerCase().contains(keyword.toLowerCase())) {
+                    user.getPhone().toLowerCase().contains(keyword.toLowerCase()) ||
+                    user.getFirstName().toLowerCase().contains(keyword.toLowerCase()) ||
+                    user.getLastName().toLowerCase().contains(keyword.toLowerCase())) {
                 filteredList.add(user);
             }
         }

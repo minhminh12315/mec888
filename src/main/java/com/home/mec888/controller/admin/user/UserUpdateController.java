@@ -13,39 +13,28 @@ import javafx.scene.control.*;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class UserUpdateController {
 
     @FXML
-    private TextField usernameField;
-
+    private TextField usernameField, emailField, phoneField, firstNameField, lastNameField, addressField;
     @FXML
     private PasswordField passwordField;
-
-    @FXML
-    private TextField emailField;
-
-    @FXML
-    private TextField phoneField;
-
     @FXML
     private ComboBox<Role> roleComboBox;
+    @FXML
+    private ComboBox<String> genderComboBox;
+    @FXML
+    private DatePicker dateOfBirthPicker;
+    @FXML
+    private Button updateButton, cancelButton;
+    @FXML
+    private Label usernameErrorLabel, emailErrorLabel, phoneErrorLabel, roleErrorLabel, firstNameErrorLabel,
+            lastNameErrorLabel, genderErrorLabel, dateOfBirthErrorLabel, addressErrorLabel;
 
-    @FXML
-    private Button updateButton;
-
-    @FXML
-    private Button cancelButton;
-
-    @FXML
-    private Label usernameErrorLabel;
-    @FXML
-    private Label emailErrorLabel;
-    @FXML
-    private Label phoneErrorLabel;
-    @FXML
-    private Label roleErrorLabel;
 
     private UserDao userDao;
     private RoleDao roleDao;
@@ -59,6 +48,9 @@ public class UserUpdateController {
         // Load roles into combo box
         ObservableList<Role> roles = FXCollections.observableArrayList(roleDao.getAllRoles());
         roleComboBox.setItems(roles);
+
+        // Gender ComboBox setup
+        genderComboBox.setItems(FXCollections.observableArrayList("Male", "Female", "Other"));
 
         // Set the cell factory to display only the role name
         roleComboBox.setCellFactory(param -> new ListCell<Role>() {
@@ -97,6 +89,11 @@ public class UserUpdateController {
             // Don't populate password for security reasons
             emailField.setText(user.getEmail());
             phoneField.setText(user.getPhone());
+            firstNameField.setText(user.getFirstName());
+            lastNameField.setText(user.getLastName());
+            genderComboBox.setValue(user.getGender());
+//            dateOfBirthPicker.setValue(user.getDateOfBirth().toLocalDate());
+            addressField.setText(user.getAddress());
 
             // Find and select the correct role
             for (Role role : roleComboBox.getItems()) {
@@ -114,6 +111,11 @@ public class UserUpdateController {
 //        String password = passwordField.getText();
         String email = emailField.getText();
         String phone = phoneField.getText();
+        String firstName = firstNameField.getText();
+        String lastName = lastNameField.getText();
+        String gender = genderComboBox.getValue();
+        String address = addressField.getText();
+        LocalDate dateOfBirth = dateOfBirthPicker.getValue();
         Role selectedRole = roleComboBox.getValue();
 
 
@@ -128,6 +130,41 @@ public class UserUpdateController {
             isValid = false;
         } else {
             clearError(usernameField, usernameErrorLabel);
+        }
+
+        if (firstName.isEmpty()) {
+            showError(firstNameField, firstNameErrorLabel, "First Name cannot be empty.");
+            isValid = false;
+        } else {
+            clearError(firstNameField, firstNameErrorLabel);
+        }
+
+        if (lastName.isEmpty()) {
+            showError(lastNameField, lastNameErrorLabel, "Last Name cannot be empty.");
+            isValid = false;
+        } else {
+            clearError(lastNameField, lastNameErrorLabel);
+        }
+
+        if (gender == null) {
+            showError(genderComboBox, genderErrorLabel, "Gender cannot be empty.");
+            isValid = false;
+        } else {
+            clearError(genderComboBox, genderErrorLabel);
+        }
+
+        if (dateOfBirth == null) {
+            showError(dateOfBirthPicker, dateOfBirthErrorLabel, "Date of Birth cannot be empty.");
+            isValid = false;
+        } else {
+            clearError(dateOfBirthPicker, dateOfBirthErrorLabel);
+        }
+
+        if (address.isEmpty()) {
+            showError(addressField, addressErrorLabel, "Address cannot be empty.");
+            isValid = false;
+        } else {
+            clearError(addressField, addressErrorLabel);
         }
 
 //        if (password.isEmpty()) {
@@ -183,6 +220,11 @@ public class UserUpdateController {
     //            if (!password.isEmpty()) {
     //                user.setPassword(hashPassword(password));
     //            }
+                user.setFirstName(firstName);
+                user.setLastName(lastName);
+                user.setGender(gender);
+                user.setDateOfBirth(Date.valueOf(dateOfBirth));
+                user.setAddress(address);
                 user.setEmail(email);
                 user.setPhone(phone);
                 user.setRoleId(Math.toIntExact(selectedRole.getId()));
