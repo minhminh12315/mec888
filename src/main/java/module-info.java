@@ -22,6 +22,7 @@ module com.home.mec888 {
     opens com.home.mec888.controller.admin.doctor to javafx.fxml;
     opens com.home.mec888.controller.admin.user to javafx.fxml;
 //    opens com.home.mec888.controller.admin to javafx.fxml;
+    opens com.home.mec888.controller.admin.patient to javafx.fxml;
 //    opens com.home.mec888.controller.doctor to javafx.fxml;
 //    opens com.home.mec888.controller.patient to javafx.fxml;
 //    opens com.home.mec888.controller.staff to javafx.fxml;
@@ -32,9 +33,16 @@ module com.home.mec888 {
     requires junit;
     requires mysql.connector.j;
     requires spring.security.crypto;
-    requires org.kordamp.ikonli.javafx;
     requires org.kordamp.ikonli.fontawesome5;
+    requires org.kordamp.ikonli.javafx;
 
     opens com.home.mec888 to javafx.fxml;
+
+    // Exported packages
     exports com.home.mec888;
+    exports com.home.mec888.entity;
+    exports com.home.mec888.controller;
+    exports com.home.mec888.controller.login;
+    exports com.home.mec888.controller.admin.medicine;
+    exports com.home.mec888.controller.admin.patient;
 }

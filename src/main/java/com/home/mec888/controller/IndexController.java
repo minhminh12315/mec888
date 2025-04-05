@@ -23,6 +23,8 @@ public class IndexController {
     public Button moveDoctorButton;
     @FXML
     public Button moveUserButton;
+    @FXML
+    public Button movePatientButton;
     private Button currentActiveButton;
 
     public void logout(ActionEvent actionEvent) {
@@ -58,6 +60,11 @@ public class IndexController {
     public void handleUser(ActionEvent actionEvent) {
         highlightActiveButton(moveUserButton);
         SceneSwitcher.loadView("admin/user/user-management.fxml", actionEvent);
+    }
+
+    public void handlePatient(ActionEvent actionEvent) {
+        highlightActiveButton(movePatientButton);
+        SceneSwitcher.loadView("admin/patient/patient-management.fxml", actionEvent);
     }
 
     private void highlightActiveButton(Button button) {

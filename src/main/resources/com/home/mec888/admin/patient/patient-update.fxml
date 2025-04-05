@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<?import javafx.collections.FXCollections?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.home.mec888.controller.admin.patient.PatientUpdateController"
+            prefHeight="600.0" prefWidth="880.0">
+    <VBox spacing="24" AnchorPane.bottomAnchor="24.0"
+          AnchorPane.leftAnchor="24.0"
+          AnchorPane.rightAnchor="24.0"
+          AnchorPane.topAnchor="24.0">
+
+        <HBox spacing="500">
+            <!-- Nút quay lại -->
+            <Button fx:id="backButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleBack"
+                    prefHeight="30.0" prefWidth="75.0" styleClass="back-btn" text="Back"/>
+            <Text styleClass="titlePage" text="Add new patient"/>
+        </HBox>
+        <VBox spacing="16">
+            <VBox>
+                <Label text="First Name"/>
+                <TextField fx:id="first_name" onKeyReleased="#validateUpdate"/>
+                <Label fx:id="fn_error"/>
+            </VBox>
+            <VBox>
+                <Label text="Last Name"/>
+                <TextField fx:id="last_name" onKeyReleased="#validateUpdate"/>
+                <Label fx:id="ln_error"/>
+            </VBox>
+            <VBox>
+                <Label text="Email"/>
+                <TextField fx:id="patient_email" onKeyReleased="#validateUpdate"/>
+                <Label fx:id="email_error"/>
+            </VBox>
+            <VBox>
+                <Label text="Phone"/>
+                <TextField fx:id="patient_phone" onKeyReleased="#validateUpdate"/>
+                <Label fx:id="phone_error"/>
+            </VBox>
+            <VBox>
+                <Label text="Date of Birth"/>
+                <DatePicker fx:id="date_of_birth" onKeyReleased="#validateUpdate"/>
+                <Label fx:id="dob_error"/>
+            </VBox>
+            <VBox>
+                <Label text="Gender"/>
+                <ComboBox fx:id="gender" onAction="#validateGender" promptText="Select Gender"
+                          onKeyReleased="#validateUpdate">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Male"/>
+                            <String fx:value="Female"/>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+                <Label fx:id="gender_error"/>
+            </VBox>
+            <VBox>
+                <Label text="Address"/>
+                <TextField fx:id="address" onKeyReleased="#validateUpdate"/>
+                <Label fx:id="address_error"/>
+            </VBox>
+            <VBox>
+                <Label text="Emergency Contact"/>
+                <TextField fx:id="emergency_contact" onKeyReleased="#validateUpdate"/>
+                <Label fx:id="contact_error"/>
+            </VBox>
+            <VBox>
+                <Label text="Medical History"/>
+                <TextField fx:id="medical_history" onKeyReleased="#validateUpdate"/>
+                <Label fx:id="medical_error"/>
+            </VBox>
+            <HBox alignment="CENTER_RIGHT" spacing="24">
+                <Button fx:id="clearButton" mnemonicParsing="false" onAction="#handleClear" prefHeight="30.0"
+                        prefWidth="120.0" styleClass="clear-btn" text="Clear"/>
+                <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleUpdate" prefHeight="30.0"
+                        prefWidth="120.0" styleClass="save-btn" text="Save"/>
+            </HBox>
+        </VBox>
+    </VBox>
+
+</AnchorPane>

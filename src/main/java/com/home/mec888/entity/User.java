@@ -39,6 +39,14 @@ public class User {
         this.email = email;
     }
 
+    public User(String username, String password, String email, String phone, Integer roleId) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
+        this.roleId = roleId;
+    }
+
     // Getters and setters
 
     public Long getId() {
