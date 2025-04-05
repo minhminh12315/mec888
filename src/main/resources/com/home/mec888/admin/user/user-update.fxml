@@ -25,25 +25,37 @@
 
         <VBox spacing="16">
             <VBox>
-                <Label styleClass="label-input" text="Username:"/>
+                <HBox>
+                    <Label styleClass="label-input" text="Username "/>
+                    <Label layoutX="35.0" layoutY="150.0" text="*" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;" />
+                </HBox>
                 <TextField fx:id="usernameField" styleClass="input-field"/>
                 <Label fx:id="usernameErrorLabel" textFill="red"/> <!-- Error Label for Username -->
             </VBox>
 
             <VBox>
-                <Label styleClass="label-input" text="Email:"/>
+                <HBox>
+                    <Label styleClass="label-input" text="Email "/>
+                    <Label layoutX="35.0" layoutY="150.0" text="*" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;" />
+                </HBox>
                 <TextField fx:id="emailField" styleClass="input-field"/>
                 <Label fx:id="emailErrorLabel" textFill="red"/> <!-- Error Label for Email -->
             </VBox>
 
             <VBox>
-                <Label styleClass="label-input" text="Phone:"/>
+                <HBox>
+                    <Label styleClass="label-input" text="Phone "/>
+                    <Label layoutX="35.0" layoutY="150.0" text="*" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;" />
+                </HBox>
                 <TextField fx:id="phoneField" styleClass="input-field"/>
                 <Label fx:id="phoneErrorLabel" textFill="red"/> <!-- Error Label for Phone -->
             </VBox>
 
             <VBox>
-                <Label styleClass="label-input" text="Role:"/>
+                <HBox>
+                    <Label styleClass="label-input" text="Role "/>
+                    <Label layoutX="35.0" layoutY="150.0" text="*" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;" />
+                </HBox>
                 <ComboBox fx:id="roleComboBox" prefWidth="Infinity" styleClass="input-field"/>
                 <Label fx:id="roleErrorLabel" textFill="red"/> <!-- Error Label for Role -->
             </VBox>
