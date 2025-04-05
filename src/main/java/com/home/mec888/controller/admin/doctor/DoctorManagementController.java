@@ -44,6 +44,10 @@ public class DoctorManagementController {
     public TableColumn<Doctor, Void> actionColumn;
     @FXML
     public TextField searchField;
+    @FXML
+    public TableColumn<Doctor, String> firstNameColumn;
+    @FXML
+    public TableColumn<Doctor, String> lastNameColumn;
     private List<Doctor> originalDoctorList;
     private DoctorDao doctorDao;
     private UserDao userDao;
@@ -65,10 +69,12 @@ public class DoctorManagementController {
             filterDoctorList(newValue);
         });
     }
+
     private void updateTable(List<Doctor> doctors) {
         // Chuyển từ List sang ObservableList để hiển thị trong TableView
         doctorManagementTable.setItems(FXCollections.observableArrayList(doctors));
     }
+
     private void filterDoctorList(String keyword) {
         if (keyword == null || keyword.trim().isEmpty()) {
             // Nếu không có từ khóa, hiển thị danh sách đầy đủ
@@ -80,7 +86,9 @@ public class DoctorManagementController {
         List<Doctor> filteredList = new ArrayList<>();
         for (Doctor doctor : originalDoctorList) {
             if (doctor.getSpecialization().toLowerCase().contains(keyword.toLowerCase()) ||
-                    doctor.getLicense_number().toLowerCase().contains(keyword.toLowerCase())) {
+                    doctor.getLicense_number().toLowerCase().contains(keyword.toLowerCase()) ||
+                    doctor.getFirst_name().toLowerCase().contains(keyword.toLowerCase()) ||
+                    doctor.getLast_name().toLowerCase().contains(keyword.toLowerCase())) {
                 filteredList.add(doctor);
             }
         }
@@ -120,7 +128,11 @@ public class DoctorManagementController {
                 return new SimpleStringProperty("Unknown");
             }
         });
+
+
         specializationColumn.setCellValueFactory(new PropertyValueFactory<>("specialization"));
+        firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("first_name"));
+        lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("last_name"));
         licenseNumberColumn.setCellValueFactory(new PropertyValueFactory<>("license_number"));
 
 

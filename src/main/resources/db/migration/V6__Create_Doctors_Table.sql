@@ -2,6 +2,8 @@ CREATE TABLE IF NOT EXISTS doctors (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     user_id BIGINT UNIQUE,
     department_id BIGINT,
+    first_name VARCHAR(255),
+    last_name VARCHAR(255),
     specialization VARCHAR(255),
     license_number VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
