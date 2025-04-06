@@ -21,6 +21,8 @@ module com.home.mec888 {
     opens com.home.mec888.controller.admin.department to javafx.fxml;
     opens com.home.mec888.controller.admin.doctor to javafx.fxml;
     opens com.home.mec888.controller.admin.user to javafx.fxml;
+    opens com.home.mec888.controller.admin.room to javafx.fxml;
+
 //    opens com.home.mec888.controller.admin to javafx.fxml;
     opens com.home.mec888.controller.admin.patient to javafx.fxml;
 //    opens com.home.mec888.controller.doctor to javafx.fxml;
@@ -35,6 +37,7 @@ module com.home.mec888 {
     requires spring.security.crypto;
     requires org.kordamp.ikonli.fontawesome5;
     requires org.kordamp.ikonli.javafx;
+    requires java.desktop;
 
     opens com.home.mec888 to javafx.fxml;
 

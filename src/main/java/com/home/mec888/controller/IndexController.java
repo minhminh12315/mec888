@@ -54,6 +54,8 @@ public class IndexController {
 //        }
 //    }
 
+    @FXML
+    public Button moveRoomButton;
     public void logout(ActionEvent actionEvent) {
         Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         currentStage.close();
@@ -87,6 +89,11 @@ public class IndexController {
     public void handleUser(ActionEvent actionEvent) {
         highlightActiveButton(moveUserButton);
         SceneSwitcher.loadView("admin/user/user-management.fxml", actionEvent);
+    }
+    public void handleRoom(ActionEvent actionEvent) {
+        System.out.println("Room");
+        highlightActiveButton(moveRoomButton);
+        SceneSwitcher.loadView("admin/room/room-management.fxml", actionEvent);
     }
 
     public void handlePatient(ActionEvent actionEvent) {

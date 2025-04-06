@@ -35,7 +35,7 @@ public class MedicineManagementController {
     private TableColumn<Medicine, String> nameColumn;
 
     @FXML
-    private TableColumn<Medicine, String> descriptionColumn;
+    private TableColumn<Medicine , String> descriptionColumn;
 
     @FXML
     private TableColumn<Medicine, String> priceColumn;

@@ -26,5 +26,8 @@
         <mapping class="com.home.mec888.entity.Department"/>
         <mapping class="com.home.mec888.entity.Doctor"/>
         <mapping class="com.home.mec888.entity.Patient"/>
+        <mapping class="com.home.mec888.entity.Room"/>
+
+
     </session-factory>
 </hibernate-configuration>
