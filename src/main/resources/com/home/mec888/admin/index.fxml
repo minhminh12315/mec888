@@ -39,6 +39,8 @@
 
                     <Button prefWidth="240.0" fx:id="moveUserButton" mnemonicParsing="false" onAction="#handleUser" styleClass="nav-btn"
                             text="User"/>
+                    <Button prefWidth="240.0" fx:id="moveRoomButton" mnemonicParsing="false" onAction="#handleRoom" styleClass="nav-btn"
+                            text="Room"/>
 
                     <Button prefWidth="240.0" fx:id="movePatientButton" mnemonicParsing="false" onAction="#handlePatient" styleClass="nav-btn"
                             text="Patient" textFill="WHITE"/>

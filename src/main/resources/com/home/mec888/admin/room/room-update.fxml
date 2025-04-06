@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.TextField?>
+
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx"
+            fx:controller="com.home.mec888.controller.admin.room.RoomUpdateController"
+            prefHeight="600.0" prefWidth="800.0">
+    <VBox spacing="24" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="24.0"
+          AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="24.0">
+
+        <!-- Header Section -->
+        <HBox spacing="500">
+            <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleBack"
+                    prefHeight="30.0" prefWidth="75.0" styleClass="back-btn" text="Back"/>
+            <Text text="Update Room" styleClass="titlePage"/>
+        </HBox>
+
+        <!-- Form to update room information -->
+        <VBox spacing="16">
+            <!-- Room Number -->
+            <VBox spacing="4">
+                <Label text="Room Number:"/>
+                <TextField fx:id="roomNumberField" styleClass="input-field"/>
+                <Label fx:id="roomNumberErrorLabel" textFill="red" visible="false" style="-fx-font-size: 11px;"/>
+            </VBox>
+
+            <!-- Room Type -->
+            <VBox spacing="4">
+                <Label text="Room Type:"/>
+                <TextField fx:id="roomTypeField" styleClass="input-field"/>
+                <Label fx:id="roomTypeErrorLabel" textFill="red" visible="false" style="-fx-font-size: 11px;"/>
+            </VBox>
+
+            <!-- Status -->
+            <VBox spacing="4">
+                <Label text="Status:"/>
+                <ComboBox fx:id="statusComboBox" styleClass="input-field">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Available"/>
+                            <String fx:value="Occupied"/>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+            </VBox>
+
+            <!-- Buttons for Clear and Save -->
+            <HBox alignment="CENTER_RIGHT" spacing="24">
+                <Button fx:id="clearButton" mnemonicParsing="false" onAction="#handleClear"
+                        prefHeight="30.0" prefWidth="120.0" text="Clear"/>
+                <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleUpdate"
+                        prefHeight="30.0" prefWidth="120.0" text="Save"/>
+            </HBox>
+        </VBox>
+    </VBox>
+</AnchorPane>
