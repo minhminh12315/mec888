@@ -44,10 +44,7 @@ public class DoctorManagementController {
     public TableColumn<Doctor, Void> actionColumn;
     @FXML
     public TextField searchField;
-    @FXML
-    public TableColumn<Doctor, String> firstNameColumn;
-    @FXML
-    public TableColumn<Doctor, String> lastNameColumn;
+
     private List<Doctor> originalDoctorList;
     private DoctorDao doctorDao;
     private UserDao userDao;
@@ -131,8 +128,6 @@ public class DoctorManagementController {
 
 
         specializationColumn.setCellValueFactory(new PropertyValueFactory<>("specialization"));
-        firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("first_name"));
-        lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("last_name"));
         licenseNumberColumn.setCellValueFactory(new PropertyValueFactory<>("license_number"));
 
 

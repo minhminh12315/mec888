@@ -24,8 +24,6 @@
                 <TableColumn fx:id="idColumn" text="ID" />
                 <TableColumn fx:id="userIdColumn" prefWidth="100.0" text="User ID" />
                 <TableColumn fx:id="departmentIdColumn" prefWidth="120.0" text="Department ID" />
-                <TableColumn fx:id="firstNameColumn" prefWidth="120.0" text="First Name" />
-                <TableColumn fx:id="lastNameColumn" prefWidth="120.0" text="Last Name" />
                 <TableColumn fx:id="specializationColumn" prefWidth="200.0" text="Specialization" />
                 <TableColumn fx:id="licenseNumberColumn" prefWidth="180.0" text="License Number" />
                 <TableColumn fx:id="actionColumn" prefWidth="150.0" text="Actions" />
