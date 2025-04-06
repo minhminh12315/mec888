@@ -159,4 +159,53 @@ INSERT INTO mec888.appointments
 VALUES
 (1, 1, 1, '2023-10-01 10:00:00', 'scheduled', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
+-- 1. User cho 3 bác sĩ
+INSERT INTO users (id, username, password, email, phone, role_id, created_at, updated_at)
+VALUES
+(2001, 'dr_quang', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'quang@hospital.com', '0911111111', 2, NOW(), NOW()),
+(2002, 'dr_hung', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'hung@hospital.com', '0922222222', 2, NOW(), NOW()),
+(2003, 'dr_dung', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'dung@hospital.com', '0933333333', 2, NOW(), NOW());
+
+-- 2. Bác sĩ tương ứng
+INSERT INTO doctors (id, user_id, department_id, specialization, license_number, created_at, updated_at)
+VALUES
+(11, 2001, 1, 'Internal Medicine', 'INT001', NOW(), NOW()),
+(12, 2002, 4, 'Surgery', 'SUR002', NOW(), NOW()),
+(13, 2003, 5, 'Recovery Specialist', 'REC003', NOW(), NOW());
+
+-- 3. Patient (nếu chưa có)
+INSERT INTO users (id, username, password, email, phone, role_id, created_at, updated_at)
+VALUES (3001, 'patient_xyz', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'xyz@patient.com', '0909999999', 4, NOW(), NOW());
+
+INSERT INTO patients (id, user_id, emergency_contact, medical_history, created_at, updated_at)
+VALUES (401, 3001, 'Trần Văn B - 0977777777', 'Tiền sử đau tim nhẹ', NOW(), NOW());
+
+-- 4. Appointment
+INSERT INTO appointments (id, patient_id, doctor_id, appointment_date, appointment_time, status, created_at, updated_at)
+VALUES (501, 401, 11, '2025-04-06', '08:00:00', 'confirmed', NOW(), NOW());
+
+-- 5. Room
+INSERT INTO mec888.room (id, room_number, room_type, status, created_at, updated_at)
+VALUES
+    (1, 'R101', 'Consultation', 'available', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+    (2, 'R202', 'Surgery', 'available', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+    (3, 'R303', 'Recovery', 'available', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+
+-- 6. Treatment Steps (phân chia bác sĩ)
+INSERT INTO treatment_steps (id, appointment_id, doctor_id, room_id, step_description, start_time, end_time, outcome, created_at, updated_at)
+VALUES
+(601, 501, 11, 1, 'Khám tổng quát ban đầu', '2025-04-06 08:00:00', '2025-04-06 08:30:00', 'Chỉ định phẫu thuật', NOW(), NOW()),
+(602, 501, 12, 2, 'Phẫu thuật can thiệp', '2025-04-06 09:00:00', '2025-04-06 10:30:00', 'Phẫu thuật thành công', NOW(), NOW()),
+(603, 501, 13, 3, 'Theo dõi hồi sức sau phẫu thuật', '2025-04-06 11:00:00', '2025-04-07 09:00:00', 'Ổn định, xuất viện', NOW(), NOW());
+
+-- 7. Medical Record
+INSERT INTO medical_records (id, patient_id, doctor_id, appointment_id, diagnosis, treatment, notes, created_at, updated_at)
+VALUES (701, 401, 11, 501, 'Đau thắt ngực do hẹp mạch vành', 'Phẫu thuật, theo dõi hậu phẫu', 'Bệnh nhân hồi phục tốt', NOW(), NOW());
+
+-- 8. Prescription
+--INSERT INTO prescriptions
+
+-- 9. Prescription Details
+--INSERT INTO prescription_details
 
