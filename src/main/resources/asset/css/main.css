@@ -1,12 +1,23 @@
 .nav-btn{
     -fx-background-color: transparent;
     -fx-cursor: hand;
-    -fx-text-fill: white;
+    -fx-text-fill: #1071e1;
     -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 16px;
 }
 
 .nav-btn:hover{
-    -fx-background-color: #1071e1;
+    -fx-background-color: radial-gradient(
+            focus-angle 0deg,
+            focus-distance 0%,
+            center 0% 0%,
+            radius 100%,
+            #00adef,
+            #3871c1
+    );
+    -fx-text-fill: white;
 }
 .active-button {
     -fx-pre-width:100%;
@@ -15,8 +26,15 @@
     -fx-font-size: 16px;
 }
 .headerAdmin{
-    -fx-background-color: #111827;
-    -fx-padding:16px;
+    -fx-background-color: radial-gradient(
+            focus-angle 0deg,
+            focus-distance 0%,
+            center 0% 0%,
+            radius 100%,
+            #00adef,
+            #3871c1
+    );
+    -fx-text-fill: white;
 }
 .titlePage{
     -fx-font-size: 28px;
@@ -68,12 +86,17 @@
     -fx-transition: all 0.1s ease-in-out;
 }
 .btn-logout{
+    -fx-font-size: 16px;
+    -fx-background-color: #fff;
+    -fx-cursor: hand;
+    -fx-padding: 16px;
+    -fx-text-fill: #ef4444;
+    -fx-alignment: center_left;
+    -fx-font-weight: bold;
+}
+.btn-logout:hover{
        -fx-background-color: #EF4444;
        -fx-text-fill: white;
-       -fx-font-size: 16px;
-       -fx-padding: 10px;
-       -fx-border-radius: 4px;
-       -fx-alignment: center;
 }
 .save-btn{
     -fx-font-size: 14px;
@@ -82,6 +105,30 @@
     -fx-cursor: hand;
 }
 
+.logo-image {
+    -fx-alignment: center;
+    -fx-background-color: #fff;
+}
+
+.label-welcome {
+    -fx-font-size: 30px;
+    -fx-padding: 16px;
+}
+
+.label-username {
+    -fx-font-size: 20px;
+    -fx-alignment: center;
+    -fx-padding: 0 10px 0 0;
+}
+
+.slogan {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.avatar {
+    -fx-padding: 16px;
+}
 .save-btn:hover{
     -fx-scale-x: 1.1;
     -fx-scale-y: 1.1;
@@ -99,4 +146,7 @@
     -fx-scale-x: 1.1;
     -fx-scale-y: 1.1;
     -fx-transition: all 0.1s ease-in-out;
+}
+#mainBorderPane {
+    -fx-background-color: #fff;  /* Đặt nền trắng cho mainBorderPane */
 }
