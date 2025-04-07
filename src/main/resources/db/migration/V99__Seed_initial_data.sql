@@ -1,3 +1,4 @@
+-- 1.Role
 INSERT INTO mec888.roles
 (id, name, description, created_at, updated_at)
 VALUES(1, 'admin', 'manager', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
@@ -5,6 +6,7 @@ VALUES(1, 'admin', 'manager', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (3, 'staff', 'staff', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (4, 'patient', 'patient', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
+-- 2.User
 INSERT INTO mec888.users
 (id, username, password, email, phone, role_id, created_at, updated_at)
 VALUES
@@ -109,6 +111,8 @@ VALUES
 (99, 'doctor99', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'doctor99@mec888.com', '0926532450', 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (100, 'doctor100', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'doctor100@mec888.com', '0926532450', 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (101, 'patient', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'patient@gmail.com', '0926532450', 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- 3. Medicines
 INSERT INTO mec888.medicines
 (id, name, price, description, manufacturer, created_at, updated_at)
 VALUES
@@ -123,6 +127,7 @@ VALUES
 (9, 'Omeprazole', 45.00, 'Proton pump inhibitor for acid reflux', 'Pharma Co.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (10, 'Levothyroxine', 50.00, 'Thyroid hormone replacement therapy', 'Health Inc.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
+-- 4. Departments
 INSERT INTO mec888.departments
 (id, name, description, created_at, updated_at)
 VALUES
@@ -137,12 +142,14 @@ VALUES
 (9, 'Oncology', 'Cancer treatment and research', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (10, 'Radiology', 'Medical imaging and diagnostics', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
+-- 5. Doctor
 INSERT INTO mec888.doctors
 (id, user_id, department_id, specialization, license_number, created_at, updated_at)
 values
 (1, 2, 1, '123', 'GX0804PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (2, 4, 2, '123', 'GX0805PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
+-- 6. Doctor Schedule
 INSERT INTO mec888.doctor_schedule
 (id, doctor_id, day_of_week, start_time, end_time, created_at, updated_at)
 values
@@ -150,10 +157,12 @@ values
 (2, 1, 'Wednesday', '14:00:00', '18:00:00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (3, 2, 'Friday', '09:00:00', '15:00:00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
+-- 7. Patient
 INSERT INTO mec888.patients
 (id, user_id, emergency_contact, medical_history, created_at, updated_at)
 VALUES(1, 101, '0123456789', 'khoe manh tu luc sinh ra', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
+-- 8. User
 INSERT INTO mec888.appointments
 (id, doctor_id, patient_id, appointment_date, status, created_at, updated_at)
 VALUES
@@ -203,9 +212,34 @@ VALUES
 INSERT INTO medical_records (id, patient_id, doctor_id, appointment_id, diagnosis, treatment, notes, created_at, updated_at)
 VALUES (701, 401, 11, 501, 'Đau thắt ngực do hẹp mạch vành', 'Phẫu thuật, theo dõi hậu phẫu', 'Bệnh nhân hồi phục tốt', NOW(), NOW());
 
--- 8. Prescription
---INSERT INTO prescriptions
+-- 8. INSERT dữ liệu cho bảng prescriptions
+-- Giả sử ca khám có hồ sơ bệnh án với id = 501
+INSERT INTO mec888.prescriptions
+    (id, record_id, issued_date, notes, created_at, updated_at)
+VALUES
+    (701, 701, '2025-04-01', 'Prescription issued after consultation and surgery.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
--- 9. Prescription Details
---INSERT INTO prescription_details
+-- 9. INSERT dữ liệu cho bảng prescription_details
+-- Chúng ta thêm 3 chi tiết đơn thuốc cho prescription id = 701
+INSERT INTO mec888.prescription_details
+    (id, prescription_id, medicine_id, dosage, frequency, duration, instructions, created_at, updated_at)
+VALUES
+    (801, 701, 1, '100 mg', 'Once daily', '7 days', 'Take with water after breakfast', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+    (802, 701, 2, '10 mg', 'Twice daily', '14 days', 'Take before meals', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+    (803, 701, 3, '20 mg', 'Once daily', '30 days', 'Take at bedtime', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- 10. INSERT dữ liệu cho bảng payments
+-- Ví dụ, bệnh nhân với id = 201, ca khám id = 301, thanh toán 250.00 với phương thức "card"
+INSERT INTO mec888.payments
+    (id, patient_id, appointment_id, amount, payment_method, payment_date, status, created_at, updated_at)
+VALUES
+    (901, 401, 501, 250.00, 'card', CURRENT_TIMESTAMP, 'paid', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- 11. INSERT dữ liệu cho bảng invoices
+-- Tạo hóa đơn cho payment id = 901
+INSERT INTO mec888.invoices
+    (id, payment_id, invoice_number, invoice_date, total_amount, details, created_at, updated_at)
+VALUES
+    (1001, 901, 'INV-20250401-901', CURRENT_TIMESTAMP, 250.00, 'Invoice for consultation, surgery, and recovery treatment.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
 
