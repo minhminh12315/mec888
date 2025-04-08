@@ -16,6 +16,8 @@ public class IndexController {
     public static User user;
 
     @FXML
+    public Button moveHomeButton;
+    @FXML
     public Button moveMedicineButton;
     @FXML
     public Button moveDepartmentButton;
@@ -69,6 +71,11 @@ public class IndexController {
 
     public void setRole(String userRole) {
         this.userRole = userRole;
+    }
+
+    public void handleHome(ActionEvent actionEvent) {
+        highlightActiveButton(moveHomeButton);
+        SceneSwitcher.loadView("index.fxml", actionEvent);
     }
 
     public void handleMedicine(ActionEvent actionEvent) {

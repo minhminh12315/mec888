@@ -194,11 +194,11 @@ INSERT INTO appointments (id, patient_id, doctor_id, appointment_date, appointme
 VALUES (501, 401, 11, '2025-04-06', '08:00:00', 'confirmed', NOW(), NOW());
 
 -- 5. Room
-INSERT INTO mec888.room (id, room_number, room_type, status, created_at, updated_at)
+INSERT INTO mec888.room (id,department_id, room_number, room_type, status, created_at, updated_at)
 VALUES
-    (1, 'R101', 'Consultation', 'available', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-    (2, 'R202', 'Surgery', 'available', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-    (3, 'R303', 'Recovery', 'available', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+    (1, 1, 'R101', 'Consultation', 'available', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+    (2, 1, 'R202', 'Surgery', 'available', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+    (3, 1, 'R303', 'Recovery', 'available', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 
 -- 6. Treatment Steps (phân chia bác sĩ)
