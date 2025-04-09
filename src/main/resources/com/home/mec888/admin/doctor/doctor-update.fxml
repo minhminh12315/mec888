@@ -34,8 +34,8 @@
             <!-- Department Field -->
             <VBox>
                 <Label styleClass="label-input" text="Department:"/>
-                <ComboBox fx:id="departmentComboBox" prefWidth="Infinity" styleClass="input-field"/>
-                <Label fx:id="departmentErrorLabel" textFill="red"/> <!-- Thông báo lỗi -->
+                <ComboBox fx:id="roomComboBox" prefWidth="Infinity" styleClass="input-field"/>
+                <Label fx:id="roomErrorLabel" textFill="red"/> <!-- Thông báo lỗi -->
             </VBox>
 
             <!-- Specialization Field -->

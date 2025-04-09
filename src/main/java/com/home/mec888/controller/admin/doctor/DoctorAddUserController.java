@@ -1,4 +1,4 @@
-package com.home.mec888.controller.admin.patient;
+package com.home.mec888.controller.admin.doctor;
 
 import com.home.mec888.dao.RoleDao;
 import com.home.mec888.dao.UserDao;
@@ -12,7 +12,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -23,9 +22,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Objects;
 
-public class PatientAddUserController {
+public class DoctorAddUserController {
 
     @FXML
     private TextField usernameField, firstNameField, lastNameField, emailField, phoneField, addressField;
@@ -48,7 +46,7 @@ public class PatientAddUserController {
     private void initialize() {
         ObservableList<Role> allRoles = FXCollections.observableArrayList(roleDao.getAllRoles());
         ObservableList<Role> roles = FXCollections.observableArrayList(
-                allRoles.filtered(role -> role.getName().equalsIgnoreCase("patient"))
+                allRoles.filtered(role -> role.getName().equalsIgnoreCase("doctor"))
         );
         roleComboBox.setItems(roles);
         roleComboBox.setValue(roles.getFirst());
@@ -205,7 +203,7 @@ public class PatientAddUserController {
                 // Clear the fields after saving
                 handleClear();
 
-                returnToPatient(event);
+                returnToDoctor(event);
 
             } catch (Exception e) {
                 showAlert("Error", "Error adding user: " + e.getMessage(), Alert.AlertType.ERROR);
@@ -279,12 +277,12 @@ public class PatientAddUserController {
     }
 
     private void returnToUserManagement(ActionEvent actionEvent) {
-        SceneSwitcher.loadView("admin/patient/patient-add.fxml", actionEvent);
+        SceneSwitcher.loadView("admin/doctor/doctor-add.fxml", actionEvent);
     }
 
 
-    private void returnToPatient(ActionEvent actionEvent) {
-        PatientAddController controller = loadView("admin/patient/patient-add.fxml", actionEvent);
+    private void returnToDoctor(ActionEvent actionEvent) {
+        DoctorAddController controller = loadView("admin/doctor/doctor-add.fxml", actionEvent);
         if (controller != null) {
             controller.handleAddUser();
         }

@@ -1,10 +1,10 @@
 package com.home.mec888.controller.admin.doctor;
 
-import com.home.mec888.dao.DepartmentDao;
 import com.home.mec888.dao.DoctorDao;
+import com.home.mec888.dao.RoomDao;
 import com.home.mec888.dao.UserDao;
-import com.home.mec888.entity.Department;
 import com.home.mec888.entity.Doctor;
+import com.home.mec888.entity.Room;
 import com.home.mec888.entity.User;
 import com.home.mec888.util.SceneSwitcher;
 import javafx.event.ActionEvent;
@@ -19,7 +19,7 @@ public class DoctorUpdateController {
     @FXML
     public ComboBox<User> userComboBox;
     @FXML
-    public ComboBox<Department> departmentComboBox;
+    public ComboBox<Room> roomComboBox;
     @FXML
     public TextField specializationField;
     @FXML
@@ -27,23 +27,23 @@ public class DoctorUpdateController {
     @FXML
     private Label userErrorLabel;
     @FXML
-    private Label departmentErrorLabel;
+    private Label roomErrorLabel;
     @FXML
     private Label specializationErrorLabel;
     @FXML
     private Label licenseErrorLabel;
     private UserDao userDao;
-    private DepartmentDao departmentDao;
+    private RoomDao roomDao;
     private DoctorDao doctorDao;
     private Long doctorId;
 
     @FXML
     public void initialize() {
         userDao = new UserDao();
-        departmentDao = new DepartmentDao();
+        roomDao = new RoomDao();
         doctorDao = new DoctorDao();
         userComboBox.getItems().addAll(userDao.getAllUsers());
-        departmentComboBox.getItems().addAll(departmentDao.getAllDepartments());
+        roomComboBox.getItems().addAll(roomDao.getAllRooms());
 
         userComboBox.setCellFactory(param -> new ListCell<>() {
             @Override
@@ -65,22 +65,22 @@ public class DoctorUpdateController {
             }
         });
 
-        departmentComboBox.setCellFactory(param -> new ListCell<>() {
+        roomComboBox.setCellFactory(param -> new ListCell<>() {
             @Override
-            protected void updateItem(Department department, boolean empty) {
-                super.updateItem(department, empty);
-                setText((department == null || empty) ? "" : String.valueOf(department.getName()));
+            protected void updateItem(Room room, boolean empty) {
+                super.updateItem(room, empty);
+                setText((room == null || empty) ? "" : String.valueOf(room.getRoomNumber()));
             }
         });
 
-        departmentComboBox.setConverter(new StringConverter<>() {
+        roomComboBox.setConverter(new StringConverter<>() {
             @Override
-            public String toString(Department department) {
-                return (department != null) ? String.valueOf(department.getName()) : "";
+            public String toString(Room room) {
+                return (room != null) ? String.valueOf(room.getRoomNumber()) : "";
             }
 
             @Override
-            public Department fromString(String string) {
+            public Room fromString(String string) {
                 return null;
             }
         });
@@ -88,7 +88,7 @@ public class DoctorUpdateController {
     }
     private void resetErrorLabels() {
         userErrorLabel.setText("");
-        departmentErrorLabel.setText("");
+        roomErrorLabel.setText("");
         specializationErrorLabel.setText("");
         licenseErrorLabel.setText("");
     }
@@ -111,9 +111,9 @@ public class DoctorUpdateController {
 //            userErrorLabel.setText("Please select a user.");
             isValid = false;
         }
-        // Kiểm tra ComboBox Department
-        if (departmentComboBox.getValue() == null) {
-            showError(departmentComboBox, departmentErrorLabel, "Please select a user.");
+        // Kiểm tra ComboBox Room
+        if (roomComboBox.getValue() == null) {
+            showError(roomErrorLabel, roomErrorLabel, "Please select a user.");
             isValid = false;
         }
 
@@ -146,11 +146,11 @@ public class DoctorUpdateController {
             }
         }
 
-        // Xử lý ComboBox Department
-        if (doctor.getDepartment().getId() != null) {
-            Department department = departmentDao.getDepartmentById(doctor.getDepartment().getId());
-            if (department != null) {
-                departmentComboBox.getSelectionModel().select(department);
+        // Xử lý ComboBox Room
+        if (doctor.getRoom().getId() != null) {
+            Room room = roomDao.getRoomById(doctor.getRoom().getId());
+            if (room != null) {
+                roomComboBox.getSelectionModel().select(room);
             }
         }
 
@@ -159,11 +159,11 @@ public class DoctorUpdateController {
     public void handleClear(ActionEvent event) {
         // Xóa lựa chọn của các ComboBox
         userComboBox.getSelectionModel().clearSelection();
-        departmentComboBox.getSelectionModel().clearSelection();
+        roomComboBox.getSelectionModel().clearSelection();
 
         // Đặt giá trị ComboBox về null để đảm bảo xóa hoàn toàn
         userComboBox.setValue(null);
-        departmentComboBox.setValue(null);
+        roomComboBox.setValue(null);
 
         // Xóa nội dung của các TextField
         specializationField.clear();
@@ -176,7 +176,7 @@ public class DoctorUpdateController {
             return; // Nếu có lỗi, dừng việc lưu
         }
         User user = userComboBox.getValue();
-        Department departmentId = departmentComboBox.getValue();
+        Room roomId = roomComboBox.getValue();
         String specialization = specializationField.getText().trim();
         String license_number = licenseField.getText().trim();
 
@@ -184,7 +184,7 @@ public class DoctorUpdateController {
             Doctor doctor = new Doctor();
             doctor.setId(doctorId);
             doctor.setUser(user);
-            doctor.setDepartment(departmentId);
+            doctor.setRoom(roomId);
             doctor.setSpecialization(specialization);
             doctor.setLicense_number(license_number);
             doctor.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));

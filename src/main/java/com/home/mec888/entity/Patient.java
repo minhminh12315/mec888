@@ -29,8 +29,8 @@ public class Patient {
     public Patient() {
     }
 
-    public Patient(String user_id, String emergency_contact, String medical_history) {
-        this.user_id = Integer.parseInt(user_id);
+    public Patient(User user_id, String emergency_contact, String medical_history) {
+        this.user_id = Math.toIntExact(user_id.getId());
         this.emergency_contact = emergency_contact;
         this.medical_history = medical_history;
     }

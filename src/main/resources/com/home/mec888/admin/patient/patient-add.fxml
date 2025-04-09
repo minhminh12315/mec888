@@ -25,7 +25,7 @@
             <!-- User ID Input -->
             <VBox>
                 <Label styleClass="label-input" text="User ID"/>
-                <TextField fx:id="user_id" styleClass="input-field" onKeyReleased="#validateInput"/>
+                <ComboBox fx:id="user_id" styleClass="input-field" onKeyReleased="#validateInput"/>
                 <Label fx:id="user_id_error"/>
             </VBox>
 

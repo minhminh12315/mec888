@@ -11,20 +11,51 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+import javafx.util.StringConverter;
 
 public class PatientAddController {
     @FXML
-    public TextField user_id, emergency_contact;
+    public ComboBox<User> user_id;
+    @FXML
+    public TextField emergency_contact;
     public TextArea medical_history;
     @FXML
     public Label contact_error, medical_error, user_id_error;
     @FXML
     public Button clearButton, saveButton, backButton, addUserButton;
 
+    private UserDao userDao;
+
     Long lastUserId = null;
     @FXML
     private void initialize() {
-        handleAddUser();
+
+        if (lastUserId != null){
+            handleAddUser();
+        } else {
+            userDao = new UserDao();
+            user_id.getItems().addAll(userDao.getAllUsers());
+
+            user_id.setCellFactory(param -> new ListCell<>() {
+                @Override
+                protected void updateItem(User user, boolean empty) {
+                    super.updateItem(user, empty);
+                    setText((user == null || empty) ? "" : String.valueOf(user.getId()));
+                }
+            });
+
+            user_id.setConverter(new StringConverter<>() {
+                @Override
+                public String toString(User user) {
+                    return (user != null) ? String.valueOf(user.getId()) : "";
+                }
+
+                @Override
+                public User fromString(String string) {
+                    return null;
+                }
+            });
+        }
     }
     @FXML
     public void handleAddUser() {
@@ -36,10 +67,13 @@ public class PatientAddController {
                 return;
             }
             System.out.println("user_id: " + lastUserId);
-            user_id.setText(String.valueOf(lastUserId));
+            User lastUser = userDao.getUserById(lastUserId);  // Assuming you have a method to get a User by ID
+            if (lastUser != null) {
+                user_id.getSelectionModel().select(lastUser);  // Set the User in the ComboBox
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
-//            showAlert("Error", "Failed to save id: " + e.getMessage(), Alert.AlertType.ERROR);
+            showAlert("Error", "Failed to save id: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
@@ -63,7 +97,7 @@ public class PatientAddController {
             // Create patient object with user_id, emergency_contact, and medical_history
             PatientDao patientDao = new PatientDao();
             Patient patient = new Patient(
-                    user_id.getText(),
+                    user_id.getValue(),
                     emergency_contact.getText(),
                     medical_history.getText()
             );
@@ -91,7 +125,7 @@ public class PatientAddController {
 
         if (source == user_id) {
             try {
-                Long.parseLong(user_id.getText());
+                Long.parseLong(String.valueOf(user_id.getValue()));
                 user_id_error.setText("");  // Clear error if valid number
                 saveButton.setDisable(false);
             } catch (NumberFormatException e) {
@@ -124,7 +158,7 @@ public class PatientAddController {
 
     @FXML
     public void handleClear() {
-        user_id.clear();
+        user_id.setConverter(null);
         emergency_contact.clear();
         medical_history.clear();
 
