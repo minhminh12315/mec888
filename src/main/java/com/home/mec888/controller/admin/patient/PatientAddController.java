@@ -24,7 +24,6 @@ public class PatientAddController {
     Long lastUserId = null;
     @FXML
     private void initialize() {
-        lastUserId = null;
         handleAddUser();
     }
     @FXML
