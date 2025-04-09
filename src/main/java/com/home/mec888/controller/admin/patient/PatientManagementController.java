@@ -12,6 +12,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -23,11 +25,6 @@ public class PatientManagementController {
     public TableView<Patient> patientManagementTable;
     public TableColumn<Patient, Long> patientColId;
     public TableColumn<Patient, Long> userColId;
-    public TableColumn<Patient, String> patientColFname;
-    public TableColumn<Patient, String> patientColLname;
-    public TableColumn<Patient, Date> patientColDOB;
-    public TableColumn<Patient, String> patientColGender;
-    public TableColumn<Patient, String> patientColAddress;
     public TableColumn<Patient, String> patientColEmergency;
     public TableColumn<Patient, String> patientColMedical;
     public TableColumn<Patient, Void> actionColumn;
@@ -49,11 +46,6 @@ public class PatientManagementController {
     private void loadPatientData() {
         patientColId.setCellValueFactory(new PropertyValueFactory<>("id"));
         userColId.setCellValueFactory(new PropertyValueFactory<>("user_id"));
-        patientColFname.setCellValueFactory(new PropertyValueFactory<>("first_name"));
-        patientColLname.setCellValueFactory(new PropertyValueFactory<>("last_name"));
-        patientColDOB.setCellValueFactory(new PropertyValueFactory<>("date_of_birth"));
-        patientColGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
-        patientColAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
         patientColEmergency.setCellValueFactory(new PropertyValueFactory<>("emergency_contact"));
         patientColMedical.setCellValueFactory(new PropertyValueFactory<>("medical_history"));
 
@@ -73,13 +65,7 @@ public class PatientManagementController {
                     {
                         updateButton.setOnAction((ActionEvent event) -> {
                             Patient patient = getTableView().getItems().get(getIndex());
-                            UserDao userDao = new UserDao();
-                            User user = userDao.getUserById(patient.getUser_id());
-                            if (user != null) {
-                                handleUpdate(patient, user, event);
-                            } else {
-                                System.out.println("User is not set!");
-                            }
+                            handleUpdate(patient, event);
                         });
                         deleteButton.setOnAction((ActionEvent event) -> {
                             Patient patient = getTableView().getItems().get(getIndex());
@@ -105,33 +91,36 @@ public class PatientManagementController {
     }
 
     @FXML
-    private void handleUpdate(Patient patient, User user, ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/home/mec888/admin/patient/patient-update.fxml"));
-            Parent root = loader.load();
-            PatientUpdateController patientUpdateController = loader.getController();
-            patientUpdateController.setPatient(patient, user);
+    private void handleUpdate(Patient patient, ActionEvent actionEvent) {
+        FXMLLoader loader = SceneSwitcher.loadViewToUpdate("/com/home/mec888/admin/patient/patient-update.fxml");
 
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            stage.getScene().setRoot(root);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (loader != null) {
+            PatientUpdateController patientUpdateController = loader.getController();
+            patientUpdateController.setPatient(patient);
+
+            Parent newView = loader.getRoot();
+            AnchorPane anchorPane = (AnchorPane) patientManagementTable.getScene().getRoot();
+            BorderPane mainPane = (BorderPane) anchorPane.lookup("#mainBorderPane");
+
+            if (mainPane != null) {
+                mainPane.setCenter(newView);
+            } else {
+                System.err.println("BorderPane with ID 'mainBorderPane' not found");
+            }
+        } else {
+            System.err.println("Could not load edit-showtime.fxml");
         }
     }
 
     private void handleDelete(Patient patient) {
-        // Hiển thị hộp thoại xác nhận xoá
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete Confirmation");
         alert.setHeaderText(null);
         alert.setContentText("Are you sure you want to delete patient "
-                + patient.getFirst_name() + " " + patient.getLast_name() + "?");
+                + patient.getEmergency_contact() + "?");
 
-        // Nếu người dùng chọn OK, tiến hành xoá
         if (alert.showAndWait().get() == ButtonType.OK) {
-            // Gọi phương thức xoá bệnh nhân dựa trên id
             patientDao.deletePatient(patient.getId());
-            // Cập nhật lại dữ liệu bảng sau khi xoá
             loadPatientData();
         }
     }

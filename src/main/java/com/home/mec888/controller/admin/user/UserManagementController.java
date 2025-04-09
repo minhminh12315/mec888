@@ -122,11 +122,13 @@ public class UserManagementController {
         // nhớ sửa dùng sql để lấy dữ liệu,
         List<User> filteredList = new ArrayList<>();
         for (User user : originalUserList) {
-            if (user.getUsername().toLowerCase().contains(keyword.toLowerCase()) ||
-                    user.getEmail().toLowerCase().contains(keyword.toLowerCase()) ||
-                    user.getPhone().toLowerCase().contains(keyword.toLowerCase()) ||
-                    user.getFirstName().toLowerCase().contains(keyword.toLowerCase()) ||
-                    user.getLastName().toLowerCase().contains(keyword.toLowerCase())) {
+            if (
+                    (user.getUsername() != null && user.getUsername().toLowerCase().contains(keyword.toLowerCase())) ||
+                    (user.getEmail() != null && user.getEmail().toLowerCase().contains(keyword.toLowerCase())) ||
+                    (user.getPhone() != null && user.getPhone().toLowerCase().contains(keyword.toLowerCase())) ||
+                    (user.getFirstName() != null && user.getFirstName().toLowerCase().contains(keyword.toLowerCase())) ||
+                    (user.getLastName() != null && user.getLastName().toLowerCase().contains(keyword.toLowerCase()))
+            ) {
                 filteredList.add(user);
             }
         }
