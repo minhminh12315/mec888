@@ -29,32 +29,38 @@ public class IndexController {
     public Button movePatientButton;
     private Button currentActiveButton;
 
-//    @FXML
-//    public void initialize() {
-//        configureNavigationButtons();
-//    }
-//
-//    // Cấu hình các nút điều hướng dựa trên vai trò của user
-//    private void configureNavigationButtons() {
-//        if (userRole == null) {
-//            return;
-//        }
-//        if (userRole.equalsIgnoreCase("admin")) {
-//            // Với admin, hiển thị tất cả các nút điều hướng
-//            moveMedicineButton.setVisible(true);
-//            moveDepartmentButton.setVisible(true);
-//            moveDoctorButton.setVisible(true);
-//            moveUserButton.setVisible(true);
-//        } else {
-//            // Với user không phải admin, bạn có thể ẩn đi hoặc hiển thị những nút khác
-//            moveMedicineButton.setVisible(false);
-//            moveDepartmentButton.setVisible(false);
-//            moveDoctorButton.setVisible(false);
-//            // Ví dụ: chỉ hiển thị nút User hoặc thay đổi tên nút thành "Profile"
-//            moveUserButton.setText("Profile");
-//            moveUserButton.setVisible(true);
-//        }
-//    }
+    @FXML
+    public void initialize() {
+        configureNavigationButtons();
+    }
+
+    private void configureNavigationButtons() {
+        if (userRole == null) {
+            return;
+        }
+        if (userRole.equalsIgnoreCase("admin")) {
+            moveHomeButton.setVisible(true);
+            moveMedicineButton.setVisible(true);
+            moveDepartmentButton.setVisible(true);
+            moveDoctorButton.setVisible(true);
+            moveUserButton.setVisible(true);
+            movePatientButton.setVisible(true);
+        } else if (userRole.equalsIgnoreCase("doctor")) {
+            moveHomeButton.setVisible(false);
+            moveMedicineButton.setVisible(false);
+            moveDepartmentButton.setVisible(false);
+            moveDoctorButton.setVisible(false);
+            moveUserButton.setVisible(false);
+            movePatientButton.setVisible(false);
+        } else if (userRole.equalsIgnoreCase("staff")) {
+            moveHomeButton.setVisible(false);
+            moveMedicineButton.setVisible(false);
+            moveDepartmentButton.setVisible(false);
+            moveDoctorButton.setVisible(false);
+            moveUserButton.setVisible(false);
+            movePatientButton.setVisible(false);
+        }
+    }
 
     @FXML
     public Button moveRoomButton;

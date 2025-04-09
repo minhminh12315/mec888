@@ -147,7 +147,15 @@ INSERT INTO mec888.doctors
 (id, user_id, department_id, specialization, license_number, created_at, updated_at)
 values
 (1, 2, 1, '123', 'GX0804PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(2, 4, 2, '123', 'GX0805PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+(2, 4, 2, '123', 'GX0805PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(3, 5, 3, '123', 'GX0806PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(4, 6, 4, '123', 'GX0807PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(5, 7, 5, '123', 'GX0808PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(6, 8, 6, '123', 'GX0809PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(7, 9, 7, '123', 'GX0810PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(8, 10, 8, '123', 'GX0811PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(9, 11, 9, '123', 'GX0812PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(10, 12, 10, '123', 'GX0813PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 -- 6. Doctor Schedule
 INSERT INTO mec888.doctor_schedule
@@ -204,9 +212,9 @@ VALUES
 -- 6. Treatment Steps (phân chia bác sĩ)
 INSERT INTO treatment_steps (id, appointment_id, doctor_id, room_id, step_description, start_time, end_time, outcome, created_at, updated_at)
 VALUES
-(601, 501, 11, 1, 'Khám tổng quát ban đầu', '2025-04-06 08:00:00', '2025-04-06 08:30:00', 'Chỉ định phẫu thuật', NOW(), NOW()),
-(602, 501, 12, 2, 'Phẫu thuật can thiệp', '2025-04-06 09:00:00', '2025-04-06 10:30:00', 'Phẫu thuật thành công', NOW(), NOW()),
-(603, 501, 13, 3, 'Theo dõi hồi sức sau phẫu thuật', '2025-04-06 11:00:00', '2025-04-07 09:00:00', 'Ổn định, xuất viện', NOW(), NOW());
+(601, 501, 1, 1, 'Khám tổng quát ban đầu', '2025-04-06 08:00:00', '2025-04-06 08:30:00', 'Chỉ định phẫu thuật', NOW(), NOW()),
+(602, 501, 2, 2, 'Phẫu thuật can thiệp', '2025-04-06 09:00:00', '2025-04-06 10:30:00', 'Phẫu thuật thành công', NOW(), NOW()),
+(603, 501, 3, 3, 'Theo dõi hồi sức sau phẫu thuật', '2025-04-06 11:00:00', '2025-04-07 09:00:00', 'Ổn định, xuất viện', NOW(), NOW());
 
 -- 7. Medical Record
 INSERT INTO medical_records (id, patient_id, doctor_id, appointment_id, diagnosis, treatment, notes, created_at, updated_at)
