@@ -18,6 +18,10 @@ public class IndexController {
     public static String userRole;
     public static User user;
 
+    // Staff
+    @FXML
+    public Button moveBookingButton;
+    // Admin
     @FXML
     public Button moveHomeButton;
     @FXML
@@ -38,6 +42,9 @@ public class IndexController {
     public Button buttonLogout;
     @FXML
     public Region regionBLock;
+    @FXML
+    public Button moveRoomButton;
+
     private Button currentActiveButton;
 
     @FXML
@@ -98,8 +105,7 @@ public class IndexController {
                 buttonLogout);
     }
 
-    @FXML
-    public Button moveRoomButton;
+
     public void logout(ActionEvent actionEvent) {
         Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         currentStage.close();
@@ -115,6 +121,13 @@ public class IndexController {
         this.userRole = userRole;
     }
 
+    // Staff
+    public void handleBooking(ActionEvent actionEvent) {
+        highlightActiveButton(moveBookingButton);
+        SceneSwitcher.loadView("staff/booking/booking-management.fxml", actionEvent);
+    }
+
+    // Admin
     public void handleHome(ActionEvent actionEvent) {
         highlightActiveButton(moveHomeButton);
         SceneSwitcher.loadView("index.fxml", actionEvent);

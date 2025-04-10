@@ -31,6 +31,10 @@
                     <Button prefWidth="240.0" fx:id="moveMedicineButton" mnemonicParsing="false"
                             onAction="#handleMedicine" styleClass="nav-btn"
                             text="Medicine"/>
+                    <!-- button medicine-->
+                    <Button prefWidth="240.0" fx:id="moveBookingButton" mnemonicParsing="false"
+                            onAction="#handleBooking" styleClass="nav-btn"
+                            text="Booking"/>
                     <!-- button department-->
                     <Button prefWidth="240.0" fx:id="moveDepartmentButton" mnemonicParsing="false"
                             onAction="#handleDepartment" styleClass="nav-btn"
