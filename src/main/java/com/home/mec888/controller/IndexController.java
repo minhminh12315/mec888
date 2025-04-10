@@ -9,6 +9,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class IndexController {
@@ -27,6 +30,14 @@ public class IndexController {
     public Button moveUserButton;
     @FXML
     public Button movePatientButton;
+    @FXML
+    public Button moveDoctorSchedule;
+    @FXML
+    public VBox navigationBar;
+    @FXML
+    public Button buttonLogout;
+    @FXML
+    public Region regionBLock;
     private Button currentActiveButton;
 
     @FXML
@@ -38,28 +49,53 @@ public class IndexController {
         if (userRole == null) {
             return;
         }
-        if (userRole.equalsIgnoreCase("admin")) {
-            moveHomeButton.setVisible(true);
-            moveMedicineButton.setVisible(true);
-            moveDepartmentButton.setVisible(true);
-            moveDoctorButton.setVisible(true);
-            moveUserButton.setVisible(true);
-            movePatientButton.setVisible(true);
-        } else if (userRole.equalsIgnoreCase("doctor")) {
-            moveHomeButton.setVisible(false);
-            moveMedicineButton.setVisible(false);
-            moveDepartmentButton.setVisible(false);
-            moveDoctorButton.setVisible(false);
-            moveUserButton.setVisible(false);
-            movePatientButton.setVisible(false);
-        } else if (userRole.equalsIgnoreCase("staff")) {
-            moveHomeButton.setVisible(false);
-            moveMedicineButton.setVisible(false);
-            moveDepartmentButton.setVisible(false);
-            moveDoctorButton.setVisible(false);
-            moveUserButton.setVisible(false);
-            movePatientButton.setVisible(false);
+//        if (userRole.equalsIgnoreCase("admin")) {
+//            moveHomeButton.setVisible(true);
+//            moveMedicineButton.setVisible(true);
+//            moveDepartmentButton.setVisible(true);
+//            moveDoctorButton.setVisible(true);
+//            moveUserButton.setVisible(true);
+//            movePatientButton.setVisible(true);
+//            moveDoctorSchedule.setVisible(false);
+//        } else if (userRole.equalsIgnoreCase("doctor")) {
+//            moveHomeButton.setVisible(false);
+//            moveMedicineButton.setVisible(false);
+//            moveDepartmentButton.setVisible(false);
+//            moveDoctorButton.setVisible(false);
+//            moveUserButton.setVisible(false);
+//            movePatientButton.setVisible(false);
+//        } else if (userRole.equalsIgnoreCase("staff")) {
+//            moveHomeButton.setVisible(false);
+//            moveMedicineButton.setVisible(false);
+//            moveDepartmentButton.setVisible(false);
+//            moveDoctorButton.setVisible(false);
+//            moveUserButton.setVisible(false);
+//            movePatientButton.setVisible(false);
+//            moveDoctorSchedule.setVisible(false);
+//        }
+        navigationBar.getChildren().clear();
+        switch (userRole.toLowerCase()){
+            case "admin":
+                navigationBar.getChildren().addAll(
+                        moveHomeButton,
+                        moveMedicineButton,
+                        moveDepartmentButton,
+                        moveDoctorButton,
+                        moveUserButton,
+                        movePatientButton
+                );
+                break;
+            case "staff":
+                break;
+            case "doctor":
+                navigationBar.getChildren().addAll(
+                        moveDoctorSchedule
+                );
+                break;
         }
+        navigationBar.getChildren().addAll(
+                regionBLock,
+                buttonLogout);
     }
 
     @FXML
@@ -129,4 +165,8 @@ public class IndexController {
         currentActiveButton = button;
     }
 
+    public void handleDoctorSchedule(ActionEvent event) {
+        highlightActiveButton(moveDoctorSchedule);
+        SceneSwitcher.loadView("doctor/schedule/doctor-schedule.fxml", event);
+    }
 }
