@@ -49,6 +49,9 @@
                     <Button prefWidth="240.0" fx:id="movePatientButton" mnemonicParsing="false"
                             onAction="#handlePatient" styleClass="nav-btn"
                             text="Patient"/>
+                    <Button prefWidth="240.0" fx:id="moveServiceButton" mnemonicParsing="false"
+                            onAction="#handleService" styleClass="nav-btn"
+                            text="Service"/>
                     <Region VBox.vgrow="ALWAYS"/>
                     <!-- HBox đóng vai trò là button -->
                     <Button prefWidth="240.0" fx:id="buttonLogout" styleClass="btn-logout" text="Logout"
@@ -72,7 +75,7 @@
                 <!-- HBox đóng vai trò là button -->
                 <VBox styleClass="label-username" alignment="CENTER_RIGHT">
                     <Label text="User" style="-fx-text-fill: white;"/>
-                    <Label text="Role" style="-fx-text-fill: white;"/>
+                    <Label text="Role" style="-fx-text-fill: white; -fx-font-size: 14px"/>
                 </VBox>
                 <VBox styleClass="avatar" alignment="CENTER">
                     <ImageView fitHeight="50.0" fitWidth="50.0">
