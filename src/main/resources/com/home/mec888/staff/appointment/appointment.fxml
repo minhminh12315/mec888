@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            prefHeight="600.0" prefWidth="800.0"
+            fx:controller="com.home.mec888.controller.staff.appointment.AppointmentAddController">
+    <VBox spacing="24" AnchorPane.bottomAnchor="24.0"
+          AnchorPane.leftAnchor="24.0"
+          AnchorPane.rightAnchor="24.0"
+          AnchorPane.topAnchor="24.0">
+
+        <HBox spacing="500">
+            <!-- Back button -->
+            <Button fx:id="backButton" layoutX="14.0" layoutY="14.0"
+                    mnemonicParsing="false" onAction="#handleBack"
+                    prefHeight="30.0" prefWidth="75.0" styleClass="back-btn" text="Back"/>
+            <Text text="Add New Doctor" styleClass="titlePage"/>
+        </HBox>
+
+        <VBox spacing="16">
+            <!-- User Field -->
+            <VBox>
+                <Label styleClass="label-input" text="User:"/>
+                <ComboBox fx:id="userComboBox" prefWidth="Infinity" styleClass="input-field"/>
+                <Label fx:id="userErrorLabel" textFill="red"/> <!-- Thông báo lỗi -->
+            </VBox>
+
+            <!-- Department Field -->
+            <VBox>
+                <Label styleClass="label-input" text="Department:"/>
+                <ComboBox fx:id="departmentComboBox" prefWidth="Infinity" styleClass="input-field"/>
+                <Label fx:id="departmentErrorLabel" textFill="red"/> <!-- Thông báo lỗi -->
+            </VBox>
+            <!-- First Name Field -->
+            <VBox>
+                <Label styleClass="label-input" text="First Name:"/>
+                <TextField fx:id="firstNameField" prefWidth="Infinity" styleClass="input-field"/>
+                <Label fx:id="firstNameErrorLabel" textFill="red"/> <!-- Thông báo lỗi -->
+            </VBox>
+            <!-- Last Name Field -->
+            <VBox>
+                <Label styleClass="label-input" text="Last Name:"/>
+                <TextField fx:id="lastNameField" prefWidth="Infinity" styleClass="input-field"/>
+                <Label fx:id="lastNameErrorLabel" textFill="red"/> <!-- Thông báo lỗi -->
+            </VBox>
+
+            <!-- Specialization Field -->
+            <VBox>
+                <Label styleClass="label-input" text="Specialization:"/>
+                <TextField fx:id="specializationField" styleClass="input-field"/>
+                <Label fx:id="specializationErrorLabel" textFill="red"/> <!-- Thông báo lỗi -->
+            </VBox>
+
+            <!-- License Field -->
+            <VBox>
+                <Label styleClass="label-input" text="License Number:"/>
+                <TextField fx:id="licenseField" styleClass="input-field"/>
+                <Label fx:id="licenseErrorLabel" textFill="red"/> <!-- Thông báo lỗi -->
+            </VBox>
+
+            <HBox alignment="CENTER_RIGHT" spacing="24">
+                <Button fx:id="clearButton" mnemonicParsing="false"
+                        onAction="#handleClear" prefHeight="30.0" prefWidth="120.0" text="Clear" styleClass="clear-btn"/>
+                <Button fx:id="saveButton" mnemonicParsing="false"
+                        onAction="#handleSave" prefHeight="30.0" prefWidth="120.0" text="Save" styleClass="save-btn"/>
+            </HBox>
+        </VBox>
+    </VBox>
+</AnchorPane>
