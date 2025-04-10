@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS appointments (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     patient_id BIGINT,
-    doctor_id BIGINT,
+    doctor_id BIGINT, -- moi ca kham 30p
     appointment_date DATE,
     appointment_time TIME,
     status VARCHAR(20) COMMENT 'pending, confirmed, canceled, completed',

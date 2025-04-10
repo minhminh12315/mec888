@@ -19,7 +19,6 @@
             <Text text="Patient Management" styleClass="titlePage" textAlignment="CENTER"/>
         </HBox>
         <HBox>
-            <!--            Search Field-->
             <TextField fx:id="searchField" prefHeight="29.0" prefWidth="380.0" promptText="Search by Patient Name"
                        styleClass="search"/>
             <Region HBox.hgrow="ALWAYS"/>
@@ -34,11 +33,6 @@
             <columns>
                 <TableColumn fx:id="patientColId" prefWidth="60.0" text="ID"/>
                 <TableColumn fx:id="userColId" prefWidth="100.0" text="User ID"/>
-                <TableColumn fx:id="patientColFname" prefWidth="100.0" text="First Name"/>
-                <TableColumn fx:id="patientColLname" prefWidth="100.0" text="Last Name"/>
-                <TableColumn fx:id="patientColDOB" prefWidth="100.0" text="Date of Birth"/>
-                <TableColumn fx:id="patientColGender" prefWidth="100.0" text="Gender"/>
-                <TableColumn fx:id="patientColAddress" prefWidth="100.0" text="Address"/>
                 <TableColumn fx:id="patientColEmergency" prefWidth="100.0" text="Emergency"/>
                 <TableColumn fx:id="patientColMedical" prefWidth="100.0" text="Medical"/>
                 <TableColumn fx:id="actionColumn" minWidth="0.0" prefWidth="208.0" text="Action"/>

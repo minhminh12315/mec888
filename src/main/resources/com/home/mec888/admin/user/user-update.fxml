@@ -10,6 +10,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.ScrollPane?>
 <AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.home.mec888.controller.admin.user.UserUpdateController">
@@ -23,39 +25,112 @@
             <Text text="Update User" styleClass="titlePage"/>
         </HBox>
 
-        <VBox spacing="16">
-            <VBox>
-                <Label styleClass="label-input" text="Username:"/>
-                <TextField fx:id="usernameField" styleClass="input-field"/>
-                <Label fx:id="usernameErrorLabel" textFill="red"/> <!-- Error Label for Username -->
-            </VBox>
+        <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-padding: 10;">
+            <VBox spacing="16">
+                <VBox>
+                    <HBox>
+                        <Label styleClass="label-input" text="Username "/>
+                        <Label layoutX="35.0" layoutY="150.0" text="*" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;" />
+                    </HBox>
+                    <TextField fx:id="usernameField" styleClass="input-field"/>
+                    <Label fx:id="usernameErrorLabel" textFill="red"/> <!-- Error Label for Username -->
+                </VBox>
 
-            <VBox>
-                <Label styleClass="label-input" text="Email:"/>
-                <TextField fx:id="emailField" styleClass="input-field"/>
-                <Label fx:id="emailErrorLabel" textFill="red"/> <!-- Error Label for Email -->
-            </VBox>
+                <!-- First Name Field -->
+                <VBox>
+                    <HBox>
+                        <Label styleClass="label-input" text="First Name "/>
+                        <Label layoutX="35.0" layoutY="150.0" text="*" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;" />
+                    </HBox>
+                    <TextField fx:id="firstNameField" styleClass="input-field"/>
+                    <Label fx:id="firstNameErrorLabel" textFill="red"/> <!-- Error Label for First Name -->
+                </VBox>
 
-            <VBox>
-                <Label styleClass="label-input" text="Phone:"/>
-                <TextField fx:id="phoneField" styleClass="input-field"/>
-                <Label fx:id="phoneErrorLabel" textFill="red"/> <!-- Error Label for Phone -->
-            </VBox>
+                <!-- Last Name Field -->
+                <VBox>
+                    <HBox>
+                        <Label styleClass="label-input" text="Last Name "/>
+                        <Label layoutX="35.0" layoutY="150.0" text="*" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;" />
+                    </HBox>
+                    <TextField fx:id="lastNameField" styleClass="input-field"/>
+                    <Label fx:id="lastNameErrorLabel" textFill="red"/> <!-- Error Label for Last Name -->
+                </VBox>
 
-            <VBox>
-                <Label styleClass="label-input" text="Role:"/>
-                <ComboBox fx:id="roleComboBox" prefWidth="Infinity" styleClass="input-field"/>
-                <Label fx:id="roleErrorLabel" textFill="red"/> <!-- Error Label for Role -->
-            </VBox>
+                <!-- Gender ComboBox -->
+                <VBox>
+                    <HBox>
+                        <Label styleClass="label-input" text="Gender "/>
+                        <Label layoutX="35.0" layoutY="150.0" text="*" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;" />
+                    </HBox>
+                    <ComboBox fx:id="genderComboBox" prefWidth="Infinity" styleClass="input-field"/>
+                    <Label fx:id="genderErrorLabel" textFill="red"/> <!-- Error Label for Gender -->
+                </VBox>
 
-            <HBox alignment="CENTER_RIGHT" spacing="24">
-                <Button fx:id="cancelButton" mnemonicParsing="false"
-                        onAction="#handleCancel" prefHeight="30.0" prefWidth="120.0" styleClass="cancel-btn"
-                        text="Cancel"/>
-                <Button fx:id="updateButton" mnemonicParsing="false"
-                        onAction="#handleUpdate" prefHeight="30.0" prefWidth="120.0" styleClass="update-btn"
-                        text="Update"/>
-            </HBox>
-        </VBox>
+                <!-- Date of Birth Picker -->
+                <VBox>
+                    <HBox>
+                        <Label styleClass="label-input" text="Date of Birth "/>
+                        <Label layoutX="35.0" layoutY="150.0" text="*" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;" />
+                    </HBox>
+                    <DatePicker fx:id="dateOfBirthPicker" styleClass="input-field"/>
+                    <Label fx:id="dateOfBirthErrorLabel" textFill="red"/> <!-- Error Label for Date of Birth -->
+                </VBox>
+
+                <!-- Address Field -->
+                <VBox>
+                    <HBox>
+                        <Label styleClass="label-input" text="Address "/>
+                        <Label layoutX="35.0" layoutY="150.0" text="*" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;" />
+                    </HBox>
+                    <TextField fx:id="addressField" styleClass="input-field"/>
+                    <Label fx:id="addressErrorLabel" textFill="red"/> <!-- Error Label for Address -->
+                </VBox>
+
+    <!--            <VBox>-->
+    <!--                <HBox>-->
+    <!--                    <Label styleClass="label-input" text="Password "/>-->
+    <!--                    <Label layoutX="35.0" layoutY="150.0" text="*" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;" />-->
+    <!--                </HBox>-->
+    <!--                <PasswordField fx:id="passwordField" styleClass="input-field"/>-->
+    <!--                <Label fx:id="passwordErrorLabel" textFill="red"/> &lt;!&ndash; Error Label for Password &ndash;&gt;-->
+    <!--            </VBox>-->
+
+                <VBox>
+                    <HBox>
+                        <Label styleClass="label-input" text="Email "/>
+                        <Label layoutX="35.0" layoutY="150.0" text="*" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;" />
+                    </HBox>
+                    <TextField fx:id="emailField" styleClass="input-field"/>
+                    <Label fx:id="emailErrorLabel" textFill="red"/> <!-- Error Label for Email -->
+                </VBox>
+
+                <VBox>
+                    <HBox>
+                        <Label styleClass="label-input" text="Phone "/>
+                        <Label layoutX="35.0" layoutY="150.0" text="*" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;" />
+                    </HBox>
+                    <TextField fx:id="phoneField" styleClass="input-field"/>
+                    <Label fx:id="phoneErrorLabel" textFill="red"/> <!-- Error Label for Phone -->
+                </VBox>
+
+                <VBox>
+                    <HBox>
+                        <Label styleClass="label-input" text="Role "/>
+                        <Label layoutX="35.0" layoutY="150.0" text="*" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;" />
+                    </HBox>
+                    <ComboBox fx:id="roleComboBox" prefWidth="Infinity" styleClass="input-field"/>
+                    <Label fx:id="roleErrorLabel" textFill="red"/> <!-- Error Label for Role -->
+                </VBox>
+            </VBox>
+        </ScrollPane>
+
+        <HBox alignment="CENTER_RIGHT" spacing="24">
+            <Button fx:id="cancelButton" mnemonicParsing="false"
+                    onAction="#handleCancel" prefHeight="30.0" prefWidth="120.0" styleClass="cancel-btn"
+                    text="Cancel"/>
+            <Button fx:id="updateButton" mnemonicParsing="false"
+                    onAction="#handleUpdate" prefHeight="30.0" prefWidth="120.0" styleClass="update-btn"
+                    text="Update"/>
+        </HBox>
     </VBox>
 </AnchorPane>

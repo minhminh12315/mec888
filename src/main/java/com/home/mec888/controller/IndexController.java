@@ -9,12 +9,21 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class IndexController {
     public static String userRole;
     public static User user;
 
+    // Staff
+    @FXML
+    public Button moveBookingButton;
+    // Admin
+    @FXML
+    public Button moveHomeButton;
     @FXML
     public Button moveMedicineButton;
     @FXML
@@ -25,37 +34,78 @@ public class IndexController {
     public Button moveUserButton;
     @FXML
     public Button movePatientButton;
+    @FXML
+    public Button moveDoctorSchedule;
+    @FXML
+    public VBox navigationBar;
+    @FXML
+    public Button buttonLogout;
+    @FXML
+    public Region regionBLock;
+    @FXML
+    public Button moveRoomButton;
+
     private Button currentActiveButton;
 
-//    @FXML
-//    public void initialize() {
-//        configureNavigationButtons();
-//    }
-//
-//    // Cấu hình các nút điều hướng dựa trên vai trò của user
-//    private void configureNavigationButtons() {
-//        if (userRole == null) {
-//            return;
-//        }
+    @FXML
+    public void initialize() {
+        configureNavigationButtons();
+    }
+
+    private void configureNavigationButtons() {
+        if (userRole == null) {
+            return;
+        }
 //        if (userRole.equalsIgnoreCase("admin")) {
-//            // Với admin, hiển thị tất cả các nút điều hướng
+//            moveHomeButton.setVisible(true);
 //            moveMedicineButton.setVisible(true);
 //            moveDepartmentButton.setVisible(true);
 //            moveDoctorButton.setVisible(true);
 //            moveUserButton.setVisible(true);
-//        } else {
-//            // Với user không phải admin, bạn có thể ẩn đi hoặc hiển thị những nút khác
+//            movePatientButton.setVisible(true);
+//            moveDoctorSchedule.setVisible(false);
+//        } else if (userRole.equalsIgnoreCase("doctor")) {
+//            moveHomeButton.setVisible(false);
 //            moveMedicineButton.setVisible(false);
 //            moveDepartmentButton.setVisible(false);
 //            moveDoctorButton.setVisible(false);
-//            // Ví dụ: chỉ hiển thị nút User hoặc thay đổi tên nút thành "Profile"
-//            moveUserButton.setText("Profile");
-//            moveUserButton.setVisible(true);
+//            moveUserButton.setVisible(false);
+//            movePatientButton.setVisible(false);
+//        } else if (userRole.equalsIgnoreCase("staff")) {
+//            moveHomeButton.setVisible(false);
+//            moveMedicineButton.setVisible(false);
+//            moveDepartmentButton.setVisible(false);
+//            moveDoctorButton.setVisible(false);
+//            moveUserButton.setVisible(false);
+//            movePatientButton.setVisible(false);
+//            moveDoctorSchedule.setVisible(false);
 //        }
-//    }
+        navigationBar.getChildren().clear();
+        switch (userRole.toLowerCase()){
+            case "admin":
+                navigationBar.getChildren().addAll(
+                        moveHomeButton,
+                        moveMedicineButton,
+                        moveDepartmentButton,
+                        moveDoctorButton,
+                        moveUserButton,
+                        movePatientButton
+                );
+                break;
+            case "staff":
+                break;
+            case "doctor":
+                navigationBar.getChildren().addAll(
+                        moveDoctorSchedule
+                );
+                break;
+        }
+        navigationBar.getChildren().addAll(
+                regionBLock,
+                buttonLogout);
+    }
 
-    @FXML
-    public Button moveRoomButton;
+
     public void logout(ActionEvent actionEvent) {
         Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         currentStage.close();
@@ -69,6 +119,18 @@ public class IndexController {
 
     public void setRole(String userRole) {
         this.userRole = userRole;
+    }
+
+    // Staff
+    public void handleBooking(ActionEvent actionEvent) {
+        highlightActiveButton(moveBookingButton);
+        SceneSwitcher.loadView("staff/booking/booking-management.fxml", actionEvent);
+    }
+
+    // Admin
+    public void handleHome(ActionEvent actionEvent) {
+        highlightActiveButton(moveHomeButton);
+        SceneSwitcher.loadView("index.fxml", actionEvent);
     }
 
     public void handleMedicine(ActionEvent actionEvent) {
@@ -116,4 +178,8 @@ public class IndexController {
         currentActiveButton = button;
     }
 
+    public void handleDoctorSchedule(ActionEvent event) {
+        highlightActiveButton(moveDoctorSchedule);
+        SceneSwitcher.loadView("doctor/schedule/doctor-schedule.fxml", event);
+    }
 }

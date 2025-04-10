@@ -2,7 +2,6 @@ package com.home.mec888.entity;
 
 import jakarta.persistence.*;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 @Entity
@@ -13,27 +12,12 @@ public class Patient {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private Long user_id;
-
-    @Column(nullable = false, length = 50)
-    private String first_name;
-
-    @Column(nullable = false, length = 50)
-    private String last_name;
-
-    @Column(nullable = false)
-    private Date date_of_birth;
-
-    @Column(nullable = false, length = 10)
-    private String gender;
-
-    @Column(nullable = false, length = 255)
-    private String address;
+    private int user_id;
 
     @Column(length = 50)
     private String emergency_contact;
 
-    @Column(length = 50)
+    @Column(length = 255)
     private String medical_history;
 
     @Column(name = "created_at", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -45,13 +29,8 @@ public class Patient {
     public Patient() {
     }
 
-    public Patient(Long user_id, String first_name, String last_name, Date date_of_birth, String gender, String address, String emergency_contact, String medical_history) {
-        this.user_id = user_id;
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.date_of_birth = date_of_birth;
-        this.gender = gender;
-        this.address = address;
+    public Patient(String user_id, String emergency_contact, String medical_history) {
+        this.user_id = Integer.parseInt(user_id);
         this.emergency_contact = emergency_contact;
         this.medical_history = medical_history;
     }
@@ -64,52 +43,12 @@ public class Patient {
         this.id = id;
     }
 
-    public Long getUser_id() {
+    public int getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(Long user_id) {
+    public void setUser_id(int user_id) {
         this.user_id = user_id;
-    }
-
-    public String getFirst_name() {
-        return first_name;
-    }
-
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
-    }
-
-    public String getLast_name() {
-        return last_name;
-    }
-
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
-    }
-
-    public Date getDate_of_birth() {
-        return date_of_birth;
-    }
-
-    public void setDate_of_birth(Date date_of_birth) {
-        this.date_of_birth = date_of_birth;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public String getEmergency_contact() {
@@ -149,11 +88,6 @@ public class Patient {
         return "Patient{" +
                 "id=" + id +
                 ", user_id=" + user_id +
-                ", first_name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
-                ", date_of_birth=" + date_of_birth +
-                ", gender='" + gender + '\'' +
-                ", address='" + address + '\'' +
                 ", emergency_contact='" + emergency_contact + '\'' +
                 ", medical_history='" + medical_history + '\'' +
                 ", createdAt=" + createdAt +
@@ -161,5 +95,3 @@ public class Patient {
                 '}';
     }
 }
-
-

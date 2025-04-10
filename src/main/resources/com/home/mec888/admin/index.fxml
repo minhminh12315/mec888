@@ -20,48 +20,68 @@
                 AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                 AnchorPane.topAnchor="0.0">
         <left>
-            <AnchorPane prefHeight="600.0" prefWidth="240.0"
-                        style="-fx-background-color: #111827; -fx-margin-top: 48px;"
-                        BorderPane.alignment="CENTER_LEFT">
-                <VBox>
-
-
-                    <!--List button Role Admin-->
-                    <!--button medicine-->
-                    <Button prefWidth="240.0" fx:id="moveMedicineButton" mnemonicParsing="false" onAction="#handleMedicine" styleClass="nav-btn"
-                             text="Medicine" textFill="WHITE"/>
-<!--                    button department-->
-                    <Button prefWidth="240.0" fx:id="moveDepartmentButton" mnemonicParsing="false" onAction="#handleDepartment" styleClass="nav-btn"
-                            text="Department" textFill="WHITE"/>
-<!--                    button doctor-->
-                    <Button prefWidth="240.0" fx:id="moveDoctorButton" mnemonicParsing="false" onAction="#handleDoctor" styleClass="nav-btn"
-                            text="Doctor" textFill="WHITE"/>
-
-                    <Button prefWidth="240.0" fx:id="moveUserButton" mnemonicParsing="false" onAction="#handleUser" styleClass="nav-btn"
+            <AnchorPane  prefHeight="600.0" prefWidth="240.0"
+                        style="-fx-background-color: #fff; -fx-margin-top: 48px;">
+                <VBox fx:id="navigationBar" spacing="10" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+                      AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+                    <Button prefWidth="240.0" fx:id="moveHomeButton" mnemonicParsing="false"
+                            onAction="#handleHome" styleClass="nav-btn"
+                            text="Dashboard"/>
+                    <!-- button medicine-->
+                    <Button prefWidth="240.0" fx:id="moveMedicineButton" mnemonicParsing="false"
+                            onAction="#handleMedicine" styleClass="nav-btn"
+                            text="Medicine"/>
+                    <!-- button medicine-->
+                    <Button prefWidth="240.0" fx:id="moveBookingButton" mnemonicParsing="false"
+                            onAction="#handleBooking" styleClass="nav-btn"
+                            text="Booking"/>
+                    <!-- button department-->
+                    <Button prefWidth="240.0" fx:id="moveDepartmentButton" mnemonicParsing="false"
+                            onAction="#handleDepartment" styleClass="nav-btn"
+                            text="Department"/>
+                    <!-- button doctor-->
+                    <Button prefWidth="240.0" fx:id="moveDoctorButton" mnemonicParsing="false" onAction="#handleDoctor"
+                            styleClass="nav-btn"
+                            text="Doctor"/>
+                    <Button prefWidth="240.0" fx:id="moveUserButton" mnemonicParsing="false" onAction="#handleUser"
+                            styleClass="nav-btn"
                             text="User"/>
-                    <Button prefWidth="240.0" fx:id="moveRoomButton" mnemonicParsing="false" onAction="#handleRoom" styleClass="nav-btn"
-                            text="Room"/>
-
-                    <Button prefWidth="240.0" fx:id="movePatientButton" mnemonicParsing="false" onAction="#handlePatient" styleClass="nav-btn"
-                            text="Patient" textFill="WHITE"/>
-
-                    <!--List button Role Staff-->
-
-
+                    <Button prefWidth="240.0" fx:id="movePatientButton" mnemonicParsing="false"
+                            onAction="#handlePatient" styleClass="nav-btn"
+                            text="Patient"/>
+                    <Button prefWidth="240.0" fx:id="moveDoctorSchedule" mnemonicParsing="false"
+                            onAction="#handleDoctorSchedule" styleClass="nav-btn"
+                            text="Schedule"/>
+                    <Region fx:id="regionBLock" VBox.vgrow="ALWAYS"/>
+                    <!-- HBox đóng vai trò là button -->
+                    <Button prefWidth="240.0" fx:id="buttonLogout" styleClass="btn-logout" text="Logout"
+                            onAction="#logout"/>
                 </VBox>
             </AnchorPane>
         </left>
         <top>
-            <HBox styleClass="headerAdmin">
-                <ImageView fitHeight="28.0" fitWidth="80">
-                    <image>
-<!--                        <Image url="@../../../../images/logo-phim.png"/>-->
-                    </image>
-                </ImageView>
+            <HBox styleClass="headerAdmin" prefHeight="100.0">
+                <VBox prefWidth="240.0" styleClass="logo-image">
+                    <ImageView fitHeight="80.0" fitWidth="80">
+                        <Image url="@../../../../asset/images/logo2.png"/>
+                    </ImageView>
+                </VBox>
+                <VBox styleClass="label-welcome" alignment="CENTER_LEFT" AnchorPane.leftAnchor="16.0">
+                    <Label style="-fx-text-fill: white;" text="Welcome back, User"/>
+                    <Label styleClass="slogan" style="-fx-text-fill: white;"
+                           text="Efficient Hospital Management, Exceptional Patient Care."/>
+                </VBox>
                 <Region HBox.hgrow="ALWAYS"/>
                 <!-- HBox đóng vai trò là button -->
-                <Button fx:id="buttonLogout" styleClass="btn-logout" text="Logout"
-                        onAction="#logout"/>
+                <VBox styleClass="label-username" alignment="CENTER_RIGHT">
+                    <Label text="User" style="-fx-text-fill: white;"/>
+                    <Label text="Role" style="-fx-text-fill: white;"/>
+                </VBox>
+                <VBox styleClass="avatar" alignment="CENTER">
+                    <ImageView fitHeight="50.0" fitWidth="50.0">
+                        <Image url="@../../../../asset/images/avatar.png"/>
+                    </ImageView>
+                </VBox>
             </HBox>
         </top>
         <center>

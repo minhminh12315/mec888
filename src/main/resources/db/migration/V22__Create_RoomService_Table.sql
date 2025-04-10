@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS room_service (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    room_id BIGINT NOT NULL,
+    service_id BIGINT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT fk_room_service_room FOREIGN KEY (room_id) REFERENCES room(id),
+    CONSTRAINT fk_room_service_service FOREIGN KEY (service_id) REFERENCES services(id)
+);
