@@ -3,6 +3,7 @@ package com.home.mec888.controller.admin.patient;
 import com.home.mec888.dao.PatientDao;
 import com.home.mec888.dao.UserDao;
 import com.home.mec888.entity.Patient;
+import com.home.mec888.entity.Role;
 import com.home.mec888.entity.User;
 import com.home.mec888.util.SceneSwitcher;
 import javafx.collections.FXCollections;
@@ -12,6 +13,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.util.StringConverter;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Random;
 
 public class PatientAddController {
     @FXML
@@ -24,61 +31,85 @@ public class PatientAddController {
     @FXML
     public Button clearButton, saveButton, backButton, addUserButton;
 
-    private UserDao userDao;
+    @FXML
+    public TextField firstNameField, lastNameField, phoneField, emailField;
+    @FXML
+    public ComboBox<String> genderComboBox;
+    @FXML
+    public Label first_name_error, last_name_error, phone_error, email_error, gender_error;
 
-    Long lastUserId = null;
+    UserDao userDao = new UserDao();
+    private static final String word = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    private static final String digits = "0123456789";
+    private static final Random random = new Random();
+
     @FXML
     private void initialize() {
-
-        if (lastUserId != null){
-            handleAddUser();
-        } else {
-            userDao = new UserDao();
-            user_id.getItems().addAll(userDao.getAllUsers());
-
-            user_id.setCellFactory(param -> new ListCell<>() {
-                @Override
-                protected void updateItem(User user, boolean empty) {
-                    super.updateItem(user, empty);
-                    setText((user == null || empty) ? "" : String.valueOf(user.getId()));
-                }
-            });
-
-            user_id.setConverter(new StringConverter<>() {
-                @Override
-                public String toString(User user) {
-                    return (user != null) ? String.valueOf(user.getId()) : "";
-                }
-
-                @Override
-                public User fromString(String string) {
-                    return null;
-                }
-            });
-        }
-    }
-    @FXML
-    public void handleAddUser() {
         try {
-            lastUserId = getLastUserId();
-
-            if (lastUserId == null) {
-                showAlert("Error", "No users available to assign ID", Alert.AlertType.ERROR);
-                return;
-            }
-            System.out.println("user_id: " + lastUserId);
-            User lastUser = userDao.getUserById(lastUserId);  // Assuming you have a method to get a User by ID
-            if (lastUser != null) {
-                user_id.getSelectionModel().select(lastUser);  // Set the User in the ComboBox
-            }
+            genderComboBox.setItems(FXCollections.observableArrayList("Male", "Female"));
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            showAlert("Error", "Failed to save id: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
-    public void goToPatientAdd(ActionEvent actionEvent) {
-        SceneSwitcher.loadView("admin/patient/patient-add-user.fxml", actionEvent);
+    @FXML
+    public void handleSave(ActionEvent actionEvent) {
+        try {
+            String email = emailField.getText();
+            String phone = phoneField.getText();
+            String firstName = firstNameField.getText();
+            String lastName = lastNameField.getText();
+            String gender = genderComboBox.getValue();
+
+            String username = firstName + " " + lastName;
+            String password = randomPassword();
+
+            try {
+                // Create a new User object
+                User user = new User();
+                user.setUsername(username);
+                user.setPassword(hashPassword(password));
+                user.setEmail(email);
+                user.setPhone(phone);
+                user.setRoleId(4); // 4: patient
+                user.setFirstName(firstName);
+                user.setLastName(lastName);
+                user.setGender(gender);
+                user.setDateOfBirth(null);
+                user.setAddress(null);
+
+                // Save the user to the database
+                userDao.saveUser(user);
+                showAlert("Success", "User added successfully!", Alert.AlertType.INFORMATION);
+
+            } catch (Exception e) {
+                showAlert("Error", "Error adding user: " + e.getMessage(), Alert.AlertType.ERROR);
+            }
+
+        } catch (Exception e) {
+            showAlert("Error", "Failed to save user", Alert.AlertType.ERROR);
+        }
+
+
+        try {
+            Long last_user_id = getLastUserId();
+
+            // Create patient object with user_id, emergency_contact, and medical_history
+            PatientDao patientDao = new PatientDao();
+            Patient patient = new Patient(
+                    last_user_id,
+                    emergency_contact.getText(),
+                    medical_history.getText()
+            );
+            patientDao.savePatient(patient);
+
+            // Show success message
+            showAlert("Success", "Patient added successfully", Alert.AlertType.INFORMATION);
+
+            SceneSwitcher.loadView("admin/patient/patient-management.fxml", actionEvent);
+        } catch (Exception e) {
+            showAlert("Error", "Failed to save patient", Alert.AlertType.ERROR);
+        }
     }
 
     private Long getLastUserId() {
@@ -89,26 +120,6 @@ public class PatientAddController {
         }
         User lastUser = userList.getFirst();
         return lastUser.getId();
-    }
-
-    @FXML
-    public void handleSave() {
-        try {
-            // Create patient object with user_id, emergency_contact, and medical_history
-            PatientDao patientDao = new PatientDao();
-            Patient patient = new Patient(
-                    user_id.getValue(),
-                    emergency_contact.getText(),
-                    medical_history.getText()
-            );
-            patientDao.savePatient(patient);
-
-            // Show success message
-            showAlert("Success", "Patient added successfully", Alert.AlertType.INFORMATION);
-            handleClear();
-        } catch (Exception e) {
-            showAlert("Error", "Failed to save patient", Alert.AlertType.ERROR);
-        }
     }
 
     private void showAlert(String title, String message, Alert.AlertType type) {
@@ -153,18 +164,100 @@ public class PatientAddController {
                 medical_error.setText("");
                 saveButton.setDisable(false);
             }
+        } else if (source == firstNameField) {
+            String firstName = firstNameField.getText();
+            if (firstName == null) {
+                first_name_error.setText("First Name cannot be empty.");
+                saveButton.setDisable(true);
+            } else {
+                first_name_error.setText("");
+                saveButton.setDisable(false);
+            }
+        } else if (source == lastNameField) {
+            String lastName = lastNameField.getText();
+            if (lastName == null) {
+                last_name_error.setText("Last Name cannot be empty.");
+                saveButton.setDisable(true);
+            } else {
+                last_name_error.setText("");
+                saveButton.setDisable(false);
+            }
+        } else if (source == genderComboBox) {
+            String gender = genderComboBox.getValue();
+            if (gender == null) {
+                gender_error.setText("Gender cannot be empty.");
+                saveButton.setDisable(true);
+            } else {
+                gender_error.setText("");
+                saveButton.setDisable(false);
+            }
+        } else if (source == emailField) {
+            String email = emailField.getText();
+            if (email == null) {
+                email_error.setText("Email cannot be empty.");
+                saveButton.setDisable(true);
+            } else if (!isValidEmail(email)) {
+                email_error.setText("Invalid email format!");
+                saveButton.setDisable(true);
+            } else if (userDao.isEmailExists(email)) {
+                email_error.setText("Email already exists!");
+                saveButton.setDisable(true);
+            } else {
+                email_error.setText("");
+                saveButton.setDisable(false);
+            }
+        } else if (source == phoneField) {
+            String phone = phoneField.getText();
+            if (phone == null) {
+                phone_error.setText("Phone cannot be empty.");
+                saveButton.setDisable(true);
+            } else if (!isValidPhone(phone)) {
+                phone_error.setText("Invalid phone format!");
+                saveButton.setDisable(true);
+            } else {
+                phone_error.setText("");
+                saveButton.setDisable(false);
+            }
         }
+    }
+
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[A-Za-z0-9+_.-]+@gmail\\.com$";
+        return email.matches(emailRegex);
+    }
+
+    private boolean isValidPhone(String phone) {
+        String phoneRegex = "\\d+";
+        return phone.matches(phoneRegex);
+    }
+
+    public static String hashPassword(String password) throws NoSuchAlgorithmException {
+        MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+        byte[] hashedBytes = messageDigest.digest(password.getBytes());
+        StringBuilder hexString = new StringBuilder();
+        for (byte b : hashedBytes) {
+            hexString.append(String.format("%02x", b));
+        }
+        return hexString.toString();
     }
 
     @FXML
     public void handleClear() {
-        user_id.setConverter(null);
         emergency_contact.clear();
         medical_history.clear();
+        firstNameField.clear();
+        lastNameField.clear();
+        phoneField.clear();
+        emailField.clear();
+//        genderComboBox.setConverter(null);
 
-        user_id_error.setText("");
         contact_error.setText("");
         medical_error.setText("");
+        first_name_error.setText("");
+        last_name_error.setText("");
+        phone_error.setText("");
+        email_error.setText("");
+        gender_error.setText("");
 
         saveButton.setDisable(true);
     }
@@ -176,4 +269,21 @@ public class PatientAddController {
     public void returnToPatientManagement(ActionEvent actionEvent) {
         SceneSwitcher.loadView("admin/patient/patient-management.fxml", actionEvent);
     }
+
+    public String randomPassword() {
+        StringBuilder password = new StringBuilder();
+
+        for (int i = 0; i < 6; i++) {
+            int index = random.nextInt(word.length());
+            password.append(word.charAt(index));
+        }
+
+        for (int i = 0; i < 2; i++) {
+            int index = random.nextInt(digits.length());
+            password.append(digits.charAt(index));
+        }
+
+        return password.toString();
+    }
+
 }
