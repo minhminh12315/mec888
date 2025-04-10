@@ -22,6 +22,8 @@
             <columns>
                 <TableColumn fx:id="idColumn" text="ID" />
                 <TableColumn fx:id="userIdColumn" prefWidth="100.0" text="User ID" />
+                <TableColumn fx:id="firstNameColumn" prefWidth="100.0" text="First Name" />
+                <TableColumn fx:id="lastNameColumn" prefWidth="100.0" text="Last Name" />
                 <TableColumn fx:id="roomIdColumn" prefWidth="120.0" text="Department Name" />
                 <TableColumn fx:id="specializationColumn" prefWidth="200.0" text="Specialization" />
                 <TableColumn fx:id="licenseNumberColumn" prefWidth="180.0" text="License Number" />

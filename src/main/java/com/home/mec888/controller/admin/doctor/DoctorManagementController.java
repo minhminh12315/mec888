@@ -34,6 +34,10 @@ public class DoctorManagementController {
     @FXML
     public TableColumn<Doctor, String> userIdColumn;
     @FXML
+    public TableColumn<Doctor, String> firstNameColumn;
+    @FXML
+    public TableColumn<Doctor, String> lastNameColumn;
+    @FXML
     public TableColumn<Doctor, String> specializationColumn;
     @FXML
     public TableColumn<Doctor, String> roomIdColumn;
@@ -79,8 +83,14 @@ public class DoctorManagementController {
 
         List<Doctor> filteredList = new ArrayList<>();
         for (Doctor doctor : originalDoctorList) {
-            if (doctor.getSpecialization().toLowerCase().contains(keyword.toLowerCase()) ||
-                    doctor.getLicense_number().toLowerCase().contains(keyword.toLowerCase())) {
+            System.out.println("id cua user trong doctor " + doctor.getUser().getId());
+            User user = userDao.getUserById(doctor.getUser().getId());
+            if (
+                    (user.getFirstName() != null && user.getFirstName().toLowerCase().contains(keyword.toLowerCase())) ||
+                            (user.getLastName() != null && user.getLastName().toLowerCase().contains(keyword.toLowerCase())) ||
+                            (doctor.getSpecialization() != null && doctor.getSpecialization().toLowerCase().contains(keyword.toLowerCase())) ||
+                            (doctor.getLicense_number() != null && doctor.getLicense_number().toLowerCase().contains(keyword.toLowerCase()))
+            ) {
                 filteredList.add(doctor);
             }
         }
@@ -91,11 +101,36 @@ public class DoctorManagementController {
     public void loadDoctorData() {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 
+
         userIdColumn.setCellValueFactory(cellData -> {
             if (cellData.getValue() != null && cellData.getValue().getUser().getId() != null) {
                 User user = userDao.getUserById(cellData.getValue().getUser().getId());
                 if (user != null) {
-                    return new SimpleStringProperty(user.getUsername());
+                    return new SimpleStringProperty(String.valueOf(user.getId()));
+                } else {
+                    return new SimpleStringProperty("Unknown");
+                }
+            } else {
+                return new SimpleStringProperty("Unknown");
+            }
+        });
+        firstNameColumn.setCellValueFactory(cellData -> {
+            if (cellData.getValue() != null && cellData.getValue().getUser().getId() != null) {
+                User user = userDao.getUserById(cellData.getValue().getUser().getId());
+                if (user != null) {
+                    return new SimpleStringProperty(user.getFirstName());
+                } else {
+                    return new SimpleStringProperty("Unknown");
+                }
+            } else {
+                return new SimpleStringProperty("Unknown");
+            }
+        });
+        lastNameColumn.setCellValueFactory(cellData -> {
+            if (cellData.getValue() != null && cellData.getValue().getUser().getId() != null) {
+                User user = userDao.getUserById(cellData.getValue().getUser().getId());
+                if (user != null) {
+                    return new SimpleStringProperty(user.getLastName());
                 } else {
                     return new SimpleStringProperty("Unknown");
                 }

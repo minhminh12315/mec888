@@ -12,7 +12,7 @@ public class Patient {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private int user_id;
+    private Integer user_id;
 
     @Column(length = 50)
     private String emergency_contact;
@@ -43,11 +43,11 @@ public class Patient {
         this.id = id;
     }
 
-    public int getUser_id() {
+    public Integer getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(int user_id) {
+    public void setUser_id(Integer  user_id) {
         this.user_id = user_id;
     }
 
