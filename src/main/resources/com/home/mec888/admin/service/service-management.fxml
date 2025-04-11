@@ -1,28 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.layout.Region?>
-<AnchorPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.home.mec888.controller.admin.medicine.MedicineManagementController">
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.home.mec888.controller.admin.service.ServiceManagementController"
+            prefHeight="600.0" prefWidth="1200.0">
     <VBox spacing="24" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="24.0"
           AnchorPane.rightAnchor="24.0"
           AnchorPane.topAnchor="24.0">
         <HBox alignment="CENTER">
-            <Text text="Medicine Management" styleClass="titlePage" textAlignment="CENTER"/>
+            <Text text="Services Management" styleClass="titlePage" textAlignment="CENTER"/>
         </HBox>
         <HBox>
-            <!--Search Field-->
-            <TextField fx:id="searchField" prefHeight="29.0" prefWidth="380.0" promptText="Search by Medicine Name"
+            <!-- Search Field-->
+            <TextField fx:id="searchField" prefHeight="29.0" prefWidth="380.0" promptText="Search by Service Name"
                        styleClass="search"/>
             <Region HBox.hgrow="ALWAYS"/>
             <Button mnemonicParsing="false" onAction="#handleAdd" prefHeight="30.0" prefWidth="75.0"
@@ -32,14 +30,13 @@
                 </font>
             </Button>
         </HBox>
-        <TableView fx:id="medicineManagementTable" layoutX="250.0" layoutY="86.0" prefHeight="460.0" prefWidth="660.0"
+        <TableView fx:id="serivceManagementTable" layoutX="250.0" layoutY="86.0" prefHeight="460.0" prefWidth="660.0"
                    styleClass="table">
             <columns>
                 <TableColumn fx:id="idColumn" prefWidth="84.0" text="ID"/>
                 <TableColumn fx:id="nameColumn" prefWidth="270.0" text="Name"/>
                 <TableColumn fx:id="descriptionColumn" minWidth="0.0" prefWidth="208.0" text="Description"/>
                 <TableColumn fx:id="priceColumn" minWidth="0.0" prefWidth="208.0" text="Price"/>
-                <TableColumn fx:id="manufacturerColumn" minWidth="0.0" prefWidth="208.0" text="Manufacturer"/>
                 <TableColumn fx:id="actionColumn" minWidth="0.0" prefWidth="208.0" text="Actions"/>
             </columns>
         </TableView>

@@ -27,6 +27,7 @@
         <mapping class="com.home.mec888.entity.Doctor"/>
         <mapping class="com.home.mec888.entity.Patient"/>
         <mapping class="com.home.mec888.entity.Room"/>
+        <mapping class="com.home.mec888.entity.Service"/>
 
 
     </session-factory>
