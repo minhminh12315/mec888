@@ -44,6 +44,8 @@ public class IndexController {
     public Region regionBLock;
     @FXML
     public Button moveRoomButton;
+    @FXML
+    public Button moveServiceButton;
 
     private Button currentActiveButton;
 
@@ -141,6 +143,11 @@ public class IndexController {
     public void handlePatient(ActionEvent actionEvent) {
         highlightActiveButton(movePatientButton);
         SceneSwitcher.loadView("admin/patient/patient-management.fxml", actionEvent);
+    }
+
+    public void handleService(ActionEvent actionEvent) {
+        highlightActiveButton(moveServiceButton);
+        SceneSwitcher.loadView("admin/service/service-management.fxml", actionEvent);
     }
 
     private void highlightActiveButton(Button button) {

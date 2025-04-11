@@ -1,4 +1,4 @@
-.nav-btn{
+.nav-btn {
     -fx-background-color: transparent;
     -fx-cursor: hand;
     -fx-text-fill: #1071e1;
@@ -8,7 +8,7 @@
     -fx-padding: 16px;
 }
 
-.nav-btn:hover{
+.nav-btn:hover {
     -fx-background-color: radial-gradient(
             focus-angle 0deg,
             focus-distance 0%,
@@ -19,13 +19,15 @@
     );
     -fx-text-fill: white;
 }
+
 .active-button {
-    -fx-pre-width:100%;
+    -fx-pre-width: 100%;
     -fx-background-color: #1071e1; /* Màu nền khi nút được chọn */
     -fx-text-fill: white; /* Màu chữ */
     -fx-font-size: 16px;
 }
-.headerAdmin{
+
+.headerAdmin {
     -fx-background-color: radial-gradient(
             focus-angle 0deg,
             focus-distance 0%,
@@ -36,42 +38,46 @@
     );
     -fx-text-fill: white;
 }
-.titlePage{
+
+.titlePage {
     -fx-font-size: 28px;
     -fx-font-weigth: 900;
 }
 
-.input-field{
+.input-field {
     -fx-pre-width: 100%;
     -fx-border-color: #111827;
     -fx-background-color: #fff;
     -fx-border-radius: 0px 0px 0px 0px;
 }
 
-.input-field:focused{
+.input-field:focused {
     -fx-border-width: 2px;
 }
-.search{
+
+.search {
     -fx-border-color: #1e242e;
     -fx-background-color: #fff;
     -fx-font-size: 14px;
 }
 
-.search:focused{
+.search:focused {
     -fx-border-width: 2px;
 }
-.add-new-btn{
-    -fx-background-color : #EAB308;
+
+.add-new-btn {
+    -fx-background-color: #EAB308;
     -fx-background-radius: 6px;
-    -fx-cursor:hand;
+    -fx-cursor: hand;
 }
 
-.add-new-btn:hover{
+.add-new-btn:hover {
     -fx-scale-x: 1.1;
     -fx-scale-y: 1.1;
     -fx-transition: all 0.1s ease-in-out;
 }
-.back-btn{
+
+.back-btn {
     -fx-font-size: 14px;
     -fx-background-color: #1e242e;
     -fx-background-radius: 6px;
@@ -79,26 +85,29 @@
     -fx-text-fill: white;
 }
 
-.back-btn:hover{
+.back-btn:hover {
     -fx-scale-x: 1.1;
     -fx-scale-y: 1.1;
     -fx-text-fill: white;
     -fx-transition: all 0.1s ease-in-out;
 }
-.btn-logout{
+
+.btn-logout {
     -fx-font-size: 16px;
     -fx-background-color: #fff;
     -fx-cursor: hand;
     -fx-padding: 16px;
     -fx-text-fill: #ef4444;
-    -fx-alignment: center_left;
+    -fx-alignment: CENTER;
     -fx-font-weight: bold;
 }
-.btn-logout:hover{
-       -fx-background-color: #EF4444;
-       -fx-text-fill: white;
+
+.btn-logout:hover {
+    -fx-background-color: #EF4444;
+    -fx-text-fill: white;
 }
-.save-btn{
+
+.save-btn {
     -fx-font-size: 14px;
     -fx-background-color: #EAB308;
     -fx-background-radius: 6px;
@@ -129,24 +138,26 @@
 .avatar {
     -fx-padding: 16px;
 }
-.save-btn:hover{
+
+.save-btn:hover {
     -fx-scale-x: 1.1;
     -fx-scale-y: 1.1;
     -fx-transition: all 0.1s ease-in-out;
 }
 
-.clear-btn{
+.clear-btn {
     -fx-font-size: 14px;
     -fx-background-color: #FF6464;
     -fx-background-radius: 6px;
     -fx-cursor: hand;
 }
 
-.clear-btn:hover{
+.clear-btn:hover {
     -fx-scale-x: 1.1;
     -fx-scale-y: 1.1;
     -fx-transition: all 0.1s ease-in-out;
 }
+
 #mainBorderPane {
-    -fx-background-color: #fff;  /* Đặt nền trắng cho mainBorderPane */
+    -fx-background-color: #fff; /* Đặt nền trắng cho mainBorderPane */
 }
