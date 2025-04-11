@@ -1,11 +1,10 @@
 package com.home.mec888.controller.admin.doctor;
 
-import com.home.mec888.controller.admin.department.DepartmentUpdateController;
-import com.home.mec888.dao.DepartmentDao;
 import com.home.mec888.dao.DoctorDao;
+import com.home.mec888.dao.RoomDao;
 import com.home.mec888.dao.UserDao;
-import com.home.mec888.entity.Department;
 import com.home.mec888.entity.Doctor;
+import com.home.mec888.entity.Room;
 import com.home.mec888.entity.User;
 import com.home.mec888.util.SceneSwitcher;
 import javafx.beans.property.SimpleStringProperty;
@@ -35,29 +34,30 @@ public class DoctorManagementController {
     @FXML
     public TableColumn<Doctor, String> userIdColumn;
     @FXML
+    public TableColumn<Doctor, String> firstNameColumn;
+    @FXML
+    public TableColumn<Doctor, String> lastNameColumn;
+    @FXML
     public TableColumn<Doctor, String> specializationColumn;
     @FXML
-    public TableColumn<Doctor, String> departmentIdColumn;
+    public TableColumn<Doctor, String> roomIdColumn;
     @FXML
     public TableColumn<Doctor, String> licenseNumberColumn;
     @FXML
     public TableColumn<Doctor, Void> actionColumn;
     @FXML
     public TextField searchField;
-    @FXML
-    public TableColumn<Doctor, String> firstNameColumn;
-    @FXML
-    public TableColumn<Doctor, String> lastNameColumn;
+
     private List<Doctor> originalDoctorList;
     private DoctorDao doctorDao;
     private UserDao userDao;
-    private DepartmentDao departmentDao;
+    private RoomDao roomDao;
 
     @FXML
     public void initialize() {
         doctorDao = new DoctorDao();
         userDao = new UserDao();
-        departmentDao = new DepartmentDao();
+        roomDao = new RoomDao();
         loadDoctorData();
         addButtonToTable();
 
@@ -71,42 +71,66 @@ public class DoctorManagementController {
     }
 
     private void updateTable(List<Doctor> doctors) {
-        // Chuyển từ List sang ObservableList để hiển thị trong TableView
         doctorManagementTable.setItems(FXCollections.observableArrayList(doctors));
     }
 
     private void filterDoctorList(String keyword) {
         if (keyword == null || keyword.trim().isEmpty()) {
-            // Nếu không có từ khóa, hiển thị danh sách đầy đủ
+            // If no keyword, show all doctors
             updateTable(originalDoctorList);
             return;
         }
 
-        // Tạo danh sách lọc
         List<Doctor> filteredList = new ArrayList<>();
         for (Doctor doctor : originalDoctorList) {
-            if (doctor.getSpecialization().toLowerCase().contains(keyword.toLowerCase()) ||
-                    doctor.getLicense_number().toLowerCase().contains(keyword.toLowerCase()) ||
-                    doctor.getFirst_name().toLowerCase().contains(keyword.toLowerCase()) ||
-                    doctor.getLast_name().toLowerCase().contains(keyword.toLowerCase())) {
+            System.out.println("id cua user trong doctor " + doctor.getUser().getId());
+            User user = userDao.getUserById(doctor.getUser().getId());
+            if (
+                    (user.getFirstName() != null && user.getFirstName().toLowerCase().contains(keyword.toLowerCase())) ||
+                            (user.getLastName() != null && user.getLastName().toLowerCase().contains(keyword.toLowerCase())) ||
+                            (doctor.getSpecialization() != null && doctor.getSpecialization().toLowerCase().contains(keyword.toLowerCase())) ||
+                            (doctor.getLicense_number() != null && doctor.getLicense_number().toLowerCase().contains(keyword.toLowerCase()))
+            ) {
                 filteredList.add(doctor);
             }
         }
 
-        // Cập nhật bảng với danh sách lọc
         updateTable(filteredList);
     }
 
     public void loadDoctorData() {
-        // Setting up cell value factory for each column
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+
 
         userIdColumn.setCellValueFactory(cellData -> {
             if (cellData.getValue() != null && cellData.getValue().getUser().getId() != null) {
-                // Fetching the user by their ID using the DAO
                 User user = userDao.getUserById(cellData.getValue().getUser().getId());
                 if (user != null) {
-                    return new SimpleStringProperty(user.getUsername());
+                    return new SimpleStringProperty(String.valueOf(user.getId()));
+                } else {
+                    return new SimpleStringProperty("Unknown");
+                }
+            } else {
+                return new SimpleStringProperty("Unknown");
+            }
+        });
+        firstNameColumn.setCellValueFactory(cellData -> {
+            if (cellData.getValue() != null && cellData.getValue().getUser().getId() != null) {
+                User user = userDao.getUserById(cellData.getValue().getUser().getId());
+                if (user != null) {
+                    return new SimpleStringProperty(user.getFirstName());
+                } else {
+                    return new SimpleStringProperty("Unknown");
+                }
+            } else {
+                return new SimpleStringProperty("Unknown");
+            }
+        });
+        lastNameColumn.setCellValueFactory(cellData -> {
+            if (cellData.getValue() != null && cellData.getValue().getUser().getId() != null) {
+                User user = userDao.getUserById(cellData.getValue().getUser().getId());
+                if (user != null) {
+                    return new SimpleStringProperty(user.getLastName());
                 } else {
                     return new SimpleStringProperty("Unknown");
                 }
@@ -115,12 +139,11 @@ public class DoctorManagementController {
             }
         });
 
-        departmentIdColumn.setCellValueFactory(cellData -> {
-            if (cellData.getValue() != null && cellData.getValue().getDepartment().getId() != null) {
-                // Fetching the user by their ID using the DAO
-                Department department = departmentDao.getDepartmentById(cellData.getValue().getDepartment().getId());
-                if (department != null) {
-                    return new SimpleStringProperty(department.getName());
+        roomIdColumn.setCellValueFactory(cellData -> {
+            if (cellData.getValue() != null && cellData.getValue().getRoom().getId() != null) {
+                Room room = roomDao.getRoomById(cellData.getValue().getRoom().getId());
+                if (room != null) {
+                    return new SimpleStringProperty(room.getRoomNumber());
                 } else {
                     return new SimpleStringProperty("Unknown");
                 }
@@ -128,18 +151,12 @@ public class DoctorManagementController {
                 return new SimpleStringProperty("Unknown");
             }
         });
-
 
         specializationColumn.setCellValueFactory(new PropertyValueFactory<>("specialization"));
-        firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("first_name"));
-        lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("last_name"));
         licenseNumberColumn.setCellValueFactory(new PropertyValueFactory<>("license_number"));
 
-
-        // Clear existing items in the table
         doctorManagementTable.getItems().clear();
         List<Doctor> doctors = doctorDao.getAllDoctors();
-        // Populate the table with data fetched from DoctorDao
         doctorManagementTable.getItems().addAll(doctors);
     }
 
@@ -151,15 +168,13 @@ public class DoctorManagementController {
             private final FontIcon deleteIcon = new FontIcon(FontAwesomeSolid.TRASH_ALT);
 
             {
-                // Đặt kích thước và màu sắc cho các biểu tượng
                 editIcon.setIconSize(20);
-                editIcon.setIconColor(Paint.valueOf("#4CAF50")); // Màu xanh lá cho "Sửa"
-
+                editIcon.setIconColor(Paint.valueOf("#4CAF50"));
                 deleteIcon.setIconSize(20);
-                deleteIcon.setIconColor(Paint.valueOf("#F44336")); // Màu đỏ cho "Xóa"
+                deleteIcon.setIconColor(Paint.valueOf("#F44336"));
 
                 actionBox.getChildren().addAll(editIcon, deleteIcon);
-                actionBox.setAlignment(Pos.CENTER); // Căn giữa HBox
+                actionBox.setAlignment(Pos.CENTER);
             }
 
             @Override
@@ -196,30 +211,25 @@ public class DoctorManagementController {
 
             if (mainPane != null) {
                 mainPane.setCenter(newView);
-            } else {
-                System.err.println("BorderPane with ID 'mainBorderPane' not found");
             }
         } else {
-            System.err.println("Could not load edit-showtime.fxml");
+            System.err.println("Could not load doctor-update.fxml");
         }
     }
 
     private void handleDelete(Doctor doctor) {
         System.out.println(doctor);
-        // Show a confirmation dialog before deleting
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete Confirmation");
-        alert.setHeaderText("Are you sure you want to delete this medicine?");
+        alert.setHeaderText("Are you sure you want to delete this doctor?");
         alert.setContentText("This action cannot be undone.");
         ButtonType confirmButton = new ButtonType("Delete");
         ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
         alert.getButtonTypes().setAll(confirmButton, cancelButton);
         alert.showAndWait().ifPresent(response -> {
             if (response == cancelButton) {
-                // User chose cancel, do nothing
                 alert.close();
             } else if (response == confirmButton) {
-                // User chose delete, proceed with deletion
                 doctorDao.deleteDoctor(doctor.getId());
                 loadDoctorData();
             }

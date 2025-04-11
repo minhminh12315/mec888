@@ -142,20 +142,27 @@ VALUES
 (9, 'Oncology', 'Cancer treatment and research', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (10, 'Radiology', 'Medical imaging and diagnostics', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
+-- 5. Room
+INSERT INTO mec888.room (id,department_id, room_number, room_type, status, created_at, updated_at)
+VALUES
+    (1, 1, 'R101', 'Consultation', 'available', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+    (2, 1, 'R202', 'Surgery', 'available', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+    (3, 1, 'R303', 'Recovery', 'available', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
 -- 5. Doctor
 INSERT INTO mec888.doctors
-(id, user_id, department_id, specialization, license_number, created_at, updated_at)
+(id, user_id, room_id, specialization, license_number, created_at, updated_at)
 values
 (1, 2, 1, '123', 'GX0804PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (2, 4, 2, '123', 'GX0805PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (3, 5, 3, '123', 'GX0806PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(4, 6, 4, '123', 'GX0807PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(5, 7, 5, '123', 'GX0808PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(6, 8, 6, '123', 'GX0809PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(7, 9, 7, '123', 'GX0810PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(8, 10, 8, '123', 'GX0811PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(9, 11, 9, '123', 'GX0812PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(10, 12, 10, '123', 'GX0813PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+(4, 6, 3, '123', 'GX0807PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(5, 7, 3, '123', 'GX0808PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(6, 8, 1, '123', 'GX0809PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(7, 9, 2, '123', 'GX0810PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(8, 10, 2, '123', 'GX0811PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(9, 11, 1, '123', 'GX0812PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(10, 12, 1, '123', 'GX0813PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 -- 6. Doctor Schedule
 INSERT INTO mec888.doctor_schedule
@@ -184,11 +191,11 @@ VALUES
 (2003, 'dr_dung', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'dung@hospital.com', '0933333333', 2, NOW(), NOW());
 
 -- 2. Bác sĩ tương ứng
-INSERT INTO doctors (id, user_id, department_id, specialization, license_number, created_at, updated_at)
+INSERT INTO doctors (id, user_id, room_id, specialization, license_number, created_at, updated_at)
 VALUES
 (11, 2001, 1, 'Internal Medicine', 'INT001', NOW(), NOW()),
-(12, 2002, 4, 'Surgery', 'SUR002', NOW(), NOW()),
-(13, 2003, 5, 'Recovery Specialist', 'REC003', NOW(), NOW());
+(12, 2002, 3, 'Surgery', 'SUR002', NOW(), NOW()),
+(13, 2003, 2, 'Recovery Specialist', 'REC003', NOW(), NOW());
 
 -- 3. Patient (nếu chưa có)
 INSERT INTO users (id, username, password, email, phone, role_id, created_at, updated_at)
@@ -201,12 +208,6 @@ VALUES (401, 3001, 'Trần Văn B - 0977777777', 'Tiền sử đau tim nhẹ', N
 INSERT INTO appointments (id, patient_id, doctor_id, appointment_date, appointment_time, status, created_at, updated_at)
 VALUES (501, 401, 11, '2025-04-06', '08:00:00', 'confirmed', NOW(), NOW());
 
--- 5. Room
-INSERT INTO mec888.room (id,department_id, room_number, room_type, status, created_at, updated_at)
-VALUES
-    (1, 1, 'R101', 'Consultation', 'available', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-    (2, 1, 'R202', 'Surgery', 'available', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-    (3, 1, 'R303', 'Recovery', 'available', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 
 -- 6. Treatment Steps (phân chia bác sĩ)

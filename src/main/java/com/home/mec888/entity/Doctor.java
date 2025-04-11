@@ -2,8 +2,8 @@ package com.home.mec888.entity;
 
 import jakarta.persistence.*;
 
+import javax.print.Doc;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "doctors")
@@ -14,18 +14,12 @@ public class Doctor {
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "user_id", nullable = false) // Khóa ngoại tới bảng users
+    @JoinColumn(name = "user_id", nullable = false) // Foreign key to users table
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "department_id", nullable = false)
-    private Department department;
-
-    @Column(length = 255)
-    private String first_name;
-
-    @Column(length = 255)
-    private String last_name;
+    @JoinColumn(name = "room_id", nullable = false) // Foreign key to departments table
+    private Room room;
 
     @Column(nullable = true, length = 255)
     private String specialization;
@@ -38,6 +32,14 @@ public class Doctor {
 
     @Column(name = "updated_at", nullable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Timestamp updatedAt;
+
+    public Doctor(){
+
+    }
+
+//    public Doctor(){
+//
+//    }
 
     public Long getId() {
         return id;
@@ -87,28 +89,12 @@ public class Doctor {
         this.updatedAt = updatedAt;
     }
 
-    public Department getDepartment() {
-        return department;
+    public Room getRoom() {
+        return room;
     }
 
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
-    public String getFirst_name() {
-        return first_name;
-    }
-
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
-    }
-
-    public String getLast_name() {
-        return last_name;
-    }
-
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setRoom(Room room) {
+        this.room = room;
     }
 
     @Override
@@ -116,9 +102,7 @@ public class Doctor {
         return "Doctor{" +
                 "id=" + id +
                 ", user=" + user +
-                ", department=" + department +
-                ", first_name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
+                ", department=" + room +
                 ", specialization='" + specialization + '\'' +
                 ", license_number='" + license_number + '\'' +
                 ", createdAt=" + createdAt +

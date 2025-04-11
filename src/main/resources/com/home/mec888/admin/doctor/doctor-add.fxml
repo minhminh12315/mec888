@@ -16,11 +16,12 @@
           AnchorPane.rightAnchor="24.0"
           AnchorPane.topAnchor="24.0">
 
-        <HBox spacing="500">
+        <HBox spacing="200">
             <!-- Back button -->
             <Button fx:id="backButton" layoutX="14.0" layoutY="14.0"
                     mnemonicParsing="false" onAction="#handleBack"
                     prefHeight="30.0" prefWidth="75.0" styleClass="back-btn" text="Back"/>
+            <Button fx:id="addUserButton" text="Add New User" onAction="#goToDoctorAdd" />
             <Text text="Add New Doctor" styleClass="titlePage"/>
         </HBox>
 
@@ -35,20 +36,8 @@
             <!-- Department Field -->
             <VBox>
                 <Label styleClass="label-input" text="Department:"/>
-                <ComboBox fx:id="departmentComboBox" prefWidth="Infinity" styleClass="input-field"/>
-                <Label fx:id="departmentErrorLabel" textFill="red"/> <!-- Thông báo lỗi -->
-            </VBox>
-            <!-- First Name Field -->
-            <VBox>
-                <Label styleClass="label-input" text="First Name:"/>
-                <TextField fx:id="firstNameField" prefWidth="Infinity" styleClass="input-field"/>
-                <Label fx:id="firstNameErrorLabel" textFill="red"/> <!-- Thông báo lỗi -->
-            </VBox>
-            <!-- Last Name Field -->
-            <VBox>
-                <Label styleClass="label-input" text="Last Name:"/>
-                <TextField fx:id="lastNameField" prefWidth="Infinity" styleClass="input-field"/>
-                <Label fx:id="lastNameErrorLabel" textFill="red"/> <!-- Thông báo lỗi -->
+                <ComboBox fx:id="roomComboBox" prefWidth="Infinity" styleClass="input-field"/>
+                <Label fx:id="roomErrorLabel" textFill="red"/> <!-- Thông báo lỗi -->
             </VBox>
 
             <!-- Specialization Field -->

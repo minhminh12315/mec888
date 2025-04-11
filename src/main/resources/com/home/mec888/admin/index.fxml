@@ -22,7 +22,7 @@
         <left>
             <AnchorPane prefHeight="600.0" prefWidth="240.0"
                         style="-fx-background-color: #fff; -fx-margin-top: 48px;">
-                <VBox spacing="10" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+                <VBox fx:id="navigationBar" spacing="10" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
                       AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
                     <Button prefWidth="240.0" fx:id="moveHomeButton" mnemonicParsing="false"
                             onAction="#handleHome" styleClass="nav-btn"
@@ -35,6 +35,10 @@
                     <Button prefWidth="240.0" fx:id="moveBookingButton" mnemonicParsing="false"
                             onAction="#handleBooking" styleClass="nav-btn"
                             text="Booking"/>
+                    <!-- button room-->
+                    <Button prefWidth="240.0" fx:id="moveRoomButton" mnemonicParsing="false" onAction="#handleRoom"
+                            styleClass="nav-btn"
+                            text="Room"/>
                     <!-- button department-->
                     <Button prefWidth="240.0" fx:id="moveDepartmentButton" mnemonicParsing="false"
                             onAction="#handleDepartment" styleClass="nav-btn"
@@ -49,10 +53,13 @@
                     <Button prefWidth="240.0" fx:id="movePatientButton" mnemonicParsing="false"
                             onAction="#handlePatient" styleClass="nav-btn"
                             text="Patient"/>
+                    <Button prefWidth="240.0" fx:id="moveDoctorSchedule" mnemonicParsing="false"
+                            onAction="#handleDoctorSchedule" styleClass="nav-btn"
+                            text="Schedule"/>
                     <Button prefWidth="240.0" fx:id="moveServiceButton" mnemonicParsing="false"
                             onAction="#handleService" styleClass="nav-btn"
                             text="Service"/>
-                    <Region VBox.vgrow="ALWAYS"/>
+                    <Region fx:id="regionBLock" VBox.vgrow="ALWAYS"/>
                     <!-- HBox đóng vai trò là button -->
                     <Button prefWidth="240.0" fx:id="buttonLogout" styleClass="btn-logout" text="Logout"
                             onAction="#logout"/>

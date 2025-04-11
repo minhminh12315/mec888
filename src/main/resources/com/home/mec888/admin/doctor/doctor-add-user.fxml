@@ -14,7 +14,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.home.mec888.controller.admin.patient.PatientAddUserController">
+            fx:controller="com.home.mec888.controller.admin.doctor.DoctorAddUserController">
     <VBox spacing="24" AnchorPane.bottomAnchor="24.0"
           AnchorPane.leftAnchor="24.0"
           AnchorPane.rightAnchor="24.0"
