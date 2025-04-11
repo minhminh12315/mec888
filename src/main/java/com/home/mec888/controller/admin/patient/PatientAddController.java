@@ -80,7 +80,8 @@ public class PatientAddController {
 
                 // Save the user to the database
                 userDao.saveUser(user);
-                showAlert("Success", "User added successfully!", Alert.AlertType.INFORMATION);
+//                showAlert("Success", "User added successfully!", Alert.AlertType.INFORMATION);
+                showAlert("Patient" + username, "Random password!"+password, Alert.AlertType.INFORMATION);
 
             } catch (Exception e) {
                 showAlert("Error", "Error adding user: " + e.getMessage(), Alert.AlertType.ERROR);

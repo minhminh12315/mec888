@@ -21,57 +21,57 @@
         </HBox>
 
         <VBox spacing="16">
-         <HBox prefHeight="100.0" prefWidth="200.0" spacing="16">
-            <children>
-               <VBox>
-                  <children>
-                     <Label styleClass="label-input" text="first name" />
-                     <TextField fx:id="firstNameField" onKeyReleased="#validateInput" styleClass="input-field" />
-                     <Label fx:id="first_name_error" />
-                  </children>
-               </VBox>
-               <VBox>
-                  <children>
-                     <Label styleClass="label-input" text="last name" />
-                     <TextField fx:id="lastNameField" onKeyReleased="#validateInput" styleClass="input-field" />
-                     <Label fx:id="last_name_error" />
-                  </children>
-               </VBox>
-               <VBox>
-                  <children>
-                     <Label styleClass="label-input" text="phone" />
-                     <TextField fx:id="phoneField" onKeyReleased="#validateInput" styleClass="input-field" />
-                     <Label fx:id="phone_error" />
-                  </children>
-               </VBox>
-               <VBox>
-                  <children>
-                     <Label styleClass="label-input" text="email" />
-                     <TextField fx:id="emailField" onKeyReleased="#validateInput" styleClass="input-field" />
-                     <Label fx:id="email_error" />
-                  </children>
-               </VBox>
-                  <!-- User ID Input -->
-                  <VBox>
-                      <Label styleClass="label-input" text="gender" />
-                      <ComboBox fx:id="genderComboBox" onKeyReleased="#validateInput" styleClass="input-field" />
-                      <Label fx:id="gender_error" />
-                  </VBox>
-            </children>
-         </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="16">
+                <children>
+                    <VBox>
+                        <children>
+                            <Label styleClass="label-input" text="first name" />
+                            <TextField fx:id="firstNameField" onKeyReleased="#validateInput" styleClass="input-field" />
+                            <Label fx:id="first_name_error" style="-fx-text-fill: red"/>
+                        </children>
+                    </VBox>
+                    <VBox>
+                        <children>
+                            <Label styleClass="label-input" text="last name" />
+                            <TextField fx:id="lastNameField" onKeyReleased="#validateInput" styleClass="input-field" />
+                            <Label fx:id="last_name_error" style="-fx-text-fill: red"/>
+                        </children>
+                    </VBox>
+                    <VBox>
+                        <children>
+                            <Label styleClass="label-input" text="phone" />
+                            <TextField fx:id="phoneField" onKeyReleased="#validateInput" styleClass="input-field" />
+                            <Label fx:id="phone_error" style="-fx-text-fill: red"/>
+                        </children>
+                    </VBox>
+                    <VBox>
+                        <children>
+                            <Label styleClass="label-input" text="email" />
+                            <TextField fx:id="emailField" onKeyReleased="#validateInput" styleClass="input-field" />
+                            <Label fx:id="email_error" style="-fx-text-fill: red"/>
+                        </children>
+                    </VBox>
+                    <!-- User ID Input -->
+                    <VBox>
+                        <Label styleClass="label-input" text="gender" />
+                        <ComboBox fx:id="genderComboBox" onKeyReleased="#validateInput" styleClass="input-field" />
+                        <Label fx:id="gender_error" style="-fx-text-fill: red"/>
+                    </VBox>
+                </children>
+            </HBox>
 
             <!-- Emergency Contact Input -->
             <VBox>
                 <Label styleClass="label-input" text="Emergency Contact" />
                 <TextField fx:id="emergency_contact" onKeyReleased="#validateInput" styleClass="input-field" />
-                <Label fx:id="contact_error" />
+                <Label fx:id="contact_error" style="-fx-text-fill: red"/>
             </VBox>
 
             <!-- Medical History Input -->
             <VBox>
                 <Label styleClass="label-input" text="Medical History" />
                 <TextArea fx:id="medical_history" onKeyReleased="#validateInput" styleClass="input-field" />
-                <Label fx:id="medical_error" />
+                <Label fx:id="medical_error" style="-fx-text-fill: red"/>
             </VBox>
 
             <HBox alignment="CENTER_RIGHT" spacing="24">
