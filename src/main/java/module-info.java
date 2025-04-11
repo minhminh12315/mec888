@@ -39,6 +39,7 @@ module com.home.mec888 {
     requires org.kordamp.ikonli.fontawesome5;
     requires org.kordamp.ikonli.javafx;
     requires java.desktop;
+    requires javax.mail.api;
 
     opens com.home.mec888 to javafx.fxml;
 
