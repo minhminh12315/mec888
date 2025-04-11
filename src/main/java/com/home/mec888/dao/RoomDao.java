@@ -1,5 +1,6 @@
 package com.home.mec888.dao;
 
+import com.home.mec888.entity.Department;
 import com.home.mec888.entity.Room;
 import com.home.mec888.util.HibernateUtil;
 import org.hibernate.Session;
@@ -104,6 +105,15 @@ public class RoomDao {
             return session.createQuery("from Room where lower(roomNumber) = :roomNumber", Room.class)
                     .setParameter("roomNumber", roomNumber)
                     .uniqueResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Room getRoomById(Long id) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.get(Room.class, id);
         } catch (Exception e) {
             e.printStackTrace();
             return null;

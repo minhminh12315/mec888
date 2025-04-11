@@ -56,32 +56,8 @@ public class IndexController {
         if (userRole == null) {
             return;
         }
-//        if (userRole.equalsIgnoreCase("admin")) {
-//            moveHomeButton.setVisible(true);
-//            moveMedicineButton.setVisible(true);
-//            moveDepartmentButton.setVisible(true);
-//            moveDoctorButton.setVisible(true);
-//            moveUserButton.setVisible(true);
-//            movePatientButton.setVisible(true);
-//            moveDoctorSchedule.setVisible(false);
-//        } else if (userRole.equalsIgnoreCase("doctor")) {
-//            moveHomeButton.setVisible(false);
-//            moveMedicineButton.setVisible(false);
-//            moveDepartmentButton.setVisible(false);
-//            moveDoctorButton.setVisible(false);
-//            moveUserButton.setVisible(false);
-//            movePatientButton.setVisible(false);
-//        } else if (userRole.equalsIgnoreCase("staff")) {
-//            moveHomeButton.setVisible(false);
-//            moveMedicineButton.setVisible(false);
-//            moveDepartmentButton.setVisible(false);
-//            moveDoctorButton.setVisible(false);
-//            moveUserButton.setVisible(false);
-//            movePatientButton.setVisible(false);
-//            moveDoctorSchedule.setVisible(false);
-//        }
         navigationBar.getChildren().clear();
-        switch (userRole.toLowerCase()){
+        switch (userRole.toLowerCase()) {
             case "admin":
                 navigationBar.getChildren().addAll(
                         moveHomeButton,
@@ -98,6 +74,8 @@ public class IndexController {
                 navigationBar.getChildren().addAll(
                         moveDoctorSchedule
                 );
+                break;
+            case "patient":
                 break;
         }
         navigationBar.getChildren().addAll(
@@ -152,6 +130,7 @@ public class IndexController {
         highlightActiveButton(moveUserButton);
         SceneSwitcher.loadView("admin/user/user-management.fxml", actionEvent);
     }
+
     public void handleRoom(ActionEvent actionEvent) {
         System.out.println("Room");
         highlightActiveButton(moveRoomButton);
