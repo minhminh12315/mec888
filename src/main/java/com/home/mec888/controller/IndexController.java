@@ -63,6 +63,7 @@ public class IndexController {
                         moveHomeButton,
                         moveMedicineButton,
                         moveDepartmentButton,
+                        moveRoomButton,
                         moveDoctorButton,
                         moveUserButton,
                         movePatientButton
