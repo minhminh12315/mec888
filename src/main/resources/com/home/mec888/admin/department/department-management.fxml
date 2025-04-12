@@ -19,7 +19,7 @@
         </HBox>
         <HBox>
             <TextField fx:id="searchField" prefWidth="380.0" prefHeight="30.0"
-                       promptText="Search by Seat Number" styleClass="search"/>
+                       promptText="Search by Department Name" styleClass="search"/>
             <Region HBox.hgrow="ALWAYS"/>
 
             <Button mnemonicParsing="false" onAction="#handleAdd" prefHeight="30.0" prefWidth="75.0"
