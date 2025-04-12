@@ -1,8 +1,11 @@
 package com.home.mec888.entity;
 
 import jakarta.persistence.*;
+
+import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "doctor_schedule")
@@ -14,6 +17,9 @@ public class DoctorSchedule {
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "doctor_id", nullable = false)
     private Doctor doctor;
+
+    @Column(name = "work_date")
+    private LocalDate workDate;
 
     @Column(name = "day_of_week")
     private String dayOfWeek;
@@ -87,6 +93,14 @@ public class DoctorSchedule {
 
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public LocalDate getWorkDate() {
+        return workDate;
+    }
+
+    public void setWorkDate(LocalDate workDate) {
+        this.workDate = workDate;
     }
 
     @Override
