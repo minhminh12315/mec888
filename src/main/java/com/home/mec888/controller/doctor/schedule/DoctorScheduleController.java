@@ -20,6 +20,7 @@ import javafx.scene.input.MouseEvent;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -112,13 +113,17 @@ public class DoctorScheduleController {
     }
 
     private void buildShiftCells() {
+        LocalDate today = LocalDate.now();
+        LocalDate monday = today.minusDays(today.getDayOfWeek().getValue() - 1);
         for (int row = 1; row <= shifts.length; row++) {
             for (int col = 1; col <= days.length; col++) {
+                LocalDate workDate = monday.plusDays(col - 1);
+                System.out.println("workDate: " + workDate);
                 String dayOfWeek = days[col - 1];
                 String startTime = shiftTimes[row - 1][0];
                 String endTime = shiftTimes[row - 1][1];
 
-                ShiftInfo info = new ShiftInfo(dayOfWeek, shifts[row - 1], startTime, endTime);
+                ShiftInfo info = new ShiftInfo(dayOfWeek, shifts[row - 1], startTime, endTime, workDate);
                 StackPane cell = createCell("", true, info);
                 scheduleGrid.add(cell, col, row);
             }
@@ -130,7 +135,7 @@ public class DoctorScheduleController {
         cell.getStyleClass().add("grid-cell");
 
         if (shiftInfo != null) {
-            DoctorSchedule existingSchedule = doctorScheduleDao.findByDayAndShift(dayMap.get(shiftInfo.dayOfWeek), shiftInfo.startTime, shiftInfo.endTime, currentRoom);
+            DoctorSchedule existingSchedule = doctorScheduleDao.findByDayAndShift(dayMap.get(shiftInfo.dayOfWeek), shiftInfo.startTime, shiftInfo.endTime, currentRoom, shiftInfo.workDate);
             System.out.println(existingSchedule);
             if (existingSchedule != null) {
                 // Nếu bác sĩ hiện tại đã đăng ký
@@ -171,6 +176,7 @@ public class DoctorScheduleController {
                     doctorSchedule.setDayOfWeek(dayMap.get(shiftInfo.dayOfWeek));
                     doctorSchedule.setStartTime(Time.valueOf(shiftInfo.startTime));
                     doctorSchedule.setEndTime(Time.valueOf(shiftInfo.endTime));
+                    doctorSchedule.setWorkDate(shiftInfo.workDate);
                     doctorScheduleDao.save(doctorSchedule);
 
                     cell.getStyleClass().clear(); // Xóa các style hiện tại nếu cần
@@ -197,16 +203,18 @@ public class DoctorScheduleController {
 
     // ShiftInfo inner class
     public static class ShiftInfo {
+        public LocalDate workDate;
         public String dayOfWeek;
         public String shift;
         public String startTime;
         public String endTime;
 
-        public ShiftInfo(String dayOfWeek, String shift, String startTime, String endTime) {
+        public ShiftInfo(String dayOfWeek, String shift, String startTime, String endTime, LocalDate workDate) {
             this.dayOfWeek = dayOfWeek;
             this.shift = shift;
             this.startTime = startTime;
             this.endTime = endTime;
+            this.workDate = workDate;
         }
 
         @Override

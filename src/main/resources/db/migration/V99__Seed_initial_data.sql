@@ -166,11 +166,18 @@ values
 
 -- 6. Doctor Schedule
 INSERT INTO mec888.doctor_schedule
-(id, doctor_id, day_of_week, start_time, end_time, created_at, updated_at)
-values
-(1, 1, 'Monday', '08:00:00', '12:00:00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(2, 1, 'Wednesday', '14:00:00', '18:00:00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(3, 2, 'Friday', '09:00:00', '15:00:00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+(id, doctor_id, day_of_week, start_time, end_time, work_date, created_at, updated_at)
+VALUES
+(1, 1, 'Monday', '08:00:00', '12:00:00', '2025-04-14', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(2, 1, 'Wednesday', '14:00:00', '18:00:00', '2025-04-16', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(3, 2, 'Friday', '09:00:00', '15:00:00', '2025-04-11', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(4, 3, 'Tuesday', '10:00:00', '16:00:00', '2025-04-15', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(5, 4, 'Thursday', '08:30:00', '12:30:00', '2025-04-17', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(6, 5, 'Saturday', '13:00:00', '17:00:00', '2025-04-19', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(7, 6, 'Sunday', '09:00:00', '13:00:00', '2025-04-20', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(8, 7, 'Monday', '14:00:00', '18:00:00', '2025-04-21', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(9, 8, 'Wednesday', '08:00:00', '12:00:00', '2025-04-23', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(10, 9, 'Friday', '10:30:00', '14:30:00', '2025-04-25', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 -- 7. Patient
 INSERT INTO mec888.patients

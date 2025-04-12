@@ -1,0 +1,8 @@
+.display-flex {
+ -fx-display: flex;
+    -fx-flex-direction: column;
+    -fx-align-items: center;
+    -fx-justify-content: center;
+    -fx-padding: 16px;
+    -fx-border-radius: 6px;
+ }

@@ -32,7 +32,14 @@ public class Room {
     public Room() {
     }
 
-    public Room(String roomNumber, String roomType, String status,Timestamp createdAt,Timestamp updatedAt) {
+    public Room(String roomNumber, String roomType, String status, Department department) {
+        this.roomNumber = roomNumber;
+        this.roomType = roomType;
+        this.status = status;
+        this.department = department;
+    }
+
+    public Room(String roomNumber, String roomType, String status, Timestamp createdAt, Timestamp updatedAt) {
         this.roomNumber = roomNumber;
         this.roomType = roomType;
         this.status = status;

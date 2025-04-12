@@ -33,7 +33,7 @@ public class Doctor {
     @Column(name = "updated_at", nullable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Timestamp updatedAt;
 
-    public Doctor(){
+    public Doctor() {
 
     }
 
@@ -99,14 +99,6 @@ public class Doctor {
 
     @Override
     public String toString() {
-        return "Doctor{" +
-                "id=" + id +
-                ", user=" + user +
-                ", department=" + room +
-                ", specialization='" + specialization + '\'' +
-                ", license_number='" + license_number + '\'' +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                '}';
+        return user.getFirstName() + " " + user.getLastName() + " (" + specialization + ")";
     }
 }
