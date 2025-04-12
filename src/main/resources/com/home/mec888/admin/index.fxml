@@ -56,6 +56,9 @@
                     <Button prefWidth="240.0" fx:id="moveDoctorSchedule" mnemonicParsing="false"
                             onAction="#handleDoctorSchedule" styleClass="nav-btn"
                             text="Schedule"/>
+                    <Button prefWidth="240.0" fx:id="moveSettingsButton" mnemonicParsing="false"
+                            onAction="#handleSettings" styleClass="nav-btn"
+                            text="Settings"/>
                     <Button prefWidth="240.0" fx:id="moveServiceButton" mnemonicParsing="false"
                             onAction="#handleService" styleClass="nav-btn"
                             text="Service"/>
