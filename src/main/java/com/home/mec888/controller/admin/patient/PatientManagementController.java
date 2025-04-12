@@ -2,9 +2,12 @@ package com.home.mec888.controller.admin.patient;
 
 import com.home.mec888.dao.PatientDao;
 import com.home.mec888.dao.UserDao;
+import com.home.mec888.entity.Doctor;
 import com.home.mec888.entity.Patient;
 import com.home.mec888.entity.User;
 import com.home.mec888.util.SceneSwitcher;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,21 +22,31 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class PatientManagementController {
     public TableView<Patient> patientManagementTable;
     public TableColumn<Patient, Long> patientColId;
     public TableColumn<Patient, Long> userColId;
+    @FXML
+    public TableColumn<Patient, String> firstNameColumn;
+    @FXML
+    public TableColumn<Patient, String> lastNameColumn;
     public TableColumn<Patient, String> patientColEmergency;
     public TableColumn<Patient, String> patientColMedical;
     public TableColumn<Patient, Void> actionColumn;
+    public TextField searchField;
 
     private PatientDao patientDao;
+    private UserDao userDao;
+    private List<Patient> originalList;
 
     @FXML
     private void initialize() {
         patientDao = new PatientDao();
+        userDao = new UserDao();
         loadPatientData();
         addButtonToTable();
     }
@@ -46,11 +59,71 @@ public class PatientManagementController {
     private void loadPatientData() {
         patientColId.setCellValueFactory(new PropertyValueFactory<>("id"));
         userColId.setCellValueFactory(new PropertyValueFactory<>("user_id"));
+        firstNameColumn.setCellValueFactory(cellData -> {
+            if (cellData.getValue() != null && cellData.getValue().getUser_id() != null) {
+                User user = userDao.getUserById((long) cellData.getValue().getUser_id());
+                if (user != null) {
+                    return new SimpleStringProperty(user.getFirstName());
+                } else {
+                    return new SimpleStringProperty("Unknown");
+                }
+            } else {
+                return new SimpleStringProperty("Unknown");
+            }
+        });
+        lastNameColumn.setCellValueFactory(cellData -> {
+            if (cellData.getValue() != null && cellData.getValue().getUser_id() != null) {
+                User user = userDao.getUserById((long) cellData.getValue().getUser_id());
+                if (user != null) {
+                    return new SimpleStringProperty(user.getLastName());
+                } else {
+                    return new SimpleStringProperty("Unknown");
+                }
+            } else {
+                return new SimpleStringProperty("Unknown");
+            }
+        });
         patientColEmergency.setCellValueFactory(new PropertyValueFactory<>("emergency_contact"));
         patientColMedical.setCellValueFactory(new PropertyValueFactory<>("medical_history"));
 
         patientManagementTable.getItems().clear();
         patientManagementTable.getItems().addAll(patientDao.getAllPatients());
+
+
+        originalList = new ArrayList<>(patientDao.getAllPatients());
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filterPatientList(newValue);
+        });
+    }
+
+    private void updateTable(List<Patient> patients) {
+        patientManagementTable.setItems(FXCollections.observableArrayList(patients));
+    }
+
+    private void filterPatientList(String keyword) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            updateTable(originalList);
+            return;
+        }
+
+        // Tạo danh sách lọc
+        // nhớ sửa dùng sql để lấy dữ liệu,
+        List<Patient> filteredList = new ArrayList<>();
+        for (Patient patient : originalList) {
+            User user = userDao.getUserById( (long) patient.getUser_id());
+            if (
+                    (user.getFirstName() != null && user.getFirstName().toLowerCase().contains(keyword.toLowerCase())) ||
+                            (user.getLastName() != null && user.getLastName().toLowerCase().contains(keyword.toLowerCase())) ||
+                            (patient.getMedical_history() != null && patient.getMedical_history().toLowerCase().contains(keyword.toLowerCase())) ||
+                            (patient.getEmergency_contact() != null && patient.getEmergency_contact().toLowerCase().contains(keyword.toLowerCase()))
+            ) {
+                filteredList.add(patient);
+            }
+        }
+
+        // Cập nhật bảng với danh sách lọc
+        updateTable(filteredList);
+        addButtonToTable();
     }
 
     private void addButtonToTable() {

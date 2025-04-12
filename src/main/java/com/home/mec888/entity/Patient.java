@@ -12,7 +12,7 @@ public class Patient {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private int user_id;
+    private Integer user_id;
 
     @Column(length = 50)
     private String emergency_contact;
@@ -29,8 +29,8 @@ public class Patient {
     public Patient() {
     }
 
-    public Patient(String user_id, String emergency_contact, String medical_history) {
-        this.user_id = Integer.parseInt(user_id);
+    public Patient(Long user_id, String emergency_contact, String medical_history) {
+        this.user_id = Math.toIntExact(user_id);
         this.emergency_contact = emergency_contact;
         this.medical_history = medical_history;
     }
@@ -43,11 +43,11 @@ public class Patient {
         this.id = id;
     }
 
-    public int getUser_id() {
+    public Integer getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(int user_id) {
+    public void setUser_id(Integer  user_id) {
         this.user_id = user_id;
     }
 

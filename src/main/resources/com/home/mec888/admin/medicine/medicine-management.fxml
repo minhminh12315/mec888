@@ -21,8 +21,8 @@
             <Text text="Medicine Management" styleClass="titlePage" textAlignment="CENTER"/>
         </HBox>
         <HBox>
-            <!--            Search Field-->
-            <TextField fx:id="searchField" prefHeight="29.0" prefWidth="380.0" promptText="Search by Doctor Name"
+            <!--Search Field-->
+            <TextField fx:id="searchField" prefHeight="29.0" prefWidth="380.0" promptText="Search by Medicine Name"
                        styleClass="search"/>
             <Region HBox.hgrow="ALWAYS"/>
             <Button mnemonicParsing="false" onAction="#handleAdd" prefHeight="30.0" prefWidth="75.0"
@@ -36,8 +36,8 @@
                    styleClass="table">
             <columns>
                 <TableColumn fx:id="idColumn" prefWidth="84.0" text="ID"/>
-                <TableColumn fx:id="nameColumn" prefWidth="270.0" text="Genre"/>
-                <TableColumn fx:id="descriptionColumn" minWidth="0.0" prefWidth="208.0" text="Desription"/>
+                <TableColumn fx:id="nameColumn" prefWidth="270.0" text="Name"/>
+                <TableColumn fx:id="descriptionColumn" minWidth="0.0" prefWidth="208.0" text="Description"/>
                 <TableColumn fx:id="priceColumn" minWidth="0.0" prefWidth="208.0" text="Price"/>
                 <TableColumn fx:id="manufacturerColumn" minWidth="0.0" prefWidth="208.0" text="Manufacturer"/>
                 <TableColumn fx:id="actionColumn" minWidth="0.0" prefWidth="208.0" text="Actions"/>

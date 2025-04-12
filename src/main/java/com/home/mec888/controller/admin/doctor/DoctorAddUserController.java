@@ -1,4 +1,4 @@
-package com.home.mec888.controller.admin.patient;
+package com.home.mec888.controller.admin.doctor;
 
 import com.home.mec888.dao.RoleDao;
 import com.home.mec888.dao.UserDao;
@@ -12,19 +12,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.util.StringConverter;
 
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Objects;
 
-public class PatientAddUserController {
+public class DoctorAddUserController {
 
     @FXML
     private TextField usernameField, firstNameField, lastNameField, emailField, phoneField, addressField;
@@ -45,15 +44,12 @@ public class PatientAddUserController {
 
     @FXML
     private void initialize() {
-        // Load roles into combo box
-        ObservableList<Role> roles = FXCollections.observableArrayList(roleDao.getAllRoles());
+        ObservableList<Role> allRoles = FXCollections.observableArrayList(roleDao.getAllRoles());
+        ObservableList<Role> roles = FXCollections.observableArrayList(
+                allRoles.filtered(role -> role.getName().equalsIgnoreCase("doctor"))
+        );
         roleComboBox.setItems(roles);
-
-        // Gender options
-        genderComboBox.setItems(FXCollections.observableArrayList("Male", "Female", "Other"));
-
-        // Date of Birth - Set initial value to null if you want.
-        dateOfBirthPicker.setValue(null);
+        roleComboBox.setValue(roles.getFirst());
 
         // Set the cell factory to display only the role name
         roleComboBox.setCellFactory(param -> new ListCell<Role>() {
@@ -67,19 +63,24 @@ public class PatientAddUserController {
                 }
             }
         });
-
-        // Set the button cell to display the selected value correctly
-        roleComboBox.setButtonCell(new ListCell<Role>() {
+        roleComboBox.setConverter(new StringConverter<Role>() {
             @Override
-            protected void updateItem(Role role, boolean empty) {
-                super.updateItem(role, empty);
-                if (empty || role == null) {
-                    setText(null);
-                } else {
-                    setText(role.getName());
-                }
+            public String toString(Role role) {
+                return role != null ? role.getName() : "";
+            }
+
+            @Override
+            public Role fromString(String string) {
+                return null;
             }
         });
+
+
+        // Gender options
+        genderComboBox.setItems(FXCollections.observableArrayList("Male", "Female", "Other"));
+
+        // Date of Birth - Set initial value to null if you want.
+        dateOfBirthPicker.setValue(null);
     }
 
     @FXML
@@ -202,7 +203,7 @@ public class PatientAddUserController {
                 // Clear the fields after saving
                 handleClear();
 
-                returnToPatient(event);
+                returnToDoctor(event);
 
             } catch (Exception e) {
                 showAlert("Error", "Error adding user: " + e.getMessage(), Alert.AlertType.ERROR);
@@ -276,12 +277,12 @@ public class PatientAddUserController {
     }
 
     private void returnToUserManagement(ActionEvent actionEvent) {
-        SceneSwitcher.loadView("admin/patient/patient-add.fxml", actionEvent);
+        SceneSwitcher.loadView("admin/doctor/doctor-add.fxml", actionEvent);
     }
 
 
-    private void returnToPatient(ActionEvent actionEvent) {
-        PatientAddController controller = loadView("admin/patient/patient-add.fxml", actionEvent);
+    private void returnToDoctor(ActionEvent actionEvent) {
+        DoctorAddController controller = loadView("admin/doctor/doctor-add.fxml", actionEvent);
         if (controller != null) {
             controller.handleAddUser();
         }
