@@ -37,6 +37,7 @@ public class Main extends Application {
         scene.getStylesheets().add(getClass().getResource("/asset/css/an.css").toExternalForm());
         scene.getStylesheets().add(getClass().getResource("/asset/css/cong.css").toExternalForm());
 
+
         // Lấy độ phân giải màn hình
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();

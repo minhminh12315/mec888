@@ -1,7 +1,7 @@
-package com.home.mec888.controller.admin.patient;
+package com.home.mec888.controller.staff.appointment;
 
-import com.home.mec888.dao.PatientDao;
-import com.home.mec888.dao.UserDao;
+import com.home.mec888.dao.*;
+import com.home.mec888.entity.Doctor;
 import com.home.mec888.entity.Patient;
 import com.home.mec888.entity.Role;
 import com.home.mec888.entity.User;
@@ -12,44 +12,158 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
-import javafx.util.StringConverter;
+import javafx.scene.layout.GridPane;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Date;
-import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
-public class PatientAddController {
+public class AppointmentAddController {
     @FXML
     public ComboBox<User> user_id;
     @FXML
     public TextField emergency_contact;
     public TextArea medical_history;
     @FXML
-    public Label contact_error, medical_error, user_id_error;
+    public Label contact_error, medical_error, user_id_error, doctorErrorLabel,
+            appointmentDateErrorLabel,
+            timeErrorLabel;
     @FXML
-    public Button clearButton, saveButton, backButton, addUserButton;
+    private TextField firstNameField, lastNameField, emailField, phoneField, addressField;
     @FXML
-    public TextField firstNameField, lastNameField, phoneField, emailField;
+    public Button clearButton, saveButton, backButton;
     @FXML
-    public ComboBox<String> genderComboBox;
+    private ComboBox<String> genderComboBox, timePicker;
     @FXML
-    public Label first_name_error, last_name_error, phone_error, email_error, gender_error;
+    private DatePicker dateOfBirthPicker, appointmentDatePicker;
+    @FXML
+    private Label usernameErrorLabel, emailErrorLabel, phoneErrorLabel,
+            firstNameErrorLabel, lastNameErrorLabel, genderErrorLabel, dateOfBirthErrorLabel, addressErrorLabel;
+
+    @FXML
+    public ComboBox<Doctor> doctorComboBox;
+
+    @FXML
+    private GridPane timeSlotGrid;
+
+    // Biến lưu trữ giờ được chọn
+    private String selectedTimeSlot = null;
 
     UserDao userDao = new UserDao();
+    private RoleDao roleDao = new RoleDao();
+    DoctorDao doctorDao = new DoctorDao();
+    DoctorScheduleDao doctorScheduleDao = new DoctorScheduleDao();
+    RoomDao roomDao = new RoomDao();
+    DepartmentDao departmentDao = new DepartmentDao();
+
     private static final String word = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private static final String digits = "0123456789";
     private static final Random random = new Random();
 
+    private final Map<String, String> dayMap = new HashMap<>() {{
+        put("Mon", "Monday");
+        put("Tue", "Tuesday");
+        put("Wed", "Wednesday");
+        put("Thur", "Thursday");
+        put("Fri", "Friday");
+        put("Sat", "Saturday");
+        put("Sun", "Sunday");
+    }};
+
     @FXML
     private void initialize() {
-        try {
-            genderComboBox.setItems(FXCollections.observableArrayList("Male", "Female"));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+
+        // Gender options
+        genderComboBox.setItems(FXCollections.observableArrayList("Male", "Female"));
+
+        // Doctor ComboBox
+        ObservableList<Doctor> doctorList = FXCollections.observableArrayList(doctorDao.getAllDoctors());
+        doctorComboBox.setItems(doctorList);
+
+        // Time picker options set to 30-minute intervals
+        ObservableList<String> timeOptions = FXCollections.observableArrayList();
+        for (int hour = 8; hour < 18; hour++) {
+            for (int minute = 0; minute < 60; minute += 30) {
+                String time = String.format("%02d:%02d", hour, minute);
+                timeOptions.add(time);
+            }
+        }
+
+        // Appointment Date Picker
+        appointmentDatePicker.setValue(null);
+        appointmentDatePicker.setEditable(false);
+        appointmentDatePicker.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(java.time.LocalDate item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item.isBefore(java.time.LocalDate.now())) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #ffc0cb;");
+                }
+            }
+        });
+
+
+        // Date of Birth - Set initial value to null if you want.
+        dateOfBirthPicker.setValue(null);
+
+        buildTimeSlotGrid();
+    }
+
+    private ObservableList<String> generateTimeSlots() {
+        ObservableList<String> slots = FXCollections.observableArrayList();
+        // Giả sử giờ mở cửa là 08:00 và giờ đóng cửa là 18:00
+        for (int hour = 8; hour < 18; hour++) {
+            for (int minute = 0; minute < 60; minute += 30) {
+                String time = String.format("%02d:%02d", hour, minute);
+                slots.add(time);
+            }
+        }
+        return slots;
+    }
+
+    /**
+     * Phương thức xây dựng lưới các ô button hiển thị các ca khám theo 30 phút.
+     */
+    private void buildTimeSlotGrid() {
+        ObservableList<String> timeSlots = generateTimeSlots();
+        int columns = 4; // Số cột, bạn có thể điều chỉnh tùy ý
+        int row = 0;
+        int col = 0;
+
+        // Xóa các thành phần cũ nếu có
+        timeSlotGrid.getChildren().clear();
+
+        for (String slot : timeSlots) {
+            Button btn = new Button(slot);
+            btn.setPrefWidth(80);
+            btn.getStyleClass().add("time-slot-button");
+
+            // Nếu slot đã được chọn, đánh dấu màu khác
+            if (slot.equals(selectedTimeSlot)) {
+                btn.setStyle("-fx-background-color: #90ee90;"); // xanh nhạt
+            }
+
+            // Xử lý sự kiện khi bấm vào button
+            btn.setOnAction(e -> {
+                selectedTimeSlot = slot;
+                // Cập nhật ComboBox timePicker (nếu bạn dùng) hoặc hiển thị ở nơi khác
+                timePicker.setValue(slot);
+                // Cập nhật lại giao diện lưới để đánh dấu button được chọn
+                buildTimeSlotGrid();
+            });
+
+            timeSlotGrid.add(btn, col, row);
+            col++;
+            if (col >= columns) {
+                col = 0;
+                row++;
+            }
         }
     }
+
 
     @FXML
     public void handleSave(ActionEvent actionEvent) {
@@ -102,13 +216,16 @@ public class PatientAddController {
             );
             patientDao.savePatient(patient);
 
+
             // Show success message
             showAlert("Success", "Patient added successfully", Alert.AlertType.INFORMATION);
 
-            SceneSwitcher.loadView("admin/patient/patient-management.fxml", actionEvent);
+//            SceneSwitcher.loadView("admin/patient/patient-management.fxml", actionEvent);
         } catch (Exception e) {
             showAlert("Error", "Failed to save patient", Alert.AlertType.ERROR);
         }
+
+
     }
 
     private Long getLastUserId() {
@@ -119,6 +236,16 @@ public class PatientAddController {
         }
         User lastUser = userList.getFirst();
         return lastUser.getId();
+    }
+
+    private Long getLastPatientId() {
+        PatientDao patientDao = new PatientDao();
+        ObservableList<Patient> patientList = FXCollections.observableArrayList(patientDao.getAllPatients());
+        if (patientList.isEmpty()) {
+            return null;
+        }
+        Patient lastPatient = patientList.getFirst();
+        return lastPatient.getId();
     }
 
     private void showAlert(String title, String message, Alert.AlertType type) {
@@ -166,57 +293,101 @@ public class PatientAddController {
         } else if (source == firstNameField) {
             String firstName = firstNameField.getText();
             if (firstName == null) {
-                first_name_error.setText("First Name cannot be empty.");
+                firstNameErrorLabel.setText("First Name cannot be empty.");
                 saveButton.setDisable(true);
             } else {
-                first_name_error.setText("");
+                firstNameErrorLabel.setText("");
                 saveButton.setDisable(false);
             }
         } else if (source == lastNameField) {
             String lastName = lastNameField.getText();
             if (lastName == null) {
-                last_name_error.setText("Last Name cannot be empty.");
+                lastNameErrorLabel.setText("Last Name cannot be empty.");
                 saveButton.setDisable(true);
             } else {
-                last_name_error.setText("");
+                lastNameErrorLabel.setText("");
                 saveButton.setDisable(false);
             }
         } else if (source == genderComboBox) {
             String gender = genderComboBox.getValue();
             if (gender == null) {
-                gender_error.setText("Gender cannot be empty.");
+                genderErrorLabel.setText("Gender cannot be empty.");
                 saveButton.setDisable(true);
             } else {
-                gender_error.setText("");
+                genderErrorLabel.setText("");
                 saveButton.setDisable(false);
             }
         } else if (source == emailField) {
             String email = emailField.getText();
             if (email == null) {
-                email_error.setText("Email cannot be empty.");
+                emailErrorLabel.setText("Email cannot be empty.");
                 saveButton.setDisable(true);
             } else if (!isValidEmail(email)) {
-                email_error.setText("Invalid email format!");
+                emailErrorLabel.setText("Invalid email format!");
                 saveButton.setDisable(true);
             } else if (userDao.isEmailExists(email)) {
-                email_error.setText("Email already exists!");
+                emailErrorLabel.setText("Email already exists!");
                 saveButton.setDisable(true);
             } else {
-                email_error.setText("");
+                emailErrorLabel.setText("");
                 saveButton.setDisable(false);
             }
         } else if (source == phoneField) {
             String phone = phoneField.getText();
             if (phone == null) {
-                phone_error.setText("Phone cannot be empty.");
+                phoneErrorLabel.setText("Phone cannot be empty.");
                 saveButton.setDisable(true);
             } else if (!isValidPhone(phone)) {
-                phone_error.setText("Invalid phone format!");
+                phoneErrorLabel.setText("Invalid phone format!");
                 saveButton.setDisable(true);
             } else {
-                phone_error.setText("");
+                phoneErrorLabel.setText("");
                 saveButton.setDisable(false);
             }
+        } else if (source == dateOfBirthPicker) {
+            if (dateOfBirthPicker.getValue() == null) {
+                dateOfBirthErrorLabel.setText("Date of Birth cannot be empty.");
+                saveButton.setDisable(true);
+            } else {
+                dateOfBirthErrorLabel.setText("");
+                saveButton.setDisable(false);
+            }
+        } else if (source == addressField) {
+            String address = addressField.getText();
+            if (address.length() > 255) {
+                addressErrorLabel.setText("Address cannot exceed 255 characters.");
+                saveButton.setDisable(true);
+            } else {
+                addressErrorLabel.setText("");
+                saveButton.setDisable(false);
+            }
+
+        } else if (source == appointmentDatePicker) {
+            if (appointmentDatePicker.getValue() == null) {
+                appointmentDateErrorLabel.setText("Appointment Date cannot be empty.");
+                saveButton.setDisable(true);
+            } else {
+                appointmentDateErrorLabel.setText("");
+                saveButton.setDisable(false);
+            }
+        } else if (source == timePicker) {
+            String time = timePicker.getValue();
+            if (time == null) {
+                timeErrorLabel.setText("Time cannot be empty.");
+                saveButton.setDisable(true);
+            } else {
+                timeErrorLabel.setText("");
+                saveButton.setDisable(false);
+            }
+        }
+    }
+
+    @FXML
+    private void handleDoctor(ActionEvent event) {
+        Doctor selectedDoctor = doctorComboBox.getValue();
+        if (selectedDoctor != null) {
+            System.out.println("Selected Doctor: " + selectedDoctor.getId());
+
         }
     }
 
@@ -242,21 +413,16 @@ public class PatientAddController {
 
     @FXML
     public void handleClear() {
-        emergency_contact.clear();
-        medical_history.clear();
         firstNameField.clear();
         lastNameField.clear();
         phoneField.clear();
         emailField.clear();
-//        genderComboBox.setConverter(null);
 
-        contact_error.setText("");
-        medical_error.setText("");
-        first_name_error.setText("");
-        last_name_error.setText("");
-        phone_error.setText("");
-        email_error.setText("");
-        gender_error.setText("");
+        firstNameErrorLabel.setText("");
+        lastNameErrorLabel.setText("");
+        phoneErrorLabel.setText("");
+        emailErrorLabel.setText("");
+        genderErrorLabel.setText("");
 
         saveButton.setDisable(true);
     }
