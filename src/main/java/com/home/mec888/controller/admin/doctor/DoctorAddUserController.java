@@ -284,7 +284,7 @@ public class DoctorAddUserController {
     private void returnToDoctor(ActionEvent actionEvent) {
         DoctorAddController controller = loadView("admin/doctor/doctor-add.fxml", actionEvent);
         if (controller != null) {
-            controller.handleAddUser();
+//            controller.handleAddUser();
         }
     }
 
