@@ -16,7 +16,10 @@ import javafx.scene.layout.GridPane;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -27,9 +30,7 @@ public class AppointmentAddController {
     public TextField emergency_contact;
     public TextArea medical_history;
     @FXML
-    public Label contact_error, medical_error, user_id_error, doctorErrorLabel,
-            appointmentDateErrorLabel,
-            timeErrorLabel;
+    public Label contact_error, medical_error, user_id_error, doctorErrorLabel, appointmentDateErrorLabel, timeErrorLabel;
     @FXML
     private TextField firstNameField, lastNameField, emailField, phoneField, addressField;
     @FXML
@@ -39,8 +40,7 @@ public class AppointmentAddController {
     @FXML
     private DatePicker dateOfBirthPicker, appointmentDatePicker;
     @FXML
-    private Label usernameErrorLabel, emailErrorLabel, phoneErrorLabel,
-            firstNameErrorLabel, lastNameErrorLabel, genderErrorLabel, dateOfBirthErrorLabel, addressErrorLabel;
+    private Label usernameErrorLabel, emailErrorLabel, phoneErrorLabel, firstNameErrorLabel, lastNameErrorLabel, genderErrorLabel, dateOfBirthErrorLabel, addressErrorLabel;
 
     @FXML
     public ComboBox<Doctor> doctorComboBox;
@@ -61,6 +61,7 @@ public class AppointmentAddController {
     private static final String word = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private static final String digits = "0123456789";
     private static final Random random = new Random();
+    private List<LocalDate> workDateOnMonth;
 
     private final Map<String, String> dayMap = new HashMap<>() {{
         put("Mon", "Monday");
@@ -98,14 +99,24 @@ public class AppointmentAddController {
             @Override
             public void updateItem(java.time.LocalDate item, boolean empty) {
                 super.updateItem(item, empty);
-                if (item.isBefore(java.time.LocalDate.now())) {
+
+                LocalDate today = LocalDate.now();
+                YearMonth currentMonth = YearMonth.now();
+                if (item.isBefore(today)) {
                     setDisable(true);
-                    setStyle("-fx-background-color: #ffc0cb;");
+                    setStyle("-fx-background-color: #eeeeee;");
+                }
+                if (!YearMonth.from(item).equals(currentMonth)) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #eeeeee;");
+                    return;
+                }
+                if (workDateOnMonth != null && !workDateOnMonth.contains(item)) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #eeeeee;");
                 }
             }
         });
-
-
         // Date of Birth - Set initial value to null if you want.
         dateOfBirthPicker.setValue(null);
 
@@ -115,7 +126,7 @@ public class AppointmentAddController {
     private ObservableList<String> generateTimeSlots() {
         ObservableList<String> slots = FXCollections.observableArrayList();
         // Giả sử giờ mở cửa là 08:00 và giờ đóng cửa là 18:00
-        for (int hour = 8; hour < 18; hour++) {
+        for (int hour = 7; hour < 19; hour++) {
             for (int minute = 0; minute < 60; minute += 30) {
                 String time = String.format("%02d:%02d", hour, minute);
                 slots.add(time);
@@ -209,11 +220,7 @@ public class AppointmentAddController {
 
             // Create patient object with user_id, emergency_contact, and medical_history
             PatientDao patientDao = new PatientDao();
-            Patient patient = new Patient(
-                    last_user_id,
-                    emergency_contact.getText(),
-                    medical_history.getText()
-            );
+            Patient patient = new Patient(last_user_id, emergency_contact.getText(), medical_history.getText());
             patientDao.savePatient(patient);
 
 
@@ -387,7 +394,16 @@ public class AppointmentAddController {
         Doctor selectedDoctor = doctorComboBox.getValue();
         if (selectedDoctor != null) {
             System.out.println("Selected Doctor: " + selectedDoctor.getId());
+            try {
+                LocalDate today = LocalDate.now();
+                int currentYear = today.getYear();
+                int currentMonth = today.getMonthValue(); // từ 1 đến 12
 
+                workDateOnMonth = doctorScheduleDao.findWorkDatesByDoctorInMonth(selectedDoctor.getId(), currentYear, currentMonth);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
