@@ -66,4 +66,20 @@ public class DoctorScheduleDao {
             return new ArrayList<>();
         }
     }
+
+    // Find Start and End Time by Work Date
+    public List<DoctorSchedule> findStartAndEndTimeByWorkDate(LocalDate workDate) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery(
+                            "SELECT ds " +
+                                    "FROM DoctorSchedule ds " +
+                                    "WHERE ds.workDate = :workDate", DoctorSchedule.class)
+                    .setParameter("workDate", workDate)
+                    .getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
 }

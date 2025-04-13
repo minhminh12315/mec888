@@ -5,6 +5,7 @@ import com.home.mec888.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class AppointmentDao {
@@ -69,6 +70,18 @@ public class AppointmentDao {
                 transaction.rollback();
             }
             e.printStackTrace();
+        }
+    }
+
+    // find appointment by appointment_date
+    public List<Appointment> findAppointmentsByDate(LocalDate appointmentDate) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("from Appointment where appointmentDate = :appointmentDate", Appointment.class)
+                    .setParameter("appointmentDate", appointmentDate)
+                    .list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

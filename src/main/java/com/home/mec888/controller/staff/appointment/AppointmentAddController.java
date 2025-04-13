@@ -17,7 +17,9 @@ import javafx.scene.layout.GridPane;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,11 +59,16 @@ public class AppointmentAddController {
     DoctorScheduleDao doctorScheduleDao = new DoctorScheduleDao();
     RoomDao roomDao = new RoomDao();
     DepartmentDao departmentDao = new DepartmentDao();
+    AppointmentDao appointmentDao = new AppointmentDao();
 
     private static final String word = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private static final String digits = "0123456789";
     private static final Random random = new Random();
     private List<LocalDate> workDateOnMonth;
+    // work time start and end
+    private String workTimeStart;
+    private String workTimeEnd;
+    private List<String> timeBooked;
 
     private final Map<String, String> dayMap = new HashMap<>() {{
         put("Mon", "Monday");
@@ -140,27 +147,46 @@ public class AppointmentAddController {
      */
     private void buildTimeSlotGrid() {
         ObservableList<String> timeSlots = generateTimeSlots();
-        int columns = 4; // Số cột, bạn có thể điều chỉnh tùy ý
+        int columns = 4; // Số cột hiển thị, bạn có thể điều chỉnh tùy theo ý muốn
         int row = 0;
         int col = 0;
 
         // Xóa các thành phần cũ nếu có
         timeSlotGrid.getChildren().clear();
 
+        // Định dạng: workTime có dạng HH:mm:ss; các slot có dạng HH:mm
+        DateTimeFormatter workTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        DateTimeFormatter slotTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        // Nếu chưa có giá trị thì lấy giá trị mặc định: MIN hoặc MAX
+        LocalTime startTime = workTimeStart != null ? LocalTime.parse(workTimeStart, workTimeFormatter) : LocalTime.MIN;
+        LocalTime endTime = workTimeEnd != null ? LocalTime.parse(workTimeEnd, workTimeFormatter) : LocalTime.MAX;
+
         for (String slot : timeSlots) {
+            // Chuyển slot sang LocalTime theo định dạng HH:mm
+            LocalTime slotTime = LocalTime.parse(slot, slotTimeFormatter);
             Button btn = new Button(slot);
             btn.setPrefWidth(80);
             btn.getStyleClass().add("time-slot-button");
 
-            // Nếu slot đã được chọn, đánh dấu màu khác
+            // Nếu slot đã được chọn, hiển thị màu xanh nhạt
             if (slot.equals(selectedTimeSlot)) {
-                btn.setStyle("-fx-background-color: #90ee90;"); // xanh nhạt
+                btn.setStyle("-fx-background-color: #90ee90;"); // Màu xanh nhạt
+            }
+
+            // Nếu slot nằm ngoài khung giờ làm việc thì disable button
+            // Lưu ý: nếu slotTime >= endTime cũng sẽ disable (ví dụ: nếu workTimeEnd là 12:00:00 thì slot 12:00 sẽ bị disable)
+            if (slotTime.isBefore(startTime) || !slotTime.isBefore(endTime)) {
+                btn.setDisable(true);
+                btn.getStyleClass().add("disabled-button");
+            } else {
+                btn.getStyleClass().remove("disabled-button");
             }
 
             // Xử lý sự kiện khi bấm vào button
             btn.setOnAction(e -> {
                 selectedTimeSlot = slot;
-                // Cập nhật ComboBox timePicker (nếu bạn dùng) hoặc hiển thị ở nơi khác
+                // Cập nhật ComboBox hoặc nơi hiển thị thời gian khác (nếu có)
                 timePicker.setValue(slot);
                 // Cập nhật lại giao diện lưới để đánh dấu button được chọn
                 buildTimeSlotGrid();
@@ -403,6 +429,29 @@ public class AppointmentAddController {
 
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    private void handleDatePicker(ActionEvent event) {
+        LocalDate selectedDate = appointmentDatePicker.getValue();
+        if (selectedDate != null) {
+            System.out.println("Selected Date: " + selectedDate);
+            // Kiểm tra xem ngày đã chọn có nằm trong danh sách ngày làm việc của bác sĩ không
+            if (workDateOnMonth != null && workDateOnMonth.contains(selectedDate)) {
+                System.out.println("The selected date is a working day for the doctor.");
+
+                workTimeStart = doctorScheduleDao.findStartAndEndTimeByWorkDate(selectedDate).get(0).getStartTime().toString();
+                workTimeEnd = doctorScheduleDao.findStartAndEndTimeByWorkDate(selectedDate).get(0).getEndTime().toString();
+                System.out.println("Work Time Start: " + workTimeStart);
+                System.out.println("Work Time End: " + workTimeEnd);
+
+
+                buildTimeSlotGrid();
+
+            } else {
+                System.out.println("The selected date is not a working day for the doctor.");
             }
         }
     }

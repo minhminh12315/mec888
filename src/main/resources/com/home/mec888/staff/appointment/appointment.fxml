@@ -101,7 +101,7 @@
                     <Label styleClass="label-input" text="Appointment Date"/>
                     <Label layoutX="35.0" layoutY="150.0" text="*" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;" />
                 </HBox>
-                <DatePicker fx:id="appointmentDatePicker" styleClass="input-field"/>
+                <DatePicker fx:id="appointmentDatePicker" onAction="#handleDatePicker" styleClass="input-field"/>
                 <Label fx:id="appointmentDateErrorLabel" textFill="red"/> <!-- Error Label for Appointment Date -->
 
             </VBox>
