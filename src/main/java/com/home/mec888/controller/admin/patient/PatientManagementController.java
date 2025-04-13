@@ -165,7 +165,7 @@ public class PatientManagementController {
 
     @FXML
     private void handleUpdate(Patient patient, ActionEvent actionEvent) {
-        FXMLLoader loader = SceneSwitcher.loadViewToUpdate("/com/home/mec888/admin/patient/patient-update.fxml");
+        FXMLLoader loader = SceneSwitcher.loadViewToUpdate("admin/patient/patient-update.fxml");
 
         if (loader != null) {
             PatientUpdateController patientUpdateController = loader.getController();
