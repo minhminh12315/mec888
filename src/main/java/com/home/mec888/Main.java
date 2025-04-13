@@ -26,7 +26,7 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/home/mec888/login/login.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         // title
-        stage.setTitle("Hello!");
+        stage.setTitle("Mec888");
         stage.setScene(scene);
 
         // css tung thang
@@ -36,6 +36,7 @@ public class Main extends Application {
         scene.getStylesheets().add(getClass().getResource("/asset/css/quan.css").toExternalForm());
         scene.getStylesheets().add(getClass().getResource("/asset/css/an.css").toExternalForm());
         scene.getStylesheets().add(getClass().getResource("/asset/css/cong.css").toExternalForm());
+
 
         // Lấy độ phân giải màn hình
         Screen screen = Screen.getPrimary();
@@ -49,6 +50,7 @@ public class Main extends Application {
 
         // Không dùng full-screen
         // stage.setFullScreen(true); // Không sử dụng dòng này
+        stage.setMaximized(true);
         stage.setFullScreen(false);
         stage.show();
     }

@@ -172,3 +172,10 @@
 #mainBorderPane {
     -fx-background-color: #fff; /* Đặt nền trắng cho mainBorderPane */
 }
+
+#loginForm{
+    -fx-background-color: #ECECE7;
+    -fx-border-color: #000;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+}

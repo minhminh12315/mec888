@@ -25,10 +25,21 @@ public class Room {
     @Column(name = "updated_at", nullable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Timestamp updatedAt;
 
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "department_id", nullable = false) // Foreign key to users table
+    private Department department;
+
     public Room() {
     }
 
-    public Room(String roomNumber, String roomType, String status,Timestamp createdAt,Timestamp updatedAt) {
+    public Room(String roomNumber, String roomType, String status, Department department) {
+        this.roomNumber = roomNumber;
+        this.roomType = roomType;
+        this.status = status;
+        this.department = department;
+    }
+
+    public Room(String roomNumber, String roomType, String status, Timestamp createdAt, Timestamp updatedAt) {
         this.roomNumber = roomNumber;
         this.roomType = roomType;
         this.status = status;
@@ -83,6 +94,14 @@ public class Room {
 
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     @Override

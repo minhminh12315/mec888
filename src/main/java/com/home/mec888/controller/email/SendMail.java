@@ -20,7 +20,7 @@ public class SendMail {
     public void initialize(){
         userDao = new UserDao();
     }
-    public void btnSend (String to, String subject, String content) {
+    public void handleSend (String to, String subject, String content) {
         try {
             Properties p = new Properties();
             p.put("mail.smtp.auth", "true");

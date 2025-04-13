@@ -22,7 +22,8 @@ public class DoctorDao {
             e.printStackTrace();
         }
     }
-    public List<Doctor> getAllDoctors(){
+
+    public List<Doctor> getAllDoctors() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.createQuery("from Doctor order by updatedAt desc", Doctor.class).list();
         } catch (Exception e) {
@@ -48,7 +49,7 @@ public class DoctorDao {
         }
     }
 
-    public void updateDoctor(Doctor doctor){
+    public void updateDoctor(Doctor doctor) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -59,6 +60,15 @@ public class DoctorDao {
                 transaction.rollback();
             }
             e.printStackTrace();
+        }
+    }
+
+    public Doctor getDoctorById(Long id) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.get(Doctor.class, id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

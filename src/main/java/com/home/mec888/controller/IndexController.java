@@ -17,10 +17,10 @@ import javafx.stage.Stage;
 public class IndexController {
     public static String userRole;
     public static User user;
-
+    //
     // Staff
     @FXML
-    public Button moveBookingButton;
+    public Button moveAppointmentButton;
     // Admin
     @FXML
     public Button moveHomeButton;
@@ -72,6 +72,11 @@ public class IndexController {
                 );
                 break;
             case "staff":
+                navigationBar.getChildren().addAll(
+                        moveAppointmentButton,
+                        moveDoctorSchedule
+                );
+
                 break;
             case "doctor":
                 navigationBar.getChildren().addAll(
@@ -103,9 +108,9 @@ public class IndexController {
     }
 
     // Staff
-    public void handleBooking(ActionEvent actionEvent) {
-        highlightActiveButton(moveBookingButton);
-        SceneSwitcher.loadView("staff/booking/booking-management.fxml", actionEvent);
+    public void handleAppointment(ActionEvent actionEvent) {
+        highlightActiveButton(moveAppointmentButton);
+        SceneSwitcher.loadView("staff/appointment/appointment.fxml", actionEvent);
     }
 
     // Admin
