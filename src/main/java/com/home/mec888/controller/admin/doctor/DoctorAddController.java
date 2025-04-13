@@ -144,7 +144,7 @@ public class DoctorAddController {
     }
 
     private void resetErrorLabels() {
-        userErrorLabel.setText("");
+//        userErrorLabel.setText("");
         roomErrorLabel.setText("");
         specializationErrorLabel.setText("");
         licenseErrorLabel.setText("");
@@ -166,6 +166,11 @@ public class DoctorAddController {
         errorLabel.setStyle("-fx-text-fill: red");
     }
 
+    private void clearError(Control field, Label errorLabel){
+        field.setStyle("-fx-border-color: #111827");
+        errorLabel.setText("");
+    }
+
     private boolean validateFields() {
         boolean isValid = true;
 
@@ -178,32 +183,44 @@ public class DoctorAddController {
         if (roomComboBox.getValue() == null) {
             showError(roomComboBox, roomErrorLabel, "Please select a Room.");
             isValid = false;
+        }else {
+            clearError(roomComboBox, roomErrorLabel);
         }
 
         // Kiểm tra Specialization Field
         if (specializationField.getText().trim().isEmpty()) {
             showError(specializationField, specializationErrorLabel, "Please enter specialization.");
             isValid = false;
+        }else {
+            clearError(specializationField, specializationErrorLabel);
         }
 
         // Kiểm tra License Field
         if (licenseField.getText().trim().isEmpty()) {
             showError(licenseField, licenseErrorLabel, "Please enter a license.");
             isValid = false;
+        }else {
+            clearError(licenseField,licenseErrorLabel);
         }
 
 
         if (firstNameField.getText().trim().isEmpty()) {
             showError(firstNameField, first_name_error, "Address cannot be empty.");
             isValid = false;
+        }else {
+            clearError(firstNameField,first_name_error);
         }
         if (lastNameField.getText().trim().isEmpty()) {
             showError(lastNameField, last_name_error, "Address cannot be empty.");
             isValid = false;
+        }else {
+            clearError(lastNameField,last_name_error);
         }
-        if (genderComboBox.getValue().isEmpty()) {
+        if (genderComboBox.getValue().isEmpty() || genderComboBox == null) {
             showError(genderComboBox, gender_error, "Address cannot be empty.");
             isValid = false;
+        } else {
+            clearError(genderComboBox, gender_error);
         }
         if (emailField.getText().isEmpty()) {
             showError(emailField, email_error, "Email cannot be empty.");
@@ -214,6 +231,8 @@ public class DoctorAddController {
         } else if (userDao.isEmailExists(emailField.getText())) {
             showError(emailField, email_error, "Email already exists!");
             isValid = false;
+        } else {
+            clearError(emailField, email_error);
         }
         if (phoneField.getText().isEmpty()) {
             showError(phoneField, phone_error, "Phone cannot be empty.");
@@ -221,6 +240,8 @@ public class DoctorAddController {
         } else if (!isValidPhone(phoneField.getText())) {
             showError(phoneField, phone_error, "Invalid phone format!");
             isValid = false;
+        } else {
+            clearError(phoneField, phone_error);
         }
 
         return isValid;
@@ -255,7 +276,7 @@ public class DoctorAddController {
 
     public void handleSave(ActionEvent event) {
         if (!validateFields()) {
-            return; // Nếu có lỗi, dừng việc lưu
+            return;
         }
 
         try {

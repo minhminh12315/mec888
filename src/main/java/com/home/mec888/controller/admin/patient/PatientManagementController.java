@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
@@ -18,8 +19,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -130,20 +134,33 @@ public class PatientManagementController {
         Callback<TableColumn<Patient, Void>, TableCell<Patient, Void>> cellFactory = new Callback<>() {
             @Override
             public TableCell<Patient, Void> call(final TableColumn<Patient, Void> param) {
-                final TableCell<Patient, Void> cell = new TableCell<>() {
+                return new TableCell<>() {
 
-                    private final Button updateButton = new Button("Update");
-                    private final Button deleteButton = new Button("Delete");
+                    private final FontIcon editIcon = new FontIcon(FontAwesomeSolid.EDIT);
+                    private final FontIcon deleteIcon = new FontIcon(FontAwesomeSolid.TRASH_ALT);
+                    private final HBox actionBox = new HBox(10); // spacing between icons
 
                     {
-                        updateButton.setOnAction((ActionEvent event) -> {
+                        // Style the icons
+                        editIcon.setIconSize(20);
+                        editIcon.setIconColor(Paint.valueOf("#4CAF50")); // Green
+                        deleteIcon.setIconSize(20);
+                        deleteIcon.setIconColor(Paint.valueOf("#F44336")); // Red
+
+                        // Add event handlers
+                        editIcon.setOnMouseClicked(event -> {
                             Patient patient = getTableView().getItems().get(getIndex());
-                            handleUpdate(patient, event);
+                            handleUpdate(patient, new ActionEvent());
                         });
-                        deleteButton.setOnAction((ActionEvent event) -> {
+
+                        deleteIcon.setOnMouseClicked(event -> {
                             Patient patient = getTableView().getItems().get(getIndex());
                             handleDelete(patient);
                         });
+
+                        // Configure HBox
+                        actionBox.getChildren().addAll(editIcon, deleteIcon);
+                        actionBox.setAlignment(Pos.CENTER);
                     }
 
                     @Override
@@ -152,14 +169,13 @@ public class PatientManagementController {
                         if (empty) {
                             setGraphic(null);
                         } else {
-                            HBox buttons = new HBox(updateButton, deleteButton);
-                            setGraphic(buttons);
+                            setGraphic(actionBox);
                         }
                     }
                 };
-                return cell;
             }
         };
+
         actionColumn.setCellFactory(cellFactory);
     }
 
