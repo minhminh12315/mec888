@@ -112,6 +112,17 @@ VALUES
 (100, 'doctor100','Do', 'Dung Quang Minh', 'Ba Dinh', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'doctor100@mec888.com', '0926532450', 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (101, 'patient','Do', 'Dung Quang Minh', 'Ba Dinh', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'patient@gmail.com', '0926532450', 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
+-- 1. User cho 3 bác sĩ
+INSERT INTO users (id, username, password, email, phone, role_id, created_at, updated_at)
+VALUES
+(2001, 'dr_quang', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'quang@hospital.com', '0911111111', 2, NOW(), NOW()),
+(2002, 'dr_hung', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'hung@hospital.com', '0922222222', 2, NOW(), NOW()),
+(2003, 'dr_dung', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'dung@hospital.com', '0933333333', 2, NOW(), NOW());
+
+-- 3. Patient (nếu chưa có)
+INSERT INTO users (id, username, password, email, phone, role_id, created_at, updated_at)
+VALUES (3001, 'patient_xyz', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'xyz@patient.com', '0909999999', 4, NOW(), NOW());
+
 -- 3. Medicines
 INSERT INTO mec888.medicines
 (id, name, price, description, manufacturer, created_at, updated_at)
@@ -164,6 +175,13 @@ values
 (9, 11, 1, '123', 'GX0812PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (10, 12, 1, '123', 'GX0813PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
+-- 2. Bác sĩ tương ứng
+INSERT INTO doctors (id, user_id, room_id, specialization, license_number, created_at, updated_at)
+VALUES
+(11, 2001, 1, 'Internal Medicine', 'INT001', NOW(), NOW()),
+(12, 2002, 3, 'Surgery', 'SUR002', NOW(), NOW()),
+(13, 2003, 2, 'Recovery Specialist', 'REC003', NOW(), NOW());
+
 -- 6. Doctor Schedule
 INSERT INTO mec888.doctor_schedule
 (id, doctor_id, day_of_week, start_time, end_time, work_date, created_at, updated_at)
@@ -199,34 +217,16 @@ INSERT INTO mec888.patients
 (id, user_id, emergency_contact, medical_history, created_at, updated_at)
 VALUES(1, 101, '0123456789', 'khoe manh tu luc sinh ra', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
--- 8. User
+INSERT INTO patients (id, user_id, emergency_contact, medical_history, created_at, updated_at)
+VALUES (401, 3001, 'Trần Văn B - 0977777777', 'Tiền sử đau tim nhẹ', NOW(), NOW());
+
+
+-- 4. Appointment
 INSERT INTO mec888.appointments
 (id, doctor_id, patient_id, appointment_date, status, created_at, updated_at)
 VALUES
 (1, 1, 1, '2023-10-01 10:00:00', 'scheduled', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
--- 1. User cho 3 bác sĩ
-INSERT INTO users (id, username, password, email, phone, role_id, created_at, updated_at)
-VALUES
-(2001, 'dr_quang', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'quang@hospital.com', '0911111111', 2, NOW(), NOW()),
-(2002, 'dr_hung', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'hung@hospital.com', '0922222222', 2, NOW(), NOW()),
-(2003, 'dr_dung', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'dung@hospital.com', '0933333333', 2, NOW(), NOW());
-
--- 2. Bác sĩ tương ứng
-INSERT INTO doctors (id, user_id, room_id, specialization, license_number, created_at, updated_at)
-VALUES
-(11, 2001, 1, 'Internal Medicine', 'INT001', NOW(), NOW()),
-(12, 2002, 3, 'Surgery', 'SUR002', NOW(), NOW()),
-(13, 2003, 2, 'Recovery Specialist', 'REC003', NOW(), NOW());
-
--- 3. Patient (nếu chưa có)
-INSERT INTO users (id, username, password, email, phone, role_id, created_at, updated_at)
-VALUES (3001, 'patient_xyz', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'xyz@patient.com', '0909999999', 4, NOW(), NOW());
-
-INSERT INTO patients (id, user_id, emergency_contact, medical_history, created_at, updated_at)
-VALUES (401, 3001, 'Trần Văn B - 0977777777', 'Tiền sử đau tim nhẹ', NOW(), NOW());
-
--- 4. Appointment
 INSERT INTO appointments (id, patient_id, doctor_id, appointment_date, appointment_time, status, created_at, updated_at)
 VALUES (501, 401, 11, '2025-04-06', '08:00:00', 'confirmed', NOW(), NOW());
 
