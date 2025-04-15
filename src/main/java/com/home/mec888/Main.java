@@ -1,5 +1,6 @@
 package com.home.mec888;
 
+import com.home.mec888.controller.email.SendMail;
 import com.home.mec888.dao.AuditLogDao;
 import com.home.mec888.dao.DepartmentDao;
 import com.home.mec888.dao.MedicineDao;
@@ -25,7 +26,7 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/home/mec888/login/login.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         // title
-        stage.setTitle("Hello!");
+        stage.setTitle("Mec888");
         stage.setScene(scene);
 
         // css tung thang
@@ -49,6 +50,7 @@ public class Main extends Application {
 
         // Không dùng full-screen
         // stage.setFullScreen(true); // Không sử dụng dòng này
+        stage.setMaximized(true);
         stage.setFullScreen(false);
         stage.show();
     }
@@ -56,8 +58,13 @@ public class Main extends Application {
     public static void main(String[] args) {
 
         launch();
-
-
+//
+//        SendMail sendMail = new SendMail();
+//        String to = "qunnguyn956@gmail.com";
+//        String subject = "Tạo tài khoản thành công";
+//        String content = "Chào bạn,\nTài khoản của bạn đã được tạo.\nTên đăng nhập: user123\nMật khẩu: abc123";
+//
+//        sendMail.btnSend(to, subject, content);
 
 
 

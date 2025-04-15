@@ -33,11 +33,11 @@
         <TableView fx:id="serivceManagementTable" layoutX="250.0" layoutY="86.0" prefHeight="460.0" prefWidth="660.0"
                    styleClass="table">
             <columns>
-                <TableColumn fx:id="idColumn" prefWidth="84.0" text="ID"/>
-                <TableColumn fx:id="nameColumn" prefWidth="270.0" text="Name"/>
-                <TableColumn fx:id="descriptionColumn" minWidth="0.0" prefWidth="208.0" text="Description"/>
-                <TableColumn fx:id="priceColumn" minWidth="0.0" prefWidth="208.0" text="Price"/>
-                <TableColumn fx:id="actionColumn" minWidth="0.0" prefWidth="208.0" text="Actions"/>
+                <TableColumn fx:id="idColumn" prefWidth="85.0" text="ID"/>
+                <TableColumn fx:id="nameColumn" prefWidth="330.0" text="Name"/>
+                <TableColumn fx:id="descriptionColumn" minWidth="0.0" prefWidth="430.0" text="Description"/>
+                <TableColumn fx:id="priceColumn" minWidth="0.0" prefWidth="200.0" text="Price"/>
+                <TableColumn fx:id="actionColumn" minWidth="0.0" prefWidth="200.0" text="Actions"/>
             </columns>
         </TableView>
     </VBox>

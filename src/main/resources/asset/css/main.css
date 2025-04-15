@@ -22,9 +22,20 @@
 
 .active-button {
     -fx-pre-width: 100%;
-    -fx-background-color: #1071e1; /* Màu nền khi nút được chọn */
-    -fx-text-fill: white; /* Màu chữ */
+    -fx-pref-height: 100%;
+    -fx-font-weight: bold;
+    -fx-background-color: radial-gradient(
+            focus-angle 0deg,
+            focus-distance 0%,
+            center 0% 0%,
+            radius 100%,
+            #00adef,
+            #3871c1
+    );
+    -fx-text-fill: white;
+    -fx-alignment: center_left;
     -fx-font-size: 16px;
+    -fx-padding: 16px;
 }
 
 .headerAdmin {
@@ -166,4 +177,11 @@
 
 #mainBorderPane {
     -fx-background-color: #fff; /* Đặt nền trắng cho mainBorderPane */
+}
+
+#loginForm{
+    -fx-background-color: #ECECE7;
+    -fx-border-color: #000;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
 }
