@@ -34,10 +34,15 @@
         </HBox>
         <TableView fx:id="roomManagementTable" layoutX="250.0" layoutY="86.0" prefHeight="460.0" prefWidth="660.0"
                    styleClass="table">
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+
             <columns>
                 <TableColumn fx:id="idColumn" prefWidth="84.0" text="ID"/>
                 <TableColumn fx:id="roomNumberColumn" prefWidth="270.0" text="Room Number"/>
                 <TableColumn fx:id="roomTypeColumn" minWidth="0.0" prefWidth="208.0" text="Room Type"/>
+                <TableColumn fx:id="departmentNameColumn" prefWidth="220.0" text="Department"/>
                 <TableColumn fx:id="statusColumn" minWidth="0.0" prefWidth="208.0" text="Status"/>
                 <TableColumn fx:id="actionColumn" minWidth="0.0" prefWidth="208.0" text="Actions"/>
             </columns>

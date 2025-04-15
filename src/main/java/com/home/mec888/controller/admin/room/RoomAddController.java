@@ -1,72 +1,85 @@
 package com.home.mec888.controller.admin.room;
 
+import com.home.mec888.dao.DepartmentDao;
 import com.home.mec888.dao.RoomDao;
+import com.home.mec888.entity.Department;
 import com.home.mec888.entity.Room;
 import com.home.mec888.util.SceneSwitcher;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class RoomAddController {
 
-    // FXML Fields
-    @FXML
-    private TextField roomNumberField;
-    @FXML
-    private TextField roomTypeField;
-    @FXML
-    private ComboBox<String> statusComboBox;  // Đảm bảo rằng trường này được khai báo
-    @FXML
-    private Label roomNumberErrorLabel;
-    @FXML
-    private Label roomTypeErrorLabel;
-    @FXML
-    private Label statusErrorLabel;
+    @FXML private TextField roomNumberField;
+    @FXML private TextField roomTypeField;
+    @FXML private ComboBox<String> statusComboBox;
+    @FXML private ComboBox<String> departmentComboBox;
 
-    private RoomDao roomDao; // RoomDao to handle database operations
+    @FXML private Label roomNumberErrorLabel;
+    @FXML private Label roomTypeErrorLabel;
+    @FXML private Label statusErrorLabel;
+    @FXML private Label departmentErrorLabel;
 
-    // Constructor to initialize the RoomDao
+    private RoomDao roomDao;
+    private DepartmentDao departmentDao;
+
+    // Dùng để ánh xạ tên -> đối tượng Department
+    private Map<String, Department> departmentMap = new HashMap<>();
+
     public RoomAddController() {
-        roomDao = new RoomDao(); // Assuming you have a RoomDao class
+        roomDao = new RoomDao();
+        departmentDao = new DepartmentDao();
     }
+
     @FXML
     private void initialize() {
-        // Add listeners to clear error labels when the user types in any field
-        roomNumberField.textProperty().addListener((observable, oldValue, newValue) -> clearErrorMessages(roomNumberField));
-        roomTypeField.textProperty().addListener((observable, oldValue, newValue) -> clearErrorMessages(roomTypeField));
+        roomNumberField.textProperty().addListener((obs, oldVal, newVal) -> clearErrorMessages(roomNumberField));
+        roomTypeField.textProperty().addListener((obs, oldVal, newVal) -> clearErrorMessages(roomTypeField));
+
+        statusComboBox.setItems(FXCollections.observableArrayList("Available", "Occupied"));
+
+        // Load department từ DB và đưa vào ComboBox
+        List<Department> departments = departmentDao.getAllDepartments(); // bạn cần có DAO này
+        for (Department dept : departments) {
+            departmentMap.put(dept.getName(), dept); // lưu tên -> object
+        }
+        departmentComboBox.setItems(FXCollections.observableArrayList(departmentMap.keySet()));
     }
-    // Handle the save button click
+
     @FXML
     private void handleSave(ActionEvent event) {
         String roomNumber = roomNumberField.getText().trim();
         String roomType = roomTypeField.getText().trim();
-        String status = statusComboBox.getValue(); // Lấy giá trị được chọn từ ComboBox
+        String status = statusComboBox.getValue();
+        String selectedDepartmentName = departmentComboBox.getValue();
 
-        // Reset all error messages
         roomNumberErrorLabel.setVisible(false);
         roomTypeErrorLabel.setVisible(false);
         statusErrorLabel.setVisible(false);
+        departmentErrorLabel.setVisible(false);
 
         boolean isValid = true;
 
-        // Kiểm tra phòng trống
         if (roomNumber.isEmpty()) {
             roomNumberErrorLabel.setText("Room number is required.");
             roomNumberErrorLabel.setVisible(true);
             isValid = false;
         }
 
-        // Kiểm tra loại phòng
         if (roomType.isEmpty()) {
             roomTypeErrorLabel.setText("Room type is required.");
             roomTypeErrorLabel.setVisible(true);
             isValid = false;
         }
 
-        // Kiểm tra trạng thái
         if (status == null || status.isEmpty()) {
             statusErrorLabel.setText("Status is required.");
             statusErrorLabel.setVisible(true);
@@ -77,25 +90,25 @@ public class RoomAddController {
             isValid = false;
         }
 
-        // Nếu dữ liệu không hợp lệ, dừng lại
-        if (!isValid) {
-            return;
+        Department selectedDepartment = departmentMap.get(selectedDepartmentName);
+        if (selectedDepartment == null) {
+            departmentErrorLabel.setText("Department is required.");
+            departmentErrorLabel.setVisible(true);
+            isValid = false;
         }
 
-        // Lấy thời gian hiện tại cho createdAt và updatedAt
-        Timestamp createdAt = Timestamp.valueOf(LocalDateTime.now());
-        Timestamp updatedAt = Timestamp.valueOf(LocalDateTime.now());
+        if (!isValid) return;
 
-        // Tạo một đối tượng Room mới
-        Room newRoom = new Room(roomNumber, roomType, status, createdAt, updatedAt);
+        Timestamp now = Timestamp.valueOf(LocalDateTime.now());
 
-        // Lưu vào cơ sở dữ liệu
+        Room newRoom = new Room(selectedDepartment, roomNumber, roomType, status, now, now);
+
         try {
             boolean isSaved = roomDao.saveRoom(newRoom);
             if (isSaved) {
                 System.out.println("Room saved successfully!");
                 handleBack(event);
-                handleClear(); // Xóa các trường sau khi lưu
+                handleClear();
             } else {
                 showErrorDialog("Failed to save room.");
             }
@@ -105,42 +118,32 @@ public class RoomAddController {
         }
     }
 
-    // Show an error dialog with a message
+    @FXML
+    private void handleClear() {
+        roomNumberField.clear();
+        roomTypeField.clear();
+        statusComboBox.getSelectionModel().clearSelection();
+        departmentComboBox.getSelectionModel().clearSelection();
+    }
+
+    private void clearErrorMessages(TextField field) {
+        if (field == roomNumberField) {
+            roomNumberErrorLabel.setVisible(false);
+        } else if (field == roomTypeField) {
+            roomTypeErrorLabel.setVisible(false);
+        }
+    }
+
+    @FXML
+    private void handleBack(ActionEvent event) {
+        SceneSwitcher.loadView("admin/room/room-management.fxml", event);
+    }
+
     private void showErrorDialog(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
-    }
-
-    // Handle the clear button click
-    @FXML
-    private void handleClear() {
-        // Only clear the fields if they have data
-        if (!roomNumberField.getText().isEmpty()) {
-            roomNumberField.clear();
-        }
-
-        if (!roomTypeField.getText().isEmpty()) {
-            roomTypeField.clear();
-        }
-
-
-
-    }
-
-    private void clearErrorMessages(TextField field) {
-        if (field == roomNumberField) {
-            roomNumberErrorLabel.setVisible(false); // Hide error label for room number
-        } else if (field == roomTypeField) {
-            roomTypeErrorLabel.setVisible(false); // Hide error label for room type
-        }
-    }
-    // Handle the back button click
-    @FXML
-    private void handleBack(ActionEvent event) {
-        // Chuyển về màn hình Room Management
-        SceneSwitcher.loadView("admin/room/room-management.fxml", event);
     }
 }
