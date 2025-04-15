@@ -2,10 +2,13 @@ package com.home.mec888.dao;
 
 import com.home.mec888.entity.Department;
 import com.home.mec888.entity.Doctor;
+import com.home.mec888.entity.DoctorSchedule;
 import com.home.mec888.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DoctorDao {
@@ -69,6 +72,22 @@ public class DoctorDao {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    // findDoctorByWorkDate
+    public List<Doctor> findDoctorByWorkDate(LocalDate workDate) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery(
+                            "SELECT d " +
+                                    "FROM DoctorSchedule ds " +
+                                    "join ds.doctor d " +
+                                    "WHERE ds.workDate = :workDate", Doctor.class)
+                    .setParameter("workDate", workDate)
+                    .getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
         }
     }
 }

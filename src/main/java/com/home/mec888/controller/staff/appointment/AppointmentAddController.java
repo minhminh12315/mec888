@@ -1,10 +1,7 @@
 package com.home.mec888.controller.staff.appointment;
 
 import com.home.mec888.dao.*;
-import com.home.mec888.entity.Doctor;
-import com.home.mec888.entity.Patient;
-import com.home.mec888.entity.Role;
-import com.home.mec888.entity.User;
+import com.home.mec888.entity.*;
 import com.home.mec888.util.SceneSwitcher;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -69,6 +66,12 @@ public class AppointmentAddController {
     private String workTimeStart;
     private String workTimeEnd;
     private List<String> timeBooked;
+    private List<Doctor> availableDoctors;
+    Doctor selectedDoctor;
+    LocalDate selectedDate;
+    String selectedTime;
+
+
 
     private final Map<String, String> dayMap = new HashMap<>() {{
         put("Mon", "Monday");
@@ -168,6 +171,8 @@ public class AppointmentAddController {
             Button btn = new Button(slot);
             btn.setPrefWidth(80);
             btn.getStyleClass().add("time-slot-button");
+            btn.setDisable(true);
+            btn.getStyleClass().add("disabled-button");
 
             // Nếu slot đã được chọn, hiển thị màu xanh nhạt
             if (slot.equals(selectedTimeSlot)) {
@@ -177,9 +182,10 @@ public class AppointmentAddController {
             // Nếu slot nằm ngoài khung giờ làm việc thì disable button
             // Lưu ý: nếu slotTime >= endTime cũng sẽ disable (ví dụ: nếu workTimeEnd là 12:00:00 thì slot 12:00 sẽ bị disable)
             if (slotTime.isBefore(startTime) || !slotTime.isBefore(endTime)) {
-                btn.setDisable(true);
-                btn.getStyleClass().add("disabled-button");
+
+//                btn.getStyleClass().add("disabled-button");
             } else {
+                btn.setDisable(false);
                 btn.getStyleClass().remove("disabled-button");
             }
 
@@ -417,7 +423,7 @@ public class AppointmentAddController {
 
     @FXML
     private void handleDoctor(ActionEvent event) {
-        Doctor selectedDoctor = doctorComboBox.getValue();
+        selectedDoctor = doctorComboBox.getValue();
         if (selectedDoctor != null) {
             System.out.println("Selected Doctor: " + selectedDoctor.getId());
             try {
@@ -435,23 +441,51 @@ public class AppointmentAddController {
 
     @FXML
     private void handleDatePicker(ActionEvent event) {
-        LocalDate selectedDate = appointmentDatePicker.getValue();
+        selectedDate = appointmentDatePicker.getValue();
         if (selectedDate != null) {
             System.out.println("Selected Date: " + selectedDate);
             // Kiểm tra xem ngày đã chọn có nằm trong danh sách ngày làm việc của bác sĩ không
-            if (workDateOnMonth != null && workDateOnMonth.contains(selectedDate)) {
-                System.out.println("The selected date is a working day for the doctor.");
+            if(selectedDoctor != null) {
+                if (workDateOnMonth != null && workDateOnMonth.contains(selectedDate)) {
+                    System.out.println("The selected date is a working day for the doctor.");
 
-                workTimeStart = doctorScheduleDao.findStartAndEndTimeByWorkDate(selectedDate).get(0).getStartTime().toString();
-                workTimeEnd = doctorScheduleDao.findStartAndEndTimeByWorkDate(selectedDate).get(0).getEndTime().toString();
-                System.out.println("Work Time Start: " + workTimeStart);
-                System.out.println("Work Time End: " + workTimeEnd);
+                    workTimeStart = doctorScheduleDao.findStartAndEndTimeByWorkDate(selectedDate).get(0).getStartTime().toString();
+                    workTimeEnd = doctorScheduleDao.findStartAndEndTimeByWorkDate(selectedDate).get(0).getEndTime().toString();
+                    System.out.println("Work Time Start: " + workTimeStart);
+                    System.out.println("Work Time End: " + workTimeEnd);
+
+//                    timeBooked = doctorScheduleDao.findTimeBookedByDoctorAndWorkDate(selectedDoctor.getId(), selectedDate);
+////                    System.out.println("Time booked: " + timeBooked);
+
+                    buildTimeSlotGrid();
+
+                } else {
+                    System.out.println("The selected date is not a working day for the doctor.");
+                }
 
 
-                buildTimeSlotGrid();
 
             } else {
-                System.out.println("The selected date is not a working day for the doctor.");
+                availableDoctors = doctorDao.findDoctorByWorkDate(selectedDate);
+                System.out.println("Available Doctors: " + availableDoctors);
+                doctorComboBox.setItems(FXCollections.observableArrayList(availableDoctors));
+            }
+
+
+        }
+    }
+
+    @FXML
+    private void handleTimePicker(ActionEvent event) {
+        selectedTime = timePicker.getValue();
+        if (selectedTime != null) {
+            System.out.println("Selected Time: " + selectedTime);
+            // Kiểm tra xem thời gian đã chọn có nằm trong danh sách thời gian làm việc của bác sĩ không
+            if (timeBooked != null && timeBooked.contains(selectedTime)) {
+                System.out.println("The selected time is a working time for the doctor.");
+
+            } else {
+                System.out.println("The selected time is not a working time for the doctor.");
             }
         }
     }
