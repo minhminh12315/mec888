@@ -173,9 +173,28 @@
     -fx-background-color: #fff; /* Đặt nền trắng cho mainBorderPane */
 }
 
-#loginForm{
+#loginForm {
     -fx-background-color: #ECECE7;
     -fx-border-color: #000;
     -fx-border-radius: 15px;
     -fx-background-radius: 15px;
+}
+
+.headerPatient {
+    -fx-background-color: #fff;
+    -fx-text-fill: radial-gradient(
+            focus-angle 0deg,
+            focus-distance 0%,
+            center 0% 0%,
+            radius 100%,
+            #00adef,
+            #3871c1
+    );
+}
+
+.navigationBar {
+    -fx-background-color: #fff;
+    -fx-margin-top: 48px;
+    -fx-border-color: #3871c1;
+    -fx-border-width: 0 1px 0 0;
 }
