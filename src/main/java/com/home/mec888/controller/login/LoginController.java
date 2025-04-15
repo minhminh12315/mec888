@@ -75,8 +75,13 @@ public class LoginController {
             // Set the user session
             UserSession.getInstance().setUser(user);
 
-            Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            SceneSwitcher.switchTo(currentStage, "admin/index.fxml");
+            if (IndexController.userRole.equalsIgnoreCase("admin")){
+                Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                SceneSwitcher.switchTo(currentStage, "admin/index.fxml");
+            } else if (IndexController.userRole.equalsIgnoreCase("patient")) {
+                Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                SceneSwitcher.switchTo(currentStage, "patient/dashboard.fxml");
+            }
 
         } else {
             System.out.println("login failed");

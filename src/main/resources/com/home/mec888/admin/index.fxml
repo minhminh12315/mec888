@@ -8,20 +8,17 @@
 
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.image.Image?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Region?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1"
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.home.mec888.controller.IndexController">
-    <BorderPane fx:id="mainBorderPane" layoutX="190.0" layoutY="89.0" prefHeight="600.0" prefWidth="1200.0"
+    <BorderPane fx:id="mainBorderPane" layoutX="190.0" layoutY="89.0"
                 AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                 AnchorPane.topAnchor="0.0">
         <left>
             <AnchorPane prefHeight="600.0" prefWidth="240.0"
-                        style="-fx-background-color: #fff; -fx-margin-top: 48px;">
+                        styleClass="navigationBar">
                 <VBox fx:id="navigationBar" spacing="10" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
                       AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
                     <Button prefWidth="240.0" fx:id="moveHomeButton" mnemonicParsing="false"

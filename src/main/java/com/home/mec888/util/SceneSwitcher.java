@@ -45,6 +45,14 @@ public class SceneSwitcher {
 
             // Nếu chuyển sang login thì không cần tối đa hóa
             if (fxmlFile.equals("login/login.fxml")) {
+                Screen screen = Screen.getPrimary();
+                Rectangle2D bounds = screen.getVisualBounds();
+
+                // Đặt kích thước ứng dụng khớp với màn hình
+                stage.setX(bounds.getMinX());
+                stage.setY(bounds.getMinY());
+                stage.setWidth(bounds.getWidth());
+                stage.setHeight(bounds.getHeight());
                 stage.setMaximized(false);
                 stage.setFullScreen(false);
             } else {
