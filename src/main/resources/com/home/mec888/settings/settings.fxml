@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+
+<?import javafx.collections.FXCollections?>
+
+<?import java.lang.String?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.home.mec888.controller.settings.SettingsController"
+            styleClass="Settings">
+
+    <GridPane hgap="20" vgap="20" alignment="CENTER"
+              style="-fx-background-color: #f4f4f9; padding: 20px;"
+              AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+
+        <!-- Column Constraints -->
+        <columnConstraints>
+            <ColumnConstraints halignment="CENTER" />
+            <ColumnConstraints halignment="CENTER" />
+            <ColumnConstraints halignment="CENTER" />
+            <ColumnConstraints halignment="CENTER" />
+        </columnConstraints>
+
+        <!-- Title -->
+        <Label text="Thông Tin Người Dùng" style="-fx-font-size: 20px; -fx-font-weight: bold;"
+               GridPane.columnSpan="4" GridPane.rowIndex="0" alignment="CENTER" />
+
+        <!-- First Name and Last Name -->
+        <Label text="Họ:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+        <TextField fx:id="firstNameField" promptText="Nhập họ" disable="true"
+                   styleClass="readonly-field"
+                   GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+        <Label text="Tên:" GridPane.rowIndex="1" GridPane.columnIndex="2" />
+        <TextField fx:id="lastNameField" promptText="Nhập tên" disable="true"
+                   styleClass="readonly-field"
+                   GridPane.rowIndex="1" GridPane.columnIndex="3" />
+
+        <!-- Gender and Date of Birth -->
+        <Label text="Giới tính:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+        <TextField fx:id="gender" disable="true"
+                   styleClass="readonly-field"
+                   GridPane.rowIndex="2" GridPane.columnIndex="1" />
+
+        <Label text="Ngày sinh:" GridPane.rowIndex="2" GridPane.columnIndex="2" />
+        <TextField fx:id="dobPicker" disable="true"
+                   styleClass="readonly-field"
+                   GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+
+        <!-- Address and Email -->
+        <Label text="Địa chỉ:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+        <TextField fx:id="addressField" promptText="Nhập địa chỉ"
+                   GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+        <Label text="Email:" GridPane.rowIndex="3" GridPane.columnIndex="2" />
+        <TextField fx:id="emailField" promptText="Nhập email"
+                   GridPane.rowIndex="3" GridPane.columnIndex="3"/>
+
+        <!-- Phone and Role -->
+        <Label text="Số điện thoại:" GridPane.rowIndex="4" GridPane.columnIndex="0" />
+        <TextField fx:id="phoneField" promptText="Nhập số điện thoại"
+                   GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+        <Label text="Vai trò:" GridPane.rowIndex="4" GridPane.columnIndex="2" />
+        <TextField fx:id="roleField" promptText="Vai trò" disable="true"
+                   styleClass="readonly-field"
+                   GridPane.rowIndex="4" GridPane.columnIndex="3"/>
+
+        <!-- Error Message Label -->
+        <Label fx:id="labelError"
+               text=""
+               style="-fx-text-fill: red; -fx-font-style: italic;"
+               GridPane.columnSpan="4"
+               GridPane.rowIndex="5"
+               alignment="CENTER"/>
+
+        <!-- Save Button -->
+        <Button text="Lưu thay đổi" fx:id="saveButton" onAction="#handleSave"
+                GridPane.rowIndex="6" GridPane.columnSpan="4" alignment="CENTER"/>
+    </GridPane>
+
+</AnchorPane>

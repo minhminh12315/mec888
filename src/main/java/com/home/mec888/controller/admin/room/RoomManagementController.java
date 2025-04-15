@@ -3,6 +3,7 @@ package com.home.mec888.controller.admin.room;
 import com.home.mec888.entity.Room;
 import com.home.mec888.dao.RoomDao;
 import com.home.mec888.util.SceneSwitcher;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.geometry.Pos;
@@ -37,7 +38,8 @@ public class RoomManagementController {
 
     @FXML
     private TableColumn<Room, Void> actionColumn;
-
+    @FXML
+    private TableColumn<Room, String> departmentNameColumn;
     private RoomDao roomDao;
 
     @FXML
@@ -75,7 +77,8 @@ public class RoomManagementController {
         roomNumberColumn.setCellValueFactory(new PropertyValueFactory<>("roomNumber"));
         roomTypeColumn.setCellValueFactory(new PropertyValueFactory<>("roomType"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
-
+        departmentNameColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getDepartment().getName()));
         // Load data from the database
         roomManagementTable.getItems().clear();
         List<Room> rooms = roomDao.getAllRooms();
