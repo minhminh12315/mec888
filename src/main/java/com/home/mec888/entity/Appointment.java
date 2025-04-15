@@ -1,6 +1,6 @@
 package com.home.mec888.entity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;

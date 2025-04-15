@@ -150,53 +150,40 @@ public class AppointmentAddController {
      */
     private void buildTimeSlotGrid() {
         ObservableList<String> timeSlots = generateTimeSlots();
-        int columns = 4; // Số cột hiển thị, bạn có thể điều chỉnh tùy theo ý muốn
+        int columns = 4;
         int row = 0;
         int col = 0;
 
-        // Xóa các thành phần cũ nếu có
         timeSlotGrid.getChildren().clear();
 
-        // Định dạng: workTime có dạng HH:mm:ss; các slot có dạng HH:mm
         DateTimeFormatter workTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         DateTimeFormatter slotTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
-        // Nếu chưa có giá trị thì lấy giá trị mặc định: MIN hoặc MAX
         LocalTime startTime = workTimeStart != null ? LocalTime.parse(workTimeStart, workTimeFormatter) : LocalTime.MIN;
         LocalTime endTime = workTimeEnd != null ? LocalTime.parse(workTimeEnd, workTimeFormatter) : LocalTime.MAX;
 
         for (String slot : timeSlots) {
-            // Chuyển slot sang LocalTime theo định dạng HH:mm
             LocalTime slotTime = LocalTime.parse(slot, slotTimeFormatter);
             Button btn = new Button(slot);
             btn.setPrefWidth(80);
             btn.getStyleClass().add("time-slot-button");
-            btn.setDisable(true);
             btn.getStyleClass().add("disabled-button");
 
-            // Nếu slot đã được chọn, hiển thị màu xanh nhạt
-            if (slot.equals(selectedTimeSlot)) {
-                btn.setStyle("-fx-background-color: #90ee90;"); // Màu xanh nhạt
-            }
-
-            // Nếu slot nằm ngoài khung giờ làm việc thì disable button
-            // Lưu ý: nếu slotTime >= endTime cũng sẽ disable (ví dụ: nếu workTimeEnd là 12:00:00 thì slot 12:00 sẽ bị disable)
-            if (slotTime.isBefore(startTime) || !slotTime.isBefore(endTime)) {
-
-//                btn.getStyleClass().add("disabled-button");
-            } else {
-                btn.setDisable(false);
-                btn.getStyleClass().remove("disabled-button");
-            }
-
-            // Xử lý sự kiện khi bấm vào button
             btn.setOnAction(e -> {
                 selectedTimeSlot = slot;
-                // Cập nhật ComboBox hoặc nơi hiển thị thời gian khác (nếu có)
-                timePicker.setValue(slot);
-                // Cập nhật lại giao diện lưới để đánh dấu button được chọn
+                if (timePicker != null) {
+                    timePicker.setValue(slot);
+                } else {
+                    System.out.println("timePicker is null");
+                }
                 buildTimeSlotGrid();
             });
+
+            if (slotTime.isBefore(startTime) || !slotTime.isBefore(endTime)) {
+                btn.setDisable(true);
+            } else {
+                btn.setDisable(false);
+            }
 
             timeSlotGrid.add(btn, col, row);
             col++;
@@ -242,12 +229,6 @@ public class AppointmentAddController {
                 showAlert("Error", "Error adding user: " + e.getMessage(), Alert.AlertType.ERROR);
             }
 
-        } catch (Exception e) {
-            showAlert("Error", "Failed to save user", Alert.AlertType.ERROR);
-        }
-
-
-        try {
             Long last_user_id = getLastUserId();
 
             // Create patient object with user_id, emergency_contact, and medical_history
@@ -260,8 +241,26 @@ public class AppointmentAddController {
             showAlert("Success", "Patient added successfully", Alert.AlertType.INFORMATION);
 
 //            SceneSwitcher.loadView("admin/patient/patient-management.fxml", actionEvent);
+
+            Doctor selectedDoctor = doctorComboBox.getValue();
+            LocalDate appointmentDate = appointmentDatePicker.getValue();
+            LocalTime appointmentTime = LocalTime.parse(timePicker.getValue());
+            String status = "scheduled"; // Default status for a new appointment
+
+            Appointment appointment = new Appointment();
+            appointment.setPatient(patient);
+            appointment.setDoctor(selectedDoctor);
+            appointment.setAppointmentDate(java.sql.Date.valueOf(appointmentDate));
+            appointment.setAppointmentTime(java.sql.Time.valueOf(appointmentTime));
+            appointment.setStatus(status);
+
+            appointmentDao.saveAppointment(appointment);
+            // Show success message
+            showAlert("Success", "Appointment added successfully", Alert.AlertType.INFORMATION);
+
         } catch (Exception e) {
-            showAlert("Error", "Failed to save patient", Alert.AlertType.ERROR);
+            showAlert("Error", "Failed to save appointment", Alert.AlertType.ERROR);
+            System.out.println("Error: " + e.getMessage());
         }
 
 
@@ -287,13 +286,7 @@ public class AppointmentAddController {
         return lastPatient.getId();
     }
 
-    private void showAlert(String title, String message, Alert.AlertType type) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
+
 
     @FXML
     public void validateInput(KeyEvent event) {
@@ -548,6 +541,14 @@ public class AppointmentAddController {
         }
 
         return password.toString();
+    }
+
+    private void showAlert(String title, String message, Alert.AlertType type) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
 }

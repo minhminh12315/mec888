@@ -4,50 +4,49 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<StackPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.home.mec888.controller.login.LoginController">
+    <StackPane fx:id="slideBackground"/>
+    <VBox fx:id="loginForm" alignment="CENTER" spacing="40" maxWidth="350.0" maxHeight="400.0">
+        <padding>
+            <Insets top="20" bottom="20" left="20" right="20"/>
+        </padding>
+        <!--left imagae-->
+        <ImageView fitWidth="80.0" preserveRatio="true">
+            <Image url="@../../../../asset/images/padlock.png"/>
+        </ImageView>
 
-<BorderPane maxHeight="400" maxWidth="520" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.home.mec888.controller.login.LoginController">
-    <left>
-        <AnchorPane prefHeight="400.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <children>
-                <ImageView fitHeight="141.0" fitWidth="200.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../../../../asset/images/login.jpg" />
-                    </image>
-                </ImageView>
-            </children>
-        </AnchorPane>
-    </left>
-    <right>
-        <AnchorPane prefHeight="400.0" prefWidth="320.0" style="-fx-background-color: #ECECE7;" BorderPane.alignment="CENTER">
-            <children>
-                <!--left imagae-->
-                <ImageView fitHeight="100.0" fitWidth="50.0" layoutX="123.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../../../../asset/images/padlock.png" />
-                    </image>
-                </ImageView>
-                <!--username-->
-                <TextField fx:id="usernameField" layoutX="35.0" layoutY="150.0" prefHeight="30.0" prefWidth="225.0" promptText="Username" style="-fx-font-weight: bold;">
-                    <font>
-                        <Font size="13.0" />
-                    </font>
-                </TextField>
-                <Label fx:id="usernameError" layoutX="35.0" layoutY="180.0" style="-fx-font-size: 12px;" textFill="red" />
+        <VBox>
+            <!--username-->
+            <TextField fx:id="usernameField" prefHeight="30.0" promptText="Username" style="-fx-font-weight: bold;">
+                <font>
+                    <Font size="13.0"/>
+                </font>
+                <VBox.margin>
+                    <Insets left="20" right="20"/>
+                </VBox.margin>
+            </TextField>
+            <Label fx:id="usernameError" style="-fx-font-size: 12px;" textFill="red"/>
 
-                <!--password-->
-                <PasswordField fx:id="passwordField" layoutX="35.0" layoutY="205.0" prefHeight="30.0" prefWidth="225.0" promptText="Password" style="-fx-font-weight: bold;">
-                    <font>
-                        <Font size="13.0" />
-                    </font>
-                </PasswordField>
-                <Label fx:id="passwordError" layoutX="35.0" layoutY="235.0" style="-fx-font-size: 12px;" textFill="red" />
+            <!--password-->
+            <PasswordField fx:id="passwordField" prefHeight="30.0" promptText="Password" style="-fx-font-weight: bold;">
+                <font>
+                    <Font size="13.0"/>
+                </font>
+                <VBox.margin>
+                    <Insets left="20" right="20"/>
+                </VBox.margin>
+            </PasswordField>
+            <Label fx:id="passwordError" style="-fx-font-size: 12px;" textFill="red"/>
+        </VBox>
 
-                <Button fx:id="loginButton" layoutX="73.0" layoutY="260.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #111827; -fx-font-weight: bold;" text="Login" textFill="WHITE">
-                    <font>
-                        <Font size="15.0" />
-                    </font>
-                </Button>
-            </children>
-        </AnchorPane>
-    </right>
-</BorderPane>
+        <Button fx:id="loginButton" mnemonicParsing="false" onAction="#handleLogin"
+                prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #111827; -fx-font-weight: bold;"
+                text="Login" textFill="WHITE">
+            <font>
+                <Font size="15.0"/>
+            </font>
+        </Button>
+    </VBox>
+</StackPane>

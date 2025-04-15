@@ -9,23 +9,35 @@ import com.home.mec888.entity.Role;
 import com.home.mec888.entity.User;
 import com.home.mec888.session.UserSession;
 import com.home.mec888.util.SceneSwitcher;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class LoginController {
-
+    @FXML
+    public StackPane slideBackground;
     @FXML
     private VBox root;
+    @FXML
+    private VBox loginForm;
     @FXML
     private TextField usernameField;
     @FXML
@@ -35,8 +47,8 @@ public class LoginController {
     @FXML
     private Label passwordError;
 
-    private UserDao userDao = new UserDao();
-    private RoleDao roleDao = new RoleDao();
+    private final UserDao userDao = new UserDao();
+    private final RoleDao roleDao = new RoleDao();
 
     @FXML
     private void handleLogin(ActionEvent actionEvent) {
@@ -100,5 +112,43 @@ public class LoginController {
         field.setStyle("-fx-border-color: -fx-secondary-color");
         errorLabel.setText(message);
         errorLabel.setStyle("-fx-color: -fx-secondary-color");
+    }
+
+    public void slideShow() {
+        // 1. Chuẩn bị danh sách ảnh
+        List<Image> images = List.of(
+                new Image(getClass().getResource("/asset/images/background_1.jpg").toExternalForm()),
+                new Image(getClass().getResource("/asset/images/background_2.jpg").toExternalForm()),
+                new Image(getClass().getResource("/asset/images/background_3.jpg").toExternalForm())
+        );
+
+        // 2. Index động
+        AtomicInteger count = new AtomicInteger(0);
+
+        // 3. Tạo ImageView và bind kích thước với StackPane
+        ImageView imageView = new ImageView(images.get(0));
+        imageView.setPreserveRatio(false);
+        imageView.fitWidthProperty().bind(slideBackground.widthProperty());
+        imageView.fitHeightProperty().bind(slideBackground.heightProperty());
+
+        // 4. Thêm ImageView vào StackPane (lúc này slideBackground đã có trong scene)
+        slideBackground.getChildren().add(imageView);
+
+        // 5. Timeline để thay ảnh mỗi 5s
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(5), evt -> {
+                    int next = (count.incrementAndGet()) % images.size();
+                    imageView.setImage(images.get(next));
+                })
+        );
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+    }
+    public void initialize() {
+        slideShow();
+        loginForm.setVisible(false);
+        slideBackground.setOnMouseClicked(event -> {
+            loginForm.setVisible(true);
+        });
     }
 }
