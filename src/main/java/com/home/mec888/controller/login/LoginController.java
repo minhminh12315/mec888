@@ -75,7 +75,9 @@ public class LoginController {
             // Set the user session
             UserSession.getInstance().setUser(user);
 
-            if (IndexController.userRole.equalsIgnoreCase("admin")){
+            if (IndexController.userRole.equalsIgnoreCase("admin") ||
+                    IndexController.userRole.equalsIgnoreCase("doctor") ||
+                    IndexController.userRole.equalsIgnoreCase("staff")) {
                 Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                 SceneSwitcher.switchTo(currentStage, "admin/index.fxml");
             } else if (IndexController.userRole.equalsIgnoreCase("patient")) {
