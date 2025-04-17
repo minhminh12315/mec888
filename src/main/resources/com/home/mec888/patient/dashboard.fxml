@@ -13,7 +13,7 @@
 <AnchorPane xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.home.mec888.controller.patient.DashboardController">
-    <BorderPane fx:id="dashboardBorderPane" layoutX="190.0" layoutY="89.0"
+    <BorderPane fx:id="mainBorderPane" layoutX="190.0" layoutY="89.0"
                 AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                 AnchorPane.topAnchor="0.0">
         <top>
