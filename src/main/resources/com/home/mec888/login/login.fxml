@@ -27,7 +27,11 @@
                     <Insets left="20" right="20"/>
                 </VBox.margin>
             </TextField>
-            <Label fx:id="usernameError" style="-fx-font-size: 12px;" textFill="red"/>
+            <Label fx:id="usernameError" style="-fx-font-size: 12px;" textFill="red">
+                <VBox.margin>
+                    <Insets left="20" right="20"/>
+                </VBox.margin>
+            </Label>
 
             <!--password-->
             <PasswordField fx:id="passwordField" prefHeight="30.0" promptText="Password" style="-fx-font-weight: bold;">
@@ -38,7 +42,11 @@
                     <Insets left="20" right="20"/>
                 </VBox.margin>
             </PasswordField>
-            <Label fx:id="passwordError" style="-fx-font-size: 12px;" textFill="red"/>
+            <Label fx:id="passwordError" style="-fx-font-size: 12px;" textFill="red">
+                <VBox.margin>
+                    <Insets left="20" right="20"/>
+                </VBox.margin>
+            </Label>
         </VBox>
 
         <Button fx:id="loginButton" mnemonicParsing="false" onAction="#handleLogin"

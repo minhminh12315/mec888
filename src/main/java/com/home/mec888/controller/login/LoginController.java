@@ -28,6 +28,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.application.Platform;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +54,7 @@ public class LoginController {
     private final RoleDao roleDao = new RoleDao();
 
     @FXML
-    private void handleLogin(KeyEvent actionEvent) {
+    private void handleLogin(ActionEvent actionEvent) {
         String username = usernameField.getText().trim();
         String password = passwordField.getText().trim();
 
@@ -142,6 +143,9 @@ public class LoginController {
 
         // 4. Thêm ImageView vào StackPane (lúc này slideBackground đã có trong scene)
         slideBackground.getChildren().add(imageView);
+        imageView.setOnKeyPressed(event -> {
+            loginForm.setVisible(true);
+        });
 
         // 5. Timeline để thay ảnh mỗi 5s
         Timeline timeline = new Timeline(
@@ -153,15 +157,27 @@ public class LoginController {
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }
+
     public void initialize() {
         slideShow();
         loginForm.setVisible(false);
         slideBackground.setOnMouseClicked(event -> {
             loginForm.setVisible(true);
         });
+
+        Platform.runLater(() -> {
+            // Lấy scene thông qua một node bất kỳ (ví dụ: slideBackground)
+            Scene scene = slideBackground.getScene();
+            if (scene != null) {
+                scene.setOnKeyPressed(event -> {
+                    loginForm.setVisible(true);
+                });
+            }
+        });
+
         passwordField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
-                handleLogin(event);
+                handleLogin(new ActionEvent(event.getSource(), event.getTarget()));
             }
         });
     }
