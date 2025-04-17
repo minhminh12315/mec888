@@ -1,79 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
 
+<?import javafx.geometry.Insets?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.home.mec888.controller.admin.room.RoomAddController"
-            prefHeight="400.0" prefWidth="600.0" >
+            prefHeight="600.0" prefWidth="1200.0">
+    <GridPane hgap="16" vgap="12"
+              AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+              styleClass="roomAdd">
+        <padding>
+            <Insets left="20" right="20" bottom="20" top="20"/>
+        </padding>
+        <!-- Cột giữa để căn giữa layout -->
+        <columnConstraints>
+            <ColumnConstraints percentWidth="5"/>
+            <ColumnConstraints percentWidth="45"/>
+            <ColumnConstraints percentWidth="45"/>
+            <ColumnConstraints percentWidth="5"/>
 
-    <!-- Bọc toàn bộ VBox trong HBox để căn giữa -->
-    <HBox alignment="CENTER" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" styleClass="roomAdd"
-          AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0">
-        <VBox spacing="24" alignment="CENTER" maxWidth="500">
-            <Text text="Add new room" styleClass="titlePage"/>
+        </columnConstraints>
 
-            <!-- Header -->
-            <HBox spacing="200" alignment="CENTER_LEFT">
-                <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleBack"
-                        prefHeight="30.0" prefWidth="75.0" styleClass="back-btn" text="Back"/>
-            </HBox>
+        <!-- Back + Title -->
+        <Button fx:id="backButton" text="Back" onAction="#handleBack"
+                styleClass="back-btn" prefWidth="75"
+                GridPane.rowIndex="0" GridPane.columnIndex="0"
+                GridPane.halignment="LEFT"/>
 
-            <!-- Form -->
-            <VBox spacing="16" fillWidth="true">
+        <Label text="Add new room" styleClass="titlePage"
+               GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.columnSpan="2"
+               GridPane.halignment="CENTER"/>
 
-                <!-- Row 1: Room Number + Room Type -->
-                <HBox spacing="32">
-                    <VBox spacing="4" HBox.hgrow="ALWAYS">
-                        <Label text="Room number:" styleClass="label-input"/>
-                        <TextField fx:id="roomNumberField" styleClass="input-field"/>
-                        <Label fx:id="roomNumberErrorLabel" visible="false" styleClass="label-error"/>
-                    </VBox>
-                    <VBox spacing="4" HBox.hgrow="ALWAYS">
-                        <Label text="Room type:" styleClass="label-input"/>
-                        <TextField fx:id="roomTypeField" styleClass="input-field"/>
-                        <Label fx:id="roomTypeErrorLabel" visible="false" styleClass="label-error"/>
-                    </VBox>
-                </HBox>
+        <!-- Room number -->
+        <Label text="Room number:" styleClass="label-input" GridPane.columnSpan="2"
+               GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+        <TextField fx:id="roomNumberField" styleClass="input-field" GridPane.columnSpan="2"
+                   GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+        <Label fx:id="roomNumberErrorLabel" visible="false" styleClass="label-error" GridPane.columnSpan="2"
+               GridPane.rowIndex="3" GridPane.columnIndex="1"/>
 
-                <!-- Row 2: Status + Department -->
-                <HBox spacing="32">
-                    <VBox spacing="4" HBox.hgrow="ALWAYS">
-                        <Label text="Status:" styleClass="label-input"/>
-                        <ComboBox fx:id="statusComboBox" styleClass="input-field">
-                            <items>
-                                <FXCollections fx:factory="observableArrayList">
-                                    <String fx:value="Available"/>
-                                    <String fx:value="Occupied"/>
-                                </FXCollections>
-                            </items>
-                        </ComboBox>
-                        <Label fx:id="statusErrorLabel" visible="false" styleClass="label-error"/>
-                    </VBox>
-                    <VBox spacing="4" HBox.hgrow="ALWAYS">
-                        <Label text="Department:" styleClass="label-input"/>
-                        <ComboBox fx:id="departmentComboBox" styleClass="input-field"/>
-                        <Label fx:id="departmentErrorLabel" visible="false" styleClass="label-error"/>
-                    </VBox>
-                </HBox>
+        <!-- Room type -->
+        <Label text="Room type:" styleClass="label-input" GridPane.columnSpan="2"
+               GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+        <TextField fx:id="roomTypeField" styleClass="input-field" GridPane.columnSpan="2"
+                   GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+        <Label fx:id="roomTypeErrorLabel" visible="false" styleClass="label-error" GridPane.columnSpan="2"
+               GridPane.rowIndex="6" GridPane.columnIndex="1"/>
 
-                <!-- Row 3: Buttons -->
-                <HBox alignment="CENTER" spacing="24">
-                    <Button fx:id="clearButton" mnemonicParsing="false" onAction="#handleClear"
-                            prefHeight="30.0" prefWidth="120.0" text="Clear" styleClass="clear-btn"/>
-                    <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSave"
-                            prefHeight="30.0" prefWidth="120.0" text="Save" styleClass="save-btn"/>
-                </HBox>
-            </VBox>
-        </VBox>
-    </HBox>
+        <!-- Status -->
+        <Label text="Status:" styleClass="label-input"
+               GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+        <ComboBox fx:id="statusComboBox" styleClass="input-field" maxWidth="Infinity"
+                  GridPane.rowIndex="8" GridPane.columnIndex="1">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Available"/>
+                    <String fx:value="Occupied"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+        <Label fx:id="statusErrorLabel" visible="false" styleClass="label-error"
+               GridPane.rowIndex="9" GridPane.columnIndex="1"/>
+
+        <!-- Department -->
+        <Label text="Department:" styleClass="label-input"
+               GridPane.rowIndex="7" GridPane.columnIndex="2"/>
+        <ComboBox fx:id="departmentComboBox" styleClass="input-field" maxWidth="Infinity"
+                  GridPane.rowIndex="8" GridPane.columnIndex="2"/>
+        <Label fx:id="departmentErrorLabel" visible="false" styleClass="label-error"
+               GridPane.rowIndex="9" GridPane.columnIndex="2"/>
+
+        <!-- Buttons -->
+        <HBox spacing="24" alignment="CENTER" GridPane.columnSpan="2"
+              GridPane.rowIndex="10" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+            <Button fx:id="clearButton" text="Clear" onAction="#handleClear"
+                    prefWidth="150" styleClass="clear-btn"/>
+            <Button fx:id="saveButton" text="Save" onAction="#handleSave"
+                    prefWidth="150" styleClass="save-btn"/>
+        </HBox>
+    </GridPane>
 </AnchorPane>

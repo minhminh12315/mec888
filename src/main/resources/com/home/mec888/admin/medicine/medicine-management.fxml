@@ -34,6 +34,9 @@
         </HBox>
         <TableView fx:id="medicineManagementTable" layoutX="250.0" layoutY="86.0" prefHeight="460.0" prefWidth="660.0"
                    styleClass="table">
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
             <columns>
                 <TableColumn fx:id="idColumn" prefWidth="84.0" text="ID"/>
                 <TableColumn fx:id="nameColumn" prefWidth="270.0" text="Name"/>
