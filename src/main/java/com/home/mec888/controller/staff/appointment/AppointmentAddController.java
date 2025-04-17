@@ -1,10 +1,7 @@
 package com.home.mec888.controller.staff.appointment;
 
 import com.home.mec888.dao.*;
-import com.home.mec888.entity.Doctor;
-import com.home.mec888.entity.Patient;
-import com.home.mec888.entity.Role;
-import com.home.mec888.entity.User;
+import com.home.mec888.entity.*;
 import com.home.mec888.util.SceneSwitcher;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,7 +13,12 @@ import javafx.scene.layout.GridPane;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -27,9 +29,7 @@ public class AppointmentAddController {
     public TextField emergency_contact;
     public TextArea medical_history;
     @FXML
-    public Label contact_error, medical_error, user_id_error, doctorErrorLabel,
-            appointmentDateErrorLabel,
-            timeErrorLabel;
+    public Label contact_error, medical_error, user_id_error, doctorErrorLabel, appointmentDateErrorLabel, timeErrorLabel;
     @FXML
     private TextField firstNameField, lastNameField, emailField, phoneField, addressField;
     @FXML
@@ -39,8 +39,7 @@ public class AppointmentAddController {
     @FXML
     private DatePicker dateOfBirthPicker, appointmentDatePicker;
     @FXML
-    private Label usernameErrorLabel, emailErrorLabel, phoneErrorLabel,
-            firstNameErrorLabel, lastNameErrorLabel, genderErrorLabel, dateOfBirthErrorLabel, addressErrorLabel;
+    private Label usernameErrorLabel, emailErrorLabel, phoneErrorLabel, firstNameErrorLabel, lastNameErrorLabel, genderErrorLabel, dateOfBirthErrorLabel, addressErrorLabel;
 
     @FXML
     public ComboBox<Doctor> doctorComboBox;
@@ -57,10 +56,22 @@ public class AppointmentAddController {
     DoctorScheduleDao doctorScheduleDao = new DoctorScheduleDao();
     RoomDao roomDao = new RoomDao();
     DepartmentDao departmentDao = new DepartmentDao();
+    AppointmentDao appointmentDao = new AppointmentDao();
 
     private static final String word = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private static final String digits = "0123456789";
     private static final Random random = new Random();
+    private List<LocalDate> workDateOnMonth;
+    // work time start and end
+    private String workTimeStart;
+    private String workTimeEnd;
+    private List<String> timeBooked;
+    private List<Doctor> availableDoctors;
+    Doctor selectedDoctor;
+    LocalDate selectedDate;
+    String selectedTime;
+
+
 
     private final Map<String, String> dayMap = new HashMap<>() {{
         put("Mon", "Monday");
@@ -98,14 +109,24 @@ public class AppointmentAddController {
             @Override
             public void updateItem(java.time.LocalDate item, boolean empty) {
                 super.updateItem(item, empty);
-                if (item.isBefore(java.time.LocalDate.now())) {
+
+                LocalDate today = LocalDate.now();
+                YearMonth currentMonth = YearMonth.now();
+                if (item.isBefore(today)) {
                     setDisable(true);
-                    setStyle("-fx-background-color: #ffc0cb;");
+                    setStyle("-fx-background-color: #eeeeee;");
+                }
+                if (!YearMonth.from(item).equals(currentMonth)) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #eeeeee;");
+                    return;
+                }
+                if (workDateOnMonth != null && !workDateOnMonth.contains(item)) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #eeeeee;");
                 }
             }
         });
-
-
         // Date of Birth - Set initial value to null if you want.
         dateOfBirthPicker.setValue(null);
 
@@ -115,7 +136,7 @@ public class AppointmentAddController {
     private ObservableList<String> generateTimeSlots() {
         ObservableList<String> slots = FXCollections.observableArrayList();
         // Giả sử giờ mở cửa là 08:00 và giờ đóng cửa là 18:00
-        for (int hour = 8; hour < 18; hour++) {
+        for (int hour = 7; hour < 19; hour++) {
             for (int minute = 0; minute < 60; minute += 30) {
                 String time = String.format("%02d:%02d", hour, minute);
                 slots.add(time);
@@ -129,31 +150,40 @@ public class AppointmentAddController {
      */
     private void buildTimeSlotGrid() {
         ObservableList<String> timeSlots = generateTimeSlots();
-        int columns = 4; // Số cột, bạn có thể điều chỉnh tùy ý
+        int columns = 4;
         int row = 0;
         int col = 0;
 
-        // Xóa các thành phần cũ nếu có
         timeSlotGrid.getChildren().clear();
 
+        DateTimeFormatter workTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        DateTimeFormatter slotTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        LocalTime startTime = workTimeStart != null ? LocalTime.parse(workTimeStart, workTimeFormatter) : LocalTime.MIN;
+        LocalTime endTime = workTimeEnd != null ? LocalTime.parse(workTimeEnd, workTimeFormatter) : LocalTime.MAX;
+
         for (String slot : timeSlots) {
+            LocalTime slotTime = LocalTime.parse(slot, slotTimeFormatter);
             Button btn = new Button(slot);
             btn.setPrefWidth(80);
             btn.getStyleClass().add("time-slot-button");
+            btn.getStyleClass().add("disabled-button");
 
-            // Nếu slot đã được chọn, đánh dấu màu khác
-            if (slot.equals(selectedTimeSlot)) {
-                btn.setStyle("-fx-background-color: #90ee90;"); // xanh nhạt
-            }
-
-            // Xử lý sự kiện khi bấm vào button
             btn.setOnAction(e -> {
                 selectedTimeSlot = slot;
-                // Cập nhật ComboBox timePicker (nếu bạn dùng) hoặc hiển thị ở nơi khác
-                timePicker.setValue(slot);
-                // Cập nhật lại giao diện lưới để đánh dấu button được chọn
+                if (timePicker != null) {
+                    timePicker.setValue(slot);
+                } else {
+                    System.out.println("timePicker is null");
+                }
                 buildTimeSlotGrid();
             });
+
+            if (slotTime.isBefore(startTime) || !slotTime.isBefore(endTime)) {
+                btn.setDisable(true);
+            } else {
+                btn.setDisable(false);
+            }
 
             timeSlotGrid.add(btn, col, row);
             col++;
@@ -199,21 +229,11 @@ public class AppointmentAddController {
                 showAlert("Error", "Error adding user: " + e.getMessage(), Alert.AlertType.ERROR);
             }
 
-        } catch (Exception e) {
-            showAlert("Error", "Failed to save user", Alert.AlertType.ERROR);
-        }
-
-
-        try {
             Long last_user_id = getLastUserId();
 
             // Create patient object with user_id, emergency_contact, and medical_history
             PatientDao patientDao = new PatientDao();
-            Patient patient = new Patient(
-                    last_user_id,
-                    emergency_contact.getText(),
-                    medical_history.getText()
-            );
+            Patient patient = new Patient(last_user_id, emergency_contact.getText(), medical_history.getText());
             patientDao.savePatient(patient);
 
 
@@ -221,8 +241,26 @@ public class AppointmentAddController {
             showAlert("Success", "Patient added successfully", Alert.AlertType.INFORMATION);
 
 //            SceneSwitcher.loadView("admin/patient/patient-management.fxml", actionEvent);
+
+            Doctor selectedDoctor = doctorComboBox.getValue();
+            LocalDate appointmentDate = appointmentDatePicker.getValue();
+            LocalTime appointmentTime = LocalTime.parse(timePicker.getValue());
+            String status = "scheduled"; // Default status for a new appointment
+
+            Appointment appointment = new Appointment();
+            appointment.setPatient(patient);
+            appointment.setDoctor(selectedDoctor);
+            appointment.setAppointmentDate(java.sql.Date.valueOf(appointmentDate));
+            appointment.setAppointmentTime(java.sql.Time.valueOf(appointmentTime));
+            appointment.setStatus(status);
+
+            appointmentDao.saveAppointment(appointment);
+            // Show success message
+            showAlert("Success", "Appointment added successfully", Alert.AlertType.INFORMATION);
+
         } catch (Exception e) {
-            showAlert("Error", "Failed to save patient", Alert.AlertType.ERROR);
+            showAlert("Error", "Failed to save appointment", Alert.AlertType.ERROR);
+            System.out.println("Error: " + e.getMessage());
         }
 
 
@@ -248,13 +286,7 @@ public class AppointmentAddController {
         return lastPatient.getId();
     }
 
-    private void showAlert(String title, String message, Alert.AlertType type) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
+
 
     @FXML
     public void validateInput(KeyEvent event) {
@@ -384,10 +416,70 @@ public class AppointmentAddController {
 
     @FXML
     private void handleDoctor(ActionEvent event) {
-        Doctor selectedDoctor = doctorComboBox.getValue();
+        selectedDoctor = doctorComboBox.getValue();
         if (selectedDoctor != null) {
             System.out.println("Selected Doctor: " + selectedDoctor.getId());
+            try {
+                LocalDate today = LocalDate.now();
+                int currentYear = today.getYear();
+                int currentMonth = today.getMonthValue(); // từ 1 đến 12
 
+                workDateOnMonth = doctorScheduleDao.findWorkDatesByDoctorInMonth(selectedDoctor.getId(), currentYear, currentMonth);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    private void handleDatePicker(ActionEvent event) {
+        selectedDate = appointmentDatePicker.getValue();
+        if (selectedDate != null) {
+            System.out.println("Selected Date: " + selectedDate);
+            // Kiểm tra xem ngày đã chọn có nằm trong danh sách ngày làm việc của bác sĩ không
+            if(selectedDoctor != null) {
+                if (workDateOnMonth != null && workDateOnMonth.contains(selectedDate)) {
+                    System.out.println("The selected date is a working day for the doctor.");
+
+                    workTimeStart = doctorScheduleDao.findStartAndEndTimeByWorkDate(selectedDate).get(0).getStartTime().toString();
+                    workTimeEnd = doctorScheduleDao.findStartAndEndTimeByWorkDate(selectedDate).get(0).getEndTime().toString();
+                    System.out.println("Work Time Start: " + workTimeStart);
+                    System.out.println("Work Time End: " + workTimeEnd);
+
+//                    timeBooked = doctorScheduleDao.findTimeBookedByDoctorAndWorkDate(selectedDoctor.getId(), selectedDate);
+////                    System.out.println("Time booked: " + timeBooked);
+
+                    buildTimeSlotGrid();
+
+                } else {
+                    System.out.println("The selected date is not a working day for the doctor.");
+                }
+
+
+
+            } else {
+                availableDoctors = doctorDao.findDoctorByWorkDate(selectedDate);
+                System.out.println("Available Doctors: " + availableDoctors);
+                doctorComboBox.setItems(FXCollections.observableArrayList(availableDoctors));
+            }
+
+
+        }
+    }
+
+    @FXML
+    private void handleTimePicker(ActionEvent event) {
+        selectedTime = timePicker.getValue();
+        if (selectedTime != null) {
+            System.out.println("Selected Time: " + selectedTime);
+            // Kiểm tra xem thời gian đã chọn có nằm trong danh sách thời gian làm việc của bác sĩ không
+            if (timeBooked != null && timeBooked.contains(selectedTime)) {
+                System.out.println("The selected time is a working time for the doctor.");
+
+            } else {
+                System.out.println("The selected time is not a working time for the doctor.");
+            }
         }
     }
 
@@ -449,6 +541,14 @@ public class AppointmentAddController {
         }
 
         return password.toString();
+    }
+
+    private void showAlert(String title, String message, Alert.AlertType type) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
 }

@@ -8,6 +8,8 @@ import org.hibernate.Transaction;
 
 import java.sql.Time;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DoctorScheduleDao {
     public void save(DoctorSchedule doctorSchedule) {
@@ -43,6 +45,40 @@ public class DoctorScheduleDao {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public List<LocalDate> findWorkDatesByDoctorInMonth(Long doctorId, int year, int month) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery(
+                            "SELECT DISTINCT ds.workDate " +
+                                    "FROM DoctorSchedule ds " +
+                                    "WHERE ds.doctor.id = :doctorId " +
+                                    "AND YEAR(ds.workDate) = :year " +
+                                    "AND MONTH(ds.workDate) = :month " +
+                                    "ORDER BY ds.workDate", LocalDate.class)
+                    .setParameter("doctorId", doctorId)
+                    .setParameter("year", year)
+                    .setParameter("month", month)
+                    .getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
+    // Find Start and End Time by Work Date
+    public List<DoctorSchedule> findStartAndEndTimeByWorkDate(LocalDate workDate) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery(
+                            "SELECT ds " +
+                                    "FROM DoctorSchedule ds " +
+                                    "WHERE ds.workDate = :workDate", DoctorSchedule.class)
+                    .setParameter("workDate", workDate)
+                    .getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
         }
     }
 

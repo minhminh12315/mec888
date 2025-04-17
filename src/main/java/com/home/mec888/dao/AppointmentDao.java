@@ -5,6 +5,7 @@ import com.home.mec888.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class AppointmentDao {
@@ -71,4 +72,20 @@ public class AppointmentDao {
             e.printStackTrace();
         }
     }
+
+    // find appointment by appointment_date and doctor_id and appointment_time
+    public List<Appointment> findAppointmentsByDateAndDoctorIdAndAppointmentTime(LocalDate appointmentDate, Long doctorId, LocalDate appointmentTime) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("from Appointment where appointmentDate = :appointmentDate and doctor.id = :doctorId and appointmentTime = :appointmentTime", Appointment.class)
+                    .setParameter("appointmentDate", appointmentDate)
+                    .setParameter("doctorId", doctorId)
+                    .setParameter("appointmentTime", appointmentTime)
+                    .list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
 }

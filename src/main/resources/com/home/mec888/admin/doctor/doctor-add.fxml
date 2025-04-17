@@ -21,17 +21,49 @@
             <Button fx:id="backButton" layoutX="14.0" layoutY="14.0"
                     mnemonicParsing="false" onAction="#handleBack"
                     prefHeight="30.0" prefWidth="75.0" styleClass="back-btn" text="Back"/>
-            <Button fx:id="addUserButton" text="Add New User" onAction="#goToDoctorAdd" />
+<!--            <Button fx:id="addUserButton" text="Add New User" onAction="#goToDoctorAdd" />-->
             <Text text="Add New Doctor" styleClass="titlePage"/>
         </HBox>
 
         <VBox spacing="16">
-            <!-- User Field -->
-            <VBox>
-                <Label styleClass="label-input" text="User:"/>
-                <ComboBox fx:id="userComboBox" prefWidth="Infinity" styleClass="input-field"/>
-                <Label fx:id="userErrorLabel" textFill="red"/> <!-- Thông báo lỗi -->
-            </VBox>
+            <HBox prefHeight="70.0" prefWidth="200.0" spacing="16">
+                <children>
+                    <VBox HBox.hgrow="ALWAYS">
+                        <children>
+                            <Label styleClass="label-input" text="first name" />
+                            <TextField fx:id="firstNameField" styleClass="input-field" />
+                            <Label fx:id="first_name_error" style="-fx-text-fill: red"/>
+                        </children>
+                    </VBox>
+                    <VBox HBox.hgrow="ALWAYS">
+                        <children>
+                            <Label styleClass="label-input" text="last name" />
+                            <TextField fx:id="lastNameField" styleClass="input-field" />
+                            <Label fx:id="last_name_error" style="-fx-text-fill: red"/>
+                        </children>
+                    </VBox>
+                    <VBox HBox.hgrow="ALWAYS">
+                        <children>
+                            <Label styleClass="label-input" text="phone" />
+                            <TextField fx:id="phoneField" styleClass="input-field" />
+                            <Label fx:id="phone_error" style="-fx-text-fill: red"/>
+                        </children>
+                    </VBox>
+                    <VBox HBox.hgrow="ALWAYS">
+                        <children>
+                            <Label styleClass="label-input" text="email" />
+                            <TextField fx:id="emailField" styleClass="input-field" />
+                            <Label fx:id="email_error" style="-fx-text-fill: red"/>
+                        </children>
+                    </VBox>
+                    <!-- User ID Input -->
+                    <VBox HBox.hgrow="ALWAYS">
+                        <Label styleClass="label-input" text="gender" />
+                        <ComboBox fx:id="genderComboBox" styleClass="input-field" />
+                        <Label fx:id="gender_error" style="-fx-text-fill: red"/>
+                    </VBox>
+                </children>
+            </HBox>
 
             <!-- Department Field -->
             <VBox>

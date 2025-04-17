@@ -177,8 +177,8 @@ VALUES
 (7, 6, 'Sunday', '09:00:00', '13:00:00', '2025-04-20', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (8, 7, 'Monday', '14:00:00', '18:00:00', '2025-04-21', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (9, 8, 'Wednesday', '08:00:00', '12:00:00', '2025-04-23', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(10, 9, 'Friday', '10:30:00', '14:30:00', '2025-04-25', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-
+(10, 9, 'Friday', '10:30:00', '14:30:00', '2025-04-25', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(11, 10, 'Tuesday', '08:00:00', '12:00:00', '2025-04-22', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 -- 7. Patient
 INSERT INTO mec888.patients
 (id, user_id, emergency_contact, medical_history, created_at, updated_at)

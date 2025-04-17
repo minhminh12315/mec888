@@ -39,6 +39,12 @@
 }
 
 .headerAdmin {
+.table-cell {
+    -fx-alignment: center;
+    -fx-font-size: 13px;
+}
+
+.headerAdmin{
     -fx-background-color: radial-gradient(
             focus-angle 0deg,
             focus-distance 0%,

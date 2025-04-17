@@ -1,0 +1,220 @@
+/* ===========================================
+   SCOPED TO .roomAdd — applies to RoomAdd only
+   =========================================== */
+
+.roomAdd .input-field {
+    -fx-pref-width: 250px;
+    -fx-min-width: 250px;
+    -fx-max-width: 250px;
+    -fx-font-size: 14px;
+    -fx-padding: 10px;
+    -fx-background-color: #fffbea;
+    -fx-border-color: #fbc02d;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-text-fill: #333333;
+}
+
+.roomAdd .combo-box .combo-box-popup {
+    -fx-background-color: #fffbea;
+    -fx-border-color: #fbc02d;
+    -fx-border-radius: 5px;
+}
+
+.roomAdd .save-btn,
+.roomAdd .clear-btn,
+.roomAdd .back-btn {
+    -fx-pref-width: 200px;
+    -fx-pref-height: 50px;
+    -fx-padding: 10px 20px;
+    -fx-background-color: #ff9800;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+    -fx-border: none;
+    -fx-cursor: hand;
+    -fx-transition: all 0.3s ease;
+}
+
+.roomAdd .save-btn:hover,
+.roomAdd .clear-btn:hover,
+.roomAdd .back-btn:hover {
+    -fx-background-color: #000000;
+}
+
+.roomAdd .save-btn,
+.roomAdd .clear-btn,
+.roomAdd .back-btn {
+    -fx-background-color: #2196f3; /* Màu xanh theo hình */
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+    -fx-cursor: hand;
+}
+
+
+.roomAdd .label-input {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-padding: 5px 0px;
+}
+
+.roomAdd .label-error {
+    -fx-text-fill: #ff0000; /* Đỏ tươi cho lỗi */
+    -fx-font-size: 12px;
+    -fx-font-style: italic;
+}
+
+.roomAdd .titlePage {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #444444;
+    -fx-padding: 10px 0px;
+    -fx-alignment: center;
+}
+
+
+/* ===========================================
+   SCOPED TO .RoomUpdate — applies to RoomUpdate.fxml
+   =========================================== */
+
+.RoomUpdate .input-field {
+    -fx-pref-width: 250px;
+    -fx-min-width: 250px;
+    -fx-max-width: 250px;
+    -fx-font-size: 14px;
+    -fx-padding: 10px;
+    -fx-background-color: #fffbea;
+    -fx-border-color: #fbc02d;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-text-fill: #333333;
+}
+
+.RoomUpdate .combo-box .combo-box-popup {
+    -fx-background-color: #fffbea;
+    -fx-border-color: #fbc02d;
+    -fx-border-radius: 5px;
+}
+
+.RoomUpdate .save-btn,
+.RoomUpdate .clear-btn,
+.RoomUpdate .back-btn {
+    -fx-pref-width: 200px;
+    -fx-pref-height: 50px;
+    -fx-padding: 10px 20px;
+    -fx-background-color: #2196f3; /* Màu xanh kiểu Windows 11 */
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+    -fx-border: none;
+    -fx-cursor: hand;
+    -fx-transition: all 0.3s ease;
+}
+
+.RoomUpdate .save-btn:hover,
+.RoomUpdate .clear-btn:hover,
+.RoomUpdate .back-btn:hover {
+    -fx-background-color: #1565c0; /* Hover xanh đậm */
+}
+
+.RoomUpdate .save-btn:pressed,
+.RoomUpdate .clear-btn:pressed,
+.RoomUpdate .back-btn:pressed {
+    -fx-background-color: #0d47a1; /* Pressed xanh đậm hơn */
+}
+
+.RoomUpdate .label-input {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-padding: 5px 0px;
+}
+
+.RoomUpdate .label-error {
+    -fx-text-fill: #ff0000; /* Đỏ tươi cho lỗi */
+    -fx-font-size: 12px;
+    -fx-font-style: italic;
+}
+
+.RoomUpdate .titlePage {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #444444;
+    -fx-padding: 10px 0px;
+    -fx-alignment: center;
+}
+
+
+/* ===========================================
+   SCOPED TO .Settings — applies to Settings.fxml
+   =========================================== */
+
+/* ==========================
+   TextField - mặc định & chỉnh sửa
+   ========================== */
+.Settings TextField {
+    -fx-pref-width: 250px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-text-fill: #333333;
+}
+
+/* ==========================
+   Readonly TextFields
+   ========================== */
+.Settings .readonly-field {
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #bdbdbd;
+    -fx-text-fill: #777777;
+    -fx-opacity: 1.0; /* giữ màu khi disabled */
+}
+
+/* ==========================
+   Label Tiêu đề lớn
+   ========================== */
+.Settings Label {
+    -fx-font-size: 14px;
+    -fx-font-weight: normal;
+    -fx-text-fill: #333333;
+}
+
+/* ==========================
+   Label lỗi
+   ========================== */
+.Settings #labelError {
+    -fx-text-fill: #ff0000;
+    -fx-font-size: 13px;
+    -fx-font-style: italic;
+}
+
+/* ==========================
+   Nút lưu thay đổi
+   ========================== */
+.Settings #saveButton {
+    -fx-pref-width: 200px;
+    -fx-pref-height: 45px;
+    -fx-background-color: #2196f3; /* Xanh Windows */
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+    -fx-cursor: hand;
+    -fx-transition: all 0.3s ease;
+}
+
+.Settings #saveButton:hover {
+    -fx-background-color: #1565c0;
+}
+
+.Settings #saveButton:pressed {
+    -fx-background-color: #0d47a1;
+}

@@ -79,7 +79,8 @@ public class PatientAddController {
 
                 // Save the user to the database
                 userDao.saveUser(user);
-                showAlert("Success", "User added successfully!", Alert.AlertType.INFORMATION);
+//                showAlert("Success", "User added successfully!", Alert.AlertType.INFORMATION);
+                showAlert("Patient" + username, "Random password!"+password, Alert.AlertType.INFORMATION);
 
             } catch (Exception e) {
                 showAlert("Error", "Error adding user: " + e.getMessage(), Alert.AlertType.ERROR);
@@ -131,93 +132,88 @@ public class PatientAddController {
 
     @FXML
     public void validateInput(KeyEvent event) {
-        Object source = event.getSource();
+        validateForm();
+    }
 
-        if (source == user_id) {
-            try {
-                Long.parseLong(String.valueOf(user_id.getValue()));
-                user_id_error.setText("");  // Clear error if valid number
-                saveButton.setDisable(false);
-            } catch (NumberFormatException e) {
-                user_id_error.setText("User ID must be a valid number.");
-                saveButton.setDisable(true);
-            }
-        } else if (source == emergency_contact) {
-            String contact = emergency_contact.getText();
-            if (contact.length() > 255) {
-                contact_error.setText("Emergency Contact cannot exceed 255 characters.");
-                saveButton.setDisable(true);
-            } else if (contact.isEmpty()) {
-                contact_error.setText("Emergency Contact cannot be empty.");
-                saveButton.setDisable(true);
-            } else {
-                contact_error.setText("");
-                saveButton.setDisable(false);
-            }
-        } else if (source == medical_history) {
-            String history = medical_history.getText();
-            if (history.length() > 500) {
-                medical_error.setText("Medical History cannot exceed 500 characters.");
-                saveButton.setDisable(true);
-            } else {
-                medical_error.setText("");
-                saveButton.setDisable(false);
-            }
-        } else if (source == firstNameField) {
-            String firstName = firstNameField.getText();
-            if (firstName == null) {
-                first_name_error.setText("First Name cannot be empty.");
-                saveButton.setDisable(true);
-            } else {
-                first_name_error.setText("");
-                saveButton.setDisable(false);
-            }
-        } else if (source == lastNameField) {
-            String lastName = lastNameField.getText();
-            if (lastName == null) {
-                last_name_error.setText("Last Name cannot be empty.");
-                saveButton.setDisable(true);
-            } else {
-                last_name_error.setText("");
-                saveButton.setDisable(false);
-            }
-        } else if (source == genderComboBox) {
-            String gender = genderComboBox.getValue();
-            if (gender == null) {
-                gender_error.setText("Gender cannot be empty.");
-                saveButton.setDisable(true);
-            } else {
-                gender_error.setText("");
-                saveButton.setDisable(false);
-            }
-        } else if (source == emailField) {
-            String email = emailField.getText();
-            if (email == null) {
-                email_error.setText("Email cannot be empty.");
-                saveButton.setDisable(true);
-            } else if (!isValidEmail(email)) {
-                email_error.setText("Invalid email format!");
-                saveButton.setDisable(true);
-            } else if (userDao.isEmailExists(email)) {
-                email_error.setText("Email already exists!");
-                saveButton.setDisable(true);
-            } else {
-                email_error.setText("");
-                saveButton.setDisable(false);
-            }
-        } else if (source == phoneField) {
-            String phone = phoneField.getText();
-            if (phone == null) {
-                phone_error.setText("Phone cannot be empty.");
-                saveButton.setDisable(true);
-            } else if (!isValidPhone(phone)) {
-                phone_error.setText("Invalid phone format!");
-                saveButton.setDisable(true);
-            } else {
-                phone_error.setText("");
-                saveButton.setDisable(false);
-            }
+    private void validateForm() {
+        boolean valid = true;
+
+        // First Name
+        String firstName = firstNameField.getText();
+        if (firstName == null || firstName.trim().isEmpty()) {
+            first_name_error.setText("First Name cannot be empty.");
+            valid = false;
+        } else {
+            first_name_error.setText("");
         }
+
+        // Last Name
+        String lastName = lastNameField.getText();
+        if (lastName == null || lastName.trim().isEmpty()) {
+            last_name_error.setText("Last Name cannot be empty.");
+            valid = false;
+        } else {
+            last_name_error.setText("");
+        }
+
+        // Phone
+        String phone = phoneField.getText();
+        if (phone == null || phone.trim().isEmpty()) {
+            phone_error.setText("Phone cannot be empty.");
+            valid = false;
+        } else if (!isValidPhone(phone)) {
+            phone_error.setText("Invalid phone format!");
+            valid = false;
+        } else {
+            phone_error.setText("");
+        }
+
+        // Email
+        String email = emailField.getText();
+        if (email == null || email.trim().isEmpty()) {
+            email_error.setText("Email cannot be empty.");
+            valid = false;
+        } else if (!isValidEmail(email)) {
+            email_error.setText("Invalid email format!");
+            valid = false;
+        } else if (userDao.isEmailExists(email)) {
+            email_error.setText("Email already exists!");
+            valid = false;
+        } else {
+            email_error.setText("");
+        }
+
+        // Gender
+        String gender = genderComboBox.getValue();
+        if (gender == null || gender.trim().isEmpty()) {
+            gender_error.setText("Gender cannot be empty.");
+            valid = false;
+        } else {
+            gender_error.setText("");
+        }
+
+        // Emergency Contact
+        String contact = emergency_contact.getText();
+        if (contact == null || contact.trim().isEmpty()) {
+            contact_error.setText("Emergency Contact cannot be empty.");
+            valid = false;
+        } else if (contact.length() > 255) {
+            contact_error.setText("Emergency Contact cannot exceed 255 characters.");
+            valid = false;
+        } else {
+            contact_error.setText("");
+        }
+
+        // Medical History
+        String history = medical_history.getText();
+        if (history != null && history.length() > 500) {
+            medical_error.setText("Medical History cannot exceed 500 characters.");
+            valid = false;
+        } else {
+            medical_error.setText("");
+        }
+
+        saveButton.setDisable(!valid);
     }
 
     private boolean isValidEmail(String email) {

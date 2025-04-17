@@ -11,6 +11,11 @@
             xmlns:fx="http://javafx.com/fxml"
             prefHeight="600.0" prefWidth="800.0"
             fx:controller="com.home.mec888.controller.staff.appointment.AppointmentAddController">
+    <ScrollPane fitToWidth="true" AnchorPane.bottomAnchor="0"
+                AnchorPane.leftAnchor="0"
+                AnchorPane.rightAnchor="0"
+                AnchorPane.topAnchor="0"
+                style="-fx-background-color:transparent;">
     <VBox spacing="24" AnchorPane.bottomAnchor="24.0"
           AnchorPane.leftAnchor="24.0"
           AnchorPane.rightAnchor="24.0"
@@ -101,7 +106,7 @@
                     <Label styleClass="label-input" text="Appointment Date"/>
                     <Label layoutX="35.0" layoutY="150.0" text="*" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;" />
                 </HBox>
-                <DatePicker fx:id="appointmentDatePicker" styleClass="input-field"/>
+                <DatePicker fx:id="appointmentDatePicker" onAction="#handleDatePicker" styleClass="input-field"/>
                 <Label fx:id="appointmentDateErrorLabel" textFill="red"/> <!-- Error Label for Appointment Date -->
 
             </VBox>
@@ -110,6 +115,7 @@
                 <Label layoutX="20" layoutY="100" text="Select a Time Slot:"/>
                 <GridPane fx:id="timeSlotGrid" layoutX="20" layoutY="130" hgap="10" vgap="10" />
             </VBox>
+            <ComboBox fx:id="timePicker" visible="false" managed="false"/>
 
             <HBox alignment="CENTER_RIGHT" spacing="24">
                 <Button fx:id="clearButton" mnemonicParsing="false" onAction="#handleClear" prefHeight="30.0" prefWidth="120.0" styleClass="clear-btn" text="Clear" />
@@ -118,4 +124,5 @@
 
         </VBox>
     </VBox>
+    </ScrollPane>
 </AnchorPane>

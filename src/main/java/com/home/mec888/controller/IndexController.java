@@ -1,18 +1,24 @@
 package com.home.mec888.controller;
 
 
+import com.home.mec888.controller.settings.SettingsController;
 import com.home.mec888.dao.AuditLogDao;
 import com.home.mec888.entity.AuditLog;
 import com.home.mec888.entity.User;
 import com.home.mec888.util.SceneSwitcher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class IndexController {
     public static String userRole;
@@ -47,6 +53,8 @@ public class IndexController {
     @FXML
     public Button moveServiceButton;
 
+    @FXML
+    public Button moveSettingsButton;
     private Button currentActiveButton;
 
     @FXML
@@ -68,7 +76,8 @@ public class IndexController {
                         moveRoomButton,
                         moveDoctorButton,
                         moveUserButton,
-                        movePatientButton
+                        movePatientButton,
+                        moveSettingsButton
                 );
                 break;
             case "staff":
@@ -149,6 +158,29 @@ public class IndexController {
         highlightActiveButton(movePatientButton);
         SceneSwitcher.loadView("admin/patient/patient-management.fxml", actionEvent);
     }
+    public void handleSettings(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/home/mec888/settings/settings.fxml"));
+            Parent newView = loader.load();
+
+            // Lấy controller và gán User trước khi hiển thị
+            SettingsController controller = loader.getController();
+            controller.setUser(user); // ✅ Gán dữ liệu User vào trước
+
+            // Gắn vào phần center của BorderPane
+            AnchorPane anchorPane = (AnchorPane) ((Node) event.getSource()).getScene().getRoot();
+            BorderPane mainPane = (BorderPane) anchorPane.lookup("#mainBorderPane");
+            if (mainPane != null) {
+                mainPane.setCenter(newView);
+            } else {
+                System.err.println("Không tìm thấy BorderPane với ID 'mainBorderPane'");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void handleService(ActionEvent actionEvent) {
         highlightActiveButton(moveServiceButton);
@@ -174,4 +206,5 @@ public class IndexController {
         highlightActiveButton(moveDoctorSchedule);
         SceneSwitcher.loadView("doctor/schedule/doctor-schedule.fxml", event);
     }
+
 }
