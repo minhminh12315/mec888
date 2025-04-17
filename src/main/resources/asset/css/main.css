@@ -38,7 +38,6 @@
     -fx-padding: 16px;
 }
 
-.headerAdmin {
 .table-cell {
     -fx-alignment: center;
     -fx-font-size: 13px;
@@ -201,6 +200,4 @@
 .navigationBar {
     -fx-background-color: #fff;
     -fx-margin-top: 48px;
-    -fx-border-color: #3871c1;
-    -fx-border-width: 0 1px 0 0;
 }
