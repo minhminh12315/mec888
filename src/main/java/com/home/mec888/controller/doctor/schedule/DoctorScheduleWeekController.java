@@ -9,6 +9,7 @@ import com.home.mec888.entity.Department;
 import com.home.mec888.entity.Doctor;
 import com.home.mec888.entity.DoctorSchedule;
 import com.home.mec888.entity.Room;
+import com.home.mec888.util.SceneSwitcher;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -20,16 +21,19 @@ import javafx.scene.input.MouseEvent;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.time.format.TextStyle;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
-public class DoctorScheduleController {
+public class DoctorScheduleWeekController {
     @FXML
     public Text roomNumberField;
     @FXML
     public Text departmentNameField;
+    @FXML
+    public Text weekTitle;
     @FXML
     private GridPane scheduleGrid;
 
@@ -78,14 +82,19 @@ public class DoctorScheduleController {
         buildHeader();
         buildShiftLabels();
         buildShiftCells();
-        setRoomNumberAndDepartment();
+        setupTextFields();
     }
 
-    public void setRoomNumberAndDepartment() {
+    public void setupTextFields() {
         try {
+            //room number
             roomNumberField.setText(currentRoom.getRoomNumber());
+            //department
             departmentNameField.setText(currentDepartment.getName());
-        } catch (Exception e) {
+            //month title
+            String currentMonth = LocalDate.now().getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
+            int currentYear = LocalDate.now().getYear();
+            weekTitle.setText(currentMonth + " " + currentYear);        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -95,6 +104,7 @@ public class DoctorScheduleController {
         LocalDate monday = today.minusDays(today.getDayOfWeek().getValue() - 1);
 
         StackPane firstBlockInGrid = createCell("Shift/Day", false, null);
+        firstBlockInGrid.setStyle("-fx-font-weight: bold;");
         scheduleGrid.add(firstBlockInGrid, 0, 0);
 
         for (int col = 1; col <= days.length; col++) {
@@ -151,6 +161,14 @@ public class DoctorScheduleController {
         // Kiểm tra trạng thái của ô thông qua cơ sở dữ liệu
 
         Text text = new Text(content);
+        if (content != null && (content.contains("Mon") || content.contains("Tue") || content.contains("Wed") ||
+                content.contains("Thu") || content.contains("Fri") || content.contains("Sat") ||
+                content.contains("Sun"))) {
+            text.setStyle("-fx-font-weight: bold;"); // Đặt in đậm
+        }
+        if (content != null && (content.contains("Morning") || content.contains("Afternoon") || content.contains("Night"))) {
+            text.setStyle("-fx-font-weight: bold;"); // Đặt in đậm
+        }
         cell.getChildren().add(text);
 
         if (clickable && shiftInfo != null) {
@@ -199,6 +217,14 @@ public class DoctorScheduleController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    public void handleMonthSchedule(javafx.event.ActionEvent event) {
+        SceneSwitcher.loadView("doctor/schedule/doctor-schedule-month.fxml", event);
+    }
+
+    public void handleWeekSchedule(javafx.event.ActionEvent event) {
+        SceneSwitcher.loadView("doctor/schedule/doctor-schedule-week.fxml", event);
     }
 
     // ShiftInfo inner class

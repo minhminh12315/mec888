@@ -9,6 +9,30 @@
        -fx-background-color: white;
        -fx-cursor: hand;
 }
+.scheduleGridMonth{
+    -fx-padding: 0 0 64 0;
+}
+.grid-cell-month{
+       -fx-border-color: #999;
+       -fx-border-width: 1;
+       -fx-border-style: solid;
+       -fx-alignment: top-right; /* Căn giữa text */
+       -fx-padding:0 4 4 4;
+       -fx-pref-width: 224;
+       -fx-pref-height: 160;
+       -fx-font-size: 16px;
+       -fx-background-color: white;
+       -fx-cursor: hand;
+}
+.grid-cell-month .disable{
+     -fx-padding:0 0 0 0;
+}
+.grid-cell-month-header{
+        -fx-pref-width: 224;
+        -fx-pref-height: 64;
+        -fx-font-size: 16px;
+        -fx-alignment: center;
+}
 .shift-cell{
     -fx-min-width: 40;
     -fx-min-height: 40;
@@ -21,8 +45,78 @@
     -fx-background-color: #ffffff;
 }
 .taken-by-other-shift{
-    -fx-background-color: #ffcccc;
+    -fx-background-color: #FFFED3;
 }
 .your-shift{
-    -fx-background-color: #b3ffd9;
+    -fx-background-color: #BBE9FF;
+}
+.selector-schedule-button{
+        -fx-border-color: #CCCCCC;
+        -fx-border-radius: 6px;
+        -fx-background-radius: 6px;
+        -fx-padding:8 16 8 16;
+        -fx-background-color: #F0F0F0; /* Giống kiểu disable */
+        -fx-cursor: hand;
+        -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 2, 0.1, 0, 1);
+}
+.selector-schedule-button:hover{
+    -fx-background-color: #E0E0E0;
+}
+.disabled-cell{
+    -fx-background-color: #F0F0F0;
+}
+
+.selected-schedule-btn{
+            -fx-border-radius: 6px;
+            -fx-background-radius: 6px;
+            -fx-padding:8 16 8 16;
+            -fx-background-color: #1071e1; /* Giống kiểu disable */
+            -fx-cursor: hand;
+            -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 2, 0.1, 0, 1);
+}
+.selected-schedule-btn Text{
+    -fx-fill: white;
+}
+.selected-schedule-btn .ikonli-font-icon{
+    -fx-fill: white;
+}
+
+.badgeMorningShift {
+    -fx-padding:4 4 4 0;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-background-color: #FFFED3; /* Vàng pastel */
+    -fx-text-fill: #000000; /* Văn bản màu đen để dễ đọc */
+}
+
+.badgeAfternoonShift {
+    -fx-padding:4 4 4 0;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-background-color: #BBE9FF; /* Xanh dương pastel */
+    -fx-text-fill: #000000; /* Văn bản màu đen để dễ đọc */
+}
+
+.badgeNightShift {
+    -fx-padding:4 4 4 0;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+   /* -fx-background-color: #B1AFFF; /* Tím pastel */
+    -fx-background-color: #ffcccc; /* Tím pastel */
+    -fx-text-fill: #000000; /* Văn bản màu đen để dễ đọc */
+}
+
+.buttonRegisterShift{
+     -fx-border-color: #CCCCCC;
+     -fx-border-radius: 6px;
+     -fx-background-radius: 6px;
+     -fx-padding:8 16 8 16;
+     -fx-cursor: hand;
+     -fx-background-color: transparent;
+     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 2, 0.1, 0, 1);
+     -fx-font-weight: 500;
+}
+.buttonRegisterShift:hover{
+    -fx-border-color: transparent;
+    -fx-background-color: #F0F0F0;
 }

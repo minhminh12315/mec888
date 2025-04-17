@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.home.mec888.controller.doctor.schedule.DoctorScheduleMonthController">
+    <ScrollPane fitToWidth="true" AnchorPane.bottomAnchor="0"
+                AnchorPane.leftAnchor="0"
+                AnchorPane.rightAnchor="0"
+                AnchorPane.topAnchor="0"
+                style="-fx-background-color:transparent;"
+    >
+        <VBox spacing="24" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0"
+              AnchorPane.topAnchor="24.0">
+            <VBox alignment="CENTER" spacing="8">
+                <Text styleClass="titlePage" text="Doctor Schedule (Month)" textAlignment="CENTER"/>
+                <Text fx:id="monthTitle" style="-fx-font-size:24px; -fx-font-weigh: 900;"/>
+            </VBox>
+            <HBox style="-fx-padding: 0 24 0 24;">
+                <VBox spacing="8" alignment="CENTER_LEFT">
+                    <HBox spacing="8" alignment="CENTER_LEFT">
+                        <Text text="Room Number: " style="-fx-font-size:16px;"/>
+                        <Text fx:id="roomNumberField" style="-fx-font-size:16px;"/>
+                    </HBox>
+                    <HBox spacing="8" alignment="CENTER_LEFT">
+                        <Text text="Department: " style="-fx-font-size:16px;"/>
+                        <Text fx:id="departmentNameField" style="-fx-font-size:16px;"/>
+                    </HBox>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <HBox spacing="24">
+                    <Button styleClass="selected-schedule-btn" onAction="#handleMonthSchedule">
+                        <graphic>
+                            <HBox spacing="8" alignment="CENTER">
+                                <FontIcon iconLiteral="fas-calendar" iconSize="16"/>
+                                <Text text="Month"/>
+                            </HBox>
+                        </graphic>
+                    </Button>
+                    <Button styleClass="selector-schedule-button" onAction="#handleWeekSchedule">
+                        <graphic>
+                            <HBox spacing="8" alignment="CENTER">
+                                <FontIcon iconLiteral="fas-calendar-week" iconSize="16"/>
+                                <Text text="Week"/>
+                            </HBox>
+                        </graphic>
+                    </Button>
+                </HBox>
+            </HBox>
+            <GridPane fx:id="scheduleGrid" styleClass="scheduleGridMonth" alignment="CENTER"/>
+        </VBox>
+    </ScrollPane>
+</AnchorPane>

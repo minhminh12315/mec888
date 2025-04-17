@@ -67,6 +67,22 @@ public class DoctorScheduleDao {
         }
     }
 
+    public List<DoctorSchedule> findTodaySchedules(LocalDate today) {// lấy ngày hôm nay
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("""
+                            FROM DoctorSchedule ds
+                            WHERE ds.workDate = :today
+                            ORDER BY ds.startTime
+                            """, DoctorSchedule.class)
+                    .setParameter("today", today)
+                    .getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
     // Find Start and End Time by Work Date
     public List<DoctorSchedule> findStartAndEndTimeByWorkDate(LocalDate workDate) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {

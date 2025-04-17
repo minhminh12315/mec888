@@ -204,7 +204,7 @@ public class IndexController {
 
     public void handleDoctorSchedule(ActionEvent event) {
         highlightActiveButton(moveDoctorSchedule);
-        SceneSwitcher.loadView("doctor/schedule/doctor-schedule.fxml", event);
+        SceneSwitcher.loadView("doctor/schedule/doctor-schedule-month.fxml", event);
     }
 
 }
