@@ -42,7 +42,7 @@ public class DoctorAddController {
     @FXML
     public ComboBox<String> genderComboBox;
     @FXML
-    public Label first_name_error, last_name_error, phone_error, email_error, gender_error;
+    public Label first_name_error, last_name_error, phone_error, email_error, gender_error, username_error;
 
     private UserDao userDao;
     private RoomDao roomDao;
@@ -148,6 +148,8 @@ public class DoctorAddController {
         roomErrorLabel.setText("");
         specializationErrorLabel.setText("");
         licenseErrorLabel.setText("");
+
+        username_error.setText("");
         first_name_error.setText("");
         last_name_error.setText("");
         phone_error.setText("");
@@ -287,6 +289,13 @@ public class DoctorAddController {
             String gender = genderComboBox.getValue();
 
             String username = firstName + " " + lastName;
+
+            if (userDao.isUsernameExists(username)){
+                username_error.setText("Username already exists!");
+            } else {
+                username_error.setText("");
+            }
+
             String password = randomPassword();
 
             try {

@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <AnchorPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.12"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.home.mec888.controller.doctor.schedule.DoctorScheduleController">
+            fx:controller="com.home.mec888.controller.admin.doctor.schedule.DoctorScheduleController">
     <ScrollPane fitToWidth="true" AnchorPane.bottomAnchor="0"
                 AnchorPane.leftAnchor="0"
                 AnchorPane.rightAnchor="0"

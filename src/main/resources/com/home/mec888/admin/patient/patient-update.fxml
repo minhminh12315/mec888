@@ -22,15 +22,53 @@
             <Text styleClass="titlePage" text="Update Patient"/>
         </HBox>
         <VBox spacing="16">
+            <HBox prefHeight="70.0" prefWidth="200.0" spacing="16">
+                <children>
+                    <VBox HBox.hgrow="ALWAYS">
+                        <children>
+                            <Label styleClass="label-input" text="first name" />
+                            <TextField fx:id="firstNameField" onKeyReleased="#validateInput" styleClass="input-field" />
+                            <Label fx:id="first_name_error" style="-fx-text-fill: red"/>
+                        </children>
+                    </VBox>
+                    <VBox HBox.hgrow="ALWAYS">
+                        <children>
+                            <Label styleClass="label-input" text="last name" />
+                            <TextField fx:id="lastNameField" onKeyReleased="#validateInput" styleClass="input-field" />
+                            <Label fx:id="last_name_error" style="-fx-text-fill: red"/>
+                        </children>
+                    </VBox>
+                    <VBox HBox.hgrow="ALWAYS">
+                        <children>
+                            <Label styleClass="label-input" text="phone" />
+                            <TextField fx:id="phoneField" onKeyReleased="#validateInput" styleClass="input-field" />
+                            <Label fx:id="phone_error" style="-fx-text-fill: red"/>
+                        </children>
+                    </VBox>
+                    <VBox HBox.hgrow="ALWAYS">
+                        <children>
+                            <Label styleClass="label-input" text="email" />
+                            <TextField fx:id="emailField" onKeyReleased="#validateInput" styleClass="input-field" />
+                            <Label fx:id="email_error" style="-fx-text-fill: red"/>
+                        </children>
+                    </VBox>
+                    <!-- User ID Input -->
+                    <VBox HBox.hgrow="ALWAYS">
+                        <Label styleClass="label-input" text="gender" />
+                        <ComboBox fx:id="genderComboBox" onKeyReleased="#validateInput" styleClass="input-field" />
+                        <Label fx:id="gender_error" style="-fx-text-fill: red"/>
+                    </VBox>
+                </children>
+            </HBox>
             <VBox>
                 <Label text="Emergency Contact"/>
-                <TextField fx:id="emergency_contact" onKeyReleased="#validateUpdate"/>
-                <Label fx:id="contact_error"/>
+                <TextField fx:id="emergency_contact" onKeyReleased="#validateInput"/>
+                <Label fx:id="contact_error" textFill="red"/>
             </VBox>
             <VBox>
                 <Label text="Medical History"/>
-                <TextArea fx:id="medical_history" onKeyReleased="#validateUpdate"/>
-                <Label fx:id="medical_error"/>
+                <TextArea fx:id="medical_history" onKeyReleased="#validateInput"/>
+                <Label fx:id="medical_error" textFill="red"/>
             </VBox>
             <HBox alignment="CENTER_RIGHT" spacing="24">
                 <Button fx:id="clearButton" mnemonicParsing="false" onAction="#handleClear" prefHeight="30.0"

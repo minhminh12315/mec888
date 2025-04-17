@@ -1,4 +1,4 @@
-package com.home.mec888.controller.doctor.schedule;
+package com.home.mec888.controller.admin.doctor.schedule;
 
 import com.home.mec888.controller.IndexController;
 import com.home.mec888.dao.DepartmentDao;
