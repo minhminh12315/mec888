@@ -54,5 +54,6 @@ module com.home.mec888 {
     exports com.home.mec888.controller.admin.medicine;
     exports com.home.mec888.controller.admin.patient;
     exports com.home.mec888.controller.doctor.schedule;
+    exports com.home.mec888.controller.admin;
     exports com.home.mec888.controller.patient;
 }

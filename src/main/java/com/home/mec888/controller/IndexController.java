@@ -6,6 +6,7 @@ import com.home.mec888.dao.AuditLogDao;
 import com.home.mec888.entity.AuditLog;
 import com.home.mec888.entity.User;
 import com.home.mec888.util.SceneSwitcher;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -68,9 +69,14 @@ public class IndexController {
     @FXML
     public void initialize() {
         configureNavigationButtons();
+
         labelWelcome.setText("Welcome, " + user.getFirstName() + " " + user.getLastName());
         labelUserName.setText(user.getLastName());
         labelRole.setText(userRole);
+
+        Platform.runLater(() -> {
+            handleHome(new ActionEvent(moveHomeButton, null));
+        });
     }
 
     private void configureNavigationButtons() {
@@ -136,7 +142,7 @@ public class IndexController {
     // Admin
     public void handleHome(ActionEvent actionEvent) {
         highlightActiveButton(moveHomeButton);
-        SceneSwitcher.loadView("admin/index.fxml", actionEvent);
+        SceneSwitcher.loadView("admin/dashboard.fxml", actionEvent);
     }
 
     public void handleMedicine(ActionEvent actionEvent) {

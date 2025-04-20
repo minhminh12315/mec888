@@ -15,7 +15,7 @@
             fx:controller="com.home.mec888.controller.IndexController">
     <BorderPane fx:id="mainBorderPane" layoutX="190.0" layoutY="89.0"
                 AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                AnchorPane.topAnchor="0.0">
+                AnchorPane.topAnchor="0.0" style="-fx-background-color: #E5E4E2 ">
         <left>
             <AnchorPane prefHeight="600.0" prefWidth="240.0"
                         styleClass="navigationBar">
