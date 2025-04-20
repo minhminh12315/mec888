@@ -2,6 +2,9 @@ package com.home.mec888.entity;
 
 import jakarta.persistence.*;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -38,6 +41,12 @@ public class User {
 
     @Column(name = "role_id")
     private Integer roleId;
+
+    @Column(name = "otp", length = 10)
+    private String otp;
+
+    @Column(name = "otp_expired_date")
+    private LocalDateTime expiredDate;
 
     @Column(name = "created_at", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private java.sql.Timestamp createdAt;
@@ -168,6 +177,22 @@ public class User {
         this.address = address;
     }
 
+    public String getOtp() {
+        return otp;
+    }
+
+    public void setOtp(String otp) {
+        this.otp = otp;
+    }
+
+    public LocalDateTime getExpiredDate() {
+        return expiredDate;
+    }
+
+    public void setExpiredDate(LocalDateTime expiredDate) {
+        this.expiredDate = expiredDate;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -182,6 +207,8 @@ public class User {
                 ", dateOfBirth=" + dateOfBirth +
                 ", address='" + address + '\'' +
                 ", roleId=" + roleId +
+                ", otp='" + otp + '\'' +
+                ", expiredDate=" + expiredDate +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';

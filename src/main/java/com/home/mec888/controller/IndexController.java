@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
@@ -58,8 +59,18 @@ public class IndexController {
     private Button currentActiveButton;
 
     @FXML
+    public Label labelWelcome;
+    @FXML
+    public Label labelUserName;
+    @FXML
+    public Label labelRole;
+
+    @FXML
     public void initialize() {
         configureNavigationButtons();
+        labelWelcome.setText("Welcome, " + user.getFirstName() + " " + user.getLastName());
+        labelUserName.setText(user.getLastName());
+        labelRole.setText(userRole);
     }
 
     private void configureNavigationButtons() {
@@ -158,6 +169,7 @@ public class IndexController {
         highlightActiveButton(movePatientButton);
         SceneSwitcher.loadView("admin/patient/patient-management.fxml", actionEvent);
     }
+
     public void handleSettings(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/home/mec888/settings/settings.fxml"));

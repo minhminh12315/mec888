@@ -142,7 +142,6 @@
 
 .label-username {
     -fx-font-size: 20px;
-    -fx-alignment: center;
     -fx-padding: 0 10px 0 0;
 }
 
@@ -178,7 +177,7 @@
     -fx-background-color: #fff; /* Đặt nền trắng cho mainBorderPane */
 }
 
-#loginForm {
+#loginForm, #inputEmailForm, #resetPasswordForm {
     -fx-background-color: #ECECE7;
     -fx-border-color: #000;
     -fx-border-radius: 15px;

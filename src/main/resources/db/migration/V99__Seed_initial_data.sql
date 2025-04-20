@@ -110,7 +110,7 @@ VALUES
 (98, 'doctor98','Do', 'Dung Quang Minh', 'Ba Dinh', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'doctor98@mec888.com', '0926532450', 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (99, 'doctor99','Do', 'Dung Quang Minh', 'Ba Dinh', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'doctor99@mec888.com', '0926532450', 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (100, 'doctor100','Do', 'Dung Quang Minh', 'Ba Dinh', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'doctor100@mec888.com', '0926532450', 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(101, 'patient','Do', 'Dung Quang Minh', 'Ba Dinh', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'patient@gmail.com', '0926532450', 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+(101, 'patient','Do', 'Dung Quang Minh', 'Ba Dinh', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'qunnguyn956@gmail.com', '0926532450', 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 -- 3. Medicines
 INSERT INTO mec888.medicines
