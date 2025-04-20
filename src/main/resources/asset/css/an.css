@@ -17,9 +17,11 @@
        -fx-border-width: 1;
        -fx-border-style: solid;
        -fx-alignment: top-right; /* Căn giữa text */
-       -fx-padding:0 4 4 4;
-       -fx-pref-width: 224;
-       -fx-pref-height: 160;
+       -fx-padding: 0 4 4 4;
+       -fx-pref-width: 240;
+       -fx-pref-height: 176;
+       -fx-max-width: 224;
+       -fx-max-height: 160;
        -fx-font-size: 16px;
        -fx-background-color: white;
        -fx-cursor: hand;
@@ -87,6 +89,7 @@
     -fx-background-radius: 8px;
     -fx-background-color: #FFFED3; /* Vàng pastel */
     -fx-text-fill: #000000; /* Văn bản màu đen để dễ đọc */
+    -fx-text-overrun: ellipsis;
 }
 
 .badgeAfternoonShift {
@@ -95,6 +98,7 @@
     -fx-background-radius: 8px;
     -fx-background-color: #BBE9FF; /* Xanh dương pastel */
     -fx-text-fill: #000000; /* Văn bản màu đen để dễ đọc */
+    -fx-text-overrun: ellipsis;
 }
 
 .badgeNightShift {
@@ -104,9 +108,11 @@
    /* -fx-background-color: #B1AFFF; /* Tím pastel */
     -fx-background-color: #ffcccc; /* Tím pastel */
     -fx-text-fill: #000000; /* Văn bản màu đen để dễ đọc */
+    -fx-text-overrun: ellipsis;
 }
 
 .buttonRegisterShift{
+     -fx-pref-width:80;
      -fx-border-color: #CCCCCC;
      -fx-border-radius: 6px;
      -fx-background-radius: 6px;
@@ -119,4 +125,21 @@
 .buttonRegisterShift:hover{
     -fx-border-color: transparent;
     -fx-background-color: #F0F0F0;
+}
+.buttonCancelShift{
+     -fx-pref-width:80;
+     -fx-text-fill: #EF4444;
+     -fx-border-color: #EF4444;
+     -fx-border-radius: 6px;
+     -fx-background-radius: 6px;
+     -fx-padding:8 16 8 16;
+     -fx-cursor: hand;
+     -fx-background-color: transparent;
+     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 2, 0.1, 0, 1);
+     -fx-font-weight: 500;
+}
+.buttonCancelShift:hover{
+    -fx-border-color: transparent;
+    -fx-background-color: #EF4444;
+    -fx-text-fill: #FFFFFF;
 }

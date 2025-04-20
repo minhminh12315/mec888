@@ -1,6 +1,8 @@
 package com.home.mec888.dao;
 
+import com.home.mec888.entity.Doctor;
 import com.home.mec888.entity.DoctorSchedule;
+import com.home.mec888.entity.Medicine;
 import com.home.mec888.entity.Room;
 import com.home.mec888.util.HibernateUtil;
 import org.hibernate.Session;
@@ -98,6 +100,21 @@ public class DoctorScheduleDao {
         }
     }
 
-
+    public void deleteDoctorSchedule(Long id) {
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            DoctorSchedule doctorSchedule = session.get(DoctorSchedule.class, id);
+            if (doctorSchedule != null) {
+                session.delete(doctorSchedule);
+                transaction.commit();
+            }
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+    }
 
 }

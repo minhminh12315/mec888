@@ -21,10 +21,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
@@ -153,51 +150,67 @@ public class DoctorScheduleMonthController {
 
     private StackPane createCell(String content, LocalDate date, boolean clickable) {
         StackPane cell = new StackPane();
-        // Style cơ bản
+
+        StackPane cellInside = new StackPane();
+
+        boolean dateInPast;
+        if (date != null && date.isBefore(LocalDate.now())) {
+            dateInPast = true;
+        } else {
+            dateInPast = false;
+        }
 
         Text text = new Text(content);
         if (content != null && (content.equals("Mon") || content.equals("Tue") || content.equals("Wed") || content.equals("Thu") || content.equals("Fri") || content.equals("Sat") || content.equals("Sun"))) {
             text.setStyle("-fx-font-weight: bold;");
             cell.getStyleClass().add("grid-cell-month-header");// Đặt in đậm
         } else {
-            cell.getStyleClass().add("grid-cell-month");
+            cellInside.getStyleClass().add("grid-cell-month");
         }
-        cell.getChildren().add(text);
+        cellInside.getChildren().add(text);
 
         List<DoctorSchedule> listShiftRegistered = doctorScheduleDao.findTodaySchedules(date);
         if (!listShiftRegistered.isEmpty()) {
-            VBox badgeContainer = new VBox(4); // Sử dụng VBox để chứa badge
+            VBox badgeContainer = new VBox(4);
             badgeContainer.setAlignment(Pos.BOTTOM_CENTER);
+            badgeContainer.setMaxWidth(Double.MAX_VALUE);
+            VBox.setVgrow(badgeContainer, Priority.ALWAYS);
+            VBox.setMargin(badgeContainer, new Insets(0, 8, 8, 8));
+
             for (DoctorSchedule doctorSchedule : listShiftRegistered) {
                 String shiftName = getShiftName(doctorSchedule.getStartTime().toLocalTime(), doctorSchedule.getEndTime().toLocalTime());
                 String doctorName = doctorSchedule.getDoctor().getUser().getFirstName() + " " + doctorSchedule.getDoctor().getUser().getLastName();
 
-                // Create icon and text inside an HBox
                 HBox shiftBadge = new HBox(4);
-                shiftBadge.setAlignment(Pos.CENTER);
-                shiftBadge.getChildren().addAll(getShiftIcon(shiftName), new Text(doctorName));
+                shiftBadge.setAlignment(Pos.CENTER_LEFT);
+                shiftBadge.setMaxWidth(Double.MAX_VALUE);
+                shiftBadge.setPrefWidth(cell.getPrefWidth()); // hoặc bind width
+
+                Label doctorNameLabel = new Label(doctorName);
+                doctorNameLabel.setMaxWidth(Double.MAX_VALUE);
+                doctorNameLabel.setPrefWidth(180); // hoặc bind như trên
+                doctorNameLabel.setStyle("-fx-text-overrun: ellipsis;");
+                doctorNameLabel.setTooltip(new Tooltip(doctorName));
+
+                shiftBadge.setStyle("-fx-padding:0 8;");
+                shiftBadge.getChildren().addAll(getShiftIcon(shiftName), doctorNameLabel);
                 shiftBadge.getStyleClass().add(getShiftStyle(shiftName));
 
                 badgeContainer.getChildren().add(shiftBadge);
             }
 
-            cell.getChildren().add(badgeContainer);
-//            if (listShiftRegistered.size() > 2) {
-//                clickable = false;
-//            }
+            cellInside.getChildren().add(badgeContainer);
         }
+
         if (clickable && date != null) {
             // Gắn sự kiện click
             cell.setOnMouseClicked(event -> {
                 try {
-                    // Định dạng ngày (giữ nguyên format như trên lịch)
-
-
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/home/mec888/doctor/schedule/doctor-modal-schedule.fxml"));
                     StackPane modalPane = loader.load();
 
                     DoctorModalScheduleController controller = loader.getController();
-                    controller.setShift(listShiftRegistered, date, this);
+                    controller.setShift(listShiftRegistered, date, this, dateInPast, currentDoctor);
 
                     AnchorPane root = (AnchorPane) ((Node) event.getSource()).getScene().getRoot();
                     root.getChildren().add(modalPane);
@@ -206,6 +219,14 @@ public class DoctorScheduleMonthController {
                     e.printStackTrace();
                 }
             });
+        }
+        cell.getChildren().add(cellInside);
+        if (dateInPast) {
+            Region overlay = new Region();
+            overlay.setStyle("-fx-background-color: rgba(0, 0, 0, 0.3);");
+            overlay.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+            StackPane.setAlignment(overlay, Pos.CENTER);
+            cell.getChildren().add(overlay);
         }
 
         return cell;
@@ -260,11 +281,4 @@ public class DoctorScheduleMonthController {
         }
     }
 
-    public void handleMonthSchedule(javafx.event.ActionEvent event) {
-        SceneSwitcher.loadView("doctor/schedule/doctor-schedule-month.fxml", event);
-    }
-
-    public void handleWeekSchedule(javafx.event.ActionEvent event) {
-        SceneSwitcher.loadView("doctor/schedule/doctor-schedule-week.fxml", event);
-    }
 }

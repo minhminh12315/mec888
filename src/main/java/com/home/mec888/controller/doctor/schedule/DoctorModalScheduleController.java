@@ -8,7 +8,7 @@ import com.home.mec888.entity.DoctorSchedule;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.sql.Time;
@@ -24,7 +25,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
-import java.util.Optional;
 
 public class DoctorModalScheduleController {
     @FXML
@@ -68,8 +68,8 @@ public class DoctorModalScheduleController {
         currentDoctor = doctorDao.getDoctorById(doctorId);
     }
 
-    public void setShift(List<DoctorSchedule> listShiftRegistered, LocalDate date, DoctorScheduleMonthController controller) {
-       //monthController
+    public void setShift(List<DoctorSchedule> listShiftRegistered, LocalDate date, DoctorScheduleMonthController controller, boolean dateInPast, Doctor currentDoctor) {
+        //monthController
         monthController = controller;
         //date title
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd/MM/yyyy", Locale.ENGLISH);
@@ -79,12 +79,13 @@ public class DoctorModalScheduleController {
 
         shiftContainer.getChildren().clear();
 
-        addShiftRow("Morning", "07:00-13:00", listShiftRegistered);
-        addShiftRow("Afternoon", "13:00-19:00", listShiftRegistered);
-        addShiftRow("Night", "19:00-07:00", listShiftRegistered);
+        addShiftRow("Morning", "07:00-13:00", listShiftRegistered, dateInPast, currentDoctor);
+        addShiftRow("Afternoon", "13:00-19:00", listShiftRegistered, dateInPast, currentDoctor);
+        addShiftRow("Night", "19:00-07:00", listShiftRegistered, dateInPast, currentDoctor);
     }
 
-    private void addShiftRow(String shiftName, String time, List<DoctorSchedule> listShiftRegistered) {
+    private void addShiftRow(String shiftName, String time, List<DoctorSchedule> listShiftRegistered, boolean dateInPast, Doctor currentDoctor) {
+        System.out.println("date in past" + dateInPast);
         HBox row = new HBox(8);
         row.setStyle("-fx-alignment: center;");
 
@@ -101,17 +102,46 @@ public class DoctorModalScheduleController {
         DoctorSchedule registered = listShiftRegistered.stream().filter(s -> isSameShift(s, shiftName)).findFirst().orElse(null);
 
         if (registered != null) {
-            Text doctorName = new Text("Dr. " + registered.getDoctor().getUser().getFirstName());
-            doctorName.setFill(javafx.scene.paint.Color.DARKRED);
-            row.getChildren().addAll(labelBox, spacer, doctorName);
+            if (registered.getDoctor().getId() == currentDoctor.getId()) {
+                HBox cancelButtonContainer = new HBox(8);
+                Text doctorName = new Text("You");
+                cancelButtonContainer.setAlignment(Pos.CENTER);
+                doctorName.setFill(javafx.scene.paint.Color.DARKRED);
+                Button cancelButton = new Button("Cancel");
+                cancelButton.getStyleClass().add("buttonCancelShift");
+                cancelButton.setOnAction(e -> cancelWorkingSchedule(registered.getId()));
+                cancelButtonContainer.getChildren().addAll(doctorName, cancelButton);
+                row.getChildren().addAll(labelBox, spacer, cancelButtonContainer);
+            } else {
+                Text doctorName = new Text("Dr. " + registered.getDoctor().getUser().getFirstName());
+                doctorName.setFill(javafx.scene.paint.Color.DARKRED);
+                row.getChildren().addAll(labelBox, spacer, doctorName);
+            }
         } else {
             Button registerButton = new Button("Register");
             registerButton.getStyleClass().add("buttonRegisterShift");
+            if (dateInPast) {
+                registerButton.setVisible(false);
+            }
             registerButton.setOnAction(e -> showConfirmDialog(shiftName, time));
             row.getChildren().addAll(labelBox, spacer, registerButton);
         }
 
         shiftContainer.getChildren().add(row);
+    }
+
+    private void cancelWorkingSchedule(Long id) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm Registration");
+        alert.setHeaderText(null);
+        alert.setContentText("Do you want to cancel this working shift");
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                doctorScheduleDao.deleteDoctorSchedule(id);
+                showAlert("Success", "Doctor deleted successfully!", Alert.AlertType.INFORMATION);
+                closeModal(new ActionEvent());
+            }
+        });
     }
 
     private boolean isSameShift(DoctorSchedule schedule, String shiftName) {

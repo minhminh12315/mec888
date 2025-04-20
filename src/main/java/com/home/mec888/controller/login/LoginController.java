@@ -21,6 +21,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -51,7 +53,7 @@ public class LoginController {
     private final RoleDao roleDao = new RoleDao();
 
     @FXML
-    private void handleLogin(ActionEvent actionEvent) {
+    private void handleLogin(KeyEvent actionEvent) {
         String username = usernameField.getText().trim();
         String password = passwordField.getText().trim();
 
@@ -156,6 +158,11 @@ public class LoginController {
         loginForm.setVisible(false);
         slideBackground.setOnMouseClicked(event -> {
             loginForm.setVisible(true);
+        });
+        passwordField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                handleLogin(event);
+            }
         });
     }
 }
