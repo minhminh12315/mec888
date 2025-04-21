@@ -23,6 +23,7 @@
         <VBox spacing="16">
             <HBox prefHeight="70.0" prefWidth="200.0" spacing="16">
                 <children>
+                    <Label fx:id="username_error" style="-fx-text-fill: red"/>
                     <VBox HBox.hgrow="ALWAYS">
                         <children>
                             <Label styleClass="label-input" text="first name" />
