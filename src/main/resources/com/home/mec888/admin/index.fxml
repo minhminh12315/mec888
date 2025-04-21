@@ -15,7 +15,7 @@
             fx:controller="com.home.mec888.controller.IndexController">
     <BorderPane fx:id="mainBorderPane" layoutX="190.0" layoutY="89.0"
                 AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                AnchorPane.topAnchor="0.0">
+                AnchorPane.topAnchor="0.0" style="-fx-background-color: #E5E4E2 ">
         <left>
             <AnchorPane prefHeight="600.0" prefWidth="240.0"
                         styleClass="navigationBar">
@@ -73,15 +73,15 @@
                     </ImageView>
                 </VBox>
                 <VBox styleClass="label-welcome" alignment="CENTER_LEFT" AnchorPane.leftAnchor="16.0">
-                    <Label style="-fx-text-fill: white;" text="Welcome back, User"/>
+                    <Label fx:id="labelWelcome" style="-fx-text-fill: white;"/>
                     <Label styleClass="slogan" style="-fx-text-fill: white;"
                            text="Efficient Hospital Management, Exceptional Patient Care."/>
                 </VBox>
                 <Region HBox.hgrow="ALWAYS"/>
                 <!-- HBox đóng vai trò là button -->
                 <VBox styleClass="label-username" alignment="CENTER_RIGHT">
-                    <Label text="User" style="-fx-text-fill: white;"/>
-                    <Label text="Role" style="-fx-text-fill: white; -fx-font-size: 14px"/>
+                    <Label fx:id="labelUserName" style="-fx-text-fill: white;"/>
+                    <Label fx:id="labelRole" style="-fx-text-fill: white; -fx-font-size: 14px"/>
                 </VBox>
                 <VBox styleClass="avatar" alignment="CENTER">
                     <ImageView fitHeight="50.0" fitWidth="50.0">
