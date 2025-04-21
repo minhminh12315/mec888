@@ -102,7 +102,7 @@ public class DoctorModalScheduleController {
         DoctorSchedule registered = listShiftRegistered.stream().filter(s -> isSameShift(s, shiftName)).findFirst().orElse(null);
 
         if (registered != null) {
-            if (registered.getDoctor().getId() == currentDoctor.getId()) {
+            if (registered.getDoctor().getId() == currentDoctor.getId() && dateInPast != true) {
                 HBox cancelButtonContainer = new HBox(8);
                 Text doctorName = new Text("You");
                 cancelButtonContainer.setAlignment(Pos.CENTER);
