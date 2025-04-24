@@ -24,14 +24,14 @@ module com.home.mec888 {
     opens com.home.mec888.controller.admin.room to javafx.fxml;
     opens com.home.mec888.controller.admin.service to javafx.fxml;
      opens com.home.mec888.controller.settings to javafx.fxml;
-    opens com.home.mec888.controller.admin.staff.appointment to javafx.fxml;
+    opens com.home.mec888.controller.staff.appointment to javafx.fxml;
 
 //    opens com.home.mec888.controller.admin to javafx.fxml;
     opens com.home.mec888.controller.admin.patient to javafx.fxml;
 //    opens com.home.mec888.controller.doctor to javafx.fxml;
 //    opens com.home.mec888.controller.patient to javafx.fxml;
 //    opens com.home.mec888.controller.staff to javafx.fxml;
-    opens com.home.mec888.controller.admin.doctor.schedule to javafx.fxml;
+    opens com.home.mec888.controller.doctor.schedule to javafx.fxml;
 
     requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;
@@ -55,6 +55,5 @@ module com.home.mec888 {
     exports com.home.mec888.controller.admin.patient;
     exports com.home.mec888.controller.doctor.schedule;
     exports com.home.mec888.controller.admin;
-    exports com.home.mec888.controller.admin.doctor.schedule;
     exports com.home.mec888.controller.patient;
 }

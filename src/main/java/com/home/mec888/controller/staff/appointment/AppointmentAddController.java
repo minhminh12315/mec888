@@ -1,4 +1,4 @@
-package com.home.mec888.controller.admin.staff.appointment;
+package com.home.mec888.controller.staff.appointment;
 
 import com.home.mec888.dao.*;
 import com.home.mec888.entity.*;
