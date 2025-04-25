@@ -90,4 +90,15 @@ public class DoctorDao {
             return new ArrayList<>();
         }
     }
+
+    public Doctor findDoctorByUserId(long userID) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery(
+                            "SELECT d FROM Doctor d WHERE d.user.id = :userID", Doctor.class)
+                    .setParameter("userID", userID)
+                    .uniqueResult();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

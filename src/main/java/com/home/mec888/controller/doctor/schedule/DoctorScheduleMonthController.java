@@ -74,10 +74,12 @@ public class DoctorScheduleMonthController {
         departmentDao = new DepartmentDao();
 
         // Lấy thông tin bác sĩ và phòng ban hiện tại
-        Long doctorId = IndexController.user.getId();
-        currentDoctor = doctorDao.getDoctorById(doctorId);
-        currentRoom = currentDoctor.getRoom();
-        currentDepartment = currentRoom.getDepartment();
+        Long userId = IndexController.user.getId();
+        currentDoctor = doctorDao.findDoctorByUserId(userId);
+        if (currentDoctor != null) {
+            currentRoom = currentDoctor.getRoom();
+            currentDepartment = currentRoom.getDepartment();
+        }
         // Hiển thị thông tin phòng và khoa
         setupTextFields();
         // Xây dựng lịch tháng

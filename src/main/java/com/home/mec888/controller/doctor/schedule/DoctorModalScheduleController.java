@@ -64,8 +64,8 @@ public class DoctorModalScheduleController {
         doctorScheduleDao = new DoctorScheduleDao();
         doctorDao = new DoctorDao();
 
-        Long doctorId = IndexController.user.getId();
-        currentDoctor = doctorDao.getDoctorById(doctorId);
+        Long userId = IndexController.user.getId();
+        currentDoctor = doctorDao.findDoctorByUserId(userId);
     }
 
     public void setShift(List<DoctorSchedule> listShiftRegistered, LocalDate date, DoctorScheduleMonthController controller, boolean dateInPast, Doctor currentDoctor) {

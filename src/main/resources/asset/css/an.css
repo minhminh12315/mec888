@@ -143,3 +143,33 @@
     -fx-background-color: #EF4444;
     -fx-text-fill: #FFFFFF;
 }
+
+.buttonSeeDoctor{
+    -fx-padding: 8 16 8 16;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #000000;
+}
+.buttonSeeDoctorActive{
+        -fx-padding: 8 16 8 16;
+        -fx-border-color: radial-gradient(
+                                      focus-angle 0deg,
+                                      focus-distance 0%,
+                                      center 0% 0%,
+                                      radius 100%,
+                                      #00adef,
+                                      #3871c1
+                              );
+        -fx-border-width: 0px 0px 4px 0px;
+        -fx-border-radius: 4px;
+        -fx-background-color: #FFFFFF;
+        -fx-text-fill: radial-gradient(
+                                   focus-angle 0deg,
+                                   focus-distance 0%,
+                                   center 0% 0%,
+                                   radius 100%,
+                                   #00adef,
+                                   #3871c1
+                           );
+}

@@ -57,6 +57,8 @@ public class IndexController {
 
     @FXML
     public Button moveSettingsButton;
+    @FXML
+    public Button moveListAppointmentForDoctor;
     private Button currentActiveButton;
 
     @FXML
@@ -74,9 +76,9 @@ public class IndexController {
         labelUserName.setText(user.getLastName());
         labelRole.setText(userRole);
 
-        Platform.runLater(() -> {
-            handleHome(new ActionEvent(moveHomeButton, null));
-        });
+//        Platform.runLater(() -> {
+//            handleHome(new ActionEvent(moveHomeButton, null));
+//        });
     }
 
     private void configureNavigationButtons() {
@@ -106,7 +108,8 @@ public class IndexController {
                 break;
             case "doctor":
                 navigationBar.getChildren().addAll(
-                        moveDoctorSchedule
+                        moveDoctorSchedule,
+                        moveListAppointmentForDoctor
                 );
                 break;
             case "patient":
@@ -225,4 +228,8 @@ public class IndexController {
         SceneSwitcher.loadView("doctor/schedule/doctor-schedule-month.fxml", event);
     }
 
+    public void handleDoctorAppointment(ActionEvent event) {
+        highlightActiveButton(moveListAppointmentForDoctor);
+        SceneSwitcher.loadView("doctor/appointment/list-appointment.fxml", event);
+    }
 }

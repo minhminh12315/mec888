@@ -58,6 +58,9 @@
                     <Button prefWidth="240.0" fx:id="moveServiceButton" mnemonicParsing="false"
                             onAction="#handleService" styleClass="nav-btn"
                             text="Service"/>
+                    <Button prefWidth="240.0" fx:id="moveListAppointmentForDoctor" mnemonicParsing="false"
+                            onAction="#handleDoctorAppointment" styleClass="nav-btn"
+                            text="Appointment"/>
                     <Region fx:id="regionBLock" VBox.vgrow="ALWAYS"/>
                     <!-- HBox đóng vai trò là button -->
                     <Button prefWidth="240.0" fx:id="buttonLogout" styleClass="btn-logout" text="Logout"
