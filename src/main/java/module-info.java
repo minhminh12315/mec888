@@ -44,6 +44,7 @@ module com.home.mec888 {
     requires org.kordamp.ikonli.javafx;
     requires java.desktop;
     requires javax.mail.api;
+    requires jasperreports;
 
     opens com.home.mec888 to javafx.fxml;
 
