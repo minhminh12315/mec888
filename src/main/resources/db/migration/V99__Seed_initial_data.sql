@@ -112,13 +112,18 @@ VALUES
 (100, 'doctor100','Do', 'Dung Quang Minh', 'Ba Dinh', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'doctor100@mec888.com', '0926532450', 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (101, 'patient','Do', 'Dung Quang Minh', 'Ba Dinh', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'qunnguyn956@gmail.com', '0926532450', 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
--- 1. User cho 3 bác sĩ
-INSERT INTO users (id, username, password, email, phone, role_id, created_at, updated_at)
+INSERT INTO users
+  (id, username, password, email, phone, first_name, last_name, role_id, created_at, updated_at)
 VALUES
-(2001, 'dr_quang', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'quang@hospital.com', '0911111111', 2, NOW(), NOW()),
-(2002, 'dr_hung', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'hung@hospital.com', '0922222222', 2, NOW(), NOW()),
-(2003, 'dr_dung', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'dung@hospital.com', '0933333333', 2, NOW(), NOW());
-
+  (2001, 'dr_quang', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO',
+    'quang@hospital.com', '0911111111',
+    'Quang', 'Nguyễn', 2, NOW(), NOW()),
+  (2002, 'dr_hung', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO',
+    'hung@hospital.com', '0922222222',
+    'Hưng', 'Trần', 2, NOW(), NOW()),
+  (2003, 'dr_dung', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO',
+    'dung@hospital.com', '0933333333',
+    'Dung', 'Lê', 2, NOW(), NOW());
 -- 3. Patient (nếu chưa có)
 INSERT INTO users (id, username, password, email, phone, role_id, created_at, updated_at)
 VALUES (3001, 'patient_xyz', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'xyz@patient.com', '0909999999', 4, NOW(), NOW());
@@ -160,27 +165,40 @@ VALUES
     (2, 1, 'R202', 'Surgery', 'available', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
     (3, 1, 'R303', 'Recovery', 'available', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
+-- 5.1 Spectialization
+INSERT INTO mec888.specializations (id, name) VALUES
+  (1, 'Cardiology'),
+  (2, 'Neurology'),
+  (3, 'Pediatrics'),
+  (4, 'Dermatology'),
+  (5, 'Gastroenterology'),
+  (6, 'Oncology'),
+  (7, 'Orthopedics'),
+  (8, 'Psychiatry'),
+  (9, 'Ophthalmology'),
+  (10,'Endocrinology');
+
 -- 5. Doctor
 INSERT INTO mec888.doctors
-(id, user_id, room_id, specialization, license_number, created_at, updated_at)
-values
-(1, 2, 1, '123', 'GX0804PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(2, 4, 2, '123', 'GX0805PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(3, 5, 3, '123', 'GX0806PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(4, 6, 3, '123', 'GX0807PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(5, 7, 3, '123', 'GX0808PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(6, 8, 1, '123', 'GX0809PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(7, 9, 2, '123', 'GX0810PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(8, 10, 2, '123', 'GX0811PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(9, 11, 1, '123', 'GX0812PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(10, 12, 1, '123', 'GX0813PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+  (id, user_id, room_id, specialization_id, license_number, created_at, updated_at)
+VALUES
+  (1,  2,  1,  1,  'GX0804PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- Cardiology
+  (2,  4,  2,  2,  'GX0805PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- Neurology
+  (3,  5,  3,  3,  'GX0806PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- Pediatrics
+  (4,  6,  3,  4,  'GX0807PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- Dermatology
+  (5,  7,  3,  5,  'GX0808PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- Gastroenterology
+  (6,  8,  1,  6,  'GX0809PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- Oncology
+  (7,  9,  2,  7,  'GX0810PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- Orthopedics
+  (8, 10,  2,  8,  'GX0811PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- Psychiatry
+  (9, 11,  1,  9,  'GX0812PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- Ophthalmology
+  (10,12,  1, 10,  'GX0813PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP); -- Endocrinology
 
 -- 2. Bác sĩ tương ứng
-INSERT INTO doctors (id, user_id, room_id, specialization, license_number, created_at, updated_at)
+INSERT INTO doctors (id, user_id, room_id, specialization_id, license_number, created_at, updated_at)
 VALUES
-(11, 2001, 1, 'Internal Medicine', 'INT001', NOW(), NOW()),
-(12, 2002, 3, 'Surgery', 'SUR002', NOW(), NOW()),
-(13, 2003, 2, 'Recovery Specialist', 'REC003', NOW(), NOW());
+(11, 2001, 1, 1, 'INT001', NOW(), NOW()),
+(12, 2002, 3, 2, 'SUR002', NOW(), NOW()),
+(13, 2003, 2, 3, 'REC003', NOW(), NOW());
 
 -- 6. Doctor Schedule
 INSERT INTO mec888.doctor_schedule
