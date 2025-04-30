@@ -75,7 +75,7 @@ public class MedicineDao {
     public Medicine getMedicineByName(String name) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.createQuery("from Medicine where lower(name) = :name", Medicine.class)
-                    .setParameter("name", name)
+                    .setParameter("name", name.toLowerCase())
                     .uniqueResult();
         } catch (Exception e) {
             e.printStackTrace();

@@ -128,20 +128,20 @@ VALUES
 INSERT INTO users (id, username, password, email, phone, role_id, created_at, updated_at)
 VALUES (3001, 'patient_xyz', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'xyz@patient.com', '0909999999', 4, NOW(), NOW());
 
--- 3. Medicines
+-- Medicine
 INSERT INTO mec888.medicines
-(id, name, price, description, manufacturer, created_at, updated_at)
+(id, name, active_ingredient, dosage, unit, form, manufacturer_code, sl_code, price, warehouse, expiry_date, usage_instructions, created_at, updated_at)
 VALUES
-(1, 'Paracetamol', 10.00, 'Pain reliever and fever reducer', 'Pharma Co.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(2, 'Ibuprofen', 15.00, 'Anti-inflammatory medication', 'Health Inc.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(3, 'Amoxicillin', 20.00, 'Antibiotic for bacterial infections', 'Medi Corp.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(4, 'Aspirin', 5.00, 'Pain reliever and anti-inflammatory', 'Wellness Ltd.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(5, 'Ciprofloxacin', 25.00, 'Antibiotic for urinary tract infections', 'Pharma Co.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(6, 'Metformin', 30.00, 'Medication for type 2 diabetes', 'Health Inc.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(7, 'Lisinopril', 35.00, 'Medication for high blood pressure', 'Medi Corp.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(8, 'Simvastatin', 40.00, 'Cholesterol-lowering medication', 'Wellness Ltd.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(9, 'Omeprazole', 45.00, 'Proton pump inhibitor for acid reflux', 'Pharma Co.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(10, 'Levothyroxine', 50.00, 'Thyroid hormone replacement therapy', 'Health Inc.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+(1, 'Paracetamol', 'Acetaminophen', '500', 'mg', 'Tablet', 'PCM-001', 'SL-001', 10.00, 'Main Warehouse', '2025-12-31', 'Take 1-2 tablets every 4-6 hours as needed for pain or fever. Do not exceed 8 tablets in 24 hours.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(2, 'Ibuprofen', 'Ibuprofen', '200', 'mg', 'Capsule', 'IBU-002', 'SL-002', 15.00, 'Main Warehouse', '2026-06-30', 'Take 1-2 capsules every 4-6 hours after food. Do not exceed 6 capsules in 24 hours.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(3, 'Amoxicillin', 'Amoxicillin trihydrate', '250', 'mg', 'Capsule', 'AMX-003', 'SL-003', 20.00, 'Temperature Controlled', '2025-10-15', 'Take 1 capsule three times daily with or without food. Complete the full course as prescribed.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(4, 'Aspirin', 'Acetylsalicylic acid', '75', 'mg', 'Tablet', 'ASP-004', 'SL-004', 5.00, 'Main Warehouse', '2026-03-20', 'Take 1 tablet daily with food. Use as directed by your physician.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(5, 'Ciprofloxacin', 'Ciprofloxacin hydrochloride', '500', 'mg', 'Tablet', 'CIP-005', 'SL-005', 25.00, 'Temperature Controlled', '2025-09-25', 'Take 1 tablet twice daily with plenty of water. Complete the full course as prescribed.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(6, 'Metformin', 'Metformin hydrochloride', '850', 'mg', 'Tablet', 'MET-006', 'SL-006', 30.00, 'Main Warehouse', '2026-02-10', 'Take 1 tablet twice daily with meals. Follow your doctor\'s instructions carefully.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(7, 'Lisinopril', 'Lisinopril dihydrate', '10', 'mg', 'Tablet', 'LIS-007', 'SL-007', 35.00, 'Main Warehouse', '2025-11-05', 'Take 1 tablet once daily at the same time each day, with or without food.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(8, 'Simvastatin', 'Simvastatin', '20', 'mg', 'Tablet', 'SIM-008', 'SL-008', 40.00, 'Temperature Controlled', '2026-05-15', 'Take 1 tablet once daily in the evening. Avoid grapefruit juice while taking this medication.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(9, 'Omeprazole', 'Omeprazole', '20', 'mg', 'Capsule', 'OME-009', 'SL-009', 45.00, 'Main Warehouse', '2025-08-20', 'Take 1 capsule once daily before breakfast. Swallow whole, do not crush or chew.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(10, 'Levothyroxine', 'Levothyroxine sodium', '50', 'mcg', 'Tablet', 'LEV-010', 'SL-010', 50.00, 'Temperature Controlled', '2026-04-30', 'Take 1 tablet daily on an empty stomach, 30-60 minutes before breakfast.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 -- 4. Departments
 INSERT INTO mec888.departments

@@ -5,18 +5,34 @@ import com.home.mec888.entity.Medicine;
 import com.home.mec888.util.SceneSwitcher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 
 public class MedicineUpdateController {
 
     @FXML
     private TextField nameField;
     @FXML
-    private TextField descriptionField;
+    private TextField activeIngredientField;
+    @FXML
+    private TextField dosageField;
+    @FXML
+    private TextField unitField;
+    @FXML
+    private TextField formField;
+    @FXML
+    private TextField manufacturerCodeField;
+    @FXML
+    private TextField slCodeField;
     @FXML
     private TextField priceField;
+    @FXML
+    private DatePicker expiryDatePicker;
+    @FXML
+    private TextArea usageInstructionsField;
     @FXML
     private TextField manufacturerField;
     @FXML
@@ -30,11 +46,26 @@ public class MedicineUpdateController {
     public void setMedicine(Medicine medicine) {
         this.medicine = medicine;
         System.out.println("setMedicine: " + medicine);
-        // Cập nhật giao diện ngay sau khi dữ liệu được set
+        // Update the UI after medicine is set
         if (medicine != null) {
             nameField.setText(medicine.getName());
-            descriptionField.setText(medicine.getDescription());
+            activeIngredientField.setText(medicine.getActiveIngredient());
+            dosageField.setText(medicine.getDosage());
+            unitField.setText(medicine.getUnit());
+            formField.setText(medicine.getForm());
+            manufacturerCodeField.setText(medicine.getManufacturerCode());
+            slCodeField.setText(medicine.getSlCode());
             priceField.setText(String.valueOf(medicine.getPrice()));
+
+            // Handle the date conversion
+            if (medicine.getExpiryDate() != null) {
+                LocalDate expiryLocalDate = medicine.getExpiryDate().toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDate();
+                expiryDatePicker.setValue(expiryLocalDate);
+            }
+
+            usageInstructionsField.setText(medicine.getUsageInstructions());
             manufacturerField.setText(medicine.getManufacturer());
         }
     }
@@ -43,20 +74,37 @@ public class MedicineUpdateController {
     private void initialize() {
         System.out.println("initialize: ");
         medicineDao = new MedicineDao();
-        // Không cập nhật giao diện ở đây, vì medicine có thể chưa được set
+        // Don't update UI here as medicine might not be set yet
     }
-
 
     @FXML
     private void handleUpdate(ActionEvent actionEvent) {
         String name = nameField.getText();
-        String description = descriptionField.getText();
+        String activeIngredient = activeIngredientField.getText();
+        String dosage = dosageField.getText();
+        String unit = unitField.getText();
+        String form = formField.getText();
+        String manufacturerCode = manufacturerCodeField.getText();
+        String slCode = slCodeField.getText();
         double price = Double.parseDouble(priceField.getText());
+        LocalDate expiryLocalDate = expiryDatePicker.getValue();
+        Date expiryDate = null;
+        if (expiryLocalDate != null) {
+            expiryDate = Date.from(expiryLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        }
+        String usageInstructions = usageInstructionsField.getText();
         String manufacturer = manufacturerField.getText();
 
         medicine.setName(name);
-        medicine.setDescription(description);
+        medicine.setActiveIngredient(activeIngredient);
+        medicine.setDosage(dosage);
+        medicine.setUnit(unit);
+        medicine.setForm(form);
+        medicine.setManufacturerCode(manufacturerCode);
+        medicine.setSlCode(slCode);
         medicine.setPrice(price);
+        medicine.setExpiryDate(expiryDate);
+        medicine.setUsageInstructions(usageInstructions);
         medicine.setManufacturer(manufacturer);
 
         medicineDao.updateMedicine(medicine);
@@ -74,8 +122,15 @@ public class MedicineUpdateController {
 
     public void handleClear(ActionEvent event) {
         nameField.clear();
-        descriptionField.clear();
-        manufacturerField.clear();
+        activeIngredientField.clear();
+        dosageField.clear();
+        unitField.clear();
+        formField.clear();
+        manufacturerCodeField.clear();
+        slCodeField.clear();
         priceField.clear();
+        expiryDatePicker.setValue(LocalDate.now());
+        usageInstructionsField.clear();
+        manufacturerField.clear();
     }
 }
