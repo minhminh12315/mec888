@@ -35,8 +35,6 @@ public class MedicineAddController {
     private DatePicker expiryDatePicker;
     @FXML
     private TextArea usageInstructionsField;
-    @FXML
-    private TextField manufacturerField;
 
     // Error labels
     @FXML
@@ -59,8 +57,6 @@ public class MedicineAddController {
     private Label expiryDateErrorLabel;
     @FXML
     private Label usageInstructionsErrorLabel;
-    @FXML
-    private Label manufacturerErrorLabel;
 
     MedicineDao medicineDao = new MedicineDao();
 
@@ -86,7 +82,6 @@ public class MedicineAddController {
         String price = priceField.getText().trim();
         LocalDate expiryDate = expiryDatePicker.getValue();
         String usageInstructions = usageInstructionsField.getText().trim();
-        String manufacturer = manufacturerField.getText().trim();
 
         boolean valid = true;
         double priceValue = 0.0;
@@ -126,13 +121,6 @@ public class MedicineAddController {
             }
         }
 
-        // Validate manufacturer
-        if (manufacturer.isEmpty()) {
-            manufacturerErrorLabel.setText("Manufacturer is required.");
-            manufacturerErrorLabel.setVisible(true);
-            valid = false;
-        }
-
         if (!valid) {
             return; // If there are errors, don't save
         }
@@ -151,7 +139,6 @@ public class MedicineAddController {
             medicine.setExpiryDate(Date.from(expiryDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
         }
         medicine.setUsageInstructions(usageInstructions);
-        medicine.setManufacturer(manufacturer);
 
         // Save to database
         medicineDao.saveMedicine(medicine);
@@ -174,7 +161,6 @@ public class MedicineAddController {
         priceField.clear();
         expiryDatePicker.setValue(LocalDate.now());
         usageInstructionsField.clear();
-        manufacturerField.clear();
         clearErrorLabels();
     }
 
@@ -199,8 +185,6 @@ public class MedicineAddController {
         expiryDateErrorLabel.setVisible(false);
         usageInstructionsErrorLabel.setText("");
         usageInstructionsErrorLabel.setVisible(false);
-        manufacturerErrorLabel.setText("");
-        manufacturerErrorLabel.setVisible(false);
     }
 
     private void showAlert(String title, String message, Alert.AlertType type) {

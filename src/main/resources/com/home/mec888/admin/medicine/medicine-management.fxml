@@ -39,9 +39,13 @@
                 <TableColumn fx:id="nameColumn" prefWidth="170.0" text="Name"/>
                 <TableColumn fx:id="activeIngredientColumn" prefWidth="150.0" text="Active Ingredient"/>
                 <TableColumn fx:id="dosageColumn" prefWidth="80.0" text="Dosage"/>
+                <TableColumn fx:id="unitColumn" prefWidth="80.0" text="Unit"/>
                 <TableColumn fx:id="formColumn" prefWidth="80.0" text="Form"/>
+                <TableColumn fx:id="manufacturerCodeColumn" prefWidth="80.0" text="Manufacture Code"/>
+                <TableColumn fx:id="slCodeColumn" prefWidth="80.0" text="Sl Code"/>
                 <TableColumn fx:id="priceColumn" prefWidth="80.0" text="Price"/>
                 <TableColumn fx:id="expiryDateColumn" prefWidth="100.0" text="Expiry Date"/>
+                <TableColumn fx:id="usageInstructionsColumn" prefWidth="100.0" text="Usage Instructions"/>
                 <TableColumn fx:id="actionColumn" prefWidth="150.0" text="Actions"/>
             </columns>
         </TableView>

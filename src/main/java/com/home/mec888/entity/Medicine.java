@@ -32,7 +32,7 @@ public class Medicine {
     @Column(name = "sl_code", length = 20)
     private String slCode;
 
-    @Column(precision = 10, scale = 2)
+    @Column(precision = 10)
     private Double price;
 
     @Column(name = "expiry_date")
@@ -40,9 +40,6 @@ public class Medicine {
 
     @Column(name = "usage_instructions", columnDefinition = "TEXT")
     private String usageInstructions;
-
-    @Column(length = 255)
-    private String manufacturer;
 
     @Column(name = "created_at", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp createdAt;
@@ -55,7 +52,7 @@ public class Medicine {
 
     public Medicine(String name, String activeIngredient, String dosage, String unit, String form,
                     String manufacturerCode, String slCode, Double price,
-                    Date expiryDate, String usageInstructions, String manufacturer) {
+                    Date expiryDate, String usageInstructions) {
         this.name = name;
         this.activeIngredient = activeIngredient;
         this.dosage = dosage;
@@ -66,7 +63,6 @@ public class Medicine {
         this.price = price;
         this.expiryDate = expiryDate;
         this.usageInstructions = usageInstructions;
-        this.manufacturer = manufacturer;
     }
 
     // Getters and setters
@@ -159,14 +155,6 @@ public class Medicine {
         this.usageInstructions = usageInstructions;
     }
 
-    public String getManufacturer() {
-        return manufacturer;
-    }
-
-    public void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
-    }
-
     public Timestamp getCreatedAt() {
         return createdAt;
     }
@@ -197,7 +185,6 @@ public class Medicine {
                 ", price=" + price +
                 ", expiryDate=" + expiryDate +
                 ", usageInstructions='" + usageInstructions + '\'' +
-                ", manufacturer='" + manufacturer + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';

@@ -34,8 +34,6 @@ public class MedicineUpdateController {
     @FXML
     private TextArea usageInstructionsField;
     @FXML
-    private TextField manufacturerField;
-    @FXML
     private Button updateButton;
     @FXML
     private Button cancelButton;
@@ -66,7 +64,6 @@ public class MedicineUpdateController {
             }
 
             usageInstructionsField.setText(medicine.getUsageInstructions());
-            manufacturerField.setText(medicine.getManufacturer());
         }
     }
 
@@ -93,7 +90,6 @@ public class MedicineUpdateController {
             expiryDate = Date.from(expiryLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         }
         String usageInstructions = usageInstructionsField.getText();
-        String manufacturer = manufacturerField.getText();
 
         medicine.setName(name);
         medicine.setActiveIngredient(activeIngredient);
@@ -105,7 +101,6 @@ public class MedicineUpdateController {
         medicine.setPrice(price);
         medicine.setExpiryDate(expiryDate);
         medicine.setUsageInstructions(usageInstructions);
-        medicine.setManufacturer(manufacturer);
 
         medicineDao.updateMedicine(medicine);
 
@@ -131,6 +126,5 @@ public class MedicineUpdateController {
         priceField.clear();
         expiryDatePicker.setValue(LocalDate.now());
         usageInstructionsField.clear();
-        manufacturerField.clear();
     }
 }

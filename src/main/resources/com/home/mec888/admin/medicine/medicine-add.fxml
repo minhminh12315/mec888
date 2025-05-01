@@ -29,7 +29,7 @@
             <Text text="Add New Medicine" styleClass="titlePage"/>
         </HBox>
 
-        <VBox spacing="16">
+        <VBox spacing="5">
             <!-- Medicine name -->
             <VBox spacing="4">
                 <Label styleClass="label-input" text="Medicine name:"/>

@@ -49,8 +49,6 @@ public class MedicineManagementController {
     @FXML
     private TableColumn<Medicine, String> usageInstructionsColumn;
     @FXML
-    private TableColumn<Medicine, String> manufacturerColumn;
-    @FXML
     private TableColumn<Medicine, Void> actionColumn;
 
     private MedicineDao medicineDao;
@@ -105,7 +103,6 @@ public class MedicineManagementController {
         });
 
         usageInstructionsColumn.setCellValueFactory(new PropertyValueFactory<>("usageInstructions"));
-        manufacturerColumn.setCellValueFactory(new PropertyValueFactory<>("manufacturer"));
 
         // Load data from the database
         medicineManagementTable.getItems().clear();
@@ -218,7 +215,6 @@ public class MedicineManagementController {
             if (medicine.getName().toLowerCase().contains(keyword.toLowerCase()) ||
                     (medicine.getActiveIngredient() != null && medicine.getActiveIngredient().toLowerCase().contains(keyword.toLowerCase())) ||
                     (medicine.getDosage() != null && medicine.getDosage().toLowerCase().contains(keyword.toLowerCase())) ||
-                    (medicine.getManufacturer() != null && medicine.getManufacturer().toLowerCase().contains(keyword.toLowerCase())) ||
                     (medicine.getUsageInstructions() != null && medicine.getUsageInstructions().toLowerCase().contains(keyword.toLowerCase()))) {
                 filteredList.add(medicine);
             }
