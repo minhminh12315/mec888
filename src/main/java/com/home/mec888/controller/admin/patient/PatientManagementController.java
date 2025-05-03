@@ -64,8 +64,8 @@ public class PatientManagementController {
         patientColId.setCellValueFactory(new PropertyValueFactory<>("id"));
         userColId.setCellValueFactory(new PropertyValueFactory<>("user_id"));
         firstNameColumn.setCellValueFactory(cellData -> {
-            if (cellData.getValue() != null && cellData.getValue().getUser_id() != null) {
-                User user = userDao.getUserById((long) cellData.getValue().getUser_id());
+            if (cellData.getValue() != null && cellData.getValue().getUser().getId() != null) {
+                User user = userDao.getUserById((long) cellData.getValue().getUser().getId());
                 if (user != null) {
                     return new SimpleStringProperty(user.getFirstName());
                 } else {
@@ -76,8 +76,8 @@ public class PatientManagementController {
             }
         });
         lastNameColumn.setCellValueFactory(cellData -> {
-            if (cellData.getValue() != null && cellData.getValue().getUser_id() != null) {
-                User user = userDao.getUserById((long) cellData.getValue().getUser_id());
+            if (cellData.getValue() != null && cellData.getValue().getUser().getId() != null) {
+                User user = userDao.getUserById((long) cellData.getValue().getUser().getId());
                 if (user != null) {
                     return new SimpleStringProperty(user.getLastName());
                 } else {
@@ -114,7 +114,7 @@ public class PatientManagementController {
         // nhớ sửa dùng sql để lấy dữ liệu,
         List<Patient> filteredList = new ArrayList<>();
         for (Patient patient : originalList) {
-            User user = userDao.getUserById( (long) patient.getUser_id());
+            User user = userDao.getUserById( (long) patient.getUser().getId());
             if (
                     (user.getFirstName() != null && user.getFirstName().toLowerCase().contains(keyword.toLowerCase())) ||
                             (user.getLastName() != null && user.getLastName().toLowerCase().contains(keyword.toLowerCase())) ||

@@ -173,3 +173,23 @@
                                    #3871c1
                            );
 }
+
+.appointmentHeaderInfo{
+    -fx-background-color: #FFD4D1;
+    -fx-padding: 16;
+    -fx-background-radius: 8px;
+}
+.appointmentHeaderInfo Text{
+    -fx-text-fill: #DC3545;
+}
+
+.textFieldDisable{
+   -fx-background-color: #dee2e5;
+   -fx-background-radius: 8px;
+   -fx-padding:8 16 8 16;
+   -fx-pre-width: INFINITY;
+}
+.textFieldDisable Text{
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+}

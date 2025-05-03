@@ -41,7 +41,7 @@ public class PatientUpdateController {
             emergency_contact.setText(patient.getEmergency_contact());
             medical_history.setText(patient.getMedical_history());
 
-            this.user = userDao.getUserById(Long.valueOf(patient.getUser_id()));
+            this.user = userDao.getUserById(Long.valueOf(patient.getUser().getId()));
             if (user != null){
                 firstNameField.setText(user.getFirstName());
                 lastNameField.setText(user.getLastName());
