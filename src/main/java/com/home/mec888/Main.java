@@ -23,7 +23,7 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/home/mec888/login/login.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/home/mec888/admin/index.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         // title
         stage.setTitle("Mec888");
