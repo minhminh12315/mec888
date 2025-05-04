@@ -6,12 +6,14 @@ import com.home.mec888.dao.AuditLogDao;
 import com.home.mec888.entity.AuditLog;
 import com.home.mec888.entity.User;
 import com.home.mec888.util.SceneSwitcher;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
@@ -55,11 +57,28 @@ public class IndexController {
 
     @FXML
     public Button moveSettingsButton;
+    @FXML
+    public Button moveListAppointmentForDoctor;
     private Button currentActiveButton;
+
+    @FXML
+    public Label labelWelcome;
+    @FXML
+    public Label labelUserName;
+    @FXML
+    public Label labelRole;
 
     @FXML
     public void initialize() {
         configureNavigationButtons();
+
+        labelWelcome.setText("Welcome, " + user.getFirstName() + " " + user.getLastName());
+        labelUserName.setText(user.getLastName());
+        labelRole.setText(userRole);
+
+//        Platform.runLater(() -> {
+//            handleHome(new ActionEvent(moveHomeButton, null));
+//        });
     }
 
     private void configureNavigationButtons() {
@@ -82,14 +101,14 @@ public class IndexController {
                 break;
             case "staff":
                 navigationBar.getChildren().addAll(
-                        moveAppointmentButton,
-                        moveDoctorSchedule
+                        moveAppointmentButton
                 );
 
                 break;
             case "doctor":
                 navigationBar.getChildren().addAll(
-                        moveDoctorSchedule
+                        moveDoctorSchedule,
+                        moveListAppointmentForDoctor
                 );
                 break;
             case "patient":
@@ -125,7 +144,7 @@ public class IndexController {
     // Admin
     public void handleHome(ActionEvent actionEvent) {
         highlightActiveButton(moveHomeButton);
-        SceneSwitcher.loadView("admin/index.fxml", actionEvent);
+        SceneSwitcher.loadView("admin/dashboard.fxml", actionEvent);
     }
 
     public void handleMedicine(ActionEvent actionEvent) {
@@ -158,6 +177,7 @@ public class IndexController {
         highlightActiveButton(movePatientButton);
         SceneSwitcher.loadView("admin/patient/patient-management.fxml", actionEvent);
     }
+
     public void handleSettings(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/home/mec888/settings/settings.fxml"));
@@ -204,7 +224,11 @@ public class IndexController {
 
     public void handleDoctorSchedule(ActionEvent event) {
         highlightActiveButton(moveDoctorSchedule);
-        SceneSwitcher.loadView("doctor/schedule/doctor-schedule.fxml", event);
+        SceneSwitcher.loadView("doctor/schedule/doctor-schedule-month.fxml", event);
     }
 
+    public void handleDoctorAppointment(ActionEvent event) {
+        highlightActiveButton(moveListAppointmentForDoctor);
+        SceneSwitcher.loadView("doctor/appointment/list-appointment.fxml", event);
+    }
 }

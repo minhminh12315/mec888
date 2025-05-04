@@ -176,23 +176,15 @@ public class UserUpdateController {
 
         if (email.isEmpty()) {
             isValid = false;
-        } else if (!isValidEmail(email)) {
             showError(emailField, emailErrorLabel, "Email cannot be empty.");
+        } else if (!isValidEmail(email)) {
+            showError(emailField, emailErrorLabel, "Invalid Email format!");
             isValid = false;
         } else if (!email.equals(user.getEmail()) && userDao.isEmailExists(email)) {
             showError(emailField, emailErrorLabel, "Email already exists!");
             isValid = false;
         } else {
             clearError(emailField, emailErrorLabel);
-        }
-
-        if (phone.isEmpty()){
-            showError(phoneField, phoneErrorLabel, "Phone cannot be empty.");
-            return;
-        }
-        if (selectedRole == null) {
-            showError(roleComboBox, roleErrorLabel, "Role cannot be empty.");
-            return;
         }
 
         // Validate email format

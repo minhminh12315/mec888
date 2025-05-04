@@ -38,7 +38,6 @@
     -fx-padding: 16px;
 }
 
-.headerAdmin {
 .table-cell {
     -fx-alignment: center;
     -fx-font-size: 13px;
@@ -116,7 +115,6 @@
 
 .label-username {
     -fx-font-size: 20px;
-    -fx-alignment: center;
     -fx-padding: 0 10px 0 0;
 }
 
@@ -346,7 +344,7 @@ Label {
 }
 
 
-#loginForm {
+#loginForm, #inputEmailForm, #resetPasswordForm {
     -fx-background-color: #ECECE7;
     -fx-border-color: #000;
     -fx-border-radius: 15px;
@@ -368,6 +366,4 @@ Label {
 .navigationBar {
     -fx-background-color: #fff;
     -fx-margin-top: 48px;
-    -fx-border-color: #3871c1;
-    -fx-border-width: 0 1px 0 0;
 }

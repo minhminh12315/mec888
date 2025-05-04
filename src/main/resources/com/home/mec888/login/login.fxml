@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
 <StackPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.home.mec888.controller.login.LoginController">
     <StackPane fx:id="slideBackground"/>
@@ -12,11 +13,10 @@
         <padding>
             <Insets top="20" bottom="20" left="20" right="20"/>
         </padding>
-        <!--left imagae-->
+        <!--center imagae-->
         <ImageView fitWidth="80.0" preserveRatio="true">
             <Image url="@../../../../asset/images/padlock.png"/>
         </ImageView>
-
         <VBox>
             <!--username-->
             <TextField fx:id="usernameField" prefHeight="30.0" promptText="Username" style="-fx-font-weight: bold;">
@@ -27,7 +27,11 @@
                     <Insets left="20" right="20"/>
                 </VBox.margin>
             </TextField>
-            <Label fx:id="usernameError" style="-fx-font-size: 12px;" textFill="red"/>
+            <Label fx:id="usernameError" style="-fx-font-size: 12px;" textFill="red">
+                <VBox.margin>
+                    <Insets left="20" right="20"/>
+                </VBox.margin>
+            </Label>
 
             <!--password-->
             <PasswordField fx:id="passwordField" prefHeight="30.0" promptText="Password" style="-fx-font-weight: bold;">
@@ -38,7 +42,17 @@
                     <Insets left="20" right="20"/>
                 </VBox.margin>
             </PasswordField>
-            <Label fx:id="passwordError" style="-fx-font-size: 12px;" textFill="red"/>
+            <Label fx:id="passwordError" style="-fx-font-size: 12px;" textFill="red">
+                <VBox.margin>
+                    <Insets left="20" right="20"/>
+                </VBox.margin>
+            </Label>
+            <VBox alignment="TOP_RIGHT">
+                <Button text="Forgot password?" styleClass="forgot-password" onAction="#forgotPassword"/>
+                <VBox.margin>
+                    <Insets left="20" right="20"/>
+                </VBox.margin>
+            </VBox>
         </VBox>
 
         <Button fx:id="loginButton" mnemonicParsing="false" onAction="#handleLogin"
@@ -48,5 +62,123 @@
                 <Font size="15.0"/>
             </font>
         </Button>
+    </VBox>
+    <VBox fx:id="inputEmailForm" spacing="20" alignment="CENTER" maxWidth="350.0" maxHeight="300.0">
+        <padding>
+            <Insets top="20" bottom="20" left="20" right="20"/>
+        </padding>
+        <VBox>
+            <Button styleClass="btn-back" onAction="#handleBack" text="&lt;Back"/>
+        </VBox>
+        <Label text="Request OTP" style="-fx-font-weight: bold">
+            <VBox.margin>
+                <Insets top="-20" bottom="20"/>
+            </VBox.margin>
+            <font>
+                <Font size="25.0"/>
+            </font>
+        </Label>
+        <VBox>
+            <!--email-->
+            <TextField fx:id="emailField" prefHeight="30.0" promptText="Email" style="-fx-font-weight: bold;">
+                <font>
+                    <Font size="13.0"/>
+                </font>
+                <VBox.margin>
+                    <Insets left="20" right="20"/>
+                </VBox.margin>
+            </TextField>
+            <Label fx:id="emailError" style="-fx-font-size: 12px;" textFill="red">
+                <VBox.margin>
+                    <Insets left="20" right="20"/>
+                </VBox.margin>
+            </Label>
+
+            <!--otp-->
+            <TextField fx:id="otpField" prefHeight="30.0" promptText="OTP" style="-fx-font-weight: bold;">
+                <font>
+                    <Font size="13.0"/>
+                </font>
+                <VBox.margin>
+                    <Insets left="20" right="20"/>
+                </VBox.margin>
+            </TextField>
+            <Label fx:id="otpError" style="-fx-font-size: 12px;" textFill="red">
+                <VBox.margin>
+                    <Insets left="20" right="20"/>
+                </VBox.margin>
+            </Label>
+        </VBox>
+        <HBox alignment="CENTER" spacing="20">
+            <Button fx:id="sendEmailButton" mnemonicParsing="false" onAction="#handleSendOTP"
+                    prefHeight="30.0" prefWidth="100.0" text="Send OTP">
+                <font>
+                    <Font size="13.0"/>
+                </font>
+            </Button>
+
+            <Button fx:id="verifyOtpButton" mnemonicParsing="false" onAction="#handleVerify"
+                    prefHeight="30.0" prefWidth="100.0" text="Verify">
+                <font>
+                    <Font size="13.0"/>
+                </font>
+            </Button>
+        </HBox>
+    </VBox>
+    <VBox fx:id="resetPasswordForm" spacing="20" alignment="CENTER" maxWidth="350.0" maxHeight="300.0">
+        <padding>
+            <Insets top="20" bottom="20" left="20" right="20"/>
+        </padding>
+        <VBox>
+            <Button styleClass="btn-back" onAction="#handleBack" text="&lt;Back"/>
+        </VBox>
+        <Label text="Reset Password" style="-fx-font-weight: bold">
+            <VBox.margin>
+                <Insets top="-20" bottom="20"/>
+            </VBox.margin>
+            <font>
+                <Font size="25.0"/>
+            </font>
+        </Label>
+        <VBox>
+            <!--new password-->
+            <PasswordField fx:id="newPasswordField" prefHeight="30.0" promptText="New Password" style="-fx-font-weight: bold;">
+                <font>
+                    <Font size="13.0"/>
+                </font>
+                <VBox.margin>
+                    <Insets left="20" right="20"/>
+                </VBox.margin>
+            </PasswordField>
+            <Label fx:id="newPasswordError" style="-fx-font-size: 12px;" textFill="red">
+                <VBox.margin>
+                    <Insets left="20" right="20"/>
+                </VBox.margin>
+            </Label>
+
+            <!--confirm password-->
+            <PasswordField fx:id="confirmPasswordField" prefHeight="30.0" promptText="Confirm Password" style="-fx-font-weight: bold;">
+                <font>
+                    <Font size="13.0"/>
+                </font>
+                <VBox.margin>
+                    <Insets left="20" right="20"/>
+                </VBox.margin>
+            </PasswordField>
+            <Label fx:id="confirmPasswordError" style="-fx-font-size: 12px;" textFill="red">
+                <VBox.margin>
+                    <Insets left="20" right="20"/>
+                </VBox.margin>
+            </Label>
+        </VBox>
+        <VBox alignment="CENTER_RIGHT" spacing="20">
+            <Button fx:id="savePasswordButton" mnemonicParsing="false" onAction="#handleSavePassword"
+                    prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #111827; -fx-font-weight: bold;"
+                    text="Verify" textFill="WHITE">
+                <font>
+                    <Font size="13.0"/>
+                </font>
+            </Button>
+        </VBox>
     </VBox>
 </StackPane>

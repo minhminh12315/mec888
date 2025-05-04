@@ -35,9 +35,10 @@ public class PatientAddController {
     @FXML
     public ComboBox<String> genderComboBox;
     @FXML
-    public Label first_name_error, last_name_error, phone_error, email_error, gender_error;
+    public Label first_name_error, last_name_error, phone_error, email_error, gender_error, username_error;
 
     UserDao userDao = new UserDao();
+    private User user;
     private static final String word = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private static final String digits = "0123456789";
     private static final Random random = new Random();
@@ -61,6 +62,13 @@ public class PatientAddController {
             String gender = genderComboBox.getValue();
 
             String username = firstName + " " + lastName;
+
+            if (userDao.isUsernameExists(username)){
+                username_error.setText("Username already exists!");
+            } else {
+                username_error.setText("");
+            }
+
             String password = randomPassword();
 
             try {
@@ -96,11 +104,10 @@ public class PatientAddController {
 
             // Create patient object with user_id, emergency_contact, and medical_history
             PatientDao patientDao = new PatientDao();
-            Patient patient = new Patient(
-                    last_user_id,
-                    emergency_contact.getText(),
-                    medical_history.getText()
-            );
+            Patient patient = new Patient();
+            patient.setUser(userDao.getUserById(last_user_id));
+            patient.setEmergency_contact(emergency_contact.getText());
+            patient.setMedical_history(String.valueOf(medical_history));
             patientDao.savePatient(patient);
 
             // Show success message

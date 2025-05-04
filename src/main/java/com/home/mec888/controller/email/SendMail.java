@@ -38,7 +38,7 @@ public class SendMail {
             msg.setFrom(new InternetAddress(from));
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
             msg.setSubject(subject);
-            msg.setText(content);
+            msg.setContent(content, "text/html; charset=utf-8");
 
             javax.mail.Transport.send(msg);
             System.out.println("Send successfully");
