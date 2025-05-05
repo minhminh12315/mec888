@@ -86,6 +86,8 @@ public class SeeADoctorContainerController {
 
     public void handleMoveToPrescription(ActionEvent event) {
         highlightActiveButton(prescriptionButton);
+        SceneSwitcher.loadViewSeeDoctor("prescription.fxml", event);
+
 
     }
 

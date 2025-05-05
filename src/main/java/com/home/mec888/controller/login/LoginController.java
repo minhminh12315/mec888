@@ -165,9 +165,10 @@ public class LoginController {
     public void slideShow() {
         // 1. Chuẩn bị danh sách ảnh
         List<Image> images = List.of(
-                new Image(getClass().getResource("/asset/images/background_1.jpg").toExternalForm()),
-                new Image(getClass().getResource("/asset/images/background_2.jpg").toExternalForm()),
-                new Image(getClass().getResource("/asset/images/background_3.jpg").toExternalForm())
+                new Image(getClass().getResource("/asset/images/background_1.png").toExternalForm()),
+                new Image(getClass().getResource("/asset/images/background_2.png").toExternalForm()),
+                new Image(getClass().getResource("/asset/images/background_3.png").toExternalForm()),
+                new Image(getClass().getResource("/asset/images/background_4.png").toExternalForm())
         );
 
         // 2. Index động

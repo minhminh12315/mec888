@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.home.mec888.controller.doctor.appointment.PrescriptionController" prefHeight="400.0"
+            prefWidth="600.0">
+    <VBox AnchorPane.topAnchor="16" spacing="10">
+        <HBox alignment="CENTER_LEFT" spacing="8">
+            <VBox>
+                <TextField fx:id="findMedicine" promptText="Medicine name/ Active ingredient"/>
+                <Label fx:id="findMedicineError" style="-fx-text-fill: red"/>
+            </VBox>
+            <Button alignment="TOP_CENTER" fx:id="applyButton" onAction="#handleApply" text="Apply"/>
+        </HBox>
+
+        <TableView fx:id="chooseMedicineTable" visible="false" managed="false">
+            <columns>
+                <TableColumn fx:id="chooseName" prefWidth="200" text="Medicine name"/>
+                <TableColumn fx:id="chooseIngredient" prefWidth="250" text="Active Ingredient"/>
+                <TableColumn fx:id="chooseDosage" prefWidth="75" text="Dosage"/>
+                <TableColumn fx:id="chooseForm" prefWidth="75" text="Form"/>
+                <TableColumn fx:id="chooseUnit" prefWidth="75" text="Unit"/>
+                <TableColumn fx:id="chooseManuCode" prefWidth="150" text="Manufacturer Code"/>
+                <TableColumn fx:id="choosePrice" prefWidth="100" text="Price"/>
+                <TableColumn fx:id="chooseSlCode" prefWidth="75" text="SL Code"/>
+                <TableColumn fx:id="chooseExpiredDate" prefWidth="150" text="Expired date"/>
+            </columns>
+        </TableView>
+
+        <!-- Bảng show thuốc thực tế -->
+        <TableView fx:id="showMedicineTable">
+            <columns>
+                <TableColumn fx:id="showName" prefWidth="200" text="Medicine name"/>
+                <TableColumn fx:id="showIngredient" prefWidth="200" text="Active Ingredient"/>
+                <TableColumn fx:id="showDosage" prefWidth="75" text="Dosage"/>
+                <TableColumn fx:id="showForm" prefWidth="75" text="Form"/>
+                <TableColumn fx:id="showUnit" prefWidth="75" text="Unit"/>
+                <TableColumn fx:id="showUnitPrice" prefWidth="75" text="U.Price"/>
+                <TableColumn fx:id="showQuantity" prefWidth="75" text="Qty"/>
+                <TableColumn fx:id="showTotal" prefWidth="75" text="Total"/>
+                <TableColumn fx:id="showUsage" prefWidth="200" text="Usage"/>
+                <TableColumn fx:id="showNote" prefWidth="200" text="Note"/>
+            </columns>
+        </TableView>
+    </VBox>
+</AnchorPane>
