@@ -233,7 +233,10 @@ public class AppointmentAddController {
 
             // Create patient object with user_id, emergency_contact, and medical_history
             PatientDao patientDao = new PatientDao();
-            Patient patient = new Patient(last_user_id, emergency_contact.getText(), medical_history.getText());
+            Patient patient = new Patient();
+            patient.setUser(userDao.getUserById(last_user_id));
+            patient.setEmergency_contact(emergency_contact.getText());
+            patient.setMedical_history(String.valueOf(medical_history));
             patientDao.savePatient(patient);
 
 

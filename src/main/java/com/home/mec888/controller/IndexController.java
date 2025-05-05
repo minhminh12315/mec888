@@ -101,8 +101,7 @@ public class IndexController {
                 break;
             case "staff":
                 navigationBar.getChildren().addAll(
-                        moveAppointmentButton,
-                        moveDoctorSchedule
+                        moveAppointmentButton
                 );
 
                 break;

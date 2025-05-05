@@ -112,31 +112,36 @@ VALUES
 (100, 'doctor100','Do', 'Dung Quang Minh', 'Ba Dinh', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'doctor100@mec888.com', '0926532450', 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (101, 'patient','Do', 'Dung Quang Minh', 'Ba Dinh', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'qunnguyn956@gmail.com', '0926532450', 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
--- 1. User cho 3 bác sĩ
-INSERT INTO users (id, username, password, email, phone, role_id, created_at, updated_at)
+INSERT INTO users
+  (id, username, password, email, phone, first_name, last_name, role_id, created_at, updated_at)
 VALUES
-(2001, 'dr_quang', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'quang@hospital.com', '0911111111', 2, NOW(), NOW()),
-(2002, 'dr_hung', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'hung@hospital.com', '0922222222', 2, NOW(), NOW()),
-(2003, 'dr_dung', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'dung@hospital.com', '0933333333', 2, NOW(), NOW());
-
+  (2001, 'dr_quang', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO',
+    'quang@hospital.com', '0911111111',
+    'Quang', 'Nguyễn', 2, NOW(), NOW()),
+  (2002, 'dr_hung', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO',
+    'hung@hospital.com', '0922222222',
+    'Hưng', 'Trần', 2, NOW(), NOW()),
+  (2003, 'dr_dung', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO',
+    'dung@hospital.com', '0933333333',
+    'Dung', 'Lê', 2, NOW(), NOW());
 -- 3. Patient (nếu chưa có)
 INSERT INTO users (id, username, password, email, phone, role_id, created_at, updated_at)
 VALUES (3001, 'patient_xyz', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'xyz@patient.com', '0909999999', 4, NOW(), NOW());
 
--- 3. Medicines
+-- Medicine
 INSERT INTO mec888.medicines
-(id, name, price, description, manufacturer, created_at, updated_at)
+(id, name, active_ingredient, dosage, unit, form, manufacturer_code, sl_code, price, expiry_date, usage_instructions, created_at, updated_at)
 VALUES
-(1, 'Paracetamol', 10.00, 'Pain reliever and fever reducer', 'Pharma Co.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(2, 'Ibuprofen', 15.00, 'Anti-inflammatory medication', 'Health Inc.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(3, 'Amoxicillin', 20.00, 'Antibiotic for bacterial infections', 'Medi Corp.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(4, 'Aspirin', 5.00, 'Pain reliever and anti-inflammatory', 'Wellness Ltd.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(5, 'Ciprofloxacin', 25.00, 'Antibiotic for urinary tract infections', 'Pharma Co.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(6, 'Metformin', 30.00, 'Medication for type 2 diabetes', 'Health Inc.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(7, 'Lisinopril', 35.00, 'Medication for high blood pressure', 'Medi Corp.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(8, 'Simvastatin', 40.00, 'Cholesterol-lowering medication', 'Wellness Ltd.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(9, 'Omeprazole', 45.00, 'Proton pump inhibitor for acid reflux', 'Pharma Co.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(10, 'Levothyroxine', 50.00, 'Thyroid hormone replacement therapy', 'Health Inc.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+(1, 'Paracetamol', 'Acetaminophen', '500', 'mg', 'Tablet', 'PCM-001', 'SL-001', 10.00, '2025-12-31', 'Take 1-2 tablets every 4-6 hours as needed for pain or fever. Do not exceed 8 tablets in 24 hours.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(2, 'Ibuprofen', 'Ibuprofen', '200', 'mg', 'Capsule', 'IBU-002', 'SL-002', 15.00, '2026-06-30', 'Take 1-2 capsules every 4-6 hours after food. Do not exceed 6 capsules in 24 hours.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(3, 'Amoxicillin', 'Amoxicillin trihydrate', '250', 'mg', 'Capsule', 'AMX-003', 'SL-003', 20.00, '2025-10-15', 'Take 1 capsule three times daily with or without food. Complete the full course as prescribed.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(4, 'Aspirin', 'Acetylsalicylic acid', '75', 'mg', 'Tablet', 'ASP-004', 'SL-004', 5.00, '2026-03-20', 'Take 1 tablet daily with food. Use as directed by your physician.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(5, 'Ciprofloxacin', 'Ciprofloxacin hydrochloride', '500', 'mg', 'Tablet', 'CIP-005', 'SL-005', 25.00, '2025-09-25', 'Take 1 tablet twice daily with plenty of water. Complete the full course as prescribed.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(6, 'Metformin', 'Metformin hydrochloride', '850', 'mg', 'Tablet', 'MET-006', 'SL-006', 30.00, '2026-02-10', 'Take 1 tablet twice daily with meals. Follow your doctor\'s instructions carefully.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(7, 'Lisinopril', 'Lisinopril dihydrate', '10', 'mg', 'Tablet', 'LIS-007', 'SL-007', 35.00, '2025-11-05', 'Take 1 tablet once daily at the same time each day, with or without food.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(8, 'Simvastatin', 'Simvastatin', '20', 'mg', 'Tablet', 'SIM-008', 'SL-008', 40.00, '2026-05-15', 'Take 1 tablet once daily in the evening. Avoid grapefruit juice while taking this medication.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(9, 'Omeprazole', 'Omeprazole', '20', 'mg', 'Capsule', 'OME-009', 'SL-009', 45.00, '2025-08-20', 'Take 1 capsule once daily before breakfast. Swallow whole, do not crush or chew.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(10, 'Levothyroxine', 'Levothyroxine sodium', '50', 'mcg', 'Tablet', 'LEV-010', 'SL-010', 50.00, '2026-04-30', 'Take 1 tablet daily on an empty stomach, 30-60 minutes before breakfast.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 -- 4. Departments
 INSERT INTO mec888.departments
@@ -160,27 +165,40 @@ VALUES
     (2, 1, 'R202', 'Surgery', 'available', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
     (3, 1, 'R303', 'Recovery', 'available', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
+-- 5.1 Spectialization
+INSERT INTO mec888.specializations (id, name) VALUES
+  (1, 'Cardiology'),
+  (2, 'Neurology'),
+  (3, 'Pediatrics'),
+  (4, 'Dermatology'),
+  (5, 'Gastroenterology'),
+  (6, 'Oncology'),
+  (7, 'Orthopedics'),
+  (8, 'Psychiatry'),
+  (9, 'Ophthalmology'),
+  (10,'Endocrinology');
+
 -- 5. Doctor
 INSERT INTO mec888.doctors
-(id, user_id, room_id, specialization, license_number, created_at, updated_at)
-values
-(1, 2, 1, '123', 'GX0804PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(2, 4, 2, '123', 'GX0805PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(3, 5, 3, '123', 'GX0806PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(4, 6, 3, '123', 'GX0807PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(5, 7, 3, '123', 'GX0808PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(6, 8, 1, '123', 'GX0809PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(7, 9, 2, '123', 'GX0810PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(8, 10, 2, '123', 'GX0811PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(9, 11, 1, '123', 'GX0812PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(10, 12, 1, '123', 'GX0813PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+  (id, user_id, room_id, specialization_id, license_number, created_at, updated_at)
+VALUES
+  (1,  2,  1,  1,  'GX0804PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- Cardiology
+  (2,  4,  2,  2,  'GX0805PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- Neurology
+  (3,  5,  3,  3,  'GX0806PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- Pediatrics
+  (4,  6,  3,  4,  'GX0807PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- Dermatology
+  (5,  7,  3,  5,  'GX0808PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- Gastroenterology
+  (6,  8,  1,  6,  'GX0809PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- Oncology
+  (7,  9,  2,  7,  'GX0810PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- Orthopedics
+  (8, 10,  2,  8,  'GX0811PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- Psychiatry
+  (9, 11,  1,  9,  'GX0812PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- Ophthalmology
+  (10,12,  1, 10,  'GX0813PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP); -- Endocrinology
 
 -- 2. Bác sĩ tương ứng
-INSERT INTO doctors (id, user_id, room_id, specialization, license_number, created_at, updated_at)
+INSERT INTO doctors (id, user_id, room_id, specialization_id, license_number, created_at, updated_at)
 VALUES
-(11, 2001, 1, 'Internal Medicine', 'INT001', NOW(), NOW()),
-(12, 2002, 3, 'Surgery', 'SUR002', NOW(), NOW()),
-(13, 2003, 2, 'Recovery Specialist', 'REC003', NOW(), NOW());
+(11, 2001, 1, 1, 'INT001', NOW(), NOW()),
+(12, 2002, 3, 2, 'SUR002', NOW(), NOW()),
+(13, 2003, 2, 3, 'REC003', NOW(), NOW());
 
 -- 6. Doctor Schedule
 INSERT INTO mec888.doctor_schedule

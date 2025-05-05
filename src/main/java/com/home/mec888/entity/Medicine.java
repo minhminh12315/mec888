@@ -2,6 +2,7 @@ package com.home.mec888.entity;
 
 import jakarta.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 @Table(name = "medicines")
@@ -13,14 +14,32 @@ public class Medicine {
     @Column(nullable = false, length = 255)
     private String name;
 
-    @Column(columnDefinition = "TEXT")
-    private String description;
+    @Column(name = "active_ingredient", length = 255)
+    private String activeIngredient;
+
+    @Column(length = 100)
+    private String dosage;
+
+    @Column(length = 50)
+    private String unit;
+
+    @Column(length = 50)
+    private String form;
+
+    @Column(name = "manufacturer_code", length = 50)
+    private String manufacturerCode;
+
+    @Column(name = "sl_code", length = 20)
+    private String slCode;
 
     @Column(precision = 10)
     private Double price;
 
-    @Column(length = 255)
-    private String manufacturer;
+    @Column(name = "expiry_date")
+    private Date expiryDate;
+
+    @Column(name = "usage_instructions", columnDefinition = "TEXT")
+    private String usageInstructions;
 
     @Column(name = "created_at", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp createdAt;
@@ -31,11 +50,19 @@ public class Medicine {
     public Medicine() {
     }
 
-    public Medicine(String name, String description, Double price, String manufacturer) {
+    public Medicine(String name, String activeIngredient, String dosage, String unit, String form,
+                    String manufacturerCode, String slCode, Double price,
+                    Date expiryDate, String usageInstructions) {
         this.name = name;
-        this.description = description;
+        this.activeIngredient = activeIngredient;
+        this.dosage = dosage;
+        this.unit = unit;
+        this.form = form;
+        this.manufacturerCode = manufacturerCode;
+        this.slCode = slCode;
         this.price = price;
-        this.manufacturer = manufacturer;
+        this.expiryDate = expiryDate;
+        this.usageInstructions = usageInstructions;
     }
 
     // Getters and setters
@@ -56,12 +83,52 @@ public class Medicine {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getActiveIngredient() {
+        return activeIngredient;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setActiveIngredient(String activeIngredient) {
+        this.activeIngredient = activeIngredient;
+    }
+
+    public String getDosage() {
+        return dosage;
+    }
+
+    public void setDosage(String dosage) {
+        this.dosage = dosage;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public String getForm() {
+        return form;
+    }
+
+    public void setForm(String form) {
+        this.form = form;
+    }
+
+    public String getManufacturerCode() {
+        return manufacturerCode;
+    }
+
+    public void setManufacturerCode(String manufacturerCode) {
+        this.manufacturerCode = manufacturerCode;
+    }
+
+    public String getSlCode() {
+        return slCode;
+    }
+
+    public void setSlCode(String slCode) {
+        this.slCode = slCode;
     }
 
     public Double getPrice() {
@@ -72,12 +139,20 @@ public class Medicine {
         this.price = price;
     }
 
-    public String getManufacturer() {
-        return manufacturer;
+    public Date getExpiryDate() {
+        return expiryDate;
     }
 
-    public void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
+    public void setExpiryDate(Date expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+
+    public String getUsageInstructions() {
+        return usageInstructions;
+    }
+
+    public void setUsageInstructions(String usageInstructions) {
+        this.usageInstructions = usageInstructions;
     }
 
     public Timestamp getCreatedAt() {
@@ -101,9 +176,15 @@ public class Medicine {
         return "Medicine{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
+                ", activeIngredient='" + activeIngredient + '\'' +
+                ", dosage='" + dosage + '\'' +
+                ", unit='" + unit + '\'' +
+                ", form='" + form + '\'' +
+                ", manufacturerCode='" + manufacturerCode + '\'' +
+                ", slCode='" + slCode + '\'' +
                 ", price=" + price +
-                ", manufacturer='" + manufacturer + '\'' +
+                ", expiryDate=" + expiryDate +
+                ", usageInstructions='" + usageInstructions + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';

@@ -11,8 +11,9 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private Integer user_id;
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    private User user;
 
     @Column(length = 50)
     private String emergency_contact;
@@ -29,11 +30,6 @@ public class Patient {
     public Patient() {
     }
 
-    public Patient(Long user_id, String emergency_contact, String medical_history) {
-        this.user_id = Math.toIntExact(user_id);
-        this.emergency_contact = emergency_contact;
-        this.medical_history = medical_history;
-    }
 
     public Long getId() {
         return id;
@@ -43,13 +39,6 @@ public class Patient {
         this.id = id;
     }
 
-    public Integer getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(Integer  user_id) {
-        this.user_id = user_id;
-    }
 
     public String getEmergency_contact() {
         return emergency_contact;
@@ -83,11 +72,19 @@ public class Patient {
         this.updatedAt = updatedAt;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
         return "Patient{" +
                 "id=" + id +
-                ", user_id=" + user_id +
+                ", user=" + user +
                 ", emergency_contact='" + emergency_contact + '\'' +
                 ", medical_history='" + medical_history + '\'' +
                 ", createdAt=" + createdAt +
