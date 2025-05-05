@@ -15,7 +15,7 @@
                 AnchorPane.rightAnchor="0"
                 AnchorPane.topAnchor="0"
                 style="-fx-background-color:transparent;">
-        <VBox>
+        <VBox style="-fx-padding: 32 16 64 16">
             <VBox alignment="CENTER" spacing="8" style="-fx-padding: 0 0 32 0;">
                 <Text styleClass="titlePage" text="Diagnostic Test" textAlignment="CENTER"/>
             </VBox>

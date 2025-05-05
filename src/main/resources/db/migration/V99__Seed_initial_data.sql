@@ -113,20 +113,27 @@ VALUES
 (101, 'patient','Do', 'Dung Quang Minh', 'Ba Dinh', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'qunnguyn956@gmail.com', '0926532450', 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT INTO users
-  (id, username, password, email, phone, first_name, last_name, role_id, created_at, updated_at)
+  (id, username, password, email, phone, first_name, last_name, role_id, career, ethnicity, nationality, place_of_origin, created_at, updated_at)
 VALUES
   (2001, 'dr_quang', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO',
     'quang@hospital.com', '0911111111',
-    'Quang', 'Nguyễn', 2, NOW(), NOW()),
+    'Quang', 'Nguyễn', 2, 'Doctor', 'Kinh', 'Vietnamese', 'Hanoi', NOW(), NOW()),
   (2002, 'dr_hung', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO',
     'hung@hospital.com', '0922222222',
-    'Hưng', 'Trần', 2, NOW(), NOW()),
+    'Hưng', 'Trần', 2, 'Doctor', 'Kinh', 'Vietnamese', 'Ho Chi Minh City', NOW(), NOW()),
   (2003, 'dr_dung', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO',
     'dung@hospital.com', '0933333333',
-    'Dung', 'Lê', 2, NOW(), NOW());
+    'Dung', 'Lê', 2, 'Doctor', 'Kinh', 'Vietnamese', 'Da Nang', NOW(), NOW());
 -- 3. Patient (nếu chưa có)
-INSERT INTO users (id, username, password, email, phone, role_id, created_at, updated_at)
-VALUES (3001, 'patient_xyz', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'xyz@patient.com', '0909999999', 4, NOW(), NOW());
+INSERT INTO users (
+  id, username, first_name, last_name, gender, date_of_birth, career, ethnicity, nationality, place_of_origin,
+  password, email, phone, address, role_id, created_at, updated_at
+)
+VALUES (
+  3001, 'patient_xyz', 'XYZ', 'Nguyễn', 'Male', '2000-01-01', 'Patient', 'Kinh', 'Vietnamese', 'Hanoi',
+  '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO',
+  'xyz@patient.com', '0909999999', "Minh Khai, Hoang Mai, Ha Noi", 4, NOW(), NOW()
+);
 
 -- Medicine
 INSERT INTO mec888.medicines

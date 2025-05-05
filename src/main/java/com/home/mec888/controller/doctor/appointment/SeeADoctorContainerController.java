@@ -30,23 +30,25 @@ public class SeeADoctorContainerController {
     private Button currentActiveButton;
 
     public static Appointment currentAppointment;
+    public static Patient currentPatient;
 
     @FXML
     public void initialize() {
         currentActiveButton = patientProfileButton;
         Platform.runLater(() -> {
             handleMoveToPatientProfile(new ActionEvent(patientProfileButton, null));
+            setAppointmentHeader();
         });
     }
 
     public void setAppointmentHeader() {
         if (currentAppointment != null) {
-            Patient currentPatient = currentAppointment.getPatient();
             String patientName = currentPatient.getUser().getFirstName();
-            String patientAge = currentPatient.getUser().getDateOfBirth().getYear() + "(" + (LocalDate.now().getYear() - currentPatient.getUser().getDateOfBirth().getYear()) + " years old)";
+            String patientAge = (LocalDate.now().getYear() - currentPatient.getUser().getDateOfBirth().getYear()) + " (" +
+                    currentPatient.getUser().getDateOfBirth().getYear() + " years old)";
             String patientGender = currentPatient.getUser().getGender();
             String patientAddress = currentPatient.getUser().getAddress();
-            generalInformation.setText(patientName + patientAge + patientGender);
+            generalInformation.setText(patientName + " | " + patientAge + " | " + patientGender);
             addressInformation.setText(patientAddress);
         }
     }
@@ -54,6 +56,7 @@ public class SeeADoctorContainerController {
     public void setAppointment(Appointment appointment) {
         try {
             currentAppointment = appointment;
+            currentPatient = currentAppointment.getPatient();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
