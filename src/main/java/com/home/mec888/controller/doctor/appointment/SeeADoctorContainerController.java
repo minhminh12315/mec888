@@ -81,16 +81,17 @@ public class SeeADoctorContainerController {
 
     public void handleMoveToInitialAssessment(ActionEvent event) {
         highlightActiveButton(initialAssessmentButton);
-
+        SceneSwitcher.loadViewSeeDoctor("initial_assessment.fxml", event);
     }
 
     public void handleMoveToPrescription(ActionEvent event) {
         highlightActiveButton(prescriptionButton);
-
+        SceneSwitcher.loadViewSeeDoctor("prescription.fxml", event);
     }
 
     public void handleMoveToDiagnosticTest(ActionEvent event) {
         highlightActiveButton(diagnosticTestButton);
+        SceneSwitcher.loadViewSeeDoctor("diagnostic_test.fxml", event);
 
     }
 

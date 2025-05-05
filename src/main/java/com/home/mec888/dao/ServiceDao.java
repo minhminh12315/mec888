@@ -81,4 +81,21 @@ public class ServiceDao {
             return null;
         }
     }
+
+    public List<Service> getServiceByDoctorRoom(Long doctorId) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            String hql = "SELECT rs.service " +
+                    "FROM RoomService rs " +
+                    "JOIN rs.room r " +
+                    "JOIN Doctor d ON d.room.id = r.id " +
+                    "WHERE d.id = :doctorId";
+
+            return session.createQuery(hql, Service.class)
+                    .setParameter("doctorId", doctorId)
+                    .getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

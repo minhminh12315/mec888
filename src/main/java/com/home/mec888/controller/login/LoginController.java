@@ -108,6 +108,7 @@ public class LoginController {
             IndexController.user = user;
             IndexController.userRole = role.getName();
 
+
             // Log the login action
             AuditLogDao auditLogDao = new AuditLogDao();
             AuditLog auditLog = new AuditLog(user.getId().intValue(), "Login", "Login");
@@ -125,6 +126,8 @@ public class LoginController {
                 Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                 SceneSwitcher.switchTo(currentStage, "patient/dashboard.fxml");
             }
+
+
 
         } else {
             System.out.println("login failed");

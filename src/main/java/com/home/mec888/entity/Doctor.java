@@ -99,6 +99,6 @@ public class Doctor {
 
     @Override
     public String toString() {
-        return user.getFirstName() + " " + user.getLastName() + " (" + specialization + ")";
+        return user.getFirstName() + " " + user.getLastName() + " (" + specialization + ")" + "doctorId: " + id;
     }
 }

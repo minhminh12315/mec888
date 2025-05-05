@@ -276,4 +276,31 @@ INSERT INTO mec888.invoices
 VALUES
     (1001, 901, 'INV-20250401-901', CURRENT_TIMESTAMP, 250.00, 'Invoice for consultation, surgery, and recovery treatment.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
+INSERT INTO mec888.services
+  (id, name, description, price, created_at, updated_at)
+VALUES
+  (1, 'General Consultation', 'Basic health consultation with a general practitioner', 300000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  (2, 'X-Ray', 'Radiographic imaging for diagnostic purposes', 500000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  (3, 'MRI Scan', 'Magnetic resonance imaging for detailed internal scans', 2000000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  (4, 'Blood Test', 'Comprehensive blood panel analysis', 150000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  (5, 'Ultrasound', 'Diagnostic sonographic imaging', 700000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  (6, 'Vaccination', 'Administration of vaccines for disease prevention', 250000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  (7, 'Physical Therapy', 'Rehabilitation sessions for physical recovery', 1000000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  (8, 'Surgery Room Fee', 'Room charges for surgical operations', 5000000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  (9, 'Post-Operative Care', 'Recovery care services after surgery', 300000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  (10, 'Emergency Care', 'Immediate care services for critical conditions', 1000000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
+
+INSERT INTO mec888.room_service
+  (id, room_id, service_id, created_at, updated_at)
+VALUES
+  (1, 1, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Consultation Room provides General Consultation
+  (2, 1, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Consultation Room provides Blood Test
+  (3, 2, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Surgery Room provides X-Ray
+  (4, 2, 8, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Surgery Room provides Surgery Room Fee
+  (5, 3, 9, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Recovery Room provides Post-Operative Care
+  (6, 3, 7, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Recovery Room provides Physical Therapy
+  (7, 2, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Surgery Room provides MRI Scan
+  (8, 3, 6, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Recovery Room provides Vaccination
+  (9, 1, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Consultation Room provides Ultrasound
+  (10, 3, 10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP); -- Recovery Room provides Emergency Care
