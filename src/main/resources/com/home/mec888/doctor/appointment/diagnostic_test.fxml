@@ -31,7 +31,7 @@
                     <Label text="|  End Time" style="-fx-font-weight: bold; -fx-font-size: 20;" prefWidth="150"/>
                     <Label text="|  Diagnostic" style="-fx-font-weight: bold; -fx-font-size: 20;" prefWidth="300"/>
                 </HBox>
-                <VBox>
+                <VBox fx:id="diagnosticListContainer">
 
                 </VBox>
             </VBox>
