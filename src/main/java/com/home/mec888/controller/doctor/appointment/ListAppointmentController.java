@@ -33,7 +33,7 @@ public class ListAppointmentController {
     @FXML
     private TableColumn<Appointment, Long> colId;
     @FXML
-    private TableColumn<Appointment, Long> colPatientId;
+    private TableColumn<Appointment, String> colPatientId;
     @FXML
     private TableColumn<Appointment, String> colDoctorName;
     @FXML
@@ -51,7 +51,7 @@ public class ListAppointmentController {
 
         appointmentTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
         colId.setCellValueFactory(cellData -> new SimpleLongProperty(cellData.getValue().getId()).asObject());
-        colPatientId.setCellValueFactory(cellData -> new SimpleLongProperty(cellData.getValue().getPatient().getId()).asObject());
+        colPatientId.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPatient().getUser().getFirstName()));
         colDoctorName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDoctor().getUser().getFirstName()));
         colAppointmentDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAppointmentDate().toLocalDate().toString()));
         colAppointmentTime.setCellValueFactory(cellData -> {
@@ -74,7 +74,6 @@ public class ListAppointmentController {
     public void getListAppointment() {
         try {
             Long userId = IndexController.user.getId();
-            System.out.println("current user id: " + userId);
             Doctor currentDoctor = doctorDao.findDoctorByUserId(userId);
             List<Appointment> appointments = List.of();
             if (currentDoctor != null) {

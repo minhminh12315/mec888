@@ -11,48 +11,73 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.home.mec888.controller.doctor.appointment.PatientProfileController">
 
-    <VBox alignment="TOP_CENTER" spacing="16" AnchorPane.topAnchor="16" AnchorPane.rightAnchor="0"
-          AnchorPane.leftAnchor="0"
-          AnchorPane.bottomAnchor="0">
-        <HBox alignment="CENTER" spacing="8">
-            <VBox HBox.hgrow="ALWAYS" spacing="4" styleClass="textFieldDisable">
-                <Label text="Full name"/>
-                <Text text="LE DUC AN" textAlignment="CENTER"/>
+    <ScrollPane fitToWidth="true" AnchorPane.bottomAnchor="0"
+                AnchorPane.leftAnchor="0"
+                AnchorPane.rightAnchor="0"
+                AnchorPane.topAnchor="0"
+                style="-fx-background-color:transparent;">
+        <VBox alignment="TOP_CENTER" spacing="16" style="-fx-padding: 32 16 64 16;">
+            <VBox alignment="CENTER" spacing="8" style="-fx-padding: 0 0 32 0;">
+                <Text styleClass="titlePage" text="Patient Profile" textAlignment="CENTER"/>
             </VBox>
-            <VBox HBox.hgrow="ALWAYS" spacing="4" styleClass="textFieldDisable">
-                <Label text="Date of Birth"/>
-                <Text text="01-04-2005" textAlignment="CENTER"/>
-            </VBox>
-            <VBox HBox.hgrow="ALWAYS" spacing="4" styleClass="textFieldDisable">
-                <Label text="Sex"/>
-                <Text text="Male" textAlignment="CENTER"/>
-            </VBox>
-        </HBox>
-        <HBox alignment="CENTER" spacing="8">
-            <VBox HBox.hgrow="ALWAYS" spacing="4" styleClass="textFieldDisable">
-                <Label text="Email"/>
-                <Text text="an.duc.0104@gmail.com" textAlignment="CENTER"/>
-            </VBox>
-            <VBox HBox.hgrow="ALWAYS" spacing="4" styleClass="textFieldDisable">
-                <Label text="Phone"/>
-                <Text text="0911231231" textAlignment="CENTER"/>
-            </VBox>
-        </HBox>
-        <HBox alignment="CENTER" spacing="8">
-            <VBox HBox.hgrow="ALWAYS" spacing="4" styleClass="textFieldDisable">
-                <Label text="Address"/>
-                <Text text="285 Đội Cấn, Ba Đình, Hà Nội" textAlignment="CENTER"/>
-            </VBox>
-        </HBox>
-        <HBox alignment="CENTER" spacing="8">
-            <VBox HBox.hgrow="ALWAYS" spacing="4" styleClass="textFieldDisable">
-                <Label text="Emergency Contact"/>
-                <Text text="0901231234" textAlignment="CENTER"/>
-            </VBox>
-            <VBox HBox.hgrow="ALWAYS" spacing="4" styleClass="textFieldDisable">
-                <Label text="Medical History"/>
-                <Text text="Tien su dau tim" textAlignment="CENTER"/>
-            </VBox>
-        </HBox>
-    </VBox>
+            <HBox alignment="CENTER" spacing="8">
+                <VBox HBox.hgrow="ALWAYS" spacing="4" styleClass="textFieldDisable">
+                    <Label text="Full name"/>
+                    <Text fx:id="fullname" text="LE DUC AN" textAlignment="CENTER"/>
+                </VBox>
+                <VBox HBox.hgrow="ALWAYS" spacing="4" styleClass="textFieldDisable">
+                    <Label text="Date of Birth"/>
+                    <Text fx:id="dob" text="01-04-2005" textAlignment="CENTER"/>
+                </VBox>
+                <VBox HBox.hgrow="ALWAYS" spacing="4" styleClass="textFieldDisable">
+                    <Label text="Sex"/>
+                    <Text fx:id="gender" text="Male" textAlignment="CENTER"/>
+                </VBox>
+            </HBox>
+            <HBox alignment="CENTER" spacing="8">
+                <VBox HBox.hgrow="ALWAYS" spacing="4" styleClass="textFieldDisable">
+                    <Label text="Email"/>
+                    <Text fx:id="email" text="an.duc.0104@gmail.com" textAlignment="CENTER"/>
+                </VBox>
+                <VBox HBox.hgrow="ALWAYS" spacing="4" styleClass="textFieldDisable">
+                    <Label text="Phone"/>
+                    <Text fx:id="phone" text="0911231231" textAlignment="CENTER"/>
+                </VBox>
+            </HBox>
+            <HBox alignment="CENTER" spacing="8">
+                <VBox HBox.hgrow="ALWAYS" spacing="4" styleClass="textFieldDisable">
+                    <Label text="Address"/>
+                    <Text fx:id="address" text="285 Đội Cấn, Ba Đình, Hà Nội" textAlignment="CENTER"/>
+                </VBox>
+            </HBox>
+            <HBox alignment="CENTER" spacing="8">
+                <VBox HBox.hgrow="ALWAYS" spacing="4" styleClass="textFieldDisable">
+                    <Label text="Emergency Contact"/>
+                    <Text fx:id="emergencyContact" text="0901231234" textAlignment="CENTER"/>
+                </VBox>
+                <VBox HBox.hgrow="ALWAYS" spacing="4" styleClass="textFieldDisable">
+                    <Label text="Medical History"/>
+                    <Text fx:id="medicalHistory" text="Tien su dau tim" textAlignment="CENTER"/>
+                </VBox>
+            </HBox>
+            <HBox alignment="CENTER" spacing="8">
+                <VBox HBox.hgrow="ALWAYS" spacing="4" styleClass="textFieldDisable">
+                    <Label text="Career"/>
+                    <Text fx:id="career" text="0901231234" textAlignment="CENTER"/>
+                </VBox>
+                <VBox HBox.hgrow="ALWAYS" spacing="4" styleClass="textFieldDisable">
+                    <Label text="Ethnicity"/>
+                    <Text fx:id="ethnictiy" text="Tien su dau tim" textAlignment="CENTER"/>
+                </VBox>
+                <VBox HBox.hgrow="ALWAYS" spacing="4" styleClass="textFieldDisable">
+                    <Label text="Nationality"/>
+                    <Text fx:id="nationality" text="0901231234" textAlignment="CENTER"/>
+                </VBox>
+                <VBox HBox.hgrow="ALWAYS" spacing="4" styleClass="textFieldDisable">
+                    <Label text="Place of Origin"/>
+                    <Text fx:id="placeOfOrigin" text="Tien su dau tim" textAlignment="CENTER"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </ScrollPane>
 </AnchorPane>

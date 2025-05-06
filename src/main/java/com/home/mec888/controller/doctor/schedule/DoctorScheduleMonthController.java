@@ -181,7 +181,7 @@ public class DoctorScheduleMonthController {
 
             for (DoctorSchedule doctorSchedule : listShiftRegistered) {
                 String shiftName = getShiftName(doctorSchedule.getStartTime().toLocalTime(), doctorSchedule.getEndTime().toLocalTime());
-                String doctorName = doctorSchedule.getDoctor().getUser().getFirstName() + " " + doctorSchedule.getDoctor().getUser().getLastName();
+                String doctorName = "Dr." + doctorSchedule.getDoctor().getUser().getFirstName();
 
                 HBox shiftBadge = new HBox(4);
                 shiftBadge.setAlignment(Pos.CENTER_LEFT);

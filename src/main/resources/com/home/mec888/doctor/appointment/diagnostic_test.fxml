@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.home.mec888.controller.doctor.appointment.DiagnosticTestController">
+    <ScrollPane fitToWidth="true" AnchorPane.bottomAnchor="0"
+                AnchorPane.leftAnchor="0"
+                AnchorPane.rightAnchor="0"
+                AnchorPane.topAnchor="0"
+                style="-fx-background-color:transparent;">
+        <VBox style="-fx-padding: 32 16 64 16; -fx-background-color:transparent;">
+            <VBox alignment="CENTER" spacing="8" style="-fx-padding: 0 0 32 0;">
+                <Text styleClass="titlePage" text="Diagnostic Test" textAlignment="CENTER"/>
+            </VBox>
+            <HBox alignment="CENTER_RIGHT">
+                <Button fx:id="btn_addServices" styleClass="add-new-btn" text="Add Services"/>
+            </HBox>
+            <VBox spacing="16" style="-fx-padding: 16 0 0 0;">
+                <HBox>
+                    <Label text="Service Name" style="-fx-font-weight: bold; -fx-font-size: 20;" prefWidth="400"/>
+                    <Label text="|  Room" style="-fx-font-weight: bold; -fx-font-size: 20;" prefWidth="150"/>
+                    <Label text="|  Note" style="-fx-font-weight: bold; -fx-font-size: 20;" prefWidth="250"/>
+                    <Label text="|  Start Time" style="-fx-font-weight: bold; -fx-font-size: 20;" prefWidth="150"/>
+                    <Label text="|  End Time" style="-fx-font-weight: bold; -fx-font-size: 20;" prefWidth="150"/>
+                    <Label text="|  Diagnostic" style="-fx-font-weight: bold; -fx-font-size: 20;" prefWidth="300"/>
+                </HBox>
+                <VBox fx:id="diagnosticListContainer">
+
+                </VBox>
+            </VBox>
+        </VBox>
+    </ScrollPane>
+</AnchorPane>

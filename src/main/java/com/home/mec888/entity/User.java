@@ -39,6 +39,18 @@ public class User {
     @Column(length = 255)
     private String address;
 
+    @Column(name = "career")
+    private String career;
+
+    @Column(name = "ethnicity")
+    private String ethnicity;
+
+    @Column(name = "nationality")
+    private String nationality;
+
+    @Column(name = "place_of_origin")
+    private String place_of_origin;
+
     @Column(name = "role_id")
     private Integer roleId;
 
@@ -191,6 +203,38 @@ public class User {
 
     public void setExpiredDate(LocalDateTime expiredDate) {
         this.expiredDate = expiredDate;
+    }
+
+    public String getCareer() {
+        return career;
+    }
+
+    public void setCareer(String career) {
+        this.career = career;
+    }
+
+    public String getEthnicity() {
+        return ethnicity;
+    }
+
+    public void setEthnicity(String ethnicity) {
+        this.ethnicity = ethnicity;
+    }
+
+    public String getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
+    }
+
+    public String getPlace_of_origin() {
+        return place_of_origin;
+    }
+
+    public void setPlace_of_origin(String place_of_origin) {
+        this.place_of_origin = place_of_origin;
     }
 
     @Override

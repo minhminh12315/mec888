@@ -11,6 +11,10 @@ public class Service {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "room_id", nullable = false) // Foreign key to users table
+    private Room room;
+
     @Column(nullable = false, length = 255)
     private String name;
 
@@ -65,6 +69,14 @@ public class Service {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
     }
 
     @Override

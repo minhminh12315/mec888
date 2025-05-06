@@ -113,20 +113,27 @@ VALUES
 (101, 'patient','Do', 'Dung Quang Minh', 'Ba Dinh', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'qunnguyn956@gmail.com', '0926532450', 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT INTO users
-  (id, username, password, email, phone, first_name, last_name, role_id, created_at, updated_at)
+  (id, username, password, email, phone, first_name, last_name, role_id, career, ethnicity, nationality, place_of_origin, created_at, updated_at)
 VALUES
   (2001, 'dr_quang', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO',
     'quang@hospital.com', '0911111111',
-    'Quang', 'Nguyễn', 2, NOW(), NOW()),
+    'Quang', 'Nguyễn', 2, 'Doctor', 'Kinh', 'Vietnamese', 'Hanoi', NOW(), NOW()),
   (2002, 'dr_hung', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO',
     'hung@hospital.com', '0922222222',
-    'Hưng', 'Trần', 2, NOW(), NOW()),
+    'Hưng', 'Trần', 2, 'Doctor', 'Kinh', 'Vietnamese', 'Ho Chi Minh City', NOW(), NOW()),
   (2003, 'dr_dung', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO',
     'dung@hospital.com', '0933333333',
-    'Dung', 'Lê', 2, NOW(), NOW());
+    'Dung', 'Lê', 2, 'Doctor', 'Kinh', 'Vietnamese', 'Da Nang', NOW(), NOW());
 -- 3. Patient (nếu chưa có)
-INSERT INTO users (id, username, password, email, phone, role_id, created_at, updated_at)
-VALUES (3001, 'patient_xyz', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'xyz@patient.com', '0909999999', 4, NOW(), NOW());
+INSERT INTO users (
+  id, username, first_name, last_name, gender, date_of_birth, career, ethnicity, nationality, place_of_origin,
+  password, email, phone, address, role_id, created_at, updated_at
+)
+VALUES (
+  3001, 'patient_xyz', 'XYZ', 'Nguyễn', 'Male', '2000-01-01', 'Patient', 'Kinh', 'Vietnamese', 'Hanoi',
+  '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO',
+  'xyz@patient.com', '0909999999', "Minh Khai, Hoang Mai, Ha Noi", 4, NOW(), NOW()
+);
 
 -- Medicine
 INSERT INTO mec888.medicines
@@ -236,11 +243,11 @@ VALUES (501, 401, 11, '2025-04-06', '08:00:00', 'confirmed', NOW(), NOW());
 
 
 -- 6. Treatment Steps (phân chia bác sĩ)
-INSERT INTO treatment_steps (id, appointment_id, doctor_id, room_id, step_description, start_time, end_time, outcome, created_at, updated_at)
+INSERT INTO treatment_steps (id, appointment_id, doctor_id, step_description, start_time, end_time, outcome, created_at, updated_at)
 VALUES
-(601, 501, 1, 1, 'Khám tổng quát ban đầu', '2025-04-06 08:00:00', '2025-04-06 08:30:00', 'Chỉ định phẫu thuật', NOW(), NOW()),
-(602, 501, 2, 2, 'Phẫu thuật can thiệp', '2025-04-06 09:00:00', '2025-04-06 10:30:00', 'Phẫu thuật thành công', NOW(), NOW()),
-(603, 501, 3, 3, 'Theo dõi hồi sức sau phẫu thuật', '2025-04-06 11:00:00', '2025-04-07 09:00:00', 'Ổn định, xuất viện', NOW(), NOW());
+(601, 501, 1, 'Khám tổng quát ban đầu', '2025-04-06 08:00:00', '2025-04-06 08:30:00', 'Chỉ định phẫu thuật', NOW(), NOW()),
+(602, 501, 2, 'Phẫu thuật can thiệp', '2025-04-06 09:00:00', '2025-04-06 10:30:00', 'Phẫu thuật thành công', NOW(), NOW()),
+(603, 501, 3, 'Theo dõi hồi sức sau phẫu thuật', '2025-04-06 11:00:00', '2025-04-07 09:00:00', 'Ổn định, xuất viện', NOW(), NOW());
 
 -- 7. Medical Record
 INSERT INTO medical_records (id, patient_id, doctor_id, appointment_id, diagnosis, treatment, notes, created_at, updated_at)
@@ -276,4 +283,31 @@ INSERT INTO mec888.invoices
 VALUES
     (1001, 901, 'INV-20250401-901', CURRENT_TIMESTAMP, 250.00, 'Invoice for consultation, surgery, and recovery treatment.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
+INSERT INTO mec888.services
+  (id, room_id, name, description, price, created_at, updated_at)
+VALUES
+  (1, 1, 'General Consultation', 'Basic health consultation with a general practitioner', 300000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  (2, 2, 'X-Ray', 'Radiographic imaging for diagnostic purposes', 500000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  (3, 2,'MRI Scan', 'Magnetic resonance imaging for detailed internal scans', 2000000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  (4, 2,'Blood Test', 'Comprehensive blood panel analysis', 150000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  (5, 3,'Ultrasound', 'Diagnostic sonographic imaging', 700000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  (6, 3,'Vaccination', 'Administration of vaccines for disease prevention', 250000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  (7, 3,'Physical Therapy', 'Rehabilitation sessions for physical recovery', 1000000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  (8, 3,'Surgery Room Fee', 'Room charges for surgical operations', 5000000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  (9, 1,'Post-Operative Care', 'Recovery care services after surgery', 300000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  (10, 1,'Emergency Care', 'Immediate care services for critical conditions', 1000000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
+
+INSERT INTO mec888.room_service
+  (id, room_id, service_id, created_at, updated_at)
+VALUES
+  (1, 1, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Consultation Room provides General Consultation
+  (2, 1, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Consultation Room provides Blood Test
+  (3, 2, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Surgery Room provides X-Ray
+  (4, 2, 8, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Surgery Room provides Surgery Room Fee
+  (5, 3, 9, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Recovery Room provides Post-Operative Care
+  (6, 3, 7, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Recovery Room provides Physical Therapy
+  (7, 2, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Surgery Room provides MRI Scan
+  (8, 3, 6, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Recovery Room provides Vaccination
+  (9, 1, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Consultation Room provides Ultrasound
+  (10, 3, 10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP); -- Recovery Room provides Emergency Care
