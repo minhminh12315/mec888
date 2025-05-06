@@ -103,7 +103,8 @@ public class IndexController {
                         moveDoctorButton,
                         moveUserButton,
                         movePatientButton,
-                        moveSettingsButton
+                        moveSettingsButton,
+                        moveServiceButton
                 );
                 break;
             case "staff":

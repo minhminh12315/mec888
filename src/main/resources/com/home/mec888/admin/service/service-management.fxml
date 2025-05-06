@@ -20,7 +20,7 @@
         </HBox>
         <HBox>
             <!-- Search Field-->
-            <TextField fx:id="searchField" prefHeight="29.0" prefWidth="380.0" promptText="Search by Service Name"
+            <TextField fx:id="searchField" prefHeight="29.0" prefWidth="380.0" promptText="Search by Service Name or Room"
                        styleClass="search"/>
             <Region HBox.hgrow="ALWAYS"/>
             <Button mnemonicParsing="false" onAction="#handleAdd" prefHeight="30.0" prefWidth="75.0"
@@ -36,11 +36,12 @@
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
             </columnResizePolicy>
             <columns>
-                <TableColumn fx:id="idColumn" prefWidth="85.0" text="ID"/>
-                <TableColumn fx:id="nameColumn" prefWidth="330.0" text="Name"/>
-                <TableColumn fx:id="descriptionColumn" minWidth="0.0" prefWidth="430.0" text="Description"/>
-                <TableColumn fx:id="priceColumn" minWidth="0.0" prefWidth="200.0" text="Price"/>
-                <TableColumn fx:id="actionColumn" minWidth="0.0" prefWidth="200.0" text="Actions"/>
+                <TableColumn fx:id="idColumn" prefWidth="70.0" text="ID"/>
+                <TableColumn fx:id="nameColumn" prefWidth="250.0" text="Name"/>
+                <TableColumn fx:id="roomColumn" prefWidth="150.0" text="Room"/>
+                <TableColumn fx:id="descriptionColumn" minWidth="0.0" prefWidth="380.0" text="Description"/>
+                <TableColumn fx:id="priceColumn" minWidth="0.0" prefWidth="150.0" text="Price"/>
+                <TableColumn fx:id="actionColumn" minWidth="0.0" prefWidth="150.0" text="Actions"/>
             </columns>
         </TableView>
     </VBox>
