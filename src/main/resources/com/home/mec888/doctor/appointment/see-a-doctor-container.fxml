@@ -16,7 +16,7 @@
         <top>
             <VBox spacing="32">
                 <HBox alignment="CENTER" styleClass="appointmentHeaderInfo">
-                    <Text text="Info" style="-fx-font-weight: bold; -fx-font-size: 20;"/>
+                    <Text text="Information" style="-fx-font-weight: bold; -fx-font-size: 20;"/>
                     <Region HBox.hgrow="ALWAYS"/>
                     <VBox spacing="8">
                         <Text fx:id="generalInformation" style="-fx-font-weight: bold; -fx-font-size: 20;" text="Patient | 2005 (20 years old) | Male"/>
