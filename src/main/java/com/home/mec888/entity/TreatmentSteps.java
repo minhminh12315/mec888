@@ -22,8 +22,7 @@ public class TreatmentSteps {
     @Column(name = "step_description", columnDefinition = "TEXT")
     private String stepDescription;
 
-    @Column(name = "start_time", nullable = false, updatable = false, insertable = false,
-            columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "start_time")
     private Timestamp startTime;
 
     @Column(name = "end_time")

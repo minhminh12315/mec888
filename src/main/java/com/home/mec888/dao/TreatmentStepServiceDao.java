@@ -9,19 +9,19 @@ import java.util.List;
 
 public class TreatmentStepServiceDao {
 
-    public boolean saveTreatmentStepService(TreatmentStepServices treatmentStepService) {
+    public TreatmentStepServices saveTreatmentStepService(TreatmentStepServices treatmentStepService) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.save(treatmentStepService);
             transaction.commit();
-            return true;
+            return treatmentStepService;
         } catch (Exception e) {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
 
@@ -71,6 +71,17 @@ public class TreatmentStepServiceDao {
                 transaction.rollback();
             }
             e.printStackTrace();
+        }
+    }
+
+    public TreatmentStepServices getTreatmentStepServiceByTreatmentStepID(Long treatmentStepId) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("FROM TreatmentStepServices WHERE treatmentStep.id = :treatmentStepId", TreatmentStepServices.class)
+                    .setParameter("treatmentStepId", treatmentStepId)
+                    .uniqueResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

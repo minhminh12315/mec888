@@ -336,7 +336,7 @@ public class DoctorAddController {
             Doctor doctor = new Doctor();
             doctor.setUser(user);
             doctor.setRoom(room);
-            doctor.setSpecialization(specialization);
+//            doctor.setSpecialization(specialization);
             doctor.setLicense_number(license_number);
 
             doctorDao.saveDoctor(doctor);

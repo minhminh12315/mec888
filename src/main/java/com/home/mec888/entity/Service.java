@@ -83,9 +83,12 @@ public class Service {
     public String toString() {
         return "Service{" +
                 "id=" + id +
+                ", room=" + room +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
                 '}';
     }
 }

@@ -218,7 +218,7 @@ public class DoctorUpdateController {
         }
         doctorId = doctor.getId();
         // Gán dữ liệu vào các TextField
-        specializationField.setText(doctor.getSpecialization().getName());
+//        specializationField.setText(doctor.getSpecialization().getName());
         licenseField.setText(doctor.getLicense_number());
 //        if (doctor.getUser().getId()!= null) {
 //            User user = userDao.getUserById(doctor.getUser().getId());
@@ -300,7 +300,7 @@ public class DoctorUpdateController {
         {
 //            User user = userComboBox.getValue();
             Room roomId = roomComboBox.getValue();
-            String specialization = specializationField.getText().trim();
+//            S specialization = specializationField.getText().trim();
             String license_number = licenseField.getText().trim();
 
             try {
@@ -308,7 +308,7 @@ public class DoctorUpdateController {
                 doctor.setId(doctorId);
                 doctor.setUser(user);
                 doctor.setRoom(roomId);
-                doctor.setSpecialization(specialization);
+//                doctor.setSpecialization(specialization);
                 doctor.setLicense_number(license_number);
                 doctor.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
 

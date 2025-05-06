@@ -82,18 +82,18 @@ public class DoctorManagementController {
         }
 
         List<Doctor> filteredList = new ArrayList<>();
-        for (Doctor doctor : originalDoctorList) {
-            System.out.println("id cua user trong doctor " + doctor.getUser().getId());
-            User user = userDao.getUserById(doctor.getUser().getId());
-            if (
-                    (user.getFirstName() != null && user.getFirstName().toLowerCase().contains(keyword.toLowerCase())) ||
-                            (user.getLastName() != null && user.getLastName().toLowerCase().contains(keyword.toLowerCase())) ||
-                            (doctor.getSpecialization() != null && doctor.getSpecialization().getName().toLowerCase().contains(keyword.toLowerCase())) ||
-                            (doctor.getLicense_number() != null && doctor.getLicense_number().toLowerCase().contains(keyword.toLowerCase()))
-            ) {
-                filteredList.add(doctor);
-            }
-        }
+//        for (Doctor doctor : originalDoctorList) {
+//            System.out.println("id cua user trong doctor " + doctor.getUser().getId());
+//            User user = userDao.getUserById(doctor.getUser().getId());
+//            if (
+//                    (user.getFirstName() != null && user.getFirstName().toLowerCase().contains(keyword.toLowerCase())) ||
+//                            (user.getLastName() != null && user.getLastName().toLowerCase().contains(keyword.toLowerCase())) ||
+//                            (doctor.getSpecialization() != null && doctor.getSpecialization().getName().toLowerCase().contains(keyword.toLowerCase())) ||
+//                            (doctor.getLicense_number() != null && doctor.getLicense_number().toLowerCase().contains(keyword.toLowerCase()))
+//            ) {
+//                filteredList.add(doctor);
+//            }
+//        }
 
         updateTable(filteredList);
     }
