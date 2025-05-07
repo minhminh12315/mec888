@@ -9,48 +9,27 @@
 <?import javafx.scene.text.Text?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.home.mec888.controller.admin.service.ServiceAddController"
-            prefHeight="500.0" prefWidth="600.0">
+            fx:controller="com.home.mec888.controller.admin.specialization.SpecializationAddController"
+            prefHeight="400.0" prefWidth="600.0">
     <VBox spacing="24" AnchorPane.bottomAnchor="24.0"
           AnchorPane.leftAnchor="24.0"
           AnchorPane.rightAnchor="24.0"
           AnchorPane.topAnchor="24.0">
 
-        <HBox spacing="500">
-            <!-- Nút quay lại -->
+        <HBox spacing="350">
+            <!-- Back button -->
             <Button fx:id="backButton" layoutX="14.0" layoutY="14.0"
                     mnemonicParsing="false" onAction="#handleBack"
                     prefHeight="30.0" prefWidth="75.0" styleClass="back-btn" text="Back"/>
-            <Text text="Add New Service" styleClass="titlePage"/>
+            <Text text="Add New Specialization" styleClass="titlePage"/>
         </HBox>
 
         <VBox spacing="16">
-            <!-- Service name -->
+            <!-- Specialization name -->
             <VBox spacing="4">
-                <Label styleClass="label-input" text="Service name:"/>
+                <Label styleClass="label-input" text="Specialization name:"/>
                 <TextField fx:id="nameField" styleClass="input-field"/>
                 <Label fx:id="nameErrorLabel" textFill="red" visible="false" style="-fx-font-size: 11px;"/>
-            </VBox>
-
-            <!-- Room Selection -->
-            <VBox spacing="4">
-                <Label styleClass="label-input" text="Room:"/>
-                <ComboBox fx:id="roomComboBox" prefWidth="200" styleClass="input-field"/>
-                <Label fx:id="roomErrorLabel" textFill="red" visible="false" style="-fx-font-size: 11px;"/>
-            </VBox>
-
-            <!-- Description -->
-            <VBox spacing="4">
-                <Label styleClass="label-input" text="Description:"/>
-                <TextArea fx:id="descriptionField" styleClass="input-field"/>
-                <Label fx:id="descriptionErrorLabel" textFill="red" visible="false" style="-fx-font-size: 11px;"/>
-            </VBox>
-
-            <!-- Price -->
-            <VBox spacing="4">
-                <Label styleClass="label-input" text="Price:"/>
-                <TextField fx:id="priceField" styleClass="input-field"/>
-                <Label fx:id="priceErrorLabel" textFill="red" visible="false" style="-fx-font-size: 11px;"/>
             </VBox>
 
             <HBox alignment="CENTER_RIGHT" spacing="24">

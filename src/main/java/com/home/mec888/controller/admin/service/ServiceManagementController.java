@@ -1,9 +1,7 @@
 package com.home.mec888.controller.admin.service;
 
-import com.home.mec888.controller.admin.medicine.MedicineUpdateController;
+import com.home.mec888.dao.RoomDao;
 import com.home.mec888.dao.ServiceDao;
-import com.home.mec888.entity.Doctor;
-import com.home.mec888.entity.Medicine;
 import com.home.mec888.entity.Service;
 import com.home.mec888.util.SceneSwitcher;
 import javafx.collections.FXCollections;
@@ -38,6 +36,9 @@ public class ServiceManagementController {
     public TableColumn<Service, String> descriptionColumn;
 
     @FXML
+    public TableColumn<Service, String> roomColumn;
+
+    @FXML
     public TableColumn<Service, Double> priceColumn;
 
     @FXML
@@ -47,11 +48,13 @@ public class ServiceManagementController {
     public TextField searchField;
 
     private ServiceDao serviceDao;
+    private RoomDao roomDao;
     private List<Service> originalServiceList;
 
     @FXML
     public void initialize() {
         serviceDao = new ServiceDao();
+        roomDao = new RoomDao();
         loadServiceData();
         addButtonToTable();
 
@@ -69,6 +72,15 @@ public class ServiceManagementController {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        roomColumn.setCellValueFactory(cellData -> {
+            if (cellData.getValue().getRoom() != null) {
+                return new javafx.beans.property.SimpleStringProperty(
+                        cellData.getValue().getRoom().getRoomNumber());
+            } else {
+                return new javafx.beans.property.SimpleStringProperty("No Room");
+            }
+        });
 
         serivceManagementTable.getItems().clear();
         List<Service> services = serviceDao.getAllServices();
@@ -156,10 +168,6 @@ public class ServiceManagementController {
                 loadServiceData();
             }
         });
-
-        // Implement the delete logic here
-        serviceDao.deleteService(service.getId());
-        loadServiceData();
     }
 
     @FXML
@@ -183,12 +191,14 @@ public class ServiceManagementController {
         List<Service> filteredList = new ArrayList<>();
         for (Service service : originalServiceList) {
             if (service.getName().toLowerCase().contains(keyword.toLowerCase()) ||
-                    service.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                    service.getDescription().toLowerCase().contains(keyword.toLowerCase()) ||
+                    (service.getRoom().getRoomNumber() != null && service.getRoom().getRoomNumber().toLowerCase().contains(keyword.toLowerCase()))) {
                 filteredList.add(service);
             }
         }
 
         // Cập nhật bảng với danh sách lọc
         updateTable(filteredList);
+        addButtonToTable();
     }
 }

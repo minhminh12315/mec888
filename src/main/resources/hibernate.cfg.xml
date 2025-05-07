@@ -33,6 +33,7 @@
         <mapping class="com.home.mec888.entity.Appointment"/>
         <mapping class="com.home.mec888.entity.TreatmentSteps"/>
         <mapping class="com.home.mec888.entity.TreatmentStepServices"/>
+        <mapping class="com.home.mec888.entity.Specialization"/>
 
 
     </session-factory>

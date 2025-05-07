@@ -21,9 +21,9 @@ public class Doctor {
     @JoinColumn(name = "room_id", nullable = false) // Foreign key to departments table
     private Room room;
 
-//    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-//    @JoinColumn(name="specialization_id", nullable = false)
-//    private Specialization specialization;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name="specialization_id", nullable = false)
+    private Specialization specialization;
 
     @Column(nullable = true, length = 255)
     private String license_number;
@@ -58,13 +58,13 @@ public class Doctor {
         this.user = user;
     }
 
-//    public Specialization getSpecialization() {
-//        return specialization;
-//    }
-//
-//    public void setSpecialization(Specialization specialization) {
-//        this.specialization = specialization;
-//    }
+    public Specialization getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(Specialization specialization) {
+        this.specialization = specialization;
+    }
 
     public String getLicense_number() {
         return license_number;
@@ -98,8 +98,8 @@ public class Doctor {
         this.room = room;
     }
 
-//    @Override
-//    public String toString() {
-//        return user.getFirstName() + " " + user.getLastName() + " (" + specialization + ")" + "doctorId: " + id;
-//    }
+    @Override
+    public String toString() {
+        return user.getFirstName() + " " + user.getLastName() + " (" + specialization + ")" + "doctorId: " + id;
+    }
 }

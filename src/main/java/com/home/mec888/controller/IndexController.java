@@ -61,6 +61,8 @@ public class IndexController {
     public Button moveRoomButton;
     @FXML
     public Button moveServiceButton;
+    @FXML
+    public Button moveSpecializationButton;
 
     @FXML
     public Button moveSettingsButton;
@@ -103,7 +105,9 @@ public class IndexController {
                         moveDoctorButton,
                         moveUserButton,
                         movePatientButton,
-                        moveSettingsButton
+                        moveSettingsButton,
+                        moveServiceButton,
+                        moveSpecializationButton
                 );
                 break;
             case "staff":
@@ -244,5 +248,10 @@ public class IndexController {
     public void handleDoctorAppointment(ActionEvent event) {
         highlightActiveButton(moveListAppointmentForDoctor);
         SceneSwitcher.loadView("doctor/appointment/list-appointment.fxml", event);
+    }
+
+    public void handleSpecialization(ActionEvent actionEvent) {
+        highlightActiveButton(moveSpecializationButton);
+        SceneSwitcher.loadView("admin/specialization/specialization-management.fxml", actionEvent);
     }
 }
