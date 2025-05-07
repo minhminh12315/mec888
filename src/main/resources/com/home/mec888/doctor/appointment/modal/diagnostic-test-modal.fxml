@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.shape.Rectangle?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<StackPane fx:id="modalDiagnosticTest" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.home.mec888.controller.doctor.appointment.modal.DiagnosticTestModalController">
+    <Rectangle fx:id="overlay" fill="black" opacity="0.3"/>
+
+    <VBox maxHeight="300" maxWidth="450"
+          style="-fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10;">
+        <HBox alignment="CENTER"
+              style="-fx-border-color: transparent transparent #F0F0F0 transparent;               -fx-border-width: 0 0 1 0;               -fx-padding:16 16 16 16;">
+            <Label style="-fx-font-weight: 600; -fx-font-size: 24;" text="List Services"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button onAction="#closeModal" style="-fx-background-color:transparent; -fx-border:none;">
+                <graphic>
+                    <FontIcon iconLiteral="fas-times"/>
+                </graphic>
+            </Button>
+        </HBox>
+    </VBox>
+</StackPane>

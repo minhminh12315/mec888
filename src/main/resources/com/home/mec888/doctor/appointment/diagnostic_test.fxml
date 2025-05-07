@@ -20,7 +20,7 @@
                 <Text styleClass="titlePage" text="Diagnostic Test" textAlignment="CENTER"/>
             </VBox>
             <HBox alignment="CENTER_RIGHT">
-                <Button fx:id="btn_addServices" styleClass="add-new-btn" text="Add Services"/>
+                <Button onAction="#openModalDiagnosticTest" fx:id="btn_addServices" styleClass="add-new-btn" text="Add Services"/>
             </HBox>
             <VBox spacing="16" style="-fx-padding: 16 0 0 0;">
                 <HBox>
@@ -31,7 +31,7 @@
                     <Label text="|  End Time" style="-fx-font-weight: bold; -fx-font-size: 20;" prefWidth="150"/>
                     <Label text="|  Diagnostic" style="-fx-font-weight: bold; -fx-font-size: 20;" prefWidth="300"/>
                 </HBox>
-                <VBox>
+                <VBox fx:id="diagnosticListContainer">
 
                 </VBox>
             </VBox>

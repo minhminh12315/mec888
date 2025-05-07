@@ -218,7 +218,7 @@ public class DoctorUpdateController {
         }
         doctorId = doctor.getId();
         // Gán dữ liệu vào các TextField
-        specializationField.setText(doctor.getSpecialization());
+        specializationField.setText(doctor.getSpecialization().getName());
         licenseField.setText(doctor.getLicense_number());
 //        if (doctor.getUser().getId()!= null) {
 //            User user = userDao.getUserById(doctor.getUser().getId());
