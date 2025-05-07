@@ -14,13 +14,16 @@
                 AnchorPane.leftAnchor="0"
                 AnchorPane.rightAnchor="0"
                 AnchorPane.topAnchor="0"
-                style="-fx-background-color:transparent;">
-        <VBox style="-fx-padding: 32 16 64 16; -fx-background-color:transparent;">
+                style="-fx-background:white;
+                       -fx-background-color:white;
+                       -fx-border-width: 0;">
+        <VBox style="-fx-padding: 32 16 64 16;">
             <VBox alignment="CENTER" spacing="8" style="-fx-padding: 0 0 32 0;">
                 <Text styleClass="titlePage" text="Diagnostic Test" textAlignment="CENTER"/>
             </VBox>
             <HBox alignment="CENTER_RIGHT">
-                <Button onAction="#openModalDiagnosticTest" fx:id="btn_addServices" styleClass="add-new-btn" text="Add Services"/>
+                <Button onAction="#openModalDiagnosticTest" fx:id="btn_addServices" styleClass="add-new-btn" style="-fx-font-size: 16; -fx-font-weight: bold;"
+                        text="Add Services"/>
             </HBox>
             <VBox spacing="16" style="-fx-padding: 16 0 0 0;">
                 <HBox>
@@ -31,7 +34,7 @@
                     <Label text="|  End Time" style="-fx-font-weight: bold; -fx-font-size: 20;" prefWidth="150"/>
                     <Label text="|  Diagnostic" style="-fx-font-weight: bold; -fx-font-size: 20;" prefWidth="300"/>
                 </HBox>
-                <VBox fx:id="diagnosticListContainer">
+                <VBox fx:id="diagnosticListContainer" spacing="16">
 
                 </VBox>
             </VBox>

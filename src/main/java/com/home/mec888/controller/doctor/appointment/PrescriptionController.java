@@ -1,10 +1,14 @@
 package com.home.mec888.controller.doctor.appointment;
 
+import com.home.mec888.controller.doctor.appointment.modal.PrescriptionModalController;
 import com.home.mec888.dao.MedicineDao;
 import com.home.mec888.entity.Medicine;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -12,21 +16,19 @@ import java.util.List;
 
 public class PrescriptionController {
     @FXML
-    public TextField findMedicine;
+    public static TextField findMedicine;
     @FXML
-    public TableView<Medicine> chooseMedicineTable, showMedicineTable;
+    public TableView<Medicine> showMedicineTable;
     @FXML
-    public TableColumn<String, Medicine> chooseName, chooseIngredient, chooseForm, chooseUnit, chooseManuCode, chooseSlCode, showName, showIngredient, showForm, showUnit, showUsage, showNote;
+    public TableColumn<String, Medicine> showName, showIngredient, showForm, showUnit, showUsage, showNote;
     @FXML
-    public TableColumn<Double, Medicine> chooseDosage, choosePrice, showDosage, showQuantity, showUnitPrice, showTotal;
-    @FXML
-    public TableColumn<Date, Medicine> chooseExpiredDate;
+    public TableColumn<Double, Medicine> showDosage, showQuantity, showUnitPrice, showTotal;
     @FXML
     public Button applyButton;
     public Label findMedicineError;
     private MedicineDao medicineDao;
     private List<Medicine> originalMedicineList;
-    private Medicine selectedMedicine;
+    public static Medicine selectedMedicine;
 
     @FXML
     public void initialize() {
@@ -35,24 +37,6 @@ public class PrescriptionController {
         findMedicine.textProperty().addListener((observable, oldValue, newValue) -> {
             findMedicine(newValue);
         });
-
-        chooseMedicineTable.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 2) { // Nhấp đúp
-                handleChooseMedicine();
-            }
-        });
-    }
-
-    private void loadMedicineData() {
-        chooseName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        chooseIngredient.setCellValueFactory(new PropertyValueFactory<>("activeIngredient"));
-        chooseDosage.setCellValueFactory(new PropertyValueFactory<>("dosage"));
-        chooseForm.setCellValueFactory(new PropertyValueFactory<>("form"));
-        chooseUnit.setCellValueFactory(new PropertyValueFactory<>("unit"));
-        chooseManuCode.setCellValueFactory(new PropertyValueFactory<>("manufacturerCode"));
-        choosePrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        chooseSlCode.setCellValueFactory(new PropertyValueFactory<>("slCode"));
-        chooseExpiredDate.setCellValueFactory(new PropertyValueFactory<>("expiryDate"));
     }
 
     private void loadShowMedicineData() {
@@ -73,7 +57,6 @@ public class PrescriptionController {
             return;
         }
         findMedicineError.setText("");
-        chooseMedicineTable.setVisible(false);
 
         // Bạn có thể clone nếu muốn tạo object mới để chỉnh sửa riêng
         Medicine medicineToShow = new Medicine();
@@ -100,11 +83,10 @@ public class PrescriptionController {
     public void findMedicine(String keyword) {
         if (keyword.isEmpty()) {
             findMedicineError.setText("");
-            chooseMedicineTable.getItems().clear();
             return;
         }
-        chooseMedicineTable.setVisible(true);
-        showMedicineTable.setVisible(false);
+
+
         // Tim kiem thuoc dua tren ten thuoc va hoat chat
         List<Medicine> filteredMedicines = new ArrayList<>();
         for (Medicine medicine : originalMedicineList) {
@@ -115,27 +97,19 @@ public class PrescriptionController {
             }
         }
 
-        updateChooseMedicineTable(filteredMedicines);
-    }
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/home/mec888/doctor/appointment/modal/prescription-modal.fxml"));
+            StackPane modalPane = loader.load();
 
-    private void updateChooseMedicineTable(List<Medicine> medicines) {
-        chooseMedicineTable.getItems().clear();
-        chooseMedicineTable.setVisible(true);
-        chooseMedicineTable.setManaged(true);
-        loadMedicineData();
-        for (Medicine medicine : medicines) {
-            chooseMedicineTable.getItems().add(medicine);
+            PrescriptionModalController controller = loader.getController();
+            controller.setMedicines(filteredMedicines);
+
+            AnchorPane root = (AnchorPane) findMedicine.getScene().getRoot();
+            root.getChildren().add(modalPane);
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    }
 
-    private void handleChooseMedicine() {
-        selectedMedicine = chooseMedicineTable.getSelectionModel().getSelectedItem();
-        if (selectedMedicine != null) {
-            findMedicine.setText(selectedMedicine.getName());
-            chooseMedicineTable.setVisible(false);
-            chooseMedicineTable.setManaged(false);
-            showMedicineTable.setVisible(true);
-        }
     }
-
 }

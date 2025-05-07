@@ -76,10 +76,10 @@
                 <Label fx:id="roomErrorLabel" textFill="red"/> <!-- Thông báo lỗi -->
             </VBox>
 
-            <!-- Specialization Field -->
+            <!-- Specialization Field - Changed from TextField to ComboBox -->
             <VBox>
                 <Label styleClass="label-input" text="Specialization:"/>
-                <TextField fx:id="specializationField" styleClass="input-field"/>
+                <ComboBox fx:id="specializationComboBox" prefWidth="Infinity" styleClass="input-field"/>
                 <Label fx:id="specializationErrorLabel" textFill="red"/> <!-- Thông báo lỗi -->
             </VBox>
 

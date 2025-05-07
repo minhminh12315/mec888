@@ -1,9 +1,6 @@
 package com.home.mec888.controller.admin.doctor;
 
-import com.home.mec888.dao.DepartmentDao;
-import com.home.mec888.dao.DoctorDao;
-import com.home.mec888.dao.RoomDao;
-import com.home.mec888.dao.UserDao;
+import com.home.mec888.dao.*;
 import com.home.mec888.entity.*;
 import com.home.mec888.util.SceneSwitcher;
 import javafx.collections.FXCollections;
@@ -23,13 +20,13 @@ public class DoctorAddController {
     @FXML
     public ComboBox<Room> roomComboBox;
     @FXML
-    public TextField specializationField;
-    @FXML
     public TextField licenseField;
     @FXML
     private Label userErrorLabel;
     @FXML
     private Label roomErrorLabel;
+    @FXML
+    public ComboBox<Specialization> specializationComboBox;
     @FXML
     private Label specializationErrorLabel;
     @FXML
@@ -47,6 +44,7 @@ public class DoctorAddController {
     private UserDao userDao;
     private RoomDao roomDao;
     private DoctorDao doctorDao;
+    private SpecializationDao specializationDao;
 
     private static final String word = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private static final String digits = "0123456789";
@@ -81,6 +79,28 @@ public class DoctorAddController {
 //            }
 //        });
 //
+        specializationComboBox.getItems().addAll(specializationDao.getAllSpecializations());
+
+        // Set up display for specialization combobox
+        specializationComboBox.setCellFactory(param -> new ListCell<>() {
+            @Override
+            protected void updateItem(Specialization specialization, boolean empty) {
+                super.updateItem(specialization, empty);
+                setText((specialization == null || empty) ? "" : specialization.getName());
+            }
+        });
+
+        specializationComboBox.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Specialization specialization) {
+                return (specialization != null) ? specialization.getName() : "";
+            }
+
+            @Override
+            public Specialization fromString(String string) {
+                return null;
+            }
+        });
         genderComboBox.setItems(FXCollections.observableArrayList("Male", "Female"));
 
         roomComboBox.setCellFactory(param -> new ListCell<>() {
@@ -190,11 +210,11 @@ public class DoctorAddController {
         }
 
         // Kiểm tra Specialization Field
-        if (specializationField.getText().trim().isEmpty()) {
-            showError(specializationField, specializationErrorLabel, "Please enter specialization.");
+        if (specializationComboBox.getValue() == null) {
+            showError(specializationComboBox, specializationErrorLabel, "Please select a specialization.");
             isValid = false;
-        }else {
-            clearError(specializationField, specializationErrorLabel);
+        } else {
+            clearError(specializationComboBox, specializationErrorLabel);
         }
 
         // Kiểm tra License Field
@@ -253,9 +273,9 @@ public class DoctorAddController {
         // Xóa lựa chọn của các ComboBox
 //        userComboBox.getSelectionModel().clearSelection();
         roomComboBox.getSelectionModel().clearSelection();
+        specializationComboBox.getSelectionModel().clearSelection();
 
         // Xóa nội dung của các TextField
-        specializationField.clear();
         licenseField.clear();
 
         firstNameField.clear();
@@ -327,7 +347,7 @@ public class DoctorAddController {
 
         User user = getLastUser();
         Room room = roomComboBox.getValue();
-        String specialization = specializationField.getText().trim();
+        Specialization specialization = specializationComboBox.getValue();
         String license_number = licenseField.getText().trim();
 
         resetErrorLabels(); // Xóa các thông báo lỗi cũ
@@ -336,7 +356,7 @@ public class DoctorAddController {
             Doctor doctor = new Doctor();
             doctor.setUser(user);
             doctor.setRoom(room);
-            doctor.setSpecialization(specialization);
+//            doctor.setSpecialization(specialization);
             doctor.setLicense_number(license_number);
 
             doctorDao.saveDoctor(doctor);

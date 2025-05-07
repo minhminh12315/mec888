@@ -9,19 +9,19 @@ import java.util.List;
 
 public class TreatmentStepDao {
 
-    public boolean saveTreatmentStep(TreatmentSteps treatmentStep) {
+    public TreatmentSteps saveTreatmentStep(TreatmentSteps treatmentStep) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.save(treatmentStep);
             transaction.commit();
-            return true;
+            return treatmentStep;
         } catch (Exception e) {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
 
@@ -71,6 +71,16 @@ public class TreatmentStepDao {
                 transaction.rollback();
             }
             e.printStackTrace();
+        }
+    }
+    public List<TreatmentSteps> getAllTreatmentStepsByAppointmentId(Long appointmentId) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("FROM TreatmentSteps WHERE appointment.id = :appointmentId", TreatmentSteps.class)
+                    .setParameter("appointmentId", appointmentId)
+                    .list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }
