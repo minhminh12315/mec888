@@ -31,6 +31,7 @@
         <mapping class="com.home.mec888.entity.Service"/>
         <mapping class="com.home.mec888.entity.DoctorSchedule"/>
         <mapping class="com.home.mec888.entity.Appointment"/>
+        <mapping class="com.home.mec888.entity.Specialization"/>
 
 
     </session-factory>
