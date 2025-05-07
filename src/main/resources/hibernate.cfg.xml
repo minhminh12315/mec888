@@ -34,6 +34,7 @@
         <mapping class="com.home.mec888.entity.TreatmentSteps"/>
         <mapping class="com.home.mec888.entity.TreatmentStepServices"/>
         <mapping class="com.home.mec888.entity.Specialization"/>
+        <mapping class="com.home.mec888.entity.MedicalRecord"/>
 
 
     </session-factory>

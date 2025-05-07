@@ -1,5 +1,6 @@
 package com.home.mec888.dao;
 
+import com.home.mec888.entity.Appointment;
 import com.home.mec888.entity.MedicalRecord;
 import com.home.mec888.util.HibernateUtil;
 import org.hibernate.Session;
@@ -69,6 +70,17 @@ public class MedicalRecordDao {
                 transaction.rollback();
             }
             e.printStackTrace();
+        }
+    }
+
+    public MedicalRecord getMedicalRecordByAppointment(Appointment appointment) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("from MedicalRecord where appointment = :appointment", MedicalRecord.class)
+                    .setParameter("appointment", appointment)
+                    .uniqueResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

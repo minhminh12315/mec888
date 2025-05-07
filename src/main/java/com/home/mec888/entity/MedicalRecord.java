@@ -1,6 +1,6 @@
 package com.home.mec888.entity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
@@ -27,7 +27,7 @@ public class MedicalRecord {
     @Column(name = "pulse_rate")
     private Integer pulseRate;
 
-    @Column(name = "temperature", precision = 4, scale = 1)
+    @Column(name = "temperature", precision = 4)
     private Double temperature;
 
     @Column(name = "bp_systolic")
@@ -39,7 +39,7 @@ public class MedicalRecord {
     @Column(name = "respiration_rate")
     private Integer respirationRate;
 
-    @Column(name = "weight", precision = 5, scale = 2)
+    @Column(name = "weight", precision = 5)
     private Double weight;
 
     // Treatment information
