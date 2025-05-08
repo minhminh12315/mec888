@@ -7,12 +7,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 import java.sql.Date;
 import java.util.List;
 
-public class PrescriptionModalController {
+public class PrescriptionModalController{
     @FXML
     public TableView<Medicine> chooseMedicineTable;
     @FXML
@@ -21,12 +25,23 @@ public class PrescriptionModalController {
     public TableColumn<Double, Medicine> chooseDosage, choosePrice;
     @FXML
     public TableColumn<Date, Medicine> chooseExpiredDate;
+    @FXML
+    public VBox overlay;
 
-    private MedicineDao medicineDao;
+    private TextField findMedicine;
+    private PrescriptionController prescriptionController;
+
+    public void setParentController(PrescriptionController prescriptionController) {
+        this.prescriptionController = prescriptionController;
+    }
+
+    public void setFindMedicine(TextField findMedicine) {
+        this.findMedicine = findMedicine;
+    }
 
     @FXML
     public void initialize() {
-        medicineDao = new MedicineDao();
+        MedicineDao medicineDao = new MedicineDao();
         loadMedicineData();
 
         chooseMedicineTable.setOnMouseClicked(event -> {
@@ -46,13 +61,8 @@ public class PrescriptionModalController {
         choosePrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         chooseSlCode.setCellValueFactory(new PropertyValueFactory<>("slCode"));
         chooseExpiredDate.setCellValueFactory(new PropertyValueFactory<>("expiryDate"));
-    }
 
-    private void handleChooseMedicine() {
-        PrescriptionController.selectedMedicine = chooseMedicineTable.getSelectionModel().getSelectedItem();
-        if (PrescriptionController.selectedMedicine != null) {
-            PrescriptionController.findMedicine.setText(PrescriptionController.selectedMedicine.getName());
-        }
+        chooseMedicineTable.getItems().clear();
     }
 
     public void setMedicines(List<Medicine> medicines) {
@@ -62,6 +72,20 @@ public class PrescriptionModalController {
         }
     }
 
-    public void closeModal(ActionEvent actionEvent) {
+    private void handleChooseMedicine() {
+        // Lấy medicine đã chọn
+        Medicine chosen = chooseMedicineTable.getSelectionModel().getSelectedItem();
+        if (chosen == null) return;
+
+        prescriptionController.handleSetFromModal(chosen.getName());
+
+        // Gán giá trị và đóng modal
+        PrescriptionController.selectedMedicine = chosen;
+        findMedicine.setText(chosen.getName());
+        prescriptionController.closeCurrentModal();
+    }
+
+    public void closeModal(){
+        prescriptionController.closeCurrentModal();
     }
 }

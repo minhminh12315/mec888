@@ -22,6 +22,7 @@ module com.home.mec888 {
     requires spring.security.crypto;
     requires java.desktop;
     requires javax.mail.api;
+    requires jasperreports;
 
     // Mở package chứa entity cho Hibernate ORM (để nó có thể quét bằng reflection)
     opens com.home.mec888.entity to org.hibernate.orm.core, javafx.base;

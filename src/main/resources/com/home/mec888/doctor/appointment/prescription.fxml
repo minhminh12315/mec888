@@ -12,8 +12,21 @@
                 <TextField fx:id="findMedicine" promptText="Medicine name/ Active ingredient"/>
                 <Label fx:id="findMedicineError" style="-fx-text-fill: red"/>
             </VBox>
+            <VBox>
+                <TextField fx:id="medicineQty" promptText="Quantity"/>
+                <Label fx:id="medicineQtyError" style="-fx-text-fill: red"/>
+            </VBox>
+            <VBox>
+                <TextField fx:id="medicineUsage" promptText="Usage"/>
+                <Label fx:id="medicineUsageError" style="-fx-text-fill: red"/>
+            </VBox>
+            <VBox>
+                <TextField fx:id="medicineNote" promptText="Notes"/>
+                <Label fx:id="medicineNoteError" style="-fx-text-fill: red"/>
+            </VBox>
             <Button alignment="TOP_CENTER" fx:id="applyButton" onAction="#handleApply" text="Apply"/>
         </HBox>
+        <StackPane fx:id="modalPrescription"/>
         <!-- Bảng show thuốc thực tế -->
         <TableView fx:id="showMedicineTable">
             <columns>
