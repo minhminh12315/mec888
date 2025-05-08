@@ -224,3 +224,12 @@
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
 }
+.text-area:filled {
+    -fx-background-color: white;
+}
+.diagnosticCell{
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 16 0 16 0;
+    -fx-border-color: #CCCCCC;
+    -fx-border-width: 0px 0px 1px 0px;
+}

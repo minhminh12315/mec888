@@ -13,10 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -27,7 +24,7 @@ public class DiagnosticTestController {
     @FXML
     public Button btn_addServices;
     @FXML
-    public VBox diagnosticListContainer;
+    public GridPane diagnosticTestGrid;
     ServiceDao serviceDao;
     TreatmentStepServiceDao treatmentStepServiceDao;
     TreatmentStepDao treatmentStepDao;
@@ -46,10 +43,13 @@ public class DiagnosticTestController {
         List<TreatmentSteps> treatmentSteps = treatmentStepDao.getAllTreatmentStepsByAppointmentId(SeeADoctorContainerController.currentAppointment.getId());
         if (treatmentSteps != null) {
             // Clear the existing content in the diagnosticListContainer
-            diagnosticListContainer.getChildren().clear();
+//            diagnosticTestGrid.getChildren().clear();
+            int row = 1;
             for (TreatmentSteps treatmentSteps1 : treatmentSteps) {
-                System.out.println(treatmentSteps1);
                 TreatmentStepServices treatmentStepServices = treatmentStepServiceDao.getTreatmentStepServiceByTreatmentStepID(treatmentSteps1.getId());
+
+                GridPane grid = new GridPane();
+
                 if (treatmentStepServices != null) {
                     HBox hBox = new HBox();
 
@@ -57,45 +57,56 @@ public class DiagnosticTestController {
                             treatmentStepServices.getService() != null ? treatmentStepServices.getService().getName() : ""
                     );
                     serviceNameLabel.setPrefWidth(400);
+                    serviceNameLabel.getStyleClass().add("diagnosticCell");
 
                     Label room = new Label(
                             treatmentStepServices.getService() != null && treatmentStepServices.getService().getRoom() != null
-                                    ?"|  " + treatmentStepServices.getService().getRoom().getRoomNumber()
+                                    ? treatmentStepServices.getService().getRoom().getRoomNumber()
                                     : ""
                     );
+                    room.getStyleClass().add("diagnosticCell");
                     room.setPrefWidth(150);
 
                     Label note = new Label(
                             treatmentStepServices.getTreatmentStep() != null && treatmentStepServices.getTreatmentStep().getStepDescription() != null
-                                    ?"|  " + treatmentStepServices.getTreatmentStep().getStepDescription()
+                                    ? treatmentStepServices.getTreatmentStep().getStepDescription()
                                     : ""
                     );
+                    note.getStyleClass().add("diagnosticCell");
                     note.setPrefWidth(250);
 
                     Label startTime = new Label(
                             treatmentStepServices.getTreatmentStep() != null && treatmentStepServices.getTreatmentStep().getStartTime() != null
-                                    ?"|  " + treatmentStepServices.getTreatmentStep().getStartTime().toString()
+                                    ? treatmentStepServices.getTreatmentStep().getStartTime().toString()
                                     : ""
                     );
+                    startTime.getStyleClass().add("diagnosticCell");
                     startTime.setPrefWidth(150);
 
                     Label endTime = new Label(
                             treatmentStepServices.getTreatmentStep() != null && treatmentStepServices.getTreatmentStep().getEndTime() != null
-                                    ?"|  " + treatmentStepServices.getTreatmentStep().getEndTime().toString()
+                                    ? treatmentStepServices.getTreatmentStep().getEndTime().toString()
                                     : ""
                     );
+                    endTime.getStyleClass().add("diagnosticCell");
                     endTime.setPrefWidth(150);
 
                     Label diagnostic = new Label(
                             treatmentStepServices.getTreatmentStep() != null && treatmentStepServices.getTreatmentStep().getOutcome() != null
-                                    ?"|  " + treatmentStepServices.getTreatmentStep().getOutcome()
+                                    ? treatmentStepServices.getTreatmentStep().getOutcome()
                                     : ""
                     );
+                    diagnostic.getStyleClass().add("diagnosticCell");
                     diagnostic.setPrefWidth(300);
 
-                    hBox.getChildren().addAll(serviceNameLabel, room, note, startTime, endTime, diagnostic);
-                    diagnosticListContainer.getChildren().add(hBox);
+                    diagnosticTestGrid.add(serviceNameLabel, 0, row);
+                    diagnosticTestGrid.add(room, 1, row);
+                    diagnosticTestGrid.add(note, 2, row);
+                    diagnosticTestGrid.add(startTime, 3, row);
+                    diagnosticTestGrid.add(endTime, 4, row);
+                    diagnosticTestGrid.add(diagnostic, 5, row);
 
+                    row++;
                     System.out.println(treatmentStepServices);
                 }
             }
