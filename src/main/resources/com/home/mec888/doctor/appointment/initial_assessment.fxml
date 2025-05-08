@@ -170,33 +170,13 @@
                 <Label fx:id="care_note_error" style="-fx-text-fill: red"/>
             </HBox>
 
-
-            <!--            <VBox>-->
-            <!--                <Label styleClass="label-input" text="Department:"/>-->
-            <!--                <ComboBox fx:id="roomComboBox" prefWidth="Infinity" styleClass="input-field"/>-->
-            <!--                <Label fx:id="roomErrorLabel" textFill="red"/> &lt;!&ndash; Thông báo lỗi &ndash;&gt;-->
-            <!--            </VBox>-->
-
-            <!--            &lt;!&ndash; Specialization Field &ndash;&gt;-->
-            <!--            <VBox>-->
-            <!--                <Label styleClass="label-input" text="Specialization:"/>-->
-            <!--                <TextField fx:id="specializationField" styleClass="input-field"/>-->
-            <!--                <Label fx:id="specializationErrorLabel" textFill="red"/> &lt;!&ndash; Thông báo lỗi &ndash;&gt;-->
-            <!--            </VBox>-->
-
-            <!--            &lt;!&ndash; License Field &ndash;&gt;-->
-            <!--            <VBox>-->
-            <!--                <Label styleClass="label-input" text="License Number:"/>-->
-            <!--                <TextField fx:id="licenseField" styleClass="input-field"/>-->
-            <!--                <Label fx:id="licenseErrorLabel" textFill="red"/> &lt;!&ndash; Thông báo lỗi &ndash;&gt;-->
-            <!--            </VBox>-->
-
-            <!--            <HBox alignment="CENTER_RIGHT" spacing="24">-->
-            <!--                <Button fx:id="clearButton" mnemonicParsing="false"-->
-            <!--                        onAction="#handleClear" prefHeight="30.0" prefWidth="120.0" text="Clear" styleClass="clear-btn"/>-->
-            <!--                <Button fx:id="saveButton" mnemonicParsing="false"-->
-            <!--                        onAction="#handleSave" prefHeight="30.0" prefWidth="120.0" text="Save" styleClass="save-btn"/>-->
-            <!--            </HBox>-->
+            <HBox alignment="CENTER_RIGHT" spacing="24">
+                <Button fx:id="clearButton" mnemonicParsing="false"
+                        onAction="#handleClear" prefHeight="30.0" prefWidth="120.0" text="Clear"
+                        styleClass="clear-btn"/>
+                <Button fx:id="saveButton" mnemonicParsing="false"
+                        onAction="#handleSave" prefHeight="30.0" prefWidth="120.0" text="Save" styleClass="save-btn"/>
+            </HBox>
 
         </VBox>
     </ScrollPane>

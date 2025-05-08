@@ -46,7 +46,12 @@ public class PatientProfileController {
         Patient patientInfo = SeeADoctorContainerController.currentPatient;
 
         fullname.setText(patientInfo.getUser().getFirstName() + patientInfo.getUser().getLastName());
-        dob.setText(patientInfo.getUser().getDateOfBirth().toString());
+
+        if(patientInfo.getUser().getDateOfBirth() != null)
+            dob.setText(patientInfo.getUser().getDateOfBirth().toString());
+        else
+            dob.setText("Chưa có thông tin");
+
         gender.setText(patientInfo.getUser().getGender());
         email.setText(patientInfo.getUser().getEmail());
         phone.setText(patientInfo.getUser().getPhone());

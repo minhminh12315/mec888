@@ -44,8 +44,15 @@ public class SeeADoctorContainerController {
     public void setAppointmentHeader() {
         if (currentAppointment != null) {
             String patientName = currentPatient.getUser().getFirstName();
-            String patientAge = (LocalDate.now().getYear() - currentPatient.getUser().getDateOfBirth().getYear()) + " (" +
-                    currentPatient.getUser().getDateOfBirth().getYear() + " years old)";
+            String patientAge;
+
+            if (currentPatient.getUser().getDateOfBirth() != null) {
+                patientAge = (LocalDate.now().getYear() - currentPatient.getUser().getDateOfBirth().getYear()) + " (" +
+                        currentPatient.getUser().getDateOfBirth().getYear() + " years old)";
+            } else {
+                patientAge = "Chưa có thông tin";
+            }
+
             String patientGender = currentPatient.getUser().getGender();
             String patientAddress = currentPatient.getUser().getAddress();
             generalInformation.setText(patientName + " | " + patientAge + " | " + patientGender);
