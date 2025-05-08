@@ -165,9 +165,11 @@ public class DiagnosticTestModalController {
             System.out.println("Please fill in all required fields.");
             return;
         }
+
+
         // Save the treatment step service
         TreatmentSteps treatmentSteps = new TreatmentSteps();
-        treatmentSteps.setDoctor(IndexController.doctor);
+//        treatmentSteps.setDoctor(IndexController.doctor);
         treatmentSteps.setStepDescription(noteText);
         treatmentSteps.setAppointment(SeeADoctorContainerController.currentAppointment);
 
