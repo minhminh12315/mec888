@@ -5,11 +5,12 @@
 <?import org.kordamp.ikonli.javafx.*?>
 
 <?import javafx.scene.shape.Rectangle?>
-<StackPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+<StackPane fx:id="modalPrescription" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.home.mec888.controller.doctor.appointment.modal.PrescriptionModalController"
            style="-fx-background-color: rgba(0, 0, 0, 0.3);">
+    <Rectangle fx:id="overlay" fill="black" opacity="0.3"/>
     <!-- Modal content wrapper -->
-    <VBox fx:id="overlay" alignment="CENTER" spacing="10"
+    <VBox alignment="CENTER" spacing="10"
           style="-fx-background-color: white; -fx-padding: 20; -fx-border-radius: 8; -fx-background-radius: 8;"
           maxWidth="1200" maxHeight="500">
 
@@ -24,7 +25,9 @@
                 </graphic>
             </Button>
         </HBox>
-
+        <HBox>
+            <TextField fx:id="findMedicine" promptText="Medicine name/ Active ingredient"/>
+        </HBox>
         <TableView fx:id="chooseMedicineTable" prefHeight="400">
             <columns>
                 <TableColumn fx:id="chooseName" prefWidth="200" text="Medicine name"/>
