@@ -26,15 +26,17 @@
                         text="Add Services"/>
             </HBox>
             <VBox spacing="16" style="-fx-padding: 16 0 0 0;">
-                <GridPane fx:id="diagnosticTestGrid">
-                    <Label text="Service Name" style="-fx-font-weight: bold; -fx-font-size: 20;" styleClass="diagnosticCell" GridPane.columnIndex="0" GridPane.rowIndex="0" prefWidth="400"/>
-                    <Label text="Room" style="-fx-font-weight: bold; -fx-font-size: 20;" styleClass="diagnosticCell" GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="150"/>
-                    <Label text="Note" style="-fx-font-weight: bold; -fx-font-size: 20;" styleClass="diagnosticCell" GridPane.columnIndex="2" GridPane.rowIndex="0" prefWidth="250"/>
-                    <Label text="Start Time" style="-fx-font-weight: bold; -fx-font-size: 20;" styleClass="diagnosticCell" GridPane.columnIndex="3" GridPane.rowIndex="0" prefWidth="150"/>
-                    <Label text="End Time" style="-fx-font-weight: bold; -fx-font-size: 20;" styleClass="diagnosticCell" GridPane.columnIndex="4" GridPane.rowIndex="0" prefWidth="150"/>
-                    <Label text="Diagnostic" style="-fx-font-weight: bold; -fx-font-size: 20;" styleClass="diagnosticCell" GridPane.columnIndex="5" GridPane.rowIndex="0" prefWidth="300"/>
-                </GridPane>
-
+                <TableView fx:id="diagnosticTestTabelView">
+                    <columns>
+                        <TableColumn fx:id="serviceNameColumn" text="Service Name" prefWidth="400"/>
+                        <TableColumn fx:id="roomColumn" text="Room" prefWidth="150"/>
+                        <TableColumn fx:id="noteColumn" text="Note" prefWidth="250"/>
+                        <TableColumn fx:id="startTimeColumn" text="Start Time" prefWidth="150"/>
+                        <TableColumn fx:id="endTimeColumn" text="End Time" prefWidth="150"/>
+                        <TableColumn fx:id="diagnosticColumn" text="Diagnostic" prefWidth="300"/>
+                        <TableColumn fx:id="actionColumn" text="Action" prefWidth="75"/>
+                    </columns>
+                </TableView>
             </VBox>
         </VBox>
     </ScrollPane>

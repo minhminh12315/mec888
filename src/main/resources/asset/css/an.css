@@ -1,41 +1,48 @@
-.grid-cell{
-       -fx-border-color: #999;
-       -fx-border-width: 1;
-       -fx-border-style: solid;
-       -fx-alignment: center; /* Căn giữa text */
-       -fx-pref-width: 120;
-       -fx-pref-height: 120;
-       -fx-font-size: 16px;
-       -fx-background-color: white;
-       -fx-cursor: hand;
+.grid-cell {
+    -fx-border-color: #999;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-alignment: center;
+    /* Căn giữa text */
+    -fx-pref-width: 120;
+    -fx-pref-height: 120;
+    -fx-font-size: 16px;
+    -fx-background-color: white;
+    -fx-cursor: hand;
 }
-.scheduleGridMonth{
+
+.scheduleGridMonth {
     -fx-padding: 0 0 64 0;
 }
-.grid-cell-month{
-       -fx-border-color: #999;
-       -fx-border-width: 1;
-       -fx-border-style: solid;
-       -fx-alignment: top-right; /* Căn giữa text */
-       -fx-padding: 0 4 4 4;
-       -fx-pref-width: 240;
-       -fx-pref-height: 176;
-       -fx-max-width: 224;
-       -fx-max-height: 160;
-       -fx-font-size: 16px;
-       -fx-background-color: white;
-       -fx-cursor: hand;
+
+.grid-cell-month {
+    -fx-border-color: #999;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-alignment: top-right;
+    /* Căn giữa text */
+    -fx-padding: 0 4 4 4;
+    -fx-pref-width: 240;
+    -fx-pref-height: 176;
+    -fx-max-width: 224;
+    -fx-max-height: 160;
+    -fx-font-size: 16px;
+    -fx-background-color: white;
+    -fx-cursor: hand;
 }
-.grid-cell-month .disable{
-     -fx-padding:0 0 0 0;
+
+.grid-cell-month .disable {
+    -fx-padding: 0 0 0 0;
 }
-.grid-cell-month-header{
-        -fx-pref-width: 224;
-        -fx-pref-height: 64;
-        -fx-font-size: 16px;
-        -fx-alignment: center;
+
+.grid-cell-month-header {
+    -fx-pref-width: 224;
+    -fx-pref-height: 64;
+    -fx-font-size: 16px;
+    -fx-alignment: center;
 }
-.shift-cell{
+
+.shift-cell {
     -fx-min-width: 40;
     -fx-min-height: 40;
     -fx-border-color: #ccc;
@@ -43,193 +50,226 @@
     -fx-background-radius: 6;
     -fx-border-radius: 6;
 }
-.available-shift{
+
+.available-shift {
     -fx-background-color: #ffffff;
 }
-.taken-by-other-shift{
+
+.taken-by-other-shift {
     -fx-background-color: #FFFED3;
 }
-.your-shift{
+
+.your-shift {
     -fx-background-color: #BBE9FF;
 }
-.selector-schedule-button{
-        -fx-border-color: #CCCCCC;
-        -fx-border-radius: 6px;
-        -fx-background-radius: 6px;
-        -fx-padding:8 16 8 16;
-        -fx-background-color: #F0F0F0; /* Giống kiểu disable */
-        -fx-cursor: hand;
-        -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 2, 0.1, 0, 1);
+
+.selector-schedule-button {
+    -fx-border-color: #CCCCCC;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 8 16 8 16;
+    -fx-background-color: #F0F0F0;
+    /* Giống kiểu disable */
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 2, 0.1, 0, 1);
 }
-.selector-schedule-button:hover{
+
+.selector-schedule-button:hover {
     -fx-background-color: #E0E0E0;
 }
-.disabled-cell{
+
+.disabled-cell {
     -fx-background-color: #F0F0F0;
 }
 
-.selected-schedule-btn{
-            -fx-border-radius: 6px;
-            -fx-background-radius: 6px;
-            -fx-padding:8 16 8 16;
-            -fx-background-color: #1071e1; /* Giống kiểu disable */
-            -fx-cursor: hand;
-            -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 2, 0.1, 0, 1);
+.selected-schedule-btn {
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 8 16 8 16;
+    -fx-background-color: #1071e1;
+    /* Giống kiểu disable */
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 2, 0.1, 0, 1);
 }
-.selected-schedule-btn Text{
+
+.selected-schedule-btn Text {
     -fx-fill: white;
 }
-.selected-schedule-btn .ikonli-font-icon{
+
+.selected-schedule-btn .ikonli-font-icon {
     -fx-fill: white;
 }
 
 .badgeMorningShift {
-    -fx-padding:4 4 4 0;
+    -fx-padding: 4 4 4 0;
     -fx-border-radius: 8px;
     -fx-background-radius: 8px;
-    -fx-background-color: #FFFED3; /* Vàng pastel */
-    -fx-text-fill: #000000; /* Văn bản màu đen để dễ đọc */
+    -fx-background-color: #FFFED3;
+    /* Vàng pastel */
+    -fx-text-fill: #000000;
+    /* Văn bản màu đen để dễ đọc */
     -fx-text-overrun: ellipsis;
 }
 
 .badgeAfternoonShift {
-    -fx-padding:4 4 4 0;
+    -fx-padding: 4 4 4 0;
     -fx-border-radius: 8px;
     -fx-background-radius: 8px;
-    -fx-background-color: #BBE9FF; /* Xanh dương pastel */
-    -fx-text-fill: #000000; /* Văn bản màu đen để dễ đọc */
+    -fx-background-color: #BBE9FF;
+    /* Xanh dương pastel */
+    -fx-text-fill: #000000;
+    /* Văn bản màu đen để dễ đọc */
     -fx-text-overrun: ellipsis;
 }
 
 .badgeNightShift {
-    -fx-padding:4 4 4 0;
+    -fx-padding: 4 4 4 0;
     -fx-border-radius: 8px;
     -fx-background-radius: 8px;
-   /* -fx-background-color: #B1AFFF; /* Tím pastel */
-    -fx-background-color: #ffcccc; /* Tím pastel */
-    -fx-text-fill: #000000; /* Văn bản màu đen để dễ đọc */
+    /* -fx-background-color: #B1AFFF; /* Tím pastel */
+    -fx-background-color: #ffcccc;
+    /* Tím pastel */
+    -fx-text-fill: #000000;
+    /* Văn bản màu đen để dễ đọc */
     -fx-text-overrun: ellipsis;
 }
 
-.buttonRegisterShift{
-     -fx-pref-width:80;
-     -fx-border-color: #CCCCCC;
-     -fx-border-radius: 6px;
-     -fx-background-radius: 6px;
-     -fx-padding:8 16 8 16;
-     -fx-cursor: hand;
-     -fx-background-color: transparent;
-     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 2, 0.1, 0, 1);
-     -fx-font-weight: 500;
+.buttonRegisterShift {
+    -fx-pref-width: 80;
+    -fx-border-color: #CCCCCC;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 8 16 8 16;
+    -fx-cursor: hand;
+    -fx-background-color: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 2, 0.1, 0, 1);
+    -fx-font-weight: 500;
 }
-.buttonRegisterShift:hover{
+
+.buttonRegisterShift:hover {
     -fx-border-color: transparent;
     -fx-background-color: #F0F0F0;
 }
-.buttonCancelShift{
-     -fx-pref-width:80;
-     -fx-text-fill: #EF4444;
-     -fx-border-color: #EF4444;
-     -fx-border-radius: 6px;
-     -fx-background-radius: 6px;
-     -fx-padding:8 16 8 16;
-     -fx-cursor: hand;
-     -fx-background-color: transparent;
-     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 2, 0.1, 0, 1);
-     -fx-font-weight: 500;
+
+.buttonCancelShift {
+    -fx-pref-width: 80;
+    -fx-text-fill: #EF4444;
+    -fx-border-color: #EF4444;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 8 16 8 16;
+    -fx-cursor: hand;
+    -fx-background-color: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 2, 0.1, 0, 1);
+    -fx-font-weight: 500;
 }
-.buttonCancelShift:hover{
+
+.buttonCancelShift:hover {
     -fx-border-color: transparent;
     -fx-background-color: #EF4444;
     -fx-text-fill: #FFFFFF;
 }
 
-.buttonSeeDoctor{
+.buttonSeeDoctor {
     -fx-padding: 8 16 8 16;
     -fx-border-color: transparent;
     -fx-border-width: 0;
     -fx-background-color: #FFFFFF;
     -fx-text-fill: #000000;
 }
-.buttonSeeDoctorActive{
-        -fx-padding: 8 16 8 16;
-        -fx-border-color: radial-gradient(
-                                      focus-angle 0deg,
-                                      focus-distance 0%,
-                                      center 0% 0%,
-                                      radius 100%,
-                                      #00adef,
-                                      #3871c1
-                              );
-        -fx-border-width: 0px 0px 4px 0px;
-        -fx-border-radius: 4px;
-        -fx-background-color: #FFFFFF;
-        -fx-text-fill: radial-gradient(
-                                   focus-angle 0deg,
-                                   focus-distance 0%,
-                                   center 0% 0%,
-                                   radius 100%,
-                                   #00adef,
-                                   #3871c1
-                           );
+
+.buttonSeeDoctorActive {
+    -fx-padding: 8 16 8 16;
+    -fx-border-color: radial-gradient(focus-angle 0deg,
+            focus-distance 0%,
+            center 0% 0%,
+            radius 100%,
+            #00adef,
+            #3871c1);
+    -fx-border-width: 0px 0px 4px 0px;
+    -fx-border-radius: 4px;
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: radial-gradient(focus-angle 0deg,
+            focus-distance 0%,
+            center 0% 0%,
+            radius 100%,
+            #00adef,
+            #3871c1);
 }
 
-.appointmentHeaderInfo{
+.appointmentHeaderInfo {
     -fx-background-color: #FFD4D1;
     -fx-padding: 16;
     -fx-background-radius: 8px;
 }
-.appointmentHeaderInfo Text{
+
+.appointmentHeaderInfo Text {
     -fx-text-fill: #DC3545;
 }
 
-.textFieldDisable{
-   -fx-background-color: #dee2e5;
-   -fx-background-radius: 8px;
-   -fx-padding:8 16 8 16;
-   -fx-pre-width: INFINITY;
+.textFieldDisable {
+    -fx-background-color: #dee2e5;
+    -fx-background-radius: 8px;
+    -fx-padding: 8 16 8 16;
+    -fx-pre-width: INFINITY;
 }
-.textFieldDisable Text{
+
+.textFieldDisable Text {
     -fx-font-size: 16;
     -fx-font-weight: bold;
 }
-.service-row{
+
+.service-row {
     -fx-background-color: #FFFFFF;
     -fx-padding: 8 16 8 16;
     -fx-background-radius: 6px;
 }
-.service-row:hover{
+
+.service-row:hover {
     -fx-background-color: #F0F0F0;
 }
-.treatmentStepServiceTextField{
-    -fx-background-color: #FFFFFF;
-    -fx-padding: 8 16 8 16;
-    -fx-background-radius: 6px;
-    -fx-border-color: #CCCCCC;
-    -fx-border-radius: 8px;
-    -fx-border-width: 1;
-}
-.treatmentStepServiceTextField:focused{
-    -fx-border-color: #007bff;
-    -fx-border-radius: 8px;
-    -fx-border-width: 1;
-    -fx-effect: none;
-}
+
 .text-area {
+    -fx-background-insets: 0;
     -fx-text-box-border: transparent;
     -fx-background-insets: 0;
     -fx-background-color: white;
+    -fx-effect: none;
+    -fx-border-color: transparent;
+    -fx-border-radius: 0;
+    -fx-padding: 8 16 8 16;
+    -fx-border-width: 0;
 }
+
 .text-area:focused {
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
 }
+
 .text-area:filled {
     -fx-background-color: white;
 }
-.diagnosticCell{
+
+.text-area,
+.text-area .content,
+.text-area .scroll-pane {
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: transparent;
+    -fx-border-insets: 0;
+    -fx-border-radius: 0;
+    -fx-effect: none;
+    -fx-padding: 0;
+}
+
+.text-area .scroll-pane .viewport {
+    -fx-background-color: white;
+}
+
+
+.diagnosticCell {
     -fx-background-color: #FFFFFF;
-    -fx-padding: 16 0 16 0;
     -fx-border-color: #CCCCCC;
     -fx-border-width: 0px 0px 1px 0px;
 }
