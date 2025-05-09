@@ -139,7 +139,7 @@ public class InitialAssessmentController {
     private Integer validateIntegerField(TextField field, Label errorLabel, String fieldName) {
         try {
             String value = field.getText().trim();
-            if (value.isEmpty()) throw new IllegalArgumentException(fieldName + " is required.");
+            if (value.isEmpty()) return null; // Allow empty field
             return Integer.parseInt(value);
         } catch (NumberFormatException e) {
             errorLabel.setText(fieldName + " must be a valid number.");
@@ -150,7 +150,7 @@ public class InitialAssessmentController {
     private Double validateDoubleField(TextField field, Label errorLabel, String fieldName) {
         try {
             String value = field.getText().trim();
-            if (value.isEmpty()) throw new IllegalArgumentException(fieldName + " is required.");
+            if (value.isEmpty()) return null; // Allow empty field
             return Double.parseDouble(value);
         } catch (NumberFormatException e) {
             errorLabel.setText(fieldName + " must be a valid decimal number.");
@@ -160,10 +160,7 @@ public class InitialAssessmentController {
 
     private String validateTextField(TextField field, Label errorLabel, String fieldName) {
         String value = field.getText().trim();
-        if (value.isEmpty()) {
-            errorLabel.setText(fieldName + " is required.");
-            throw new IllegalArgumentException(fieldName + " is required.");
-        }
+        if (value.isEmpty()) return null; // Allow empty field
         return value;
     }
 
