@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.ColumnConstraints?>
+
+<?import javafx.geometry.Insets?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.home.mec888.controller.extractPDF.MedicalReportController"
+            styleClass="BackGround">
+
+    <VBox spacing="10" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20"
+          AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20">
+
+        <!-- Header Section -->
+        <HBox alignment="CENTER">
+            <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                <Label text="SỞ Y TẾ HÀ NỘI" style="-fx-font-weight: bold;"/>
+                <Label text="BỆNH VIỆN ĐA KHOA XANH PÔN" style="-fx-font-weight: bold;"/>
+                <Label text="Phòng 114A - Phòng khám bệnh" />
+                <Label text="truyền nhiễm" />
+            </VBox>
+
+            <VBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                <HBox alignment="CENTER_RIGHT" spacing="10">
+                    <Label text="STT:" style="-fx-font-weight: bold;"/>
+                    <Label text="53" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+                </HBox>
+                <Label text="Mã hồ sơ: 2504280956" />
+            </VBox>
+        </HBox>
+
+        <!-- Main Title -->
+        <Label text="PHIẾU CHUYỂN KHÁM CHUYÊN KHOA"
+               style="-fx-font-size: 18; -fx-font-weight: bold;"
+               alignment="CENTER"
+               maxWidth="Infinity"/>
+
+        <!-- Registration Date -->
+        <HBox alignment="CENTER">
+            <Label text="Ngày đăng ký: " />
+            <TextField fx:id="registrationDateField" promptText="DD/MM/YYYY"/>
+        </HBox>
+
+        <!-- Patient Information Form -->
+        <GridPane hgap="15" vgap="12">
+            <columnConstraints>
+                <ColumnConstraints halignment="LEFT" prefWidth="120" />
+                <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" prefWidth="200" />
+                <ColumnConstraints halignment="LEFT" prefWidth="80" />
+                <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" prefWidth="150" />
+            </columnConstraints>
+
+            <!-- Row 0 -->
+            <Label text="Họ và tên:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="nameField" promptText="Nhập họ tên"
+                       GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
+
+            <!-- Row 1 -->
+            <Label text="Ngày sinh:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <TextField fx:id="birthDateField" promptText="DD/MM/YYYY"
+                       GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+            <Label text="Tuổi:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+            <TextField fx:id="ageField" promptText="Tuổi"
+                       GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+            <!-- Row 2 -->
+            <Label text="Giới tính:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <TextField fx:id="genderField" promptText="Nam/Nữ"
+                       GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+            <!-- Row 3 -->
+            <Label text="Địa chỉ:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <TextField fx:id="addressField" promptText="Nhập địa chỉ"
+                       GridPane.rowIndex="3" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
+
+            <!-- Row 4 -->
+            <Label text="Đối tượng:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+            <TextField fx:id="patientTypeField" promptText="BHYT"
+                       GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+            <Label text="Loại đối tượng:" GridPane.rowIndex="4" GridPane.columnIndex="2"/>
+            <TextField fx:id="patientTypeDetailField" promptText="Bảo Hiểm Y Tế"
+                       GridPane.rowIndex="4" GridPane.columnIndex="3"/>
+
+            <!-- Row 5 -->
+            <Label text="Số thẻ BHYT:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+            <TextField fx:id="insuranceNumberField" promptText="Số thẻ bảo hiểm"
+                       GridPane.rowIndex="5" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
+
+            <!-- Row 6 -->
+            <Label text="Từ ngày:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+            <TextField fx:id="validFromField" promptText="DD/MM/YYYY"
+                       GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+
+            <Label text="đến ngày:" GridPane.rowIndex="6" GridPane.columnIndex="2"/>
+            <TextField fx:id="validToField" promptText="DD/MM/YYYY"
+                       GridPane.rowIndex="6" GridPane.columnIndex="3"/>
+        </GridPane>
+
+        <!-- Button Section -->
+        <HBox spacing="20" alignment="CENTER">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <Button fx:id="clearButton" text="Xóa Form" onAction="#handleClearAction"
+                    styleClass="save-btn"
+                    prefWidth="150" prefHeight="40"/>
+            <Button fx:id="exportButton" text="Xuất PDF" onAction="#handleExportAction"
+                    styleClass="save-btn"
+                    prefWidth="150" prefHeight="40"/>
+        </HBox>
+    </VBox>
+</AnchorPane>

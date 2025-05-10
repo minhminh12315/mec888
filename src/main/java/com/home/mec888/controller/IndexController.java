@@ -260,6 +260,6 @@ public class IndexController {
 
     public void handleExtractPDF(ActionEvent actionEvent){
         highlightActiveButton(moveExtractPDF);
-        SceneSwitcher.loadView("extractPDF/UserForm.fxml", actionEvent);
+        SceneSwitcher.loadView("extractPDF/MedicalReport.fxml", actionEvent);
     }
 }
