@@ -63,6 +63,8 @@ public class IndexController {
     public Button moveServiceButton;
     @FXML
     public Button moveSpecializationButton;
+    @FXML
+    public Button moveExtractPDF;
 
     @FXML
     public Button moveSettingsButton;
@@ -112,7 +114,8 @@ public class IndexController {
                 break;
             case "staff":
                 navigationBar.getChildren().addAll(
-                        moveAppointmentButton
+                        moveAppointmentButton,
+                        moveExtractPDF
                 );
 
                 break;
@@ -253,5 +256,10 @@ public class IndexController {
     public void handleSpecialization(ActionEvent actionEvent) {
         highlightActiveButton(moveSpecializationButton);
         SceneSwitcher.loadView("admin/specialization/specialization-management.fxml", actionEvent);
+    }
+
+    public void handleExtractPDF(ActionEvent actionEvent){
+        highlightActiveButton(moveExtractPDF);
+        SceneSwitcher.loadView("extractPDF/UserForm.fxml", actionEvent);
     }
 }

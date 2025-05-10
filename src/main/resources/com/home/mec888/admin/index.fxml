@@ -64,6 +64,9 @@
                     <Button prefWidth="240.0" fx:id="moveSpecializationButton" mnemonicParsing="false"
                             onAction="#handleSpecialization" styleClass="nav-btn"
                             text="Specialization"/>
+                    <Button prefWidth="240.0" fx:id="moveExtractPDF" mnemonicParsing="false"
+                            onAction="#handleExtractPDF" styleClass="nav-btn"
+                            text="Extract PDF"/>
                     <Region fx:id="regionBLock" VBox.vgrow="ALWAYS"/>
                     <!-- HBox đóng vai trò là button -->
                     <Button prefWidth="240.0" fx:id="buttonLogout" styleClass="btn-logout" text="Logout"

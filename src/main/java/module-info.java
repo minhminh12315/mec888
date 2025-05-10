@@ -23,6 +23,7 @@ module com.home.mec888 {
     requires java.desktop;
     requires javax.mail.api;
     requires jasperreports;
+    requires itextpdf;
 
     // Mở package chứa entity cho Hibernate ORM (để nó có thể quét bằng reflection)
     opens com.home.mec888.entity to org.hibernate.orm.core, javafx.base;
@@ -30,6 +31,7 @@ module com.home.mec888 {
     // Nếu sử dụng JavaFX với FXML, cần mở package chứa controller
     opens com.home.mec888.controller to javafx.fxml;
     opens com.home.mec888.controller.login to javafx.fxml;
+    opens com.home.mec888.controller.extractPDF to javafx.fxml;
     // opens com.home.mec888.controller.admin to javafx.fxml;
     opens com.home.mec888.controller.admin.medicine to javafx.fxml;
     opens com.home.mec888.controller.admin.department to javafx.fxml;
@@ -56,6 +58,7 @@ module com.home.mec888 {
     exports com.home.mec888.controller;
     exports com.home.mec888.controller.login;
     exports com.home.mec888.controller.admin;
+    exports com.home.mec888.controller.extractPDF;
     exports com.home.mec888.controller.admin.medicine;
     exports com.home.mec888.controller.admin.patient;
     exports com.home.mec888.controller.admin.specialization;
