@@ -15,8 +15,8 @@ public class TreatmentSteps {
     @JoinColumn(name = "appointment_id", nullable = false)
     private Appointment appointment;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "doctor_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "doctor_id")
     private Doctor doctor;
 
     @Column(name = "step_description", columnDefinition = "TEXT")
@@ -30,6 +30,9 @@ public class TreatmentSteps {
 
     @Column(name = "outcome", columnDefinition = "TEXT")
     private String outcome;
+
+    @Column(name = "status", columnDefinition = "ENUM('PENDING', 'COMPLETED', 'CANCELLED') DEFAULT 'PENDING'")
+    private String status;
 
     @Column(name = "created_at", nullable = false, updatable = false, insertable = false,
             columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -115,16 +118,25 @@ public class TreatmentSteps {
         this.updatedAt = updatedAt;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "TreatmentSteps{" +
                 "id=" + id +
-                ", appointment=" + (appointment != null ? appointment.getId() : "null") +
-                ", doctor=" + (doctor != null ? doctor.getId() : "null") +
+                ", appointment=" + appointment +
+                ", doctor=" + doctor +
                 ", stepDescription='" + stepDescription + '\'' +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
                 ", outcome='" + outcome + '\'' +
+                ", status='" + status + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';

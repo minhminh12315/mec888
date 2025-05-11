@@ -7,12 +7,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 public class InitialAssessmentController {
-
-
+    @FXML
+    public VBox initialAssessmentVBoxContainer;
     @FXML
     private TextField pulseRateField, temperatureField, bpSystolicField, bpDiastolicField, respiratoryRateField, weightField,
             treatmentSheetCountField, diseaseProgressField, examGeneralField, examSystemsField, labResultsField,
@@ -167,6 +168,7 @@ public class InitialAssessmentController {
     @FXML
     public void initialize() {
         loadExistingMedicalRecord();
+        initialAssessmentVBoxContainer.setDisable(!SeeADoctorContainerController.isMainDoctor);
     }
 
     private void loadExistingMedicalRecord() {

@@ -101,4 +101,15 @@ public class DoctorDao {
             throw new RuntimeException(e);
         }
     }
+
+    public Doctor findDoctorByRoomId(Long id) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery(
+                            "SELECT d FROM Doctor d WHERE d.room.id = :id", Doctor.class)
+                    .setParameter("id", id)
+                    .uniqueResult();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

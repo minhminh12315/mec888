@@ -252,7 +252,7 @@ TextField:focused, PasswordField:focused {
        -fx-padding: 12px;
        -fx-font-size: 15px;
        -fx-background-color: #ffffff;
-       -fx-border-color: #dddfe2;
+       -fx-border-color: #CCCCCC;
        -fx-border-width: 1.5px;
        -fx-border-radius: 6px;
        -fx-background-radius: 6px;
