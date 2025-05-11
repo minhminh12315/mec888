@@ -1,4 +1,4 @@
-.nav-btn{
+.nav-btn {
     -fx-background-color: transparent;
     -fx-cursor: hand;
     -fx-text-fill: #1071e1;
@@ -8,7 +8,7 @@
     -fx-padding: 16px;
 }
 
-.nav-btn:hover{
+.nav-btn:hover {
     -fx-background-color: radial-gradient(
             focus-angle 0deg,
             focus-distance 0%,
@@ -19,12 +19,30 @@
     );
     -fx-text-fill: white;
 }
+
 .active-button {
-    -fx-pre-width:100%;
-    -fx-background-color: #1071e1; /* Màu nền khi nút được chọn */
-    -fx-text-fill: white; /* Màu chữ */
+    -fx-pre-width: 100%;
+    -fx-pref-height: 100%;
+    -fx-font-weight: bold;
+    -fx-background-color: radial-gradient(
+            focus-angle 0deg,
+            focus-distance 0%,
+            center 0% 0%,
+            radius 100%,
+            #00adef,
+            #3871c1
+    );
+    -fx-text-fill: white;
+    -fx-alignment: center_left;
     -fx-font-size: 16px;
+    -fx-padding: 16px;
 }
+
+.table-cell {
+    -fx-alignment: center;
+    -fx-font-size: 13px;
+}
+
 .headerAdmin{
     -fx-background-color: radial-gradient(
             focus-angle 0deg,
@@ -36,74 +54,54 @@
     );
     -fx-text-fill: white;
 }
-.titlePage{
+
+.titlePage {
     -fx-font-size: 28px;
     -fx-font-weigth: 900;
 }
 
-.input-field{
-    -fx-pre-width: 100%;
-    -fx-border-color: #111827;
-    -fx-background-color: #fff;
-    -fx-border-radius: 0px 0px 0px 0px;
-}
 
-.input-field:focused{
-    -fx-border-width: 2px;
-}
-.search{
+
+.search {
     -fx-border-color: #1e242e;
     -fx-background-color: #fff;
     -fx-font-size: 14px;
 }
 
-.search:focused{
+.search:focused {
     -fx-border-width: 2px;
 }
-.add-new-btn{
-    -fx-background-color : #EAB308;
-    -fx-background-radius: 6px;
-    -fx-cursor:hand;
-}
 
-.add-new-btn:hover{
-    -fx-scale-x: 1.1;
-    -fx-scale-y: 1.1;
-    -fx-transition: all 0.1s ease-in-out;
-}
-.back-btn{
-    -fx-font-size: 14px;
-    -fx-background-color: #1e242e;
+.add-new-btn {
+    -fx-background-color: #EAB308;
     -fx-background-radius: 6px;
     -fx-cursor: hand;
-    -fx-text-fill: white;
 }
 
-.back-btn:hover{
+.add-new-btn:hover {
     -fx-scale-x: 1.1;
     -fx-scale-y: 1.1;
-    -fx-text-fill: white;
     -fx-transition: all 0.1s ease-in-out;
 }
-.btn-logout{
+
+
+
+.btn-logout {
     -fx-font-size: 16px;
     -fx-background-color: #fff;
     -fx-cursor: hand;
     -fx-padding: 16px;
     -fx-text-fill: #ef4444;
-    -fx-alignment: center_left;
+    -fx-alignment: CENTER;
     -fx-font-weight: bold;
 }
-.btn-logout:hover{
-       -fx-background-color: #EF4444;
-       -fx-text-fill: white;
+
+.btn-logout:hover {
+    -fx-background-color: #EF4444;
+    -fx-text-fill: white;
 }
-.save-btn{
-    -fx-font-size: 14px;
-    -fx-background-color: #EAB308;
-    -fx-background-radius: 6px;
-    -fx-cursor: hand;
-}
+
+
 
 .logo-image {
     -fx-alignment: center;
@@ -117,7 +115,6 @@
 
 .label-username {
     -fx-font-size: 20px;
-    -fx-alignment: center;
     -fx-padding: 0 10px 0 0;
 }
 
@@ -129,24 +126,244 @@
 .avatar {
     -fx-padding: 16px;
 }
-.save-btn:hover{
-    -fx-scale-x: 1.1;
-    -fx-scale-y: 1.1;
+.back-btn {
+    -fx-font-size: 14px;
+    -fx-background-color: #B0BEC5; /* Xám xanh dịu */
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+    -fx-text-fill: #263238; /* Xám đậm rõ ràng */
+}
+
+.back-btn:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-opacity: 0.9;
+    -fx-text-fill: #263238;
     -fx-transition: all 0.1s ease-in-out;
 }
 
-.clear-btn{
+.save-btn {
     -fx-font-size: 14px;
-    -fx-background-color: #FF6464;
+    -fx-background-color: #1976D2; /* Xanh đậm chủ đạo */
+    -fx-text-fill: white;
     -fx-background-radius: 6px;
     -fx-cursor: hand;
 }
 
-.clear-btn:hover{
-    -fx-scale-x: 1.1;
-    -fx-scale-y: 1.1;
+.save-btn:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-opacity: 0.9;
     -fx-transition: all 0.1s ease-in-out;
 }
+
+.clear-btn {
+    -fx-font-size: 14px;
+    -fx-background-color: #EF5350; /* Đỏ nhạt nhẹ mắt */
+    -fx-text-fill: white;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.clear-btn:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-opacity: 0.9;
+    -fx-transition: all 0.1s ease-in-out;
+}
+
+
 #mainBorderPane {
-    -fx-background-color: #fff;  /* Đặt nền trắng cho mainBorderPane */
+    -fx-background-color: #fff; /* Đặt nền trắng cho mainBorderPane */
+}
+.BackGround {
+    -fx-background-color: #f2f6fc;
+    -fx-padding: 24;
+    -fx-background-radius: 12;
+}
+
+/*Cong css*/
+/* ===========================================
+   GLOBAL STYLES — dùng chung cho nhiều màn
+   =========================================== */
+
+
+.combo-box .list-cell {
+    -fx-alignment: center;
+    -fx-font-size: 14px;
+}
+
+.combo-box .combo-box-popup {
+    -fx-background-color: #fffbea;
+    -fx-border-color: #fbc02d;
+    -fx-border-radius: 5px;
+}
+
+.label-input {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-padding: 5px 0px;
+}
+
+.label-error,
+#labelError {
+    -fx-text-fill: #ff0000;
+    -fx-font-size: 12px;
+    -fx-font-style: italic;
+}
+
+.titlePage {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #444444;
+    -fx-padding: 10px 0px;
+    -fx-alignment: center;
+}
+
+.BackGround {
+    -fx-background-color: #f2f6fc;
+    -fx-padding: 24;
+    -fx-background-radius: 12;
+}
+
+
+
+TextField, PasswordField {
+    -fx-pref-width: 280px;
+    -fx-padding: 12px;
+    -fx-font-size: 15px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dddfe2;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-text-fill: #1c1e21;
+    -fx-font-family: "Segoe UI", "Helvetica Neue", "Arial", sans-serif;
+}
+
+/* Focus effect */
+TextField:focused, PasswordField:focused {
+    -fx-border-color: #1877f2;
+    -fx-effect: dropshadow(gaussian, rgba(24, 119, 242, 0.3), 6, 0.3, 0, 0);
+}
+.input-field {
+   -fx-pref-width: 280px;
+       -fx-padding: 12px;
+       -fx-font-size: 15px;
+       -fx-background-color: #ffffff;
+       -fx-border-color: #dddfe2;
+       -fx-border-width: 1.5px;
+       -fx-border-radius: 6px;
+       -fx-background-radius: 6px;
+       -fx-text-fill: #1c1e21;
+       -fx-font-family: "Segoe UI", "Helvetica Neue", "Arial", sans-serif;
+}
+.input-field:focused {
+   -fx-border-color: #1877f2;
+      -fx-effect: dropshadow(gaussian, rgba(24, 119, 242, 0.3), 6, 0.3, 0, 0);
+}
+
+/* ===========================================
+   Read-only input field
+   =========================================== */
+
+.readonly-field {
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #bdbdbd;
+    -fx-text-fill: #777777;
+    -fx-opacity: 1.0;
+}
+
+/* ===========================================
+   Label mặc định chung
+   =========================================== */
+
+Label {
+    -fx-font-size: 14px;
+    -fx-font-weight: normal;
+    -fx-text-fill: #333333;
+}
+
+
+/* Căn giữa nội dung trong tất cả ô */
+.table-view .table-cell {
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-padding: 8px;
+    -fx-font-size: 13px;
+    -fx-text-fill: #333333;
+}
+
+/* Header bảng */
+.table-view .column-header {
+    -fx-background-color: #1976D2;
+    -fx-border-color: transparent transparent #ccc transparent;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-font-size: 14px;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-padding: 8px;
+}
+
+/* Gạch ngăn dòng */
+.table-view {
+    -fx-table-cell-border-color: #e0e0e0;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+/* Hover từng dòng */
+.table-view .table-row-cell:hover {
+    -fx-background-color: #e3f2fd;
+}
+
+/* Dòng được chọn */
+.table-view .table-row-cell:focused,
+.table-view .table-row-cell:selected {
+    -fx-background-color: #bbdefb;
+    -fx-text-fill: black;
+}
+
+/* Bo góc table */
+.table-view {
+    -fx-background-color: white;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+}
+
+/* Scrollbar style */
+.table-view .scroll-bar:vertical,
+.table-view .scroll-bar:horizontal {
+    -fx-background-color: #f1f1f1;
+}
+
+
+#loginForm, #inputEmailForm, #resetPasswordForm {
+    -fx-background-color: #ECECE7;
+    -fx-border-color: #000;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+}
+
+.headerPatient {
+    -fx-background-color: #fff;
+    -fx-text-fill: radial-gradient(
+            focus-angle 0deg,
+            focus-distance 0%,
+            center 0% 0%,
+            radius 100%,
+            #00adef,
+            #3871c1
+    );
+}
+
+.navigationBar {
+    -fx-background-color: #fff;
+    -fx-margin-top: 48px;
 }

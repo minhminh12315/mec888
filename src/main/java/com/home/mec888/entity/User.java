@@ -2,6 +2,9 @@ package com.home.mec888.entity;
 
 import jakarta.persistence.*;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -21,10 +24,10 @@ public class User {
     @Column(length = 20)
     private String phone;
 
-    @Column(length = 255)
+    @Column(name = "first_name", length = 255)
     private String firstName;
 
-    @Column(length = 255)
+    @Column(name = "last_name", length = 255)
     private String lastName;
 
     @Column(length = 10)
@@ -36,8 +39,26 @@ public class User {
     @Column(length = 255)
     private String address;
 
+    @Column(name = "career")
+    private String career;
+
+    @Column(name = "ethnicity")
+    private String ethnicity;
+
+    @Column(name = "nationality")
+    private String nationality;
+
+    @Column(name = "place_of_origin")
+    private String place_of_origin;
+
     @Column(name = "role_id")
     private Integer roleId;
+
+    @Column(name = "otp", length = 10)
+    private String otp;
+
+    @Column(name = "otp_expired_date")
+    private LocalDateTime expiredDate;
 
     @Column(name = "created_at", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private java.sql.Timestamp createdAt;
@@ -168,6 +189,54 @@ public class User {
         this.address = address;
     }
 
+    public String getOtp() {
+        return otp;
+    }
+
+    public void setOtp(String otp) {
+        this.otp = otp;
+    }
+
+    public LocalDateTime getExpiredDate() {
+        return expiredDate;
+    }
+
+    public void setExpiredDate(LocalDateTime expiredDate) {
+        this.expiredDate = expiredDate;
+    }
+
+    public String getCareer() {
+        return career;
+    }
+
+    public void setCareer(String career) {
+        this.career = career;
+    }
+
+    public String getEthnicity() {
+        return ethnicity;
+    }
+
+    public void setEthnicity(String ethnicity) {
+        this.ethnicity = ethnicity;
+    }
+
+    public String getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
+    }
+
+    public String getPlace_of_origin() {
+        return place_of_origin;
+    }
+
+    public void setPlace_of_origin(String place_of_origin) {
+        this.place_of_origin = place_of_origin;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -182,6 +251,8 @@ public class User {
                 ", dateOfBirth=" + dateOfBirth +
                 ", address='" + address + '\'' +
                 ", roleId=" + roleId +
+                ", otp='" + otp + '\'' +
+                ", expiredDate=" + expiredDate +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';

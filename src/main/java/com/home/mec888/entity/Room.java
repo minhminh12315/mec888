@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "room")
 public class Room {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,16 +20,30 @@ public class Room {
     @Column(nullable = false, length = 20)
     private String status;
 
-    @Column(name = "created_at", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "created_at", nullable = false, updatable = false, insertable = false,
+            columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp createdAt;
 
-    @Column(name = "updated_at", nullable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    @Column(name = "updated_at", nullable = false, insertable = false,
+            columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Timestamp updatedAt;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "department_id", nullable = false) // Foreign key to users table
+    private Department department;
 
     public Room() {
     }
 
-    public Room(String roomNumber, String roomType, String status,Timestamp createdAt,Timestamp updatedAt) {
+    public Room(String roomNumber, String roomType, String status, Department department) {
+        this.roomNumber = roomNumber;
+        this.roomType = roomType;
+        this.status = status;
+        this.department = department;
+    }
+
+    public Room(Department department, String roomNumber, String roomType, String status, Timestamp createdAt, Timestamp updatedAt) {
+        this.department = department;
         this.roomNumber = roomNumber;
         this.roomType = roomType;
         this.status = status;
@@ -43,6 +58,14 @@ public class Room {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     public String getRoomNumber() {
@@ -89,6 +112,7 @@ public class Room {
     public String toString() {
         return "Room{" +
                 "id=" + id +
+                ", department=" + (department != null ? department.getName() : "null") +
                 ", roomNumber='" + roomNumber + '\'' +
                 ", roomType='" + roomType + '\'' +
                 ", status='" + status + '\'' +

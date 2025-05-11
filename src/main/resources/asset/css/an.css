@@ -1,69 +1,235 @@
-.nav-btn{
-    -fx-background-color: transparent;
-    -fx-cursor: hand;
-    -fx-text-fill: white;
-    -fx-font-size: 16px;
+.grid-cell{
+       -fx-border-color: #999;
+       -fx-border-width: 1;
+       -fx-border-style: solid;
+       -fx-alignment: center; /* Căn giữa text */
+       -fx-pref-width: 120;
+       -fx-pref-height: 120;
+       -fx-font-size: 16px;
+       -fx-background-color: white;
+       -fx-cursor: hand;
+}
+.scheduleGridMonth{
+    -fx-padding: 0 0 64 0;
+}
+.grid-cell-month{
+       -fx-border-color: #999;
+       -fx-border-width: 1;
+       -fx-border-style: solid;
+       -fx-alignment: top-right; /* Căn giữa text */
+       -fx-padding: 0 4 4 4;
+       -fx-pref-width: 240;
+       -fx-pref-height: 176;
+       -fx-max-width: 224;
+       -fx-max-height: 160;
+       -fx-font-size: 16px;
+       -fx-background-color: white;
+       -fx-cursor: hand;
+}
+.grid-cell-month .disable{
+     -fx-padding:0 0 0 0;
+}
+.grid-cell-month-header{
+        -fx-pref-width: 224;
+        -fx-pref-height: 64;
+        -fx-font-size: 16px;
+        -fx-alignment: center;
+}
+.shift-cell{
+    -fx-min-width: 40;
+    -fx-min-height: 40;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+}
+.available-shift{
+    -fx-background-color: #ffffff;
+}
+.taken-by-other-shift{
+    -fx-background-color: #FFFED3;
+}
+.your-shift{
+    -fx-background-color: #BBE9FF;
+}
+.selector-schedule-button{
+        -fx-border-color: #CCCCCC;
+        -fx-border-radius: 6px;
+        -fx-background-radius: 6px;
+        -fx-padding:8 16 8 16;
+        -fx-background-color: #F0F0F0; /* Giống kiểu disable */
+        -fx-cursor: hand;
+        -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 2, 0.1, 0, 1);
+}
+.selector-schedule-button:hover{
+    -fx-background-color: #E0E0E0;
+}
+.disabled-cell{
+    -fx-background-color: #F0F0F0;
 }
 
-.nav-btn:hover{
-    -fx-background-color: #1071e1;
+.selected-schedule-btn{
+            -fx-border-radius: 6px;
+            -fx-background-radius: 6px;
+            -fx-padding:8 16 8 16;
+            -fx-background-color: #1071e1; /* Giống kiểu disable */
+            -fx-cursor: hand;
+            -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 2, 0.1, 0, 1);
 }
-.active-button {
-    -fx-pre-width:100%;
-    -fx-background-color: #1071e1; /* Màu nền khi nút được chọn */
-    -fx-text-fill: white; /* Màu chữ */
-    -fx-font-size: 16px;
+.selected-schedule-btn Text{
+    -fx-fill: white;
 }
-.headerAdmin{
-    -fx-background-color: #111827;
-    /*-fx-padding:16px;*/
-}
-.titlePage{
-    -fx-font-size: 28px;
-    -fx-font-weigth: 900;
+.selected-schedule-btn .ikonli-font-icon{
+    -fx-fill: white;
 }
 
-.input-field{
-    -fx-pre-width: 100%;
-    -fx-border-color: #111827;
-    -fx-background-color: #fff;
-    -fx-border-radius: 0px 0px 0px 0px;
+.badgeMorningShift {
+    -fx-padding:4 4 4 0;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-background-color: #FFFED3; /* Vàng pastel */
+    -fx-text-fill: #000000; /* Văn bản màu đen để dễ đọc */
+    -fx-text-overrun: ellipsis;
 }
 
-.input-field:focused{
-    -fx-border-width: 2px;
-}
-.search{
-    -fx-border-color: #1e242e;
-    -fx-background-color: #fff;
-    -fx-font-size: 14px;
+.badgeAfternoonShift {
+    -fx-padding:4 4 4 0;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-background-color: #BBE9FF; /* Xanh dương pastel */
+    -fx-text-fill: #000000; /* Văn bản màu đen để dễ đọc */
+    -fx-text-overrun: ellipsis;
 }
 
-.search:focused{
-    -fx-border-width: 2px;
+.badgeNightShift {
+    -fx-padding:4 4 4 0;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+   /* -fx-background-color: #B1AFFF; /* Tím pastel */
+    -fx-background-color: #ffcccc; /* Tím pastel */
+    -fx-text-fill: #000000; /* Văn bản màu đen để dễ đọc */
+    -fx-text-overrun: ellipsis;
 }
-.add-new-btn{
-    -fx-background-color : #EAB308;
+
+.buttonRegisterShift{
+     -fx-pref-width:80;
+     -fx-border-color: #CCCCCC;
+     -fx-border-radius: 6px;
+     -fx-background-radius: 6px;
+     -fx-padding:8 16 8 16;
+     -fx-cursor: hand;
+     -fx-background-color: transparent;
+     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 2, 0.1, 0, 1);
+     -fx-font-weight: 500;
+}
+.buttonRegisterShift:hover{
+    -fx-border-color: transparent;
+    -fx-background-color: #F0F0F0;
+}
+.buttonCancelShift{
+     -fx-pref-width:80;
+     -fx-text-fill: #EF4444;
+     -fx-border-color: #EF4444;
+     -fx-border-radius: 6px;
+     -fx-background-radius: 6px;
+     -fx-padding:8 16 8 16;
+     -fx-cursor: hand;
+     -fx-background-color: transparent;
+     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 2, 0.1, 0, 1);
+     -fx-font-weight: 500;
+}
+.buttonCancelShift:hover{
+    -fx-border-color: transparent;
+    -fx-background-color: #EF4444;
+    -fx-text-fill: #FFFFFF;
+}
+
+.buttonSeeDoctor{
+    -fx-padding: 8 16 8 16;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #000000;
+}
+.buttonSeeDoctorActive{
+        -fx-padding: 8 16 8 16;
+        -fx-border-color: radial-gradient(
+                                      focus-angle 0deg,
+                                      focus-distance 0%,
+                                      center 0% 0%,
+                                      radius 100%,
+                                      #00adef,
+                                      #3871c1
+                              );
+        -fx-border-width: 0px 0px 4px 0px;
+        -fx-border-radius: 4px;
+        -fx-background-color: #FFFFFF;
+        -fx-text-fill: radial-gradient(
+                                   focus-angle 0deg,
+                                   focus-distance 0%,
+                                   center 0% 0%,
+                                   radius 100%,
+                                   #00adef,
+                                   #3871c1
+                           );
+}
+
+.appointmentHeaderInfo{
+    -fx-background-color: #FFD4D1;
+    -fx-padding: 16;
+    -fx-background-radius: 8px;
+}
+.appointmentHeaderInfo Text{
+    -fx-text-fill: #DC3545;
+}
+
+.textFieldDisable{
+   -fx-background-color: #dee2e5;
+   -fx-background-radius: 8px;
+   -fx-padding:8 16 8 16;
+   -fx-pre-width: INFINITY;
+}
+.textFieldDisable Text{
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+}
+.service-row{
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 8 16 8 16;
     -fx-background-radius: 6px;
-    -fx-cursor:hand;
 }
-
-.add-new-btn:hover{
-    -fx-scale-x: 1.1;
-    -fx-scale-y: 1.1;
-    -fx-transition: all 0.1s ease-in-out;
+.service-row:hover{
+    -fx-background-color: #F0F0F0;
 }
-.back-btn{
-    -fx-font-size: 14px;
-    -fx-background-color: #1e242e;
+.treatmentStepServiceTextField{
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 8 16 8 16;
     -fx-background-radius: 6px;
-    -fx-cursor: hand;
+    -fx-border-color: #CCCCCC;
+    -fx-border-radius: 8px;
+    -fx-border-width: 1;
 }
-
-.back-btn:hover{
-    -fx-scale-x: 1.1;
-    -fx-scale-y: 1.1;
-    -fx-transition: all 0.1s ease-in-out;
+.treatmentStepServiceTextField:focused{
+    -fx-border-color: #007bff;
+    -fx-border-radius: 8px;
+    -fx-border-width: 1;
+    -fx-effect: none;
 }
-
-
+.text-area {
+    -fx-text-box-border: transparent;
+    -fx-background-insets: 0;
+    -fx-background-color: white;
+}
+.text-area:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+.text-area:filled {
+    -fx-background-color: white;
+}
+.diagnosticCell{
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 16 0 16 0;
+    -fx-border-color: #CCCCCC;
+    -fx-border-width: 0px 0px 1px 0px;
+}

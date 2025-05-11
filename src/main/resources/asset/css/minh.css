@@ -1,0 +1,26 @@
+.display-flex {
+ -fx-display: flex;
+    -fx-flex-direction: column;
+    -fx-align-items: center;
+    -fx-justify-content: center;
+    -fx-padding: 16px;
+    -fx-border-radius: 6px;
+ }
+
+ .time-slot-button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
+ }
+
+ .disabled-button {
+    -fx-background-color: #ccc;
+    -fx-text-fill: #666;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+    -fx-font-size: 16px;
+    -fx-cursor: default;
+ }

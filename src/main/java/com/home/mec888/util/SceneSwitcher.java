@@ -45,6 +45,14 @@ public class SceneSwitcher {
 
             // Nếu chuyển sang login thì không cần tối đa hóa
             if (fxmlFile.equals("login/login.fxml")) {
+                Screen screen = Screen.getPrimary();
+                Rectangle2D bounds = screen.getVisualBounds();
+
+                // Đặt kích thước ứng dụng khớp với màn hình
+                stage.setX(bounds.getMinX());
+                stage.setY(bounds.getMinY());
+                stage.setWidth(bounds.getWidth());
+                stage.setHeight(bounds.getHeight());
                 stage.setMaximized(false);
                 stage.setFullScreen(false);
             } else {
@@ -83,6 +91,39 @@ public class SceneSwitcher {
         } catch (IOException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public static FXMLLoader loadViewToCallController(String fxmlFile, ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/com/home/mec888/" + fxmlFile));
+        try {
+            loader.load();
+            Parent view = loader.getRoot();
+            AnchorPane root = (AnchorPane) ((Node) event.getSource()).getScene().getRoot();
+            BorderPane main = (BorderPane) root.lookup("#mainBorderPane");
+            if (main != null) main.setCenter(view);
+            else System.err.println("BorderPane 'mainBorderPane' not found");
+            return loader;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static void loadViewSeeDoctor(String fxmlFile, ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource("/com/home/mec888/doctor/appointment/" + fxmlFile));
+        try {
+            loader.load(); // Load FXML trước
+            Parent newView = loader.getRoot();
+            AnchorPane anchorPane = (AnchorPane) ((Node) event.getSource()).getScene().getRoot();
+            BorderPane mainPane = (BorderPane) anchorPane.lookup("#seeADoctorBorderPane");
+            if (mainPane != null) {
+                mainPane.setCenter(newView);
+            } else {
+                System.err.println("BorderPane with ID 'seeADoctorBorderPane' not found");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

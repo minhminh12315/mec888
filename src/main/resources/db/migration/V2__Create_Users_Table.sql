@@ -9,7 +9,13 @@ CREATE TABLE IF NOT EXISTS users (
     address VARCHAR(255) null,
     email VARCHAR(255) NOT NULL UNIQUE,
     phone VARCHAR(20),
+    career varchar(255) NULL,
+    ethnicity varchar(255) NULL,
+    nationality varchar(255) NULL,
+    place_of_origin varchar(255) NULL,
     role_id BIGINT NOT NULL,
+    otp varchar(10) NULL,
+    otp_expired_date DATE NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT fk_users_role FOREIGN KEY (role_id) REFERENCES roles(id)

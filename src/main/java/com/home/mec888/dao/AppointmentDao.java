@@ -1,10 +1,12 @@
 package com.home.mec888.dao;
 
 import com.home.mec888.entity.Appointment;
+import com.home.mec888.entity.Doctor;
 import com.home.mec888.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class AppointmentDao {
@@ -48,7 +50,7 @@ public class AppointmentDao {
 
     public List<Appointment> getAllAppointments() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("from Appointment order by updatedAt desc", Appointment.class).list();
+            return session.createQuery("from Appointment", Appointment.class).list();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -71,4 +73,29 @@ public class AppointmentDao {
             e.printStackTrace();
         }
     }
+
+    // find appointment by appointment_date and doctor_id and appointment_time
+    public List<Appointment> findAppointmentsByDateAndDoctorIdAndAppointmentTime(LocalDate appointmentDate, Long doctorId, LocalDate appointmentTime) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("from Appointment where appointmentDate = :appointmentDate and doctor.id = :doctorId and appointmentTime = :appointmentTime", Appointment.class)
+                    .setParameter("appointmentDate", appointmentDate)
+                    .setParameter("doctorId", doctorId)
+                    .setParameter("appointmentTime", appointmentTime)
+                    .list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<Appointment> getAppointmentByDoctorId(long doctorId) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("from Appointment where doctor.id = :doctorId", Appointment.class)
+                    .setParameter("doctorId", doctorId).list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }

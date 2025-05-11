@@ -1,5 +1,7 @@
 package com.home.mec888;
 
+import com.home.mec888.controller.email.SendMail;
+import com.home.mec888.controller.report.ReportController;
 import com.home.mec888.dao.AuditLogDao;
 import com.home.mec888.dao.DepartmentDao;
 import com.home.mec888.dao.MedicineDao;
@@ -19,13 +21,15 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import static com.home.mec888.controller.report.ReportController.handleReport;
+
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/home/mec888/login/login.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         // title
-        stage.setTitle("Hello!");
+        stage.setTitle("Mec888");
         stage.setScene(scene);
 
         // css tung thang
@@ -36,18 +40,20 @@ public class Main extends Application {
         scene.getStylesheets().add(getClass().getResource("/asset/css/an.css").toExternalForm());
         scene.getStylesheets().add(getClass().getResource("/asset/css/cong.css").toExternalForm());
 
+
         // Lấy độ phân giải màn hình
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();
 
         // Đặt kích thước ứng dụng khớp với màn hình
-//        stage.setX(bounds.getMinX());
-//        stage.setY(bounds.getMinY());
-//        stage.setWidth(bounds.getWidth());
-//        stage.setHeight(bounds.getHeight());
+        stage.setX(bounds.getMinX());
+        stage.setY(bounds.getMinY());
+        stage.setWidth(bounds.getWidth());
+        stage.setHeight(bounds.getHeight());
 
         // Không dùng full-screen
         // stage.setFullScreen(true); // Không sử dụng dòng này
+
         stage.setFullScreen(false);
         stage.show();
     }
@@ -57,8 +63,13 @@ public class Main extends Application {
         launch();
 
 
-
-
+//        handleReport("serviceReport.jrxml");
+//        SendMail sendMail = new SendMail();
+//        String to = "qunnguyn956@gmail.com";
+//        String subject = "Tạo tài khoản thành công";
+//        String content = "Chào bạn,\nTài khoản của bạn đã được tạo.\nTên đăng nhập: user123\nMật khẩu: abc123";
+//
+//        sendMail.btnSend(to, subject, content);
 
 
     }

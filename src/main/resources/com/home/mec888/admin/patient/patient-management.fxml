@@ -30,9 +30,14 @@
             </Button>
         </HBox>
         <TableView fx:id="patientManagementTable" layoutX="250.0" layoutY="86.0" prefHeight="460.0" prefWidth="660.0" styleClass="table">
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
             <columns>
                 <TableColumn fx:id="patientColId" prefWidth="60.0" text="ID"/>
                 <TableColumn fx:id="userColId" prefWidth="100.0" text="User ID"/>
+                <TableColumn fx:id="firstNameColumn" prefWidth="100.0" text="First Name" />
+                <TableColumn fx:id="lastNameColumn" prefWidth="100.0" text="Last Name" />
                 <TableColumn fx:id="patientColEmergency" prefWidth="100.0" text="Emergency"/>
                 <TableColumn fx:id="patientColMedical" prefWidth="100.0" text="Medical"/>
                 <TableColumn fx:id="actionColumn" minWidth="0.0" prefWidth="208.0" text="Action"/>

@@ -1,26 +1,41 @@
 package com.home.mec888.controller;
 
 
+import com.home.mec888.controller.settings.SettingsController;
 import com.home.mec888.dao.AuditLogDao;
+import com.home.mec888.dao.DoctorDao;
 import com.home.mec888.entity.AuditLog;
+import com.home.mec888.entity.Doctor;
 import com.home.mec888.entity.User;
 import com.home.mec888.util.SceneSwitcher;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class IndexController {
     public static String userRole;
     public static User user;
+    public static Doctor doctor;
+    public static Long doctorId;
 
+    DoctorDao doctorDao = new DoctorDao();
+
+    //
     // Staff
     @FXML
-    public Button moveBookingButton;
+    public Button moveAppointmentButton;
     // Admin
     @FXML
     public Button moveHomeButton;
@@ -44,12 +59,35 @@ public class IndexController {
     public Region regionBLock;
     @FXML
     public Button moveRoomButton;
+    @FXML
+    public Button moveServiceButton;
+    @FXML
+    public Button moveSpecializationButton;
 
+    @FXML
+    public Button moveSettingsButton;
+    @FXML
+    public Button moveListAppointmentForDoctor;
     private Button currentActiveButton;
+
+    @FXML
+    public Label labelWelcome;
+    @FXML
+    public Label labelUserName;
+    @FXML
+    public Label labelRole;
 
     @FXML
     public void initialize() {
         configureNavigationButtons();
+
+        labelWelcome.setText("Welcome, " + user.getFirstName() + " " + user.getLastName());
+        labelUserName.setText(user.getLastName());
+        labelRole.setText(userRole);
+
+//        Platform.runLater(() -> {
+//            handleHome(new ActionEvent(moveHomeButton, null));
+//        });
     }
 
     private void configureNavigationButtons() {
@@ -63,16 +101,32 @@ public class IndexController {
                         moveHomeButton,
                         moveMedicineButton,
                         moveDepartmentButton,
+                        moveRoomButton,
                         moveDoctorButton,
                         moveUserButton,
-                        movePatientButton
+                        movePatientButton,
+                        moveSettingsButton,
+                        moveServiceButton,
+                        moveSpecializationButton
                 );
                 break;
             case "staff":
+                navigationBar.getChildren().addAll(
+                        moveAppointmentButton
+                );
+
                 break;
             case "doctor":
+                doctorDao.findDoctorByUserId(user.getId());
+                doctor = doctorDao.findDoctorByUserId(user.getId());
+                doctorId = doctor.getId();
+                System.out.println("-----------------------");
+                System.out.println(doctor);
+                System.out.println(doctor.getRoom().getId());
+                System.out.println(doctorId);
                 navigationBar.getChildren().addAll(
-                        moveDoctorSchedule
+                        moveDoctorSchedule,
+                        moveListAppointmentForDoctor
                 );
                 break;
             case "patient":
@@ -100,15 +154,15 @@ public class IndexController {
     }
 
     // Staff
-    public void handleBooking(ActionEvent actionEvent) {
-        highlightActiveButton(moveBookingButton);
-        SceneSwitcher.loadView("staff/booking/booking-management.fxml", actionEvent);
+    public void handleAppointment(ActionEvent actionEvent) {
+        highlightActiveButton(moveAppointmentButton);
+        SceneSwitcher.loadView("staff/appointment/appointment.fxml", actionEvent);
     }
 
     // Admin
     public void handleHome(ActionEvent actionEvent) {
         highlightActiveButton(moveHomeButton);
-        SceneSwitcher.loadView("index.fxml", actionEvent);
+        SceneSwitcher.loadView("admin/dashboard.fxml", actionEvent);
     }
 
     public void handleMedicine(ActionEvent actionEvent) {
@@ -142,6 +196,35 @@ public class IndexController {
         SceneSwitcher.loadView("admin/patient/patient-management.fxml", actionEvent);
     }
 
+    public void handleSettings(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/home/mec888/settings/settings.fxml"));
+            Parent newView = loader.load();
+
+            // Lấy controller và gán User trước khi hiển thị
+            SettingsController controller = loader.getController();
+            controller.setUser(user); // ✅ Gán dữ liệu User vào trước
+
+            // Gắn vào phần center của BorderPane
+            AnchorPane anchorPane = (AnchorPane) ((Node) event.getSource()).getScene().getRoot();
+            BorderPane mainPane = (BorderPane) anchorPane.lookup("#mainBorderPane");
+            if (mainPane != null) {
+                mainPane.setCenter(newView);
+            } else {
+                System.err.println("Không tìm thấy BorderPane với ID 'mainBorderPane'");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void handleService(ActionEvent actionEvent) {
+        highlightActiveButton(moveServiceButton);
+        SceneSwitcher.loadView("admin/service/service-management.fxml", actionEvent);
+    }
+
     private void highlightActiveButton(Button button) {
         if (currentActiveButton != null) {
             // Xóa class "active-button" khỏi nút đang được chọn trước đó
@@ -159,6 +242,16 @@ public class IndexController {
 
     public void handleDoctorSchedule(ActionEvent event) {
         highlightActiveButton(moveDoctorSchedule);
-        SceneSwitcher.loadView("doctor/schedule/doctor-schedule.fxml", event);
+        SceneSwitcher.loadView("doctor/schedule/doctor-schedule-month.fxml", event);
+    }
+
+    public void handleDoctorAppointment(ActionEvent event) {
+        highlightActiveButton(moveListAppointmentForDoctor);
+        SceneSwitcher.loadView("doctor/appointment/list-appointment.fxml", event);
+    }
+
+    public void handleSpecialization(ActionEvent actionEvent) {
+        highlightActiveButton(moveSpecializationButton);
+        SceneSwitcher.loadView("admin/specialization/specialization-management.fxml", actionEvent);
     }
 }

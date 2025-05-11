@@ -110,22 +110,45 @@ VALUES
 (98, 'doctor98','Do', 'Dung Quang Minh', 'Ba Dinh', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'doctor98@mec888.com', '0926532450', 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (99, 'doctor99','Do', 'Dung Quang Minh', 'Ba Dinh', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'doctor99@mec888.com', '0926532450', 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (100, 'doctor100','Do', 'Dung Quang Minh', 'Ba Dinh', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'doctor100@mec888.com', '0926532450', 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(101, 'patient','Do', 'Dung Quang Minh', 'Ba Dinh', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'patient@gmail.com', '0926532450', 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+(101, 'patient','Do', 'Dung Quang Minh', 'Ba Dinh', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'qunnguyn956@gmail.com', '0926532450', 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
--- 3. Medicines
-INSERT INTO mec888.medicines
-(id, name, price, description, manufacturer, created_at, updated_at)
+INSERT INTO users
+  (id, username, password, email, phone, first_name, last_name, role_id, career, ethnicity, nationality, place_of_origin, created_at, updated_at)
 VALUES
-(1, 'Paracetamol', 10.00, 'Pain reliever and fever reducer', 'Pharma Co.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(2, 'Ibuprofen', 15.00, 'Anti-inflammatory medication', 'Health Inc.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(3, 'Amoxicillin', 20.00, 'Antibiotic for bacterial infections', 'Medi Corp.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(4, 'Aspirin', 5.00, 'Pain reliever and anti-inflammatory', 'Wellness Ltd.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(5, 'Ciprofloxacin', 25.00, 'Antibiotic for urinary tract infections', 'Pharma Co.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(6, 'Metformin', 30.00, 'Medication for type 2 diabetes', 'Health Inc.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(7, 'Lisinopril', 35.00, 'Medication for high blood pressure', 'Medi Corp.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(8, 'Simvastatin', 40.00, 'Cholesterol-lowering medication', 'Wellness Ltd.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(9, 'Omeprazole', 45.00, 'Proton pump inhibitor for acid reflux', 'Pharma Co.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(10, 'Levothyroxine', 50.00, 'Thyroid hormone replacement therapy', 'Health Inc.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+  (2001, 'dr_quang', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO',
+    'quang@hospital.com', '0911111111',
+    'Quang', 'Nguyễn', 2, 'Doctor', 'Kinh', 'Vietnamese', 'Hanoi', NOW(), NOW()),
+  (2002, 'dr_hung', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO',
+    'hung@hospital.com', '0922222222',
+    'Hưng', 'Trần', 2, 'Doctor', 'Kinh', 'Vietnamese', 'Ho Chi Minh City', NOW(), NOW()),
+  (2003, 'dr_dung', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO',
+    'dung@hospital.com', '0933333333',
+    'Dung', 'Lê', 2, 'Doctor', 'Kinh', 'Vietnamese', 'Da Nang', NOW(), NOW());
+-- 3. Patient (nếu chưa có)
+INSERT INTO users (
+  id, username, first_name, last_name, gender, date_of_birth, career, ethnicity, nationality, place_of_origin,
+  password, email, phone, address, role_id, created_at, updated_at
+)
+VALUES (
+  3001, 'patient_xyz', 'XYZ', 'Nguyễn', 'Male', '2000-01-01', 'Patient', 'Kinh', 'Vietnamese', 'Hanoi',
+  '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO',
+  'xyz@patient.com', '0909999999', "Minh Khai, Hoang Mai, Ha Noi", 4, NOW(), NOW()
+);
+
+-- Medicine
+INSERT INTO mec888.medicines
+(id, name, active_ingredient, dosage, unit, form, manufacturer_code, sl_code, price, expiry_date, usage_instructions, created_at, updated_at)
+VALUES
+(1, 'Paracetamol', 'Acetaminophen', '500', 'mg', 'Tablet', 'PCM-001', 'SL-001', 10.00, '2025-12-31', 'Take 1-2 tablets every 4-6 hours as needed for pain or fever. Do not exceed 8 tablets in 24 hours.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(2, 'Ibuprofen', 'Ibuprofen', '200', 'mg', 'Capsule', 'IBU-002', 'SL-002', 15.00, '2026-06-30', 'Take 1-2 capsules every 4-6 hours after food. Do not exceed 6 capsules in 24 hours.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(3, 'Amoxicillin', 'Amoxicillin trihydrate', '250', 'mg', 'Capsule', 'AMX-003', 'SL-003', 20.00, '2025-10-15', 'Take 1 capsule three times daily with or without food. Complete the full course as prescribed.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(4, 'Aspirin', 'Acetylsalicylic acid', '75', 'mg', 'Tablet', 'ASP-004', 'SL-004', 5.00, '2026-03-20', 'Take 1 tablet daily with food. Use as directed by your physician.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(5, 'Ciprofloxacin', 'Ciprofloxacin hydrochloride', '500', 'mg', 'Tablet', 'CIP-005', 'SL-005', 25.00, '2025-09-25', 'Take 1 tablet twice daily with plenty of water. Complete the full course as prescribed.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(6, 'Metformin', 'Metformin hydrochloride', '850', 'mg', 'Tablet', 'MET-006', 'SL-006', 30.00, '2026-02-10', 'Take 1 tablet twice daily with meals. Follow your doctor\'s instructions carefully.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(7, 'Lisinopril', 'Lisinopril dihydrate', '10', 'mg', 'Tablet', 'LIS-007', 'SL-007', 35.00, '2025-11-05', 'Take 1 tablet once daily at the same time each day, with or without food.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(8, 'Simvastatin', 'Simvastatin', '20', 'mg', 'Tablet', 'SIM-008', 'SL-008', 40.00, '2026-05-15', 'Take 1 tablet once daily in the evening. Avoid grapefruit juice while taking this medication.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(9, 'Omeprazole', 'Omeprazole', '20', 'mg', 'Capsule', 'OME-009', 'SL-009', 45.00, '2025-08-20', 'Take 1 capsule once daily before breakfast. Swallow whole, do not crush or chew.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(10, 'Levothyroxine', 'Levothyroxine sodium', '50', 'mcg', 'Tablet', 'LEV-010', 'SL-010', 50.00, '2026-04-30', 'Take 1 tablet daily on an empty stomach, 30-60 minutes before breakfast.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 -- 4. Departments
 INSERT INTO mec888.departments
@@ -142,65 +165,6 @@ VALUES
 (9, 'Oncology', 'Cancer treatment and research', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (10, 'Radiology', 'Medical imaging and diagnostics', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
--- 5. Doctor
-INSERT INTO mec888.doctors
-(id, user_id, department_id, specialization, license_number, created_at, updated_at)
-values
-(1, 2, 1, '123', 'GX0804PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(2, 4, 2, '123', 'GX0805PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(3, 5, 3, '123', 'GX0806PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(4, 6, 4, '123', 'GX0807PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(5, 7, 5, '123', 'GX0808PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(6, 8, 6, '123', 'GX0809PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(7, 9, 7, '123', 'GX0810PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(8, 10, 8, '123', 'GX0811PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(9, 11, 9, '123', 'GX0812PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(10, 12, 10, '123', 'GX0813PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-
--- 6. Doctor Schedule
-INSERT INTO mec888.doctor_schedule
-(id, doctor_id, day_of_week, start_time, end_time, created_at, updated_at)
-values
-(1, 1, 'Monday', '08:00:00', '12:00:00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(2, 1, 'Wednesday', '14:00:00', '18:00:00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(3, 2, 'Friday', '09:00:00', '15:00:00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-
--- 7. Patient
-INSERT INTO mec888.patients
-(id, user_id, emergency_contact, medical_history, created_at, updated_at)
-VALUES(1, 101, '0123456789', 'khoe manh tu luc sinh ra', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-
--- 8. User
-INSERT INTO mec888.appointments
-(id, doctor_id, patient_id, appointment_date, status, created_at, updated_at)
-VALUES
-(1, 1, 1, '2023-10-01 10:00:00', 'scheduled', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-
--- 1. User cho 3 bác sĩ
-INSERT INTO users (id, username, password, email, phone, role_id, created_at, updated_at)
-VALUES
-(2001, 'dr_quang', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'quang@hospital.com', '0911111111', 2, NOW(), NOW()),
-(2002, 'dr_hung', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'hung@hospital.com', '0922222222', 2, NOW(), NOW()),
-(2003, 'dr_dung', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'dung@hospital.com', '0933333333', 2, NOW(), NOW());
-
--- 2. Bác sĩ tương ứng
-INSERT INTO doctors (id, user_id, department_id, specialization, license_number, created_at, updated_at)
-VALUES
-(11, 2001, 1, 'Internal Medicine', 'INT001', NOW(), NOW()),
-(12, 2002, 4, 'Surgery', 'SUR002', NOW(), NOW()),
-(13, 2003, 5, 'Recovery Specialist', 'REC003', NOW(), NOW());
-
--- 3. Patient (nếu chưa có)
-INSERT INTO users (id, username, password, email, phone, role_id, created_at, updated_at)
-VALUES (3001, 'patient_xyz', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'xyz@patient.com', '0909999999', 4, NOW(), NOW());
-
-INSERT INTO patients (id, user_id, emergency_contact, medical_history, created_at, updated_at)
-VALUES (401, 3001, 'Trần Văn B - 0977777777', 'Tiền sử đau tim nhẹ', NOW(), NOW());
-
--- 4. Appointment
-INSERT INTO appointments (id, patient_id, doctor_id, appointment_date, appointment_time, status, created_at, updated_at)
-VALUES (501, 401, 11, '2025-04-06', '08:00:00', 'confirmed', NOW(), NOW());
-
 -- 5. Room
 INSERT INTO mec888.room (id,department_id, room_number, room_type, status, created_at, updated_at)
 VALUES
@@ -208,13 +172,82 @@ VALUES
     (2, 1, 'R202', 'Surgery', 'available', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
     (3, 1, 'R303', 'Recovery', 'available', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
+-- 5.1 Spectialization
+INSERT INTO mec888.specializations (id, name) VALUES
+  (1, 'Cardiology'),
+  (2, 'Neurology'),
+  (3, 'Pediatrics'),
+  (4, 'Dermatology'),
+  (5, 'Gastroenterology'),
+  (6, 'Oncology'),
+  (7, 'Orthopedics'),
+  (8, 'Psychiatry'),
+  (9, 'Ophthalmology'),
+  (10,'Endocrinology');
+
+-- 5. Doctor
+INSERT INTO mec888.doctors
+  (id, user_id, room_id, specialization_id, license_number, created_at, updated_at)
+VALUES
+  (1,  2,  1,  1,  'GX0804PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- Cardiology
+  (2,  4,  2,  2,  'GX0805PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- Neurology
+  (3,  5,  3,  3,  'GX0806PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- Pediatrics
+  (4,  6,  3,  4,  'GX0807PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- Dermatology
+  (5,  7,  3,  5,  'GX0808PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- Gastroenterology
+  (6,  8,  1,  6,  'GX0809PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- Oncology
+  (7,  9,  2,  7,  'GX0810PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- Orthopedics
+  (8, 10,  2,  8,  'GX0811PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- Psychiatry
+  (9, 11,  1,  9,  'GX0812PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- Ophthalmology
+  (10,12,  1, 10,  'GX0813PT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP); -- Endocrinology
+
+-- 2. Bác sĩ tương ứng
+INSERT INTO doctors (id, user_id, room_id, specialization_id, license_number, created_at, updated_at)
+VALUES
+(11, 2001, 1, 1, 'INT001', NOW(), NOW()),
+(12, 2002, 3, 2, 'SUR002', NOW(), NOW()),
+(13, 2003, 2, 3, 'REC003', NOW(), NOW());
+
+-- 6. Doctor Schedule
+INSERT INTO mec888.doctor_schedule
+(id, doctor_id, day_of_week, start_time, end_time, work_date, created_at, updated_at)
+VALUES
+(1, 1, 'Monday', '07:00:00', '13:00:00', '2025-04-14', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(2, 1, 'Wednesday', '13:00:00', '19:00:00', '2025-04-16', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(3, 2, 'Friday', '07:00:00', '13:00:00', '2025-04-11', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(4, 3, 'Tuesday', '13:00:00', '19:00:00', '2025-04-15', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(5, 4, 'Thursday', '07:00:00', '13:00:00', '2025-04-17', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(6, 5, 'Saturday', '13:00:00', '19:00:00', '2025-04-19', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(7, 6, 'Sunday', '07:00:00', '13:00:00', '2025-04-20', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(8, 7, 'Monday', '13:00:00', '19:00:00', '2025-04-21', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(9, 8, 'Wednesday', '07:00:00', '13:00:00', '2025-04-23', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(10, 9, 'Friday', '13:00:00', '19:00:00', '2025-04-25', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- 7. Patient
+INSERT INTO mec888.patients
+(id, user_id, emergency_contact, medical_history, created_at, updated_at)
+VALUES(1, 101, '0123456789', 'khoe manh tu luc sinh ra', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+INSERT INTO patients (id, user_id, emergency_contact, medical_history, created_at, updated_at)
+VALUES (401, 3001, 'Trần Văn B - 0977777777', 'Tiền sử đau tim nhẹ', NOW(), NOW());
+
+
+-- 4. Appointment
+INSERT INTO mec888.appointments
+(id, doctor_id, patient_id, appointment_date, status, created_at, updated_at)
+VALUES
+(1, 1, 1, '2023-10-01 10:00:00', 'scheduled', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+INSERT INTO appointments (id, patient_id, doctor_id, appointment_date, appointment_time, status, created_at, updated_at)
+VALUES (501, 401, 11, '2025-04-06', '08:00:00', 'confirmed', NOW(), NOW());
+
+
 
 -- 6. Treatment Steps (phân chia bác sĩ)
-INSERT INTO treatment_steps (id, appointment_id, doctor_id, room_id, step_description, start_time, end_time, outcome, created_at, updated_at)
+INSERT INTO treatment_steps (id, appointment_id, doctor_id, step_description, start_time, end_time, outcome, created_at, updated_at)
 VALUES
-(601, 501, 1, 1, 'Khám tổng quát ban đầu', '2025-04-06 08:00:00', '2025-04-06 08:30:00', 'Chỉ định phẫu thuật', NOW(), NOW()),
-(602, 501, 2, 2, 'Phẫu thuật can thiệp', '2025-04-06 09:00:00', '2025-04-06 10:30:00', 'Phẫu thuật thành công', NOW(), NOW()),
-(603, 501, 3, 3, 'Theo dõi hồi sức sau phẫu thuật', '2025-04-06 11:00:00', '2025-04-07 09:00:00', 'Ổn định, xuất viện', NOW(), NOW());
+(601, 501, 1, 'Khám tổng quát ban đầu', '2025-04-06 08:00:00', '2025-04-06 08:30:00', 'Chỉ định phẫu thuật', NOW(), NOW()),
+(602, 501, 2, 'Phẫu thuật can thiệp', '2025-04-06 09:00:00', '2025-04-06 10:30:00', 'Phẫu thuật thành công', NOW(), NOW()),
+(603, 501, 3, 'Theo dõi hồi sức sau phẫu thuật', '2025-04-06 11:00:00', '2025-04-07 09:00:00', 'Ổn định, xuất viện', NOW(), NOW());
 
 -- 7. Medical Record
 INSERT INTO medical_records (id, patient_id, doctor_id, appointment_id, diagnosis, treatment, notes, created_at, updated_at)
@@ -250,4 +283,31 @@ INSERT INTO mec888.invoices
 VALUES
     (1001, 901, 'INV-20250401-901', CURRENT_TIMESTAMP, 250.00, 'Invoice for consultation, surgery, and recovery treatment.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
+INSERT INTO mec888.services
+  (id, room_id, name, description, price, created_at, updated_at)
+VALUES
+  (1, 1, 'General Consultation', 'Basic health consultation with a general practitioner', 300000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  (2, 2, 'X-Ray', 'Radiographic imaging for diagnostic purposes', 500000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  (3, 2,'MRI Scan', 'Magnetic resonance imaging for detailed internal scans', 2000000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  (4, 2,'Blood Test', 'Comprehensive blood panel analysis', 150000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  (5, 3,'Ultrasound', 'Diagnostic sonographic imaging', 700000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  (6, 3,'Vaccination', 'Administration of vaccines for disease prevention', 250000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  (7, 3,'Physical Therapy', 'Rehabilitation sessions for physical recovery', 1000000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  (8, 3,'Surgery Room Fee', 'Room charges for surgical operations', 5000000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  (9, 1,'Post-Operative Care', 'Recovery care services after surgery', 300000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  (10, 1,'Emergency Care', 'Immediate care services for critical conditions', 1000000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
+
+INSERT INTO mec888.room_service
+  (id, room_id, service_id, created_at, updated_at)
+VALUES
+  (1, 1, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Consultation Room provides General Consultation
+  (2, 1, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Consultation Room provides Blood Test
+  (3, 2, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Surgery Room provides X-Ray
+  (4, 2, 8, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Surgery Room provides Surgery Room Fee
+  (5, 3, 9, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Recovery Room provides Post-Operative Care
+  (6, 3, 7, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Recovery Room provides Physical Therapy
+  (7, 2, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Surgery Room provides MRI Scan
+  (8, 3, 6, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Recovery Room provides Vaccination
+  (9, 1, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Consultation Room provides Ultrasound
+  (10, 3, 10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP); -- Recovery Room provides Emergency Care

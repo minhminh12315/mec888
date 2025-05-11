@@ -2,8 +2,8 @@ package com.home.mec888.entity;
 
 import jakarta.persistence.*;
 
+import javax.print.Doc;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "doctors")
@@ -14,21 +14,16 @@ public class Doctor {
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "user_id", nullable = false) // Khóa ngoại tới bảng users
+    @JoinColumn(name = "user_id", nullable = false) // Foreign key to users table
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "department_id", nullable = false)
-    private Department department;
+    @JoinColumn(name = "room_id", nullable = false) // Foreign key to departments table
+    private Room room;
 
-    @Column(length = 255)
-    private String first_name;
-
-    @Column(length = 255)
-    private String last_name;
-
-    @Column(nullable = true, length = 255)
-    private String specialization;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name="specialization_id", nullable = false)
+    private Specialization specialization;
 
     @Column(nullable = true, length = 255)
     private String license_number;
@@ -38,6 +33,14 @@ public class Doctor {
 
     @Column(name = "updated_at", nullable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Timestamp updatedAt;
+
+    public Doctor() {
+
+    }
+
+//    public Doctor(){
+//
+//    }
 
     public Long getId() {
         return id;
@@ -55,11 +58,11 @@ public class Doctor {
         this.user = user;
     }
 
-    public String getSpecialization() {
+    public Specialization getSpecialization() {
         return specialization;
     }
 
-    public void setSpecialization(String specialization) {
+    public void setSpecialization(Specialization specialization) {
         this.specialization = specialization;
     }
 
@@ -87,42 +90,16 @@ public class Doctor {
         this.updatedAt = updatedAt;
     }
 
-    public Department getDepartment() {
-        return department;
+    public Room getRoom() {
+        return room;
     }
 
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
-    public String getFirst_name() {
-        return first_name;
-    }
-
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
-    }
-
-    public String getLast_name() {
-        return last_name;
-    }
-
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setRoom(Room room) {
+        this.room = room;
     }
 
     @Override
     public String toString() {
-        return "Doctor{" +
-                "id=" + id +
-                ", user=" + user +
-                ", department=" + department +
-                ", first_name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
-                ", specialization='" + specialization + '\'' +
-                ", license_number='" + license_number + '\'' +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                '}';
+        return user.getFirstName() + " " + user.getLastName() + " (" + specialization + ")" + "doctorId: " + id;
     }
 }

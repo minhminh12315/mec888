@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.home.mec888.controller.doctor.appointment.DiagnosticTestController">
+    <ScrollPane fitToWidth="true" AnchorPane.bottomAnchor="0"
+                AnchorPane.leftAnchor="0"
+                AnchorPane.rightAnchor="0"
+                AnchorPane.topAnchor="0"
+                style="-fx-background:white;
+                       -fx-background-color:white;
+                       -fx-border-width: 0;">
+        <VBox style="-fx-padding: 32 16 64 16;">
+            <VBox alignment="CENTER" spacing="8" style="-fx-padding: 0 0 32 0;">
+                <Text styleClass="titlePage" text="Diagnostic Test" textAlignment="CENTER"/>
+            </VBox>
+            <HBox alignment="CENTER_RIGHT">
+                <Button onAction="#openModalDiagnosticTest" fx:id="btn_addServices" styleClass="add-new-btn" style="-fx-font-size: 16; -fx-font-weight: bold;"
+                        text="Add Services"/>
+            </HBox>
+            <VBox spacing="16" style="-fx-padding: 16 0 0 0;">
+                <GridPane fx:id="diagnosticTestGrid">
+                    <Label text="Service Name" style="-fx-font-weight: bold; -fx-font-size: 20;" styleClass="diagnosticCell" GridPane.columnIndex="0" GridPane.rowIndex="0" prefWidth="400"/>
+                    <Label text="Room" style="-fx-font-weight: bold; -fx-font-size: 20;" styleClass="diagnosticCell" GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="150"/>
+                    <Label text="Note" style="-fx-font-weight: bold; -fx-font-size: 20;" styleClass="diagnosticCell" GridPane.columnIndex="2" GridPane.rowIndex="0" prefWidth="250"/>
+                    <Label text="Start Time" style="-fx-font-weight: bold; -fx-font-size: 20;" styleClass="diagnosticCell" GridPane.columnIndex="3" GridPane.rowIndex="0" prefWidth="150"/>
+                    <Label text="End Time" style="-fx-font-weight: bold; -fx-font-size: 20;" styleClass="diagnosticCell" GridPane.columnIndex="4" GridPane.rowIndex="0" prefWidth="150"/>
+                    <Label text="Diagnostic" style="-fx-font-weight: bold; -fx-font-size: 20;" styleClass="diagnosticCell" GridPane.columnIndex="5" GridPane.rowIndex="0" prefWidth="300"/>
+                </GridPane>
+
+            </VBox>
+        </VBox>
+    </ScrollPane>
+</AnchorPane>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.*?>
+
+<?import javafx.scene.shape.Rectangle?>
+<StackPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.home.mec888.controller.doctor.appointment.modal.PrescriptionModalController"
+           style="-fx-background-color: rgba(0, 0, 0, 0.3);">
+    <!-- Modal content wrapper -->
+    <VBox fx:id="overlay" alignment="CENTER" spacing="10"
+          style="-fx-background-color: white; -fx-padding: 20; -fx-border-radius: 8; -fx-background-radius: 8;"
+          maxWidth="1200" maxHeight="500">
+
+        <HBox alignment="CENTER"
+              style="-fx-border-color: transparent transparent #F0F0F0 transparent; -fx-border-width: 0 0 1 0; -fx-padding: 8 8 8 8;">
+            <Label style="-fx-font-weight: 600; -fx-font-size: 18;" text="Choose Medicine"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button onAction="#closeModal"
+                    style="-fx-background-color:transparent; -fx-border:none; -fx-cursor: pointer">
+                <graphic>
+                    <FontIcon iconLiteral="fas-times"/>
+                </graphic>
+            </Button>
+        </HBox>
+
+        <TableView fx:id="chooseMedicineTable" prefHeight="400">
+            <columns>
+                <TableColumn fx:id="chooseName" prefWidth="200" text="Medicine name"/>
+                <TableColumn fx:id="chooseIngredient" prefWidth="250" text="Active Ingredient"/>
+                <TableColumn fx:id="chooseDosage" prefWidth="75" text="Dosage"/>
+                <TableColumn fx:id="chooseForm" prefWidth="75" text="Form"/>
+                <TableColumn fx:id="chooseUnit" prefWidth="75" text="Unit"/>
+                <TableColumn fx:id="chooseManuCode" prefWidth="150" text="Manufacturer Code"/>
+                <TableColumn fx:id="choosePrice" prefWidth="100" text="Price"/>
+                <TableColumn fx:id="chooseSlCode" prefWidth="75" text="SL Code"/>
+                <TableColumn fx:id="chooseExpiredDate" prefWidth="150" text="Expired date"/>
+            </columns>
+        </TableView>
+    </VBox>
+</StackPane>

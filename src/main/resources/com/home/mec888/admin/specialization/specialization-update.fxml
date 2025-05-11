@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.home.mec888.controller.admin.specialization.SpecializationUpdateController"
+            prefHeight="400.0" prefWidth="600.0">
+    <VBox spacing="24" AnchorPane.bottomAnchor="24.0"
+          AnchorPane.leftAnchor="24.0"
+          AnchorPane.rightAnchor="24.0"
+          AnchorPane.topAnchor="24.0">
+
+        <HBox spacing="350">
+            <!-- Back button -->
+            <Button fx:id="backButton" layoutX="14.0" layoutY="14.0"
+                    mnemonicParsing="false" onAction="#handleBack"
+                    prefHeight="30.0" prefWidth="75.0" styleClass="back-btn" text="Back"/>
+            <Text text="Update Specialization" styleClass="titlePage"/>
+        </HBox>
+
+        <VBox spacing="16">
+            <!-- Specialization name -->
+            <VBox spacing="4">
+                <Label styleClass="label-input" text="Specialization name:"/>
+                <TextField fx:id="nameField" styleClass="input-field"/>
+                <Label fx:id="nameErrorLabel" textFill="red" visible="false" style="-fx-font-size: 11px;"/>
+            </VBox>
+
+            <HBox alignment="CENTER_RIGHT" spacing="24">
+                <Button fx:id="clearButton" mnemonicParsing="false"
+                        onAction="#handleClear" prefHeight="30.0" prefWidth="120.0" styleClass="clear-btn"
+                        text="Clear"/>
+                <Button fx:id="saveButton" mnemonicParsing="false"
+                        onAction="#handleUpdate" prefHeight="30.0" prefWidth="120.0" styleClass="save-btn"
+                        text="Save"/>
+            </HBox>
+        </VBox>
+    </VBox>
+</AnchorPane>

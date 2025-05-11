@@ -27,6 +27,14 @@
         <mapping class="com.home.mec888.entity.Doctor"/>
         <mapping class="com.home.mec888.entity.Patient"/>
         <mapping class="com.home.mec888.entity.Room"/>
+        <mapping class="com.home.mec888.entity.RoomService"/>
+        <mapping class="com.home.mec888.entity.Service"/>
+        <mapping class="com.home.mec888.entity.DoctorSchedule"/>
+        <mapping class="com.home.mec888.entity.Appointment"/>
+        <mapping class="com.home.mec888.entity.TreatmentSteps"/>
+        <mapping class="com.home.mec888.entity.TreatmentStepServices"/>
+        <mapping class="com.home.mec888.entity.Specialization"/>
+        <mapping class="com.home.mec888.entity.MedicalRecord"/>
 
 
     </session-factory>

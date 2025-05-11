@@ -1,5 +1,6 @@
 package com.home.mec888.dao;
 
+import com.home.mec888.entity.Department;
 import com.home.mec888.entity.Room;
 import com.home.mec888.util.HibernateUtil;
 import org.hibernate.Session;
@@ -42,13 +43,13 @@ public class RoomDao {
 
     public List<Room> getRoomByRoomNumber(String roomNumber) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            // HQL query to search for rooms by roomNumber using LIKE
-            String hql = "FROM Room WHERE roomNumber LIKE :roomNumber";
+            // HQL join Room với Department, dùng LIKE cho roomNumber
+            String hql = "SELECT r FROM Room r JOIN FETCH r.department " +
+                    "WHERE r.roomNumber LIKE :roomNumber";
 
-            // Using the LIKE operator with "%" for pattern matching
             List<Room> rooms = session.createQuery(hql, Room.class)
-                    .setParameter("roomNumber", "%" + roomNumber + "%") // Add wildcards for partial matching
-                    .getResultList(); // Use getResultList() to return all matching rooms
+                    .setParameter("roomNumber", "%" + roomNumber + "%")
+                    .getResultList();
 
             return rooms;
         } catch (Exception e) {
@@ -56,30 +57,37 @@ public class RoomDao {
             return null;
         }
     }
+
 
 
 
     public List<Room> getAllRooms() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            // Debugging: Log if session is properly opened
             System.out.println("Session opened successfully.");
 
-            List<Room> rooms = session.createQuery("from Room order by createdAt desc", Room.class).list();
+            // JOIN FETCH để lấy luôn thông tin phòng ban đi kèm
+            List<Room> rooms = session.createQuery(
+                    "SELECT r FROM Room r JOIN FETCH r.department ORDER BY r.createdAt DESC", Room.class
+            ).list();
 
             if (rooms == null || rooms.isEmpty()) {
                 System.out.println("No rooms found.");
             } else {
                 System.out.println("Rooms fetched: " + rooms.size());
+                // In thử tên phòng ban
+                for (Room room : rooms) {
+                    System.out.println("Room: " + room.getRoomNumber() + " | Department: " + room.getDepartment().getName());
+                }
             }
 
             return rooms;
         } catch (Exception e) {
-            // Handle and log exception for debugging
             System.err.println("Error fetching rooms: " + e.getMessage());
             e.printStackTrace();
             return null;
         }
     }
+
 
 
     public void deleteRoom(Long id) {
@@ -104,6 +112,15 @@ public class RoomDao {
             return session.createQuery("from Room where lower(roomNumber) = :roomNumber", Room.class)
                     .setParameter("roomNumber", roomNumber)
                     .uniqueResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Room getRoomById(Long id) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.get(Room.class, id);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
