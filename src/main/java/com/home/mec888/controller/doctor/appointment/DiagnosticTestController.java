@@ -24,14 +24,14 @@ import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class DiagnosticTestController {
 
     @FXML
     public Button btn_addServices;
-    @FXML
-    public GridPane diagnosticTestGrid;
     @FXML
     public TableView<TreatmentStepServices> diagnosticTestTabelView;
     @FXML
@@ -46,7 +46,12 @@ public class DiagnosticTestController {
     public TableColumn<TreatmentStepServices, String> endTimeColumn;
     @FXML
     public TableColumn<TreatmentStepServices, String> diagnosticColumn;
+    @FXML
     public TableColumn<TreatmentStepServices, Void> actionColumn;
+    @FXML
+    public HBox serviceFilterColor;
+    @FXML
+    public HBox filterColorAndButtonContainer;
     ServiceDao serviceDao;
     TreatmentStepServiceDao treatmentStepServiceDao;
     TreatmentStepDao treatmentStepDao;
@@ -61,17 +66,21 @@ public class DiagnosticTestController {
         setUpDiagnosticCell();
         addButtonToTable();
         getListServiceOrdered();
+
+        if(!SeeADoctorContainerController.isMainDoctor){
+            filterColorAndButtonContainer.getChildren().removeAll(serviceFilterColor, btn_addServices);
+        }
     }
 
     public void setUpDiagnosticCell() {
         diagnosticTestTabelView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-//        serviceNameColumn.setMaxWidth(1f * Integer.MAX_VALUE * 1.5);
-//        roomColumn.setMaxWidth(1f * Integer.MAX_VALUE * 0.5);
-//        noteColumn.setMaxWidth(1f * Integer.MAX_VALUE * 1.0);
-//        startTimeColumn.setMaxWidth(1f * Integer.MAX_VALUE * 0.5);
-//        endTimeColumn.setMaxWidth(1f * Integer.MAX_VALUE * 0.5);
-//        diagnosticColumn.setMaxWidth(1f * Integer.MAX_VALUE * 1.5);
-//        actionColumn.setMaxWidth(1f * Integer.MAX_VALUE * 0.5);
+        serviceNameColumn.setPrefWidth(1f * Integer.MAX_VALUE * 1.5);
+        roomColumn.setPrefWidth(1f * Integer.MAX_VALUE * 0.5);
+        noteColumn.setPrefWidth(1f * Integer.MAX_VALUE * 1.0);
+        startTimeColumn.setPrefWidth(1f * Integer.MAX_VALUE * 0.5);
+        endTimeColumn.setPrefWidth(1f * Integer.MAX_VALUE * 0.5);
+        diagnosticColumn.setPrefWidth(1f * Integer.MAX_VALUE * 1.75);
+        actionColumn.setPrefWidth(1f * Integer.MAX_VALUE * 0.25);
 
         serviceNameColumn.setCellValueFactory(cellData -> {
             TreatmentStepServices tss = cellData.getValue();
@@ -145,22 +154,49 @@ public class DiagnosticTestController {
         diagnosticTestTabelView.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 TreatmentStepServices selectedService = diagnosticTestTabelView.getSelectionModel().getSelectedItem();
-                if (selectedService != null) {
-                    // Handle double-click event on the selected service
-                    try {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/home/mec888/doctor/appointment/modal/examine-service-modal.fxml"));
-                        StackPane modal = loader.load();
+                if (selectedService != null && selectedService.getService() != null && selectedService.getService().getRoom() != null) {
+                    boolean isServiceInRoom = selectedService.getService().getRoom().getId().equals(IndexController.doctor.getRoom().getId());
 
-                        ExamineServiceModalController controller = loader.getController();
-                        controller.setUpdateService(selectedService, this);
-                        // Get the current scene and add the modal to it
-                        AnchorPane root = (AnchorPane) ((Node) event.getSource()).getScene().getRoot();
-                        root.getChildren().add(modal);
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    if (selectedService != null) {
+                        // Handle double-click event on the selected service
+                        try {
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/home/mec888/doctor/appointment/modal/examine-service-modal.fxml"));
+                            StackPane modal = loader.load();
+
+                            ExamineServiceModalController controller = loader.getController();
+                            controller.setUpdateService(selectedService, this , isServiceInRoom);
+                            // Get the current scene and add the modal to it
+                            AnchorPane root = (AnchorPane) ((Node) event.getSource()).getScene().getRoot();
+                            root.getChildren().add(modal);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        System.out.println("Double-clicked on service: " + selectedService.getService().getName());
+
                     }
-                    System.out.println("Double-clicked on service: " + selectedService.getService().getName());
+                }
 
+
+            }
+        });
+
+        diagnosticTestTabelView.setRowFactory(tv -> new TableRow<TreatmentStepServices>() {
+            @Override
+            protected void updateItem(TreatmentStepServices treatmentStepServices, boolean empty) {
+                super.updateItem(treatmentStepServices, empty);
+
+                if (treatmentStepServices == null || empty) {
+                    setStyle(""); // Đặt lại style mặc định
+                } else {
+                    TreatmentSteps treatmentStep = treatmentStepServices.getTreatmentStep();
+
+                    // Kiểm tra null trước khi truy cập doctor ID
+                    if (treatmentStep != null && treatmentStep.getDoctor() != null &&
+                            treatmentStep.getDoctor().getId().equals(IndexController.doctor.getId())) {
+                        setStyle("-fx-background-color: #FFFFFF;"); // Đổi màu nếu doctorId trùng khớp
+                    } else {
+                        setStyle("-fx-background-color: #ffcccc;"); // Đặt lại nếu không thỏa điều kiện
+                    }
                 }
             }
         });
@@ -227,13 +263,24 @@ public class DiagnosticTestController {
     }
 
     public void getListServiceOrdered() {
-        List<TreatmentSteps> treatmentSteps = treatmentStepDao.getAllTreatmentStepsByAppointmentId(SeeADoctorContainerController.currentAppointment.getId());
+        List<TreatmentSteps> treatmentSteps = new ArrayList<>();
+        System.out.println("Curent appointment ID: " + SeeADoctorContainerController.currentAppointment.getId());
+        System.out.println("Doctor ID mismatch: " + IndexController.doctor.getId() + " != " + SeeADoctorContainerController.currentAppointment.getDoctor().getId());
+
+        if (Objects.equals(IndexController.doctor.getId(), SeeADoctorContainerController.currentAppointment.getDoctor().getId())) {
+            treatmentSteps = treatmentStepDao.getAllTreatmentStepsByAppointmentId(SeeADoctorContainerController.currentAppointment.getId());
+        } else {
+            treatmentSteps = treatmentStepDao.getAllTreatmentStepsByAppointmentIdAndRoomId(SeeADoctorContainerController.currentAppointment.getId(), IndexController.doctor.getRoom().getId());
+            System.out.println("Treatment steps abcd: " + treatmentSteps);
+        }
+
         if (treatmentSteps != null && !treatmentSteps.isEmpty()) {
             ObservableList<TreatmentStepServices> treatmentStepsList = diagnosticTestTabelView.getItems();
             treatmentStepsList.clear();
 
             for (TreatmentSteps treatmentStep : treatmentSteps) {
                 TreatmentStepServices treatmentStepService = treatmentStepServiceDao.getTreatmentStepServiceByTreatmentStepID(treatmentStep.getId());
+                System.out.println("Treatment step service: " + treatmentStepService);
                 if (treatmentStepService != null) {
                     treatmentStepsList.add(treatmentStepService);
                 }

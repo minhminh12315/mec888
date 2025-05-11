@@ -11,6 +11,7 @@ import com.home.mec888.entity.TreatmentSteps;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -43,6 +44,10 @@ public class ExamineServiceModalController {
     public TextArea note;
     @FXML
     public TextArea diagnostic;
+    @FXML
+    public Button clearTextFieldButton;
+    @FXML
+    public Button saveTreatmentStepServiceButton;
 
     ServiceDao serviceDao;
     TreatmentStepDao treatmentStepDao;
@@ -50,6 +55,7 @@ public class ExamineServiceModalController {
     Service selectedService;
     public DiagnosticTestController diagnosticTestController;
     TreatmentStepServices selectedTreatmentStepService;
+    public boolean isServiceInRoom;
 
     @FXML
     public void initialize() {
@@ -84,9 +90,11 @@ public class ExamineServiceModalController {
     }
 
 
-    public void setUpdateService(TreatmentStepServices selectedService, DiagnosticTestController diagnosticTestController) {
+    public void setUpdateService(TreatmentStepServices selectedService, DiagnosticTestController diagnosticTestController, boolean isServiceInRoom) {
+        System.out.println("is service in room: " + isServiceInRoom);
         this.selectedTreatmentStepService = selectedService;
         this.diagnosticTestController = diagnosticTestController;
+        this.isServiceInRoom = isServiceInRoom;
 
         // Set the text fields with the selected service's data
         serviceName.setText(selectedService.getService().getName());
@@ -100,6 +108,10 @@ public class ExamineServiceModalController {
                         ? selectedService.getTreatmentStep().getStepDescription()
                         : ""
         );
+        diagnostic.setDisable(!isServiceInRoom);
+        clearTextFieldButton.setDisable(!isServiceInRoom);
+        saveTreatmentStepServiceButton.setDisable(!isServiceInRoom);
+
 
         // Set the doctorExamine field to the current user's name
         doctorExamine.setText("Dr." + IndexController.doctor.getUser().getFirstName()); // Replace with actual user name

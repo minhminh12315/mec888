@@ -56,12 +56,14 @@ public class DiagnosticTestModalController {
     TreatmentStepDao treatmentStepDao;
     TreatmentStepServiceDao treatmentStepServiceDao;
     Service selectedService;
+    DoctorDao doctorDao;
 
     @FXML
     public void initialize() {
         serviceDao = new ServiceDao();
         treatmentStepDao = new TreatmentStepDao();
         treatmentStepServiceDao = new TreatmentStepServiceDao();
+        doctorDao = new DoctorDao();
         Platform.runLater(() -> {
             Stage stage = (Stage) modalDiagnosticTest.getScene().getWindow();
 
@@ -167,11 +169,13 @@ public class DiagnosticTestModalController {
             return;
         }
 
-
+//        Doctor doctor = doctorDao.findDoctorByRoomId(selectedService.getRoom().getId());
         // Save the treatment step service
-
         TreatmentSteps treatmentSteps = new TreatmentSteps();
-        treatmentSteps.setDoctor(IndexController.doctor);
+        if (IndexController.doctor.getRoom().getId().equals(selectedService.getRoom().getId())) {
+            treatmentSteps.setDoctor(IndexController.doctor);
+        }
+//        treatmentSteps.setDoctor(doctor);
         treatmentSteps.setStepDescription(noteText);
         treatmentSteps.setAppointment(SeeADoctorContainerController.currentAppointment);
         treatmentSteps.setStatus("PENDING");

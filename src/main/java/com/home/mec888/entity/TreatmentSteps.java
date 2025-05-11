@@ -15,7 +15,7 @@ public class TreatmentSteps {
     @JoinColumn(name = "appointment_id", nullable = false)
     private Appointment appointment;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
 
@@ -130,12 +130,13 @@ public class TreatmentSteps {
     public String toString() {
         return "TreatmentSteps{" +
                 "id=" + id +
-                ", appointment=" + (appointment != null ? appointment.getId() : "null") +
-                ", doctor=" + (doctor != null ? doctor.getId() : "null") +
+                ", appointment=" + appointment +
+                ", doctor=" + doctor +
                 ", stepDescription='" + stepDescription + '\'' +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
                 ", outcome='" + outcome + '\'' +
+                ", status='" + status + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';
