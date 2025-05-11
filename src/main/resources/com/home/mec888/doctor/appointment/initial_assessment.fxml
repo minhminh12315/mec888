@@ -14,7 +14,9 @@
                 AnchorPane.leftAnchor="0"
                 AnchorPane.rightAnchor="0"
                 AnchorPane.topAnchor="0"
-                style="-fx-background-color:transparent;">
+                style="-fx-background:white;
+                       -fx-background-color:white;
+                       -fx-border-width: 0;">
         <VBox>
             <VBox alignment="CENTER" spacing="8" style="-fx-padding: 0 0 32 0;">
                 <Text styleClass="titlePage" text="Initial Assessment" textAlignment="CENTER"/>
