@@ -88,14 +88,24 @@ public class AppointmentDao {
         }
     }
 
-    public List<Appointment> getAppointmentByDoctorId(long doctorId) {
+    public List<Appointment> getAppointmentByDoctorIdWithStatusScheduledOrConfirmed(long doctorId) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("from Appointment where doctor.id = :doctorId", Appointment.class)
-                    .setParameter("doctorId", doctorId).list();
+            return session.createQuery("from Appointment where doctor.id = :doctorId and status in ('scheduled', 'confirmed')", Appointment.class)
+                    .setParameter("doctorId", doctorId)
+                    .list();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
+    public List<Appointment> getAppointmentWhereStatusIsCompleted() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("from Appointment where status = 'completed'", Appointment.class)
+                    .list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

@@ -1,4 +1,5 @@
-package com.home.mec888.controller.doctor.appointment;
+package com.home.mec888.controller.staff.payment;
+
 
 import com.home.mec888.controller.IndexController;
 import com.home.mec888.dao.AppointmentDao;
@@ -26,6 +27,8 @@ import java.sql.Time;
 import java.util.List;
 
 public class ListAppointmentController {
+
+
     @FXML
     public VBox listAppointmentContainer;
     @FXML
@@ -42,12 +45,10 @@ public class ListAppointmentController {
     private TableColumn<Appointment, String> colAppointmentTime;
 
     private AppointmentDao appointmentDao;
-    private DoctorDao doctorDao;
 
     @FXML
     public void initialize() {
         appointmentDao = new AppointmentDao();
-        doctorDao = new DoctorDao();
 
         appointmentTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
         colId.setCellValueFactory(cellData -> new SimpleLongProperty(cellData.getValue().getId()).asObject());
@@ -63,8 +64,8 @@ public class ListAppointmentController {
             ActionEvent actionEvent = new ActionEvent(event.getSource(), event.getTarget());
             if (event.getClickCount() == 2 && appointmentTable.getSelectionModel().getSelectedItem() != null) {
                 Appointment selectedAppointment = appointmentTable.getSelectionModel().getSelectedItem();
-                FXMLLoader loader = SceneSwitcher.loadViewToCallController("doctor/appointment/see-a-doctor-container.fxml", actionEvent);
-                SeeADoctorContainerController controller = loader.getController();
+                FXMLLoader loader = SceneSwitcher.loadViewToCallController("staff/payment/payment.fxml", actionEvent);
+                PaymentController controller = loader.getController();
                 controller.setAppointment(selectedAppointment);
             }
         });
@@ -73,12 +74,9 @@ public class ListAppointmentController {
 
     public void getListAppointment() {
         try {
-            Long userId = IndexController.user.getId();
-            Doctor currentDoctor = doctorDao.findDoctorByUserId(userId);
-            List<Appointment> appointments = List.of();
-            if (currentDoctor != null) {
-                appointments = appointmentDao.getAppointmentByDoctorIdWithStatusScheduledOrConfirmed(currentDoctor.getId());
-            }
+            List<Appointment> appointments;
+            appointments = appointmentDao.getAppointmentWhereStatusIsCompleted();
+
             if (appointments != null) {
                 ObservableList<Appointment> observableList = FXCollections.observableArrayList(appointments);
                 appointmentTable.setItems(observableList);
@@ -89,3 +87,5 @@ public class ListAppointmentController {
     }
 
 }
+
+
