@@ -5,10 +5,7 @@ import com.home.mec888.controller.doctor.appointment.SeeADoctorContainerControll
 import com.home.mec888.dao.MedicalRecordDao;
 import com.home.mec888.dao.PrescriptionDao;
 import com.home.mec888.dao.PrescriptionDetailsDao;
-import com.home.mec888.entity.MedicalRecord;
-import com.home.mec888.entity.Medicine;
-import com.home.mec888.entity.Prescription;
-import com.home.mec888.entity.PrescriptionDetails;
+import com.home.mec888.entity.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -40,12 +37,17 @@ public class PrescriptionDetailsModalController {
     private Runnable onCloseCallback;
     private Medicine selectedMedicine;
 
+    private PrescriptionDetailsDao prescDetailDao;
+    private PrescriptionDao prescriptionDao;
+
     public void setMedicine(Medicine medicine) {
         this.selectedMedicine = medicine;
     }
 
     @FXML
     public void initialize() {
+        prescDetailDao = new PrescriptionDetailsDao();
+        prescriptionDao = new PrescriptionDao();
         Platform.runLater(() -> {
             Stage stage = (Stage) modalPrescriptionDetail.getScene().getWindow();
 

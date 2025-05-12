@@ -102,7 +102,9 @@ public class InitialAssessmentController {
                         nutritionNote, careMode, careNote
                 );
 
+
                 medicalRecordDao.saveMedicalRecord(medicalRecord);
+                SeeADoctorContainerController.currentMedicalRecord = medicalRecord;
                 System.out.println("Medical record saved successfully!");
             }
 

@@ -49,7 +49,8 @@ public class DiagnosticTestModalController {
     public TextField doctorOrder;
     @FXML
     public TextArea noteField;
-
+    @FXML
+    public TextField searchBox;
     public DiagnosticTestController diagnosticTestController;
 
     ServiceDao serviceDao;
@@ -79,6 +80,10 @@ public class DiagnosticTestModalController {
                 AnchorPane root = (AnchorPane) modalDiagnosticTest.getScene().getRoot();
                 root.getChildren().remove(modalDiagnosticTest);
             });
+        });
+
+        searchBox.textProperty().addListener((observable, oldValue, newValue) -> {
+            searchService(newValue);
         });
         getListServices();
     }
@@ -204,5 +209,59 @@ public class DiagnosticTestModalController {
 //         After saving, close the modal
         closeModal(event);
         diagnosticTestController.reload();
+    }
+
+    public void searchService(String keyword) {
+        keyword = searchBox.getText();
+        if (keyword.isBlank()) {
+            getListServices();
+            return;
+        }
+
+        // Tim kiem dich vu dua tren ten dich vu
+        List<Service> filteredServices = serviceDao.getServiceByDoctorRoom(IndexController.doctorId);
+        diagnosticListContainer.getChildren().clear();
+        for (Service service : filteredServices) {
+            if (service.getName().toLowerCase(Locale.ROOT).contains(keyword.toLowerCase(Locale.ROOT)) ||
+            service.getRoom().getRoomNumber().toLowerCase(Locale.ROOT).contains(keyword.toLowerCase(Locale.ROOT))||
+            service.getDescription().toLowerCase(Locale.ROOT).contains(keyword.toLowerCase(Locale.ROOT)) ||
+            service.getPrice().toString().toLowerCase(Locale.ROOT).contains(keyword.toLowerCase(Locale.ROOT))) {
+                HBox serviceRow = new HBox();
+
+                serviceRow.getStyleClass().add("service-row");
+
+                Label serviceName = new Label(service.getName());
+                serviceName.setPrefWidth(200);
+
+                Label description = new Label("|  " + service.getDescription());
+                description.setPrefWidth(300);
+
+                Label price = new Label("|  " + service.getPrice().toString());
+                price.setPrefWidth(75);
+
+                Label room = new Label("|  " + service.getRoom().getRoomNumber());
+                room.setPrefWidth(150);
+
+                // Add labels to the row
+                serviceRow.getChildren().addAll(serviceName, description, price, room);
+
+                // Add double-click event
+                serviceRow.setOnMouseClicked(event -> {
+                    if (event.getClickCount() == 2) {
+                        System.out.println("Double-clicked on service: " + service.getName());
+                        diagnosticListWrapper.setVisible(false);
+                        diagnosticListWrapper.setManaged(false);
+                        treatmentStepServiceContainer.setVisible(true);
+                        treatmentStepServiceContainer.setManaged(true);
+
+                        // Set the selected service
+                        selectedService = service;
+                        setTreatmentServiceFields();
+                    }
+                });
+                // Add the row to the container
+                diagnosticListContainer.getChildren().add(serviceRow);
+            }
+        }
     }
 }

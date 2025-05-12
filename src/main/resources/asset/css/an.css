@@ -273,3 +273,38 @@
     -fx-border-color: #CCCCCC;
     -fx-border-width: 0px 0px 1px 0px;
 }
+
+.date-picker{
+    -fx-pref-width: 280px;
+    -fx-background-color: transparent;
+
+    -fx-effect:none;
+}
+.date-picker .text-field {
+    -fx-background-color: white;
+    -fx-border-color: #CCCCCC;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 12px;
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+}
+.date-picker .text-field:focused {
+    -fx-background-color: white;
+    -fx-border-color: #CCCCCC;
+    -fx-effect:none;
+}
+.date-picker .arrow-button {
+    -fx-background-color: transparent;
+}
+.date-picker .arrow-button:focused {
+    -fx-background-color: #F0F0F0;
+    -fx-border-color: #FFFFFF;
+    -fx-border-radius: 6px;
+    -fx-background-radius:6px;
+}
+.date-picker:focused{
+    -fx-background-color: transparent;
+    -fx-border-color: #FFFFFF;
+}

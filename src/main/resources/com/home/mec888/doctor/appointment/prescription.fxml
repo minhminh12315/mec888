@@ -6,33 +6,43 @@
 <AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.home.mec888.controller.doctor.appointment.PrescriptionController" prefHeight="400.0"
             prefWidth="600.0">
-    <VBox AnchorPane.topAnchor="16" spacing="10">
-        <HBox alignment="CENTER" spacing="8">
-            <Label text="Prescription" style="-fx-font-weight: bold; -fx-font-size: 24;"/>
-        </HBox>
-        <HBox alignment="CENTER_RIGHT" spacing="10">
-            <Button fx:id="findMedicineButton" onAction="#openModal" style="-fx-font-size: 16; -fx-font-weight: bold;"
-                    text="Add Medicine" styleClass="add-new-btn"/>
-            <Button fx:id="clearButton" onAction="#handleClear" style="-fx-font-size: 16; -fx-font-weight: bold;"
-                    styleClass="clear-btn" text="Clear"/>
-            <Button fx:id="saveButton" onAction="#handleSave" style="-fx-font-size: 16; -fx-font-weight: bold;"
-                    styleClass="save-btn" text="Save"/>
-        </HBox>
-        <!-- Bảng show thuốc thực tế -->
-        <TableView fx:id="prescriptionTable">
-            <columns>
-                <TableColumn fx:id="colMedicineName" prefWidth="200" text="Medicine name"/>
-                <TableColumn fx:id="colMedicineIngredient" prefWidth="200" text="Active Ingredient"/>
-                <TableColumn fx:id="colMedicineDosage" prefWidth="75" text="Dosage"/>
-                <TableColumn fx:id="colMedicineForm" prefWidth="75" text="Form"/>
-                <TableColumn fx:id="colMedicineUnit" prefWidth="75" text="Unit"/>
-                <TableColumn fx:id="colMedicineUnitPrice" prefWidth="75" text="U.Price"/>
-                <TableColumn fx:id="colPrescDosage" prefWidth="75" text="Qty"/>
-                <TableColumn fx:id="colPrescAmount" prefWidth="75" text="Total"/>
-                <TableColumn fx:id="colPrescFrequency" prefWidth="125" text="Frequency"/>
-                <TableColumn fx:id="colPrescDuration" prefWidth="75" text="Duration"/>
-                <TableColumn fx:id="colPrescInstruction" prefWidth="200" text="Instruction"/>
-            </columns>
-        </TableView>
-    </VBox>
+    <ScrollPane fitToWidth="true" AnchorPane.bottomAnchor="0"
+                AnchorPane.leftAnchor="0"
+                AnchorPane.rightAnchor="0"
+                AnchorPane.topAnchor="0"
+                style="-fx-background:white;
+                       -fx-background-color:white;
+                       -fx-border-width: 0;">
+        <VBox AnchorPane.topAnchor="16" spacing="10" fx:id="prescriptionVBoxContainer">
+            <HBox alignment="CENTER" spacing="8">
+                <Label text="Prescription" style="-fx-font-weight: bold; -fx-font-size: 24;"/>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" spacing="10">
+                <Button fx:id="findMedicineButton" onAction="#openModal"
+                        style="-fx-font-size: 16; -fx-font-weight: bold;"
+                        text="Add Medicine" styleClass="add-new-btn"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="clearButton" onAction="#handleClear" style="-fx-font-size: 16; -fx-font-weight: bold;"
+                        styleClass="clear-btn" text="Clear"/>
+                <Button fx:id="saveButton" onAction="#handleSave" style="-fx-font-size: 16; -fx-font-weight: bold;"
+                        styleClass="save-btn" text="Save"/>
+            </HBox>
+            <!-- Bảng show thuốc thực tế -->
+            <TableView fx:id="prescriptionTable">
+                <columns>
+                    <TableColumn fx:id="colMedicineName" prefWidth="200" text="Medicine name"/>
+                    <TableColumn fx:id="colMedicineIngredient" prefWidth="200" text="Active Ingredient"/>
+                    <TableColumn fx:id="colMedicineDosage" prefWidth="75" text="Dosage"/>
+                    <TableColumn fx:id="colMedicineForm" prefWidth="75" text="Form"/>
+                    <TableColumn fx:id="colMedicineUnit" prefWidth="75" text="Unit"/>
+                    <TableColumn fx:id="colMedicineUnitPrice" prefWidth="75" text="U.Price"/>
+                    <TableColumn fx:id="colPrescDosage" prefWidth="75" text="Qty"/>
+                    <TableColumn fx:id="colPrescAmount" prefWidth="75" text="Total"/>
+                    <TableColumn fx:id="colPrescFrequency" prefWidth="125" text="Frequency"/>
+                    <TableColumn fx:id="colPrescDuration" prefWidth="75" text="Duration"/>
+                    <TableColumn fx:id="colPrescInstruction" prefWidth="200" text="Instruction"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </ScrollPane>
 </AnchorPane>

@@ -67,6 +67,7 @@ public class ListAppointmentController {
             if (event.getClickCount() == 2 && appointmentTable.getSelectionModel().getSelectedItem() != null) {
                 Appointment selectedAppointment = appointmentTable.getSelectionModel().getSelectedItem();
                 FXMLLoader loader = SceneSwitcher.loadViewToCallController("doctor/appointment/see-a-doctor-container.fxml", actionEvent);
+                assert loader != null;
                 SeeADoctorContainerController controller = loader.getController();
                 boolean isMainDoctor = selectedAppointment != null
                         && selectedAppointment.getDoctor() != null

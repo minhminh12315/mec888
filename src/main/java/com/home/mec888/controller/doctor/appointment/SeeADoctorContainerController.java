@@ -1,7 +1,8 @@
 package com.home.mec888.controller.doctor.appointment;
 
-import com.home.mec888.dao.AppointmentDao;
+import com.home.mec888.dao.MedicalRecordDao;
 import com.home.mec888.entity.Appointment;
+import com.home.mec888.entity.MedicalRecord;
 import com.home.mec888.entity.Patient;
 import com.home.mec888.util.SceneSwitcher;
 import javafx.application.Platform;
@@ -29,18 +30,21 @@ public class SeeADoctorContainerController {
     public Text addressInformation;
 
     private Button currentActiveButton;
+    private MedicalRecordDao medicalRecordDao;
 
     public static Appointment currentAppointment;
     public static Patient currentPatient;
-    AppointmentDao appointmentDao = new AppointmentDao();
+    public static MedicalRecord currentMedicalRecord;
     public static boolean isMainDoctor = false;
 
     @FXML
     public void initialize() {
         currentActiveButton = patientProfileButton;
+        medicalRecordDao = new MedicalRecordDao();
         Platform.runLater(() -> {
             handleMoveToPatientProfile(new ActionEvent(patientProfileButton, null));
             setAppointmentHeader();
+            currentMedicalRecord = medicalRecordDao.getMedicalRecordByAppointment(currentAppointment);
         });
     }
 
@@ -111,13 +115,7 @@ public class SeeADoctorContainerController {
 
     public void handleMoveToTreatmentPlan(ActionEvent event) {
         highlightActiveButton(treatmentPlanButton);
+        SceneSwitcher.loadViewSeeDoctor("treatment_plan.fxml", event);
 
-    }
-
-    public void handleSave(ActionEvent event) {
-        currentAppointment.setStatus("completed");
-        currentAppointment.setUpdatedAt(java.sql.Timestamp.valueOf(LocalDate.now().atStartOfDay()));
-        appointmentDao.updateAppointment(currentAppointment);
-        SceneSwitcher.loadViewSeeDoctor("list-appointment.fxml", event);
     }
 }

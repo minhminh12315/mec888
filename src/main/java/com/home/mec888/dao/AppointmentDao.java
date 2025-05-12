@@ -111,8 +111,8 @@ public class AppointmentDao {
                     "LEFT JOIN services s ON tss.service_id = s.id " +
                     "LEFT JOIN room r ON r.id = s.room_id " +
                     "LEFT JOIN doctors d2 ON d2.room_id = r.id " +
-                    "WHERE d1.id = :doctorId OR d2.id = :doctorId " +
-                    "AND ts.status = 'PENDING'";
+                    "WHERE (d1.id = :doctorId OR d2.id = :doctorId AND ts.status = 'PENDING') " +
+                    "AND a.status = 'scheduled'";
 
             Query query = session.createNativeQuery(sql, Appointment.class);
             query.setParameter("doctorId", doctorId);

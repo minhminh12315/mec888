@@ -1,28 +1,29 @@
 package com.home.mec888.dao;
 
-import com.home.mec888.entity.Prescription;
+import com.home.mec888.entity.Appointment;
 import com.home.mec888.entity.MedicalRecord;
+import com.home.mec888.entity.Prescription;
 import com.home.mec888.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import java.sql.Date;
 import java.util.List;
 
 public class PrescriptionDao {
-
-    public void savePrescription(Prescription prescription) {
+    public Prescription savePrescription(Prescription prescription) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.save(prescription);
             transaction.commit();
+            return prescription;
         } catch (Exception e) {
-            if (transaction != null) {
+            if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
             e.printStackTrace();
         }
+        return prescription;
     }
 
     public void updatePrescription(Prescription prescription) {
@@ -48,9 +49,9 @@ public class PrescriptionDao {
         }
     }
 
-    public List<Prescription> getAllPrescriptions() {
+    public List<Prescription> getAllPrescription() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("from Prescription", Prescription.class).list();
+            return session.createQuery("FROM Prescription ORDER BY createdAt DESC", Prescription.class).list();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -74,22 +75,11 @@ public class PrescriptionDao {
         }
     }
 
-    public List<Prescription> getPrescriptionsByMedicalRecordId(Long recordId) {
+    public Prescription getPrescriptionByRecord(MedicalRecord record) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("from Prescription where medicalRecord.id = :recordId", Prescription.class)
-                    .setParameter("recordId", recordId)
-                    .list();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public List<Prescription> getPrescriptionsByDate(Date issuedDate) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("from Prescription where issuedDate = :issuedDate", Prescription.class)
-                    .setParameter("issuedDate", issuedDate)
-                    .list();
+            return session.createQuery("from Prescription where record = :record", Prescription.class)
+                    .setParameter("record", record)
+                    .uniqueResult();
         } catch (Exception e) {
             e.printStackTrace();
             return null;

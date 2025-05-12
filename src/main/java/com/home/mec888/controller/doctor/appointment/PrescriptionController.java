@@ -1,18 +1,23 @@
 package com.home.mec888.controller.doctor.appointment;
 
+import com.home.mec888.dao.MedicalRecordDao;
+import com.home.mec888.dao.PrescriptionDao;
 import com.home.mec888.dao.PrescriptionDetailsDao;
 import com.home.mec888.entity.Prescription;
 import com.home.mec888.entity.PrescriptionDetails;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,15 +32,32 @@ public class PrescriptionController {
     public TableColumn<PrescriptionDetails, Double> colPrescDosage, colMedicineUnitPrice, colPrescAmount;
     @FXML
     public Button findMedicineButton;
+    @FXML
+    public VBox prescriptionVBoxContainer;
+
     public static final ObservableList<PrescriptionDetails> STORE = FXCollections.observableArrayList();
     public Button clearButton, saveButton;
-    private PrescriptionDetailsDao prescDao;
+    private PrescriptionDetailsDao prescDetailDao;
+    private PrescriptionDao prescriptionDao;
+    private MedicalRecordDao medicalRecordDao;
 
     @FXML
     public void initialize() {
-        prescDao = new PrescriptionDetailsDao();
+        prescDetailDao = new PrescriptionDetailsDao();
+        prescriptionDao = new PrescriptionDao();
+        medicalRecordDao = new MedicalRecordDao();
         prescriptionTable.setItems(STORE);
         loadShowMedicineData();
+
+        Platform.runLater(() -> {
+            if (SeeADoctorContainerController.currentMedicalRecord == null) {
+                prescriptionVBoxContainer.setDisable(true);
+            } else {
+                prescriptionVBoxContainer.setDisable(false);
+            }
+        });
+
+
     }
 
     public void loadShowMedicineData() {
@@ -103,10 +125,25 @@ public class PrescriptionController {
             return;
         }
 
-        prescDao.saveAllPrescriptionDetails(STORE);
+//        prescDetailDao.saveAllPrescriptionDetails(STORE);
+//        prescriptionTable.getItems().clear();
+//        STORE.clear();
+        Prescription existingPresciprtion = prescriptionDao.getPrescriptionByRecord(SeeADoctorContainerController.currentMedicalRecord);
+
+        Prescription prescription;
+        if (existingPresciprtion != null) {
+            prescription = existingPresciprtion;
+        } else {
+            prescription = new Prescription();
+            prescription.setRecord(SeeADoctorContainerController.currentMedicalRecord);
+            prescriptionDao.savePrescription(prescription);
+        }
+        for (PrescriptionDetails presc : STORE) {
+            presc.setPrescription(prescription);
+            System.out.println(presc);
+        }
         prescriptionTable.getItems().clear();
         STORE.clear();
-        System.out.println(STORE);
     }
 
     public void handleClear() {
