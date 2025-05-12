@@ -542,17 +542,45 @@ public class AppointmentAddController {
 
     @FXML
     public void handleClear() {
+        // Clear text fields
         firstNameField.clear();
         lastNameField.clear();
         phoneField.clear();
         emailField.clear();
+        addressField.clear();
+        emergency_contact.clear();
+        medical_history.clear();
 
+        // Clear ComboBoxes
+        genderComboBox.getSelectionModel().clearSelection();
+        doctorComboBox.getSelectionModel().clearSelection();
+        timePicker.getSelectionModel().clearSelection();
+
+        // Clear DatePickers
+        dateOfBirthPicker.setValue(null);
+        appointmentDatePicker.setValue(null);
+
+        // Reset error labels
         firstNameErrorLabel.setText("");
         lastNameErrorLabel.setText("");
         phoneErrorLabel.setText("");
         emailErrorLabel.setText("");
         genderErrorLabel.setText("");
+        addressErrorLabel.setText("");
+        dateOfBirthErrorLabel.setText("");
+        contact_error.setText("");
+        medical_error.setText("");
+        doctorErrorLabel.setText("");
+        appointmentDateErrorLabel.setText("");
+        timeErrorLabel.setText("");
 
+        // Reset state
+        selectedTimeSlot = null;
+        selectedDoctor = null;
+        selectedDate = null;
+        selectedTime = null;
+
+        // Disable Save button
         saveButton.setDisable(true);
     }
 

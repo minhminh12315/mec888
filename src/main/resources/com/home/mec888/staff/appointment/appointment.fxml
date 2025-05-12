@@ -115,6 +115,12 @@
                     <Label fx:id="medical_error" />
                 </VBox>
 
+                <VBox>
+                    <Label layoutX="20" layoutY="100" text="Select a Time Slot:"/>
+                    <GridPane fx:id="timeSlotGrid" layoutX="20" layoutY="130" hgap="10" vgap="10" />
+                </VBox>
+                <ComboBox fx:id="timePicker" visible="false" managed="false"/>
+
                 <HBox alignment="CENTER_RIGHT" spacing="24">
                     <Button fx:id="clearButton" mnemonicParsing="false" onAction="#handleClear" prefHeight="30.0" prefWidth="120.0" styleClass="clear-btn" text="Clear" />
                     <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSave" prefHeight="30.0" prefWidth="120.0" styleClass="save-btn btn btn-primary" text="Save" />
