@@ -1,7 +1,7 @@
 package com.home.mec888.dao;
 
-import com.home.mec888.entity.Appointment;
-import com.home.mec888.entity.MedicalRecord;
+import com.home.mec888.entity.PrescriptionDetail;
+import com.home.mec888.entity.Medicine;
 import com.home.mec888.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -10,13 +10,13 @@ import org.hibernate.query.Query;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MedicalRecordDao {
+public class PrescriptionDetailDao {
 
-    public void saveMedicalRecord(MedicalRecord medicalRecord) {
+    public void savePrescriptionDetail(PrescriptionDetail prescriptionDetail) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.save(medicalRecord);
+            session.save(prescriptionDetail);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -26,11 +26,11 @@ public class MedicalRecordDao {
         }
     }
 
-    public void updateMedicalRecord(MedicalRecord medicalRecord) {
+    public void updatePrescriptionDetail(PrescriptionDetail prescriptionDetail) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.update(medicalRecord);
+            session.update(prescriptionDetail);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -40,31 +40,31 @@ public class MedicalRecordDao {
         }
     }
 
-    public MedicalRecord getMedicalRecordById(Long id) {
+    public PrescriptionDetail getPrescriptionDetailById(Long id) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.get(MedicalRecord.class, id);
+            return session.get(PrescriptionDetail.class, id);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public List<MedicalRecord> getAllMedicalRecords() {
+    public List<PrescriptionDetail> getAllPrescriptionDetails() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("from MedicalRecord order by updatedAt desc", MedicalRecord.class).list();
+            return session.createQuery("from PrescriptionDetail", PrescriptionDetail.class).list();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public void deleteMedicalRecord(Long id) {
+    public void deletePrescriptionDetail(Long id) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            MedicalRecord medicalRecord = session.get(MedicalRecord.class, id);
-            if (medicalRecord != null) {
-                session.delete(medicalRecord);
+            PrescriptionDetail prescriptionDetail = session.get(PrescriptionDetail.class, id);
+            if (prescriptionDetail != null) {
+                session.delete(prescriptionDetail);
                 transaction.commit();
             }
         } catch (Exception e) {
@@ -75,30 +75,41 @@ public class MedicalRecordDao {
         }
     }
 
-    public MedicalRecord getMedicalRecordByAppointment(Appointment appointment) {
+    public List<PrescriptionDetail> getPrescriptionDetailsByPrescriptionId(Long prescriptionId) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("from MedicalRecord where appointment = :appointment", MedicalRecord.class)
-                    .setParameter("appointment", appointment)
-                    .uniqueResult();
+            return session.createQuery("from PrescriptionDetail where prescription.id = :prescriptionId", PrescriptionDetail.class)
+                    .setParameter("prescriptionId", prescriptionId)
+                    .list();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public List<MedicalRecord> getMedicalRecordsBySelectedAppointmentId(Long appointmentId) {
+    public List<PrescriptionDetail> getPrescriptionDetailsByMedicineId(Long medicineId) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("from PrescriptionDetail where medicine.id = :medicineId", PrescriptionDetail.class)
+                    .setParameter("medicineId", medicineId)
+                    .list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public List<PrescriptionDetail> getPrescriptionsBySelectedAppointmentId(Long appointmentId) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             // Use native SQL query instead of HQL
-            String sql = "SELECT mr.* FROM medical_records mr " +
-                    "JOIN appointments a ON a.id = mr.appointment_id " +
-                    "WHERE appointment_id = :appointmentId";
+            String sql = "SELECT pd.* FROM prescription_details pd " +
+                    "JOIN prescriptions p ON pd.prescription_id = p.id " +
+                    "JOIN medical_records mr ON p.record_id = mr.id " +
+                    "WHERE mr.appointment_id = :appointmentId";
 
-            Query<MedicalRecord> query = session.createNativeQuery(sql, MedicalRecord.class)
+            Query<PrescriptionDetail> query = session.createNativeQuery(sql, PrescriptionDetail.class)
                     .setParameter("appointmentId", appointmentId);
 
             return query.getResultList();
         } catch (Exception e) {
-            System.err.println("Error loading medical records: " + e.getMessage());
+            System.err.println("Error loading prescriptions: " + e.getMessage());
             e.printStackTrace();
             return new ArrayList<>();
         }

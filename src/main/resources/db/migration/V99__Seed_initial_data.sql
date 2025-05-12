@@ -11,7 +11,7 @@ INSERT INTO mec888.users
 (id, username,first_name, last_name, address, password, email, phone, role_id, created_at, updated_at)
 VALUES
 (1, 'admin','Do', 'Dung Quang Minh', 'Ba Dinh',  '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'admin@mec888.com', '0924600804', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(2, 'staff','Do', 'Dung Quang Minh', 'Ba Dinh', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'staff@mec888.com', '0334952821', 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(2, 'staff','Do', 'Dung Quang Minh', 'Ba Dinh', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'staff@mec888.com', '0334952821', 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (3, 'doctor1','Do', 'Dung Quang Minh', 'Ba Dinh', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'doctor1@mec888.com', '0926532450', 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (4, 'doctor2','Do', 'Dung Quang Minh', 'Ba Dinh', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'doctor2@mec888.com', '0926532450', 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (5, 'doctor5','Do', 'Dung Quang Minh', 'Ba Dinh', '$2a$12$dOzJR0qR6YyhIGdJ/gHa7eDGF/twfro05rPysAviDfTFrhTGw4AtO', 'doctor5@mec888.com', '0926532450', 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),

@@ -4,7 +4,9 @@ import com.home.mec888.entity.Medicine;
 import com.home.mec888.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MedicineDao {
@@ -80,6 +82,26 @@ public class MedicineDao {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public List<Medicine> getMedicinesBySelectedAppointmentId(Long appointmentId) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            // Use native SQL query instead of HQL to avoid entity resolution issues
+            String sql = "SELECT m.* FROM medicines m " +
+                    "JOIN prescription_details pd ON pd.medicine_id = m.id " +
+                    "JOIN prescriptions p ON pd.prescription_id = p.id " +
+                    "JOIN medical_records mr ON p.record_id = mr.id " +
+                    "WHERE mr.appointment_id = :appointmentId";
+
+            Query<Medicine> query = session.createNativeQuery(sql, Medicine.class)
+                    .setParameter("appointmentId", appointmentId);
+
+            return query.getResultList();
+        } catch (Exception e) {
+            System.err.println("Error loading medicines: " + e.getMessage());
+            e.printStackTrace();
+            return new ArrayList<>();
         }
     }
 }

@@ -1,22 +1,21 @@
 package com.home.mec888.dao;
 
-import com.home.mec888.entity.Appointment;
+import com.home.mec888.entity.Prescription;
 import com.home.mec888.entity.MedicalRecord;
 import com.home.mec888.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 
-import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
-public class MedicalRecordDao {
+public class PrescriptionDao {
 
-    public void saveMedicalRecord(MedicalRecord medicalRecord) {
+    public void savePrescription(Prescription prescription) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.save(medicalRecord);
+            session.save(prescription);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -26,11 +25,11 @@ public class MedicalRecordDao {
         }
     }
 
-    public void updateMedicalRecord(MedicalRecord medicalRecord) {
+    public void updatePrescription(Prescription prescription) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.update(medicalRecord);
+            session.update(prescription);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -40,31 +39,31 @@ public class MedicalRecordDao {
         }
     }
 
-    public MedicalRecord getMedicalRecordById(Long id) {
+    public Prescription getPrescriptionById(Long id) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.get(MedicalRecord.class, id);
+            return session.get(Prescription.class, id);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public List<MedicalRecord> getAllMedicalRecords() {
+    public List<Prescription> getAllPrescriptions() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("from MedicalRecord order by updatedAt desc", MedicalRecord.class).list();
+            return session.createQuery("from Prescription", Prescription.class).list();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public void deleteMedicalRecord(Long id) {
+    public void deletePrescription(Long id) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            MedicalRecord medicalRecord = session.get(MedicalRecord.class, id);
-            if (medicalRecord != null) {
-                session.delete(medicalRecord);
+            Prescription prescription = session.get(Prescription.class, id);
+            if (prescription != null) {
+                session.delete(prescription);
                 transaction.commit();
             }
         } catch (Exception e) {
@@ -75,32 +74,25 @@ public class MedicalRecordDao {
         }
     }
 
-    public MedicalRecord getMedicalRecordByAppointment(Appointment appointment) {
+    public List<Prescription> getPrescriptionsByMedicalRecordId(Long recordId) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("from MedicalRecord where appointment = :appointment", MedicalRecord.class)
-                    .setParameter("appointment", appointment)
-                    .uniqueResult();
+            return session.createQuery("from Prescription where medicalRecord.id = :recordId", Prescription.class)
+                    .setParameter("recordId", recordId)
+                    .list();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public List<MedicalRecord> getMedicalRecordsBySelectedAppointmentId(Long appointmentId) {
+    public List<Prescription> getPrescriptionsByDate(Date issuedDate) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            // Use native SQL query instead of HQL
-            String sql = "SELECT mr.* FROM medical_records mr " +
-                    "JOIN appointments a ON a.id = mr.appointment_id " +
-                    "WHERE appointment_id = :appointmentId";
-
-            Query<MedicalRecord> query = session.createNativeQuery(sql, MedicalRecord.class)
-                    .setParameter("appointmentId", appointmentId);
-
-            return query.getResultList();
+            return session.createQuery("from Prescription where issuedDate = :issuedDate", Prescription.class)
+                    .setParameter("issuedDate", issuedDate)
+                    .list();
         } catch (Exception e) {
-            System.err.println("Error loading medical records: " + e.getMessage());
             e.printStackTrace();
-            return new ArrayList<>();
+            return null;
         }
     }
 }

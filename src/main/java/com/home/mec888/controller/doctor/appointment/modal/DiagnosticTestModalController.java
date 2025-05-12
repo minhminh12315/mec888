@@ -22,6 +22,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import javax.print.Doc;
@@ -55,12 +56,14 @@ public class DiagnosticTestModalController {
     TreatmentStepDao treatmentStepDao;
     TreatmentStepServiceDao treatmentStepServiceDao;
     Service selectedService;
+    DoctorDao doctorDao;
 
     @FXML
     public void initialize() {
         serviceDao = new ServiceDao();
         treatmentStepDao = new TreatmentStepDao();
         treatmentStepServiceDao = new TreatmentStepServiceDao();
+        doctorDao = new DoctorDao();
         Platform.runLater(() -> {
             Stage stage = (Stage) modalDiagnosticTest.getScene().getWindow();
 
@@ -140,7 +143,7 @@ public class DiagnosticTestModalController {
         // Set the fields with the selected service details
         // For example:
         Doctor doctor = IndexController.doctor;
-        doctorReferral.setText(doctor.getUser().getFirstName() + " " + doctor.getUser().getLastName());
+        doctorReferral.setText("Dr." + doctor.getUser().getFirstName());
         doctorOrder.setText(selectedService.getRoom().getRoomNumber());
     }
 
@@ -166,17 +169,21 @@ public class DiagnosticTestModalController {
             return;
         }
 
-
+//        Doctor doctor = doctorDao.findDoctorByRoomId(selectedService.getRoom().getId());
         // Save the treatment step service
         TreatmentSteps treatmentSteps = new TreatmentSteps();
-//        treatmentSteps.setDoctor(IndexController.doctor);
+        if (IndexController.doctor.getRoom().getId().equals(selectedService.getRoom().getId())) {
+            treatmentSteps.setDoctor(IndexController.doctor);
+        }
+//        treatmentSteps.setDoctor(doctor);
         treatmentSteps.setStepDescription(noteText);
         treatmentSteps.setAppointment(SeeADoctorContainerController.currentAppointment);
+        treatmentSteps.setStatus("PENDING");
+
 
         try {
             TreatmentSteps savedTreatmentStep = treatmentStepDao.saveTreatmentStep(treatmentSteps);
             if (savedTreatmentStep != null) {
-                System.out.println("Treatment step saved successfully. ID: " + savedTreatmentStep.getId());
                 TreatmentStepServices treatmentStepServices = new TreatmentStepServices();
                 treatmentStepServices.setService(selectedService);
                 treatmentStepServices.setTreatmentStep(savedTreatmentStep);
@@ -194,7 +201,7 @@ public class DiagnosticTestModalController {
             System.out.println("Lỗi khi lưu: " + e.getMessage());
             e.printStackTrace();
         }
-        // After saving, close the modal
+//         After saving, close the modal
         closeModal(event);
         diagnosticTestController.reload();
     }

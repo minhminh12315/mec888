@@ -8,6 +8,7 @@
 
 <?import javafx.scene.shape.Rectangle?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import javafx.scene.text.Text?>
 <StackPane fx:id="modalDiagnosticTest" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.home.mec888.controller.doctor.appointment.modal.DiagnosticTestModalController">
@@ -55,18 +56,17 @@
             <HBox alignment="CENTER" spacing="8">
                 <VBox HBox.hgrow="ALWAYS" spacing="4">
                     <Label text="Doctor's referral"/>
-                    <TextField fx:id="doctorReferral" disable="true" styleClass="treatmentStepServiceTextField"/>
+                    <TextField fx:id="doctorReferral" editable="false" styleClass="input-field"/>
                 </VBox>
                 <VBox HBox.hgrow="ALWAYS" spacing="4">
                     <Label text="Doctor's order entry room"/>
-                    <TextField fx:id="doctorOrder" disable="true" styleClass="treatmentStepServiceTextField"/>
+                    <TextField fx:id="doctorOrder" editable="false" styleClass="input-field"/>
                 </VBox>
             </HBox>
             <HBox alignment="CENTER" spacing="8">
                 <VBox HBox.hgrow="ALWAYS" spacing="4">
                     <Label text="Note"/>
-                    <TextArea fx:id="noteField" prefHeight="250" styleClass="treatmentStepServiceTextField"/>
-
+                    <TextArea fx:id="noteField" prefHeight="250" styleClass="input-field"/>
                 </VBox>
             </HBox>
             <Region VBox.vgrow="ALWAYS"/>

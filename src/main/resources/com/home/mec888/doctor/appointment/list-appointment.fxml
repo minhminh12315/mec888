@@ -14,7 +14,7 @@
                 AnchorPane.leftAnchor="0"
                 AnchorPane.rightAnchor="0"
                 AnchorPane.topAnchor="0"
-                style="-fx-background-color:transparent;">
+                style="-fx-background-color:white;">
         <VBox>
             <VBox alignment="CENTER" spacing="8" style="-fx-padding: 0 0 32 0;">
                 <Text styleClass="titlePage" text="List Appointment" textAlignment="CENTER"/>

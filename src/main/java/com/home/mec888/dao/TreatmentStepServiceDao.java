@@ -76,12 +76,29 @@ public class TreatmentStepServiceDao {
 
     public TreatmentStepServices getTreatmentStepServiceByTreatmentStepID(Long treatmentStepId) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("FROM TreatmentStepServices WHERE treatmentStep.id = :treatmentStepId", TreatmentStepServices.class)
+            return session.createQuery(
+                            "FROM TreatmentStepServices tss WHERE tss.treatmentStep.id = :treatmentStepId AND tss.treatmentStep.status = :status",
+                            TreatmentStepServices.class)
                     .setParameter("treatmentStepId", treatmentStepId)
+                    .setParameter("status", "PENDING") // hoặc dùng enum nếu bạn đang dùng Enum type
                     .uniqueResult();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public void delete(TreatmentStepServices treatmentStepServices) {
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            session.delete(treatmentStepServices);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
         }
     }
 }

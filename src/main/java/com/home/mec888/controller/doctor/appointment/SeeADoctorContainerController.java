@@ -33,6 +33,7 @@ public class SeeADoctorContainerController {
     public static Appointment currentAppointment;
     public static Patient currentPatient;
     AppointmentDao appointmentDao = new AppointmentDao();
+    public static boolean isMainDoctor = false;
 
     @FXML
     public void initialize() {
@@ -62,10 +63,11 @@ public class SeeADoctorContainerController {
         }
     }
 
-    public void setAppointment(Appointment appointment) {
+    public void setAppointment(Appointment appointment, boolean isMainDoctor) {
         try {
             currentAppointment = appointment;
             currentPatient = currentAppointment.getPatient();
+            SeeADoctorContainerController.isMainDoctor = isMainDoctor;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
