@@ -22,9 +22,9 @@ CREATE TABLE IF NOT EXISTS medical_records (
     lab_results TEXT                       COMMENT 'Kết quả CLS',
 
     -- Chẩn đoán chính & phụ
-    primary_diagnosis_code VARCHAR(50)     COMMENT 'Mã chẩn đoán chính',
+    primary_diagnosis_code VARCHAR(50)     COMMENT 'chẩn đoán chính',
     primary_diagnosis_note TEXT            COMMENT 'Ghi chú chẩn đoán chính',
-    secondary_diagnosis_code VARCHAR(50)   COMMENT 'Mã chẩn đoán phụ',
+    secondary_diagnosis_code VARCHAR(50)   COMMENT 'chẩn đoán phụ',
     secondary_diagnosis_note TEXT          COMMENT 'Ghi chú chẩn đoán phụ',
 
     -- Chẩn đoán tổng quát, xử lý, ghi chú

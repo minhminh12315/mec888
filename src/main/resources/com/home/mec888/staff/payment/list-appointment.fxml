@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.home.mec888.controller.staff.payment.ListAppointmentController">
+    <ScrollPane fitToWidth="true" AnchorPane.bottomAnchor="0"
+                AnchorPane.leftAnchor="0"
+                AnchorPane.rightAnchor="0"
+                AnchorPane.topAnchor="0"
+                style="-fx-background-color:transparent;">
+        <VBox>
+            <VBox alignment="CENTER" spacing="8" style="-fx-padding: 0 0 32 0;">
+                <Text styleClass="titlePage" text="List Appointment" textAlignment="CENTER"/>
+            </VBox>
+            <VBox fx:id="listAppointmentContainer" spacing="16" AnchorPane.bottomAnchor="24.0"
+                  AnchorPane.leftAnchor="24.0"
+                  AnchorPane.rightAnchor="24.0"
+                  AnchorPane.topAnchor="24.0"
+                  style="-fx-padding: 16 16 64 16;">
+                <TableView fx:id="appointmentTable" prefWidth="600">
+                    <columns>
+                        <TableColumn fx:id="colId" text="ID" prefWidth="60"/>
+                        <TableColumn fx:id="colPatientId" text="Patient" prefWidth="100"/>
+                        <TableColumn fx:id="colDoctorName" text="Doctor" prefWidth="150"/>
+                        <TableColumn fx:id="colAppointmentDate" text="Appointment Date" prefWidth="140"/>
+                        <TableColumn fx:id="colAppointmentTime" text="Appointment Time" prefWidth="140"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </VBox>
+    </ScrollPane>
+</AnchorPane>

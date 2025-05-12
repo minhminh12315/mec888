@@ -173,6 +173,8 @@ public class AppointmentAddController {
                 selectedTimeSlot = slot;
                 if (timePicker != null) {
                     timePicker.setValue(slot);
+                    System.out.println("Selected time: " + selectedTimeSlot);
+
                 } else {
                     System.out.println("timePicker is null");
                 }
@@ -236,7 +238,7 @@ public class AppointmentAddController {
             Patient patient = new Patient();
             patient.setUser(userDao.getUserById(last_user_id));
             patient.setEmergency_contact(emergency_contact.getText());
-            patient.setMedical_history(String.valueOf(medical_history));
+            patient.setMedical_history(medical_history.getText());
             patientDao.savePatient(patient);
 
 
@@ -304,10 +306,36 @@ public class AppointmentAddController {
                 user_id_error.setText("User ID must be a valid number.");
                 saveButton.setDisable(true);
             }
+        } else if (source == firstNameField || source == lastNameField) {
+            String username = firstNameField.getText() + " " + lastNameField.getText();
+            if (username.length() > 255) {
+                usernameErrorLabel.setText("Username cannot exceed 255 characters.");
+                saveButton.setDisable(true);
+            } else if (username.isEmpty()) {
+                usernameErrorLabel.setText("Username cannot be empty.");
+                saveButton.setDisable(true);
+            } else if (userDao.isUsernameExists(username)) {
+                usernameErrorLabel.setText("Username already exists!");
+                saveButton.setDisable(true);
+            } else {
+                usernameErrorLabel.setText("");
+                saveButton.setDisable(false);
+            }
+
+            
         } else if (source == emergency_contact) {
             String contact = emergency_contact.getText();
             if (contact.length() > 255) {
                 contact_error.setText("Emergency Contact cannot exceed 255 characters.");
+                saveButton.setDisable(true);
+            } else if (contact.length() < 10) {
+                contact_error.setText("Emergency Contact must be at least 10 characters.");
+                saveButton.setDisable(true);
+            } else if (!isValidPhone(contact)) {
+                contact_error.setText("Invalid phone format!");
+                saveButton.setDisable(true);
+            } else if (contact.length() > 15) {
+                contact_error.setText("Emergency Contact cannot exceed 15 digits.");
                 saveButton.setDisable(true);
             } else if (contact.isEmpty()) {
                 contact_error.setText("Emergency Contact cannot be empty.");
@@ -371,6 +399,12 @@ public class AppointmentAddController {
             String phone = phoneField.getText();
             if (phone == null) {
                 phoneErrorLabel.setText("Phone cannot be empty.");
+                saveButton.setDisable(true);
+            } else if (phone.length() > 15) {
+                phoneErrorLabel.setText("Phone number cannot exceed 15 digits.");
+                saveButton.setDisable(true);
+            } else if (phone.length() < 10) {
+                phoneErrorLabel.setText("Phone number must be at least 10 digits.");
                 saveButton.setDisable(true);
             } else if (!isValidPhone(phone)) {
                 phoneErrorLabel.setText("Invalid phone format!");

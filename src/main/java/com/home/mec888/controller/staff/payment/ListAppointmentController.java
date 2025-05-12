@@ -1,4 +1,5 @@
-package com.home.mec888.controller.doctor.appointment;
+package com.home.mec888.controller.staff.payment;
+
 
 import com.home.mec888.controller.IndexController;
 import com.home.mec888.dao.AppointmentDao;
@@ -23,12 +24,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.sql.Time;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ListAppointmentController {
+
+
     @FXML
     public VBox listAppointmentContainer;
     @FXML
@@ -45,12 +45,10 @@ public class ListAppointmentController {
     private TableColumn<Appointment, String> colAppointmentTime;
 
     private AppointmentDao appointmentDao;
-    private DoctorDao doctorDao;
 
     @FXML
     public void initialize() {
         appointmentDao = new AppointmentDao();
-        doctorDao = new DoctorDao();
 
         appointmentTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
         colId.setCellValueFactory(cellData -> new SimpleLongProperty(cellData.getValue().getId()).asObject());
@@ -66,36 +64,19 @@ public class ListAppointmentController {
             ActionEvent actionEvent = new ActionEvent(event.getSource(), event.getTarget());
             if (event.getClickCount() == 2 && appointmentTable.getSelectionModel().getSelectedItem() != null) {
                 Appointment selectedAppointment = appointmentTable.getSelectionModel().getSelectedItem();
-                FXMLLoader loader = SceneSwitcher.loadViewToCallController("doctor/appointment/see-a-doctor-container.fxml", actionEvent);
-                SeeADoctorContainerController controller = loader.getController();
-                boolean isMainDoctor = selectedAppointment != null
-                        && selectedAppointment.getDoctor() != null
-                        && selectedAppointment.getDoctor().getId() != null
-                        && selectedAppointment.getDoctor().getId().equals(IndexController.doctor.getId());
-
-                System.out.println("is main doctor: " + isMainDoctor);
-                System.out.println("is main doctor: " + isMainDoctor);
-                controller.setAppointment(selectedAppointment, isMainDoctor);
+                FXMLLoader loader = SceneSwitcher.loadViewToCallController("staff/payment/payment.fxml", actionEvent);
+                PaymentController controller = loader.getController();
+                controller.setAppointment(selectedAppointment);
             }
         });
-        appointmentTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        colId.setPrefWidth(1f * Integer.MAX_VALUE * 0.5);
-        colPatientId.setPrefWidth(1f * Integer.MAX_VALUE * 1.0);
-        colDoctorName.setPrefWidth(1f * Integer.MAX_VALUE * 1.0);
-        colAppointmentDate.setPrefWidth(1f * Integer.MAX_VALUE * 1.0);
-        colAppointmentTime.setPrefWidth(1f * Integer.MAX_VALUE * 1.0);
-
         getListAppointment();
     }
 
     public void getListAppointment() {
         try {
-            Long userId = IndexController.user.getId();
-            Doctor currentDoctor = doctorDao.findDoctorByUserId(userId);
-            List<Appointment> appointments = new ArrayList<>();
-            if (currentDoctor != null) {
-                appointments = appointmentDao.getAppointmentsServiceByDoctorId(currentDoctor.getId());
-            }
+            List<Appointment> appointments;
+            appointments = appointmentDao.getAppointmentWhereStatusIsCompleted();
+
             if (appointments != null) {
                 ObservableList<Appointment> observableList = FXCollections.observableArrayList(appointments);
                 appointmentTable.setItems(observableList);
@@ -106,3 +87,5 @@ public class ListAppointmentController {
     }
 
 }
+
+

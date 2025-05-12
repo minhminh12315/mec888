@@ -139,6 +139,7 @@ public class PatientManagementController {
                     private final FontIcon editIcon = new FontIcon(FontAwesomeSolid.EDIT);
                     private final FontIcon deleteIcon = new FontIcon(FontAwesomeSolid.TRASH_ALT);
                     private final HBox actionBox = new HBox(10); // spacing between icons
+                    private final FontIcon recordIcon = new FontIcon(FontAwesomeSolid.FILE);
 
                     {
                         // Style the icons
@@ -146,6 +147,8 @@ public class PatientManagementController {
                         editIcon.setIconColor(Paint.valueOf("#4CAF50")); // Green
                         deleteIcon.setIconSize(20);
                         deleteIcon.setIconColor(Paint.valueOf("#F44336")); // Red
+                        recordIcon.setIconSize(20);
+                        recordIcon.setIconColor(Paint.valueOf("#6236f4")); // Red
 
                         // Add event handlers
                         editIcon.setOnMouseClicked(event -> {
@@ -158,8 +161,13 @@ public class PatientManagementController {
                             handleDelete(patient);
                         });
 
+                        recordIcon.setOnMouseClicked(event -> {
+                            Patient patient = getTableView().getItems().get(getIndex());
+                            handleRecord(patient, new ActionEvent());
+                        });
+
                         // Configure HBox
-                        actionBox.getChildren().addAll(editIcon, deleteIcon);
+                        actionBox.getChildren().addAll(editIcon, deleteIcon, recordIcon);
                         actionBox.setAlignment(Pos.CENTER);
                     }
 
@@ -197,7 +205,7 @@ public class PatientManagementController {
                 System.err.println("BorderPane with ID 'mainBorderPane' not found");
             }
         } else {
-            System.err.println("Could not load edit-showtime.fxml");
+            System.err.println("Could not load patient-update.fxml");
         }
     }
 
@@ -213,4 +221,26 @@ public class PatientManagementController {
             loadPatientData();
         }
     }
+
+    private void handleRecord(Patient patient, ActionEvent actionEvent) {
+        FXMLLoader loader = SceneSwitcher.loadViewToUpdate("admin/patient/patient-appointment.fxml");
+
+        if (loader != null) {
+            PatientAppointmentController patientAppointmentController = loader.getController();
+            patientAppointmentController.setPatientAppointment(patient);
+
+            Parent newView = loader.getRoot();
+            AnchorPane anchorPane = (AnchorPane) patientManagementTable.getScene().getRoot();
+            BorderPane mainPane = (BorderPane) anchorPane.lookup("#mainBorderPane");
+
+            if (mainPane != null) {
+                mainPane.setCenter(newView);
+            } else {
+                System.err.println("BorderPane with ID 'mainBorderPane' not found");
+            }
+        } else {
+            System.err.println("Could not load patient-appointment.fxml");
+        }
+    }
+
 }
