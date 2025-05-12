@@ -16,113 +16,111 @@
                 AnchorPane.rightAnchor="0"
                 AnchorPane.topAnchor="0"
                 style="-fx-background-color:transparent;">
-    <VBox spacing="24" AnchorPane.bottomAnchor="24.0"
-          AnchorPane.leftAnchor="24.0"
-          AnchorPane.rightAnchor="24.0"
-          AnchorPane.topAnchor="24.0">
+        <VBox spacing="24" AnchorPane.bottomAnchor="24.0"
+              AnchorPane.leftAnchor="24.0"
+              AnchorPane.rightAnchor="24.0"
+              AnchorPane.topAnchor="24.0">
 
-        <HBox spacing="500">
-            <Text text="Add New Appointment" styleClass="titlePage"/>
-        </HBox>
-
-        <VBox spacing="6">
-
-           <HBox spacing="20" alignment="CENTER" styleClass="display-flex">
-               <!-- First Name Field -->
-               <VBox>
-                   <Label styleClass="label-input" text="First Name:"/>
-                   <TextField fx:id="firstNameField" onKeyReleased="#validateInput" prefWidth="250" styleClass="input-field"/>
-                   <Label fx:id="firstNameErrorLabel" textFill="red"/> <!-- Thông báo lỗi -->
-               </VBox>
-               <!-- Last Name Field -->
-               <VBox>
-                   <Label styleClass="label-input" text="Last Name:"/>
-                   <TextField fx:id="lastNameField" onKeyReleased="#validateInput" prefWidth="250" styleClass="input-field"/>
-                   <Label fx:id="lastNameErrorLabel" textFill="red"/> <!-- Thông báo lỗi -->
-               </VBox>
-               <!-- Phone Field -->
-               <VBox>
-                   <Label styleClass="label-input" text="Phone:"/>
-                   <TextField fx:id="phoneField" onKeyReleased="#validateInput" prefWidth="250" styleClass="input-field"/>
-                   <Label fx:id="phoneErrorLabel" textFill="red"/> <!-- Thông báo lỗi -->
-               </VBox>
-               <!-- Address Field -->
-               <VBox>
-                   <Label styleClass="label-input" text="Address:"/>
-                   <TextField fx:id="addressField" onKeyReleased="#validateInput" prefWidth="250" styleClass="input-field"/>
-                   <Label fx:id="addressErrorLabel" textFill="red"/> <!-- Thông báo lỗi -->
-               </VBox>
-               <!-- Email Field -->
-               <VBox>
-                   <Label styleClass="label-input" text="Email:"/>
-                   <TextField fx:id="emailField" onKeyReleased="#validateInput" prefWidth="250" styleClass="input-field"/>
-                   <Label fx:id="emailErrorLabel" textFill="red"/> <!-- Thông báo lỗi -->
-               </VBox>
-               <!-- Date of Birth Picker -->
-               <VBox>
-                   <HBox>
-                       <Label styleClass="label-input" text="Date of Birth "/>
-                       <Label layoutX="35.0" layoutY="150.0" text="*" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;" />
-                   </HBox>
-                   <DatePicker fx:id="dateOfBirthPicker" styleClass="input-field"/>
-                   <Label fx:id="dateOfBirthErrorLabel" textFill="red"/> <!-- Error Label for Date of Birth -->
-               </VBox>
-           </HBox>
-            <!-- Gender ComboBox -->
-            <VBox>
-                <HBox>
-                    <Label styleClass="label-input" text="Gender "/>
-                    <Label layoutX="35.0" layoutY="150.0" text="*" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;" />
-                </HBox>
-                <ComboBox fx:id="genderComboBox" prefWidth="Infinity" styleClass="input-field"/>
-                <Label fx:id="genderErrorLabel" textFill="red"/> <!-- Error Label for Gender -->
-            </VBox>
-            <!-- Emergency Contact Input -->
-            <VBox>
-                <Label styleClass="label-input" text="Emergency Contact" />
-                <TextField fx:id="emergency_contact" onKeyReleased="#validateInput" styleClass="input-field" />
-                <Label fx:id="contact_error" />
-            </VBox>
-
-            <!-- Medical History Input -->
-            <VBox>
-                <Label styleClass="label-input" text="Medical History" />
-                <TextArea fx:id="medical_history" onKeyReleased="#validateInput" styleClass="input-field" />
-                <Label fx:id="medical_error" />
-            </VBox>
-
-            <!-- Doctor ComboBox -->
-            <VBox>
-                <HBox>
-                    <Label styleClass="label-input" text="Doctor "/>
-                    <Label layoutX="35.0" layoutY="150.0" text="*" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;" />
-                </HBox>
-                <ComboBox fx:id="doctorComboBox" onAction="#handleDoctor" prefWidth="Infinity" styleClass="input-field"/>
-                <Label fx:id="doctorErrorLabel" textFill="red"/> <!-- Error Label for Doctor -->
-            </VBox>
-            <!-- Appointment Date Picker-->
-            <VBox>
-                <HBox>
-                    <Label styleClass="label-input" text="Appointment Date"/>
-                    <Label layoutX="35.0" layoutY="150.0" text="*" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;" />
-                </HBox>
-                <DatePicker fx:id="appointmentDatePicker" onAction="#handleDatePicker" styleClass="input-field"/>
-                <Label fx:id="appointmentDateErrorLabel" textFill="red"/> <!-- Error Label for Appointment Date -->
-
-            </VBox>
-
-            <VBox>
-                <Label layoutX="20" layoutY="100" text="Select a Time Slot:"/>
-                <GridPane fx:id="timeSlotGrid" layoutX="20" layoutY="130" hgap="10" vgap="10" />
-            </VBox>
-            <ComboBox fx:id="timePicker" visible="false" managed="false"/>
-
-            <HBox alignment="CENTER_RIGHT" spacing="24">
-                <Button fx:id="clearButton" mnemonicParsing="false" onAction="#handleClear" prefHeight="30.0" prefWidth="120.0" styleClass="clear-btn" text="Clear" />
-                <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSave" prefHeight="30.0" prefWidth="120.0" styleClass="save-btn btn btn-primary" text="Save" />
+            <HBox spacing="500">
+                <Text text="Add New Appointment" styleClass="titlePage"/>
             </HBox>
 
+            <VBox spacing="6">
+
+                <HBox spacing="20" alignment="CENTER" styleClass="display-flex">
+                    <!-- First Name Field -->
+                    <VBox>
+                        <Label styleClass="label-input" text="First Name:"/>
+                        <TextField fx:id="firstNameField" onKeyReleased="#validateInput" prefWidth="250" styleClass="input-field"/>
+                        <Label fx:id="firstNameErrorLabel" textFill="red"/> <!-- Thông báo lỗi -->
+                    </VBox>
+                    <!-- Last Name Field -->
+                    <VBox>
+                        <Label styleClass="label-input" text="Last Name:"/>
+                        <TextField fx:id="lastNameField" onKeyReleased="#validateInput" prefWidth="250" styleClass="input-field"/>
+                        <Label fx:id="lastNameErrorLabel" textFill="red"/> <!-- Thông báo lỗi -->
+                    </VBox>
+                    <!-- Phone Field -->
+                    <VBox>
+                        <Label styleClass="label-input" text="Phone:"/>
+                        <TextField fx:id="phoneField" onKeyReleased="#validateInput" prefWidth="250" styleClass="input-field"/>
+                        <Label fx:id="phoneErrorLabel" textFill="red"/> <!-- Thông báo lỗi -->
+                    </VBox>
+                    <!-- Address Field -->
+                    <VBox>
+                        <Label styleClass="label-input" text="Address:"/>
+                        <TextField fx:id="addressField" onKeyReleased="#validateInput" prefWidth="250" styleClass="input-field"/>
+                        <Label fx:id="addressErrorLabel" textFill="red"/> <!-- Thông báo lỗi -->
+                    </VBox>
+                    <!-- Email Field -->
+                    <VBox>
+                        <Label styleClass="label-input" text="Email:"/>
+                        <TextField fx:id="emailField" onKeyReleased="#validateInput" prefWidth="250" styleClass="input-field"/>
+                        <Label fx:id="emailErrorLabel" textFill="red"/> <!-- Thông báo lỗi -->
+                    </VBox>
+                    <!-- Date of Birth Picker -->
+                    <VBox>
+                        <HBox>
+                            <Label styleClass="label-input" text="Date of Birth "/>
+                            <Label layoutX="35.0" layoutY="150.0" text="*" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;" />
+                        </HBox>
+                        <DatePicker fx:id="dateOfBirthPicker" styleClass="input-field"/>
+                        <Label fx:id="dateOfBirthErrorLabel" textFill="red"/> <!-- Error Label for Date of Birth -->
+                    </VBox>
+                </HBox>
+
+                <HBox spacing="20" alignment="CENTER" styleClass="display-flex">
+                    <!-- Gender ComboBox -->
+                    <VBox>
+                        <HBox>
+                            <Label styleClass="label-input" text="Gender "/>
+                            <Label layoutX="35.0" layoutY="150.0" text="*" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;" />
+                        </HBox>
+                        <ComboBox fx:id="genderComboBox" prefWidth="250" styleClass="input-field"/>
+                        <Label fx:id="genderErrorLabel" textFill="red"/>
+                    </VBox>
+
+                    <!-- Doctor ComboBox -->
+                    <VBox>
+                        <HBox>
+                            <Label styleClass="label-input" text="Doctor "/>
+                            <Label layoutX="35.0" layoutY="150.0" text="*" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;" />
+                        </HBox>
+                        <ComboBox fx:id="doctorComboBox" onAction="#handleDoctor" prefWidth="250" styleClass="input-field"/>
+                        <Label fx:id="doctorErrorLabel" textFill="red"/>
+                    </VBox>
+
+                    <!-- Emergency Contact -->
+                    <VBox>
+                        <Label styleClass="label-input" text="Emergency Contact" />
+                        <TextField fx:id="emergency_contact" onKeyReleased="#validateInput" prefWidth="250" styleClass="input-field" />
+                        <Label fx:id="contact_error" textFill="red"/>
+                    </VBox>
+
+                    <!-- Appointment Date Picker -->
+                    <VBox>
+                        <HBox>
+                            <Label styleClass="label-input" text="Appointment Date"/>
+                            <Label layoutX="35.0" layoutY="150.0" text="*" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: red;" />
+                        </HBox>
+                        <DatePicker fx:id="appointmentDatePicker" onAction="#handleDatePicker" prefWidth="250" styleClass="input-field"/>
+                        <Label fx:id="appointmentDateErrorLabel" textFill="red"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Medical History Input -->
+                <VBox>
+                    <Label styleClass="label-input" text="Medical History" />
+                    <TextArea fx:id="medical_history" onKeyReleased="#validateInput" styleClass="input-field" />
+                    <Label fx:id="medical_error" />
+                </VBox>
+
+                <HBox alignment="CENTER_RIGHT" spacing="24">
+                    <Button fx:id="clearButton" mnemonicParsing="false" onAction="#handleClear" prefHeight="30.0" prefWidth="120.0" styleClass="clear-btn" text="Clear" />
+                    <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSave" prefHeight="30.0" prefWidth="120.0" styleClass="save-btn btn btn-primary" text="Save" />
+                </HBox>
+
+            </VBox>
         </VBox>
-    </VBox>
     </ScrollPane>
 </AnchorPane>
