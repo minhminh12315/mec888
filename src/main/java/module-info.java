@@ -1,5 +1,9 @@
 module com.home.mec888 {
     requires javafx.fxml;
+    requires javafx.base;
+    requires javafx.graphics;
+    requires javafx.controls;
+    requires javafx.swing;
 
     // Hibernate và JPA
     requires java.naming;
@@ -24,6 +28,7 @@ module com.home.mec888 {
     requires javax.mail.api;
     requires jasperreports;
     requires itextpdf;
+    requires org.apache.pdfbox;
 
     // Mở package chứa entity cho Hibernate ORM (để nó có thể quét bằng reflection)
     opens com.home.mec888.entity to org.hibernate.orm.core, javafx.base;

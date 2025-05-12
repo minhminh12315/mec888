@@ -9,8 +9,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.layout.ColumnConstraints?>
-
 <?import javafx.geometry.Insets?>
+
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.home.mec888.controller.extractPDF.MedicalReportController"
             styleClass="BackGround">
@@ -21,30 +21,30 @@
         <!-- Header Section -->
         <HBox alignment="CENTER">
             <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-                <Label text="SỞ Y TẾ HÀ NỘI" style="-fx-font-weight: bold;"/>
-                <Label text="BỆNH VIỆN ĐA KHOA XANH PÔN" style="-fx-font-weight: bold;"/>
-                <Label text="Phòng 114A - Phòng khám bệnh" />
-                <Label text="truyền nhiễm" />
+                <Label text="HANOI DEPARTMENT OF HEALTH" style="-fx-font-weight: bold;"/>
+                <Label text="XANH PON GENERAL HOSPITAL" style="-fx-font-weight: bold;"/>
+                <Label text="Room 114A - Outpatient Department" />
+                <Label text="Infectious diseases" />
             </VBox>
 
             <VBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                 <HBox alignment="CENTER_RIGHT" spacing="10">
-                    <Label text="STT:" style="-fx-font-weight: bold;"/>
+                    <Label text="Order No:" style="-fx-font-weight: bold;"/>
                     <Label text="53" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
                 </HBox>
-                <Label text="Mã hồ sơ: 2504280956" />
+                <Label text="File ID: 2504280956" />
             </VBox>
         </HBox>
 
         <!-- Main Title -->
-        <Label text="PHIẾU CHUYỂN KHÁM CHUYÊN KHOA"
+        <Label text="SPECIALIST REFERRAL FORM"
                style="-fx-font-size: 18; -fx-font-weight: bold;"
                alignment="CENTER"
                maxWidth="Infinity"/>
 
         <!-- Registration Date -->
         <HBox alignment="CENTER">
-            <Label text="Ngày đăng ký: " />
+            <Label text="Registration Date: " />
             <TextField fx:id="registrationDateField" promptText="DD/MM/YYYY"/>
         </HBox>
 
@@ -58,48 +58,48 @@
             </columnConstraints>
 
             <!-- Row 0 -->
-            <Label text="Họ và tên:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-            <TextField fx:id="nameField" promptText="Nhập họ tên"
+            <Label text="Full Name:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="nameField" promptText="Enter full name"
                        GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
 
             <!-- Row 1 -->
-            <Label text="Ngày sinh:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <Label text="Date of Birth:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
             <TextField fx:id="birthDateField" promptText="DD/MM/YYYY"
                        GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-            <Label text="Tuổi:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-            <TextField fx:id="ageField" promptText="Tuổi"
+            <Label text="Age:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+            <TextField fx:id="ageField" promptText="Age"
                        GridPane.rowIndex="1" GridPane.columnIndex="3"/>
 
             <!-- Row 2 -->
-            <Label text="Giới tính:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-            <TextField fx:id="genderField" promptText="Nam/Nữ"
+            <Label text="Gender:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <TextField fx:id="genderField" promptText="Male/Female"
                        GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
             <!-- Row 3 -->
-            <Label text="Địa chỉ:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-            <TextField fx:id="addressField" promptText="Nhập địa chỉ"
+            <Label text="Address:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <TextField fx:id="addressField" promptText="Enter address"
                        GridPane.rowIndex="3" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
 
             <!-- Row 4 -->
-            <Label text="Đối tượng:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-            <TextField fx:id="patientTypeField" promptText="BHYT"
+            <Label text="Patient Type:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+            <TextField fx:id="patientTypeField" promptText="Health Insurance"
                        GridPane.rowIndex="4" GridPane.columnIndex="1"/>
 
-            <Label text="Loại đối tượng:" GridPane.rowIndex="4" GridPane.columnIndex="2"/>
-            <TextField fx:id="patientTypeDetailField" promptText="Bảo Hiểm Y Tế"
+            <Label text="Type Details:" GridPane.rowIndex="4" GridPane.columnIndex="2"/>
+            <TextField fx:id="patientTypeDetailField" promptText="Health Insurance Details"
                        GridPane.rowIndex="4" GridPane.columnIndex="3"/>
 
             <!-- Row 5 -->
-            <Label text="Số thẻ BHYT:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
-            <TextField fx:id="insuranceNumberField" promptText="Số thẻ bảo hiểm"
+            <Label text="Insurance Number:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+            <TextField fx:id="insuranceNumberField" promptText="Insurance card number"
                        GridPane.rowIndex="5" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
 
             <!-- Row 6 -->
-            <Label text="Từ ngày:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+            <Label text="From Date:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
             <TextField fx:id="validFromField" promptText="DD/MM/YYYY"
                        GridPane.rowIndex="6" GridPane.columnIndex="1"/>
 
-            <Label text="đến ngày:" GridPane.rowIndex="6" GridPane.columnIndex="2"/>
+            <Label text="To Date:" GridPane.rowIndex="6" GridPane.columnIndex="2"/>
             <TextField fx:id="validToField" promptText="DD/MM/YYYY"
                        GridPane.rowIndex="6" GridPane.columnIndex="3"/>
         </GridPane>
@@ -109,12 +109,13 @@
             <padding>
                 <Insets top="10" right="10" bottom="10" left="10"/>
             </padding>
-            <Button fx:id="clearButton" text="Xóa Form" onAction="#handleClearAction"
+            <Button fx:id="clearButton" text="Clear Form" onAction="#handleClearAction"
                     styleClass="save-btn"
                     prefWidth="150" prefHeight="40"/>
-            <Button fx:id="exportButton" text="Xuất PDF" onAction="#handleExportAction"
+            <Button fx:id="exportButton" text="Export PDF" onAction="#handleExportAction"
                     styleClass="save-btn"
                     prefWidth="150" prefHeight="40"/>
+            <Button text="Preview PDF" onAction="#handlePreviewAction"/>
         </HBox>
     </VBox>
 </AnchorPane>
