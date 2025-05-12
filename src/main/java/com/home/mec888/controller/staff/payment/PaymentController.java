@@ -3,12 +3,14 @@ package com.home.mec888.controller.staff.payment;
 import com.home.mec888.dao.AppointmentDao;
 import com.home.mec888.entity.Appointment;
 import com.home.mec888.entity.Patient;
+import com.home.mec888.entity.Service;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class PaymentController {
     @FXML
@@ -48,6 +50,7 @@ public class PaymentController {
         try {
             currentAppointment1 = appointment;
             currentPatient1 = currentAppointment1.getPatient();
+            List<Service> services = appointmentDao.getServiceByAppointmentId(currentAppointment1.getId());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

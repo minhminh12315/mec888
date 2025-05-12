@@ -2,6 +2,7 @@ package com.home.mec888.dao;
 
 import com.home.mec888.entity.Appointment;
 import com.home.mec888.entity.Doctor;
+import com.home.mec888.entity.Service;
 import com.home.mec888.util.HibernateUtil;
 import jakarta.persistence.Query;
 import org.hibernate.Session;
@@ -128,6 +129,23 @@ public class AppointmentDao {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.createQuery("from Appointment where status = 'completed'", Appointment.class)
                     .list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList(); // Trả về danh sách rỗng nếu có lỗi
+        }
+    }
+
+    public List<Service> getServiceByAppointmentId(Long appointmentId) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            String sql = "SELECT s.* FROM services s " +
+                    "JOIN treatment_steps_service tss ON s.id = tss.service_id " +
+                    "JOIN treatment_steps ts ON ts.id = tss.treatment_step_id " +
+                    "JOIN appointments a ON a.id = ts.appointment_id " +
+                    "WHERE a.id = :appointmentId";
+
+            return session.createNativeQuery(sql, Service.class)
+                    .setParameter("appointmentId", appointmentId)
+                    .getResultList();
         } catch (Exception e) {
             e.printStackTrace();
             return Collections.emptyList(); // Trả về danh sách rỗng nếu có lỗi
