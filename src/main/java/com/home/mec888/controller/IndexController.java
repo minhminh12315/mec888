@@ -70,6 +70,8 @@ public class IndexController {
     public Button moveSettingsButton;
     @FXML
     public Button moveListAppointmentForDoctor;
+    @FXML
+    public Button moveListAppointmentForStaff;
     private Button currentActiveButton;
 
     @FXML
@@ -115,7 +117,8 @@ public class IndexController {
             case "staff":
                 navigationBar.getChildren().addAll(
                         moveAppointmentButton,
-                        moveExtractPDF
+                        moveExtractPDF,
+                        moveListAppointmentForStaff
                 );
 
                 break;
@@ -251,6 +254,11 @@ public class IndexController {
     public void handleDoctorAppointment(ActionEvent event) {
         highlightActiveButton(moveListAppointmentForDoctor);
         SceneSwitcher.loadView("doctor/appointment/list-appointment.fxml", event);
+    }
+
+    public void handleStaffAppointment(ActionEvent event) {
+        highlightActiveButton(moveListAppointmentForStaff);
+        SceneSwitcher.loadView("staff/payment/list-appointment.fxml", event);
     }
 
     public void handleSpecialization(ActionEvent actionEvent) {

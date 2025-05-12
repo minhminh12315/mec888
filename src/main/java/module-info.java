@@ -48,6 +48,7 @@ module com.home.mec888 {
     opens com.home.mec888.controller.admin.patient to javafx.fxml;
     opens com.home.mec888.controller.settings to javafx.fxml;
     opens com.home.mec888.controller.staff.appointment to javafx.fxml;
+    opens com.home.mec888.controller.staff.payment to javafx.fxml;
     // opens com.home.mec888.controller.doctor to javafx.fxml;
     // opens com.home.mec888.controller.patient to javafx.fxml;
     // opens com.home.mec888.controller.staff to javafx.fxml;
