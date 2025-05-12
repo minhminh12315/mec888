@@ -2,11 +2,14 @@ package com.home.mec888.dao;
 
 import com.home.mec888.entity.Appointment;
 import com.home.mec888.entity.Doctor;
+import com.home.mec888.entity.Service;
 import com.home.mec888.util.HibernateUtil;
+import jakarta.persistence.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 
 public class AppointmentDao {
@@ -88,14 +91,64 @@ public class AppointmentDao {
         }
     }
 
-    public List<Appointment> getAppointmentByDoctorId(long doctorId) {
+    public List<Appointment> getAppointmentByDoctorIdWithStatusScheduledOrConfirmed(long doctorId) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("from Appointment where doctor.id = :doctorId", Appointment.class)
-                    .setParameter("doctorId", doctorId).list();
+            return session.createQuery("from Appointment where doctor.id = :doctorId and status in ('scheduled', 'confirmed')", Appointment.class)
+                    .setParameter("doctorId", doctorId)
+                    .list();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
+    public List<Appointment> getAppointmentsServiceByDoctorId(long doctorId) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            String sql = "SELECT DISTINCT a.* FROM appointments a " +
+                    "LEFT JOIN doctors d1 ON d1.id = a.doctor_id " +
+                    "LEFT JOIN treatment_steps ts ON a.id = ts.appointment_id " +
+                    "LEFT JOIN treatment_steps_service tss ON ts.id = tss.treatment_step_id " +
+                    "LEFT JOIN services s ON tss.service_id = s.id " +
+                    "LEFT JOIN room r ON r.id = s.room_id " +
+                    "LEFT JOIN doctors d2 ON d2.room_id = r.id " +
+                    "WHERE d1.id = :doctorId OR d2.id = :doctorId " +
+                    "AND ts.status = 'PENDING'";
+
+            Query query = session.createNativeQuery(sql, Appointment.class);
+            query.setParameter("doctorId", doctorId);
+
+            return query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList(); // Trả về danh sách rỗng nếu có lỗi
+        }
+    }
+
+
+    public List<Appointment> getAppointmentWhereStatusIsCompleted() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("from Appointment where status = 'completed'", Appointment.class)
+                    .list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList(); // Trả về danh sách rỗng nếu có lỗi
+        }
+    }
+
+    public List<Service> getServiceByAppointmentId(Long appointmentId) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            String sql = "SELECT s.* FROM services s " +
+                    "JOIN treatment_steps_service tss ON s.id = tss.service_id " +
+                    "JOIN treatment_steps ts ON ts.id = tss.treatment_step_id " +
+                    "JOIN appointments a ON a.id = ts.appointment_id " +
+                    "WHERE a.id = :appointmentId";
+
+            return session.createNativeQuery(sql, Service.class)
+                    .setParameter("appointmentId", appointmentId)
+                    .getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList(); // Trả về danh sách rỗng nếu có lỗi
+        }
+    }
 }

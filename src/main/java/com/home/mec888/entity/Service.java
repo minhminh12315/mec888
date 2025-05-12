@@ -11,6 +11,10 @@ public class Service {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "room_id", nullable = false) // Foreign key to users table
+    private Room room;
+
     @Column(nullable = false, length = 255)
     private String name;
 
@@ -67,13 +71,24 @@ public class Service {
         this.price = price;
     }
 
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
     @Override
     public String toString() {
         return "Service{" +
                 "id=" + id +
+                ", room=" + room +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
                 '}';
     }
 }

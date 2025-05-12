@@ -1,5 +1,6 @@
 package com.home.mec888.controller.doctor.appointment;
 
+import com.home.mec888.dao.AppointmentDao;
 import com.home.mec888.entity.Appointment;
 import com.home.mec888.entity.Patient;
 import com.home.mec888.util.SceneSwitcher;
@@ -30,30 +31,43 @@ public class SeeADoctorContainerController {
     private Button currentActiveButton;
 
     public static Appointment currentAppointment;
+    public static Patient currentPatient;
+    AppointmentDao appointmentDao = new AppointmentDao();
+    public static boolean isMainDoctor = false;
 
     @FXML
     public void initialize() {
         currentActiveButton = patientProfileButton;
         Platform.runLater(() -> {
             handleMoveToPatientProfile(new ActionEvent(patientProfileButton, null));
+            setAppointmentHeader();
         });
     }
 
     public void setAppointmentHeader() {
         if (currentAppointment != null) {
-            Patient currentPatient = currentAppointment.getPatient();
             String patientName = currentPatient.getUser().getFirstName();
-            String patientAge = currentPatient.getUser().getDateOfBirth().getYear() + "(" + (LocalDate.now().getYear() - currentPatient.getUser().getDateOfBirth().getYear()) + " years old)";
+            String patientAge;
+
+            if (currentPatient.getUser().getDateOfBirth() != null) {
+                patientAge = (LocalDate.now().getYear() - currentPatient.getUser().getDateOfBirth().getYear()) + " (" +
+                        currentPatient.getUser().getDateOfBirth().getYear() + " years old)";
+            } else {
+                patientAge = "Chưa có thông tin";
+            }
+
             String patientGender = currentPatient.getUser().getGender();
             String patientAddress = currentPatient.getUser().getAddress();
-            generalInformation.setText(patientName + patientAge + patientGender);
+            generalInformation.setText(patientName + " | " + patientAge + " | " + patientGender);
             addressInformation.setText(patientAddress);
         }
     }
 
-    public void setAppointment(Appointment appointment) {
+    public void setAppointment(Appointment appointment, boolean isMainDoctor) {
         try {
             currentAppointment = appointment;
+            currentPatient = currentAppointment.getPatient();
+            SeeADoctorContainerController.isMainDoctor = isMainDoctor;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -81,21 +95,29 @@ public class SeeADoctorContainerController {
 
     public void handleMoveToInitialAssessment(ActionEvent event) {
         highlightActiveButton(initialAssessmentButton);
-
+        SceneSwitcher.loadViewSeeDoctor("initial_assessment.fxml", event);
     }
 
     public void handleMoveToPrescription(ActionEvent event) {
         highlightActiveButton(prescriptionButton);
-
+        SceneSwitcher.loadViewSeeDoctor("prescription.fxml", event);
     }
 
     public void handleMoveToDiagnosticTest(ActionEvent event) {
         highlightActiveButton(diagnosticTestButton);
+        SceneSwitcher.loadViewSeeDoctor("diagnostic_test.fxml", event);
 
     }
 
     public void handleMoveToTreatmentPlan(ActionEvent event) {
         highlightActiveButton(treatmentPlanButton);
 
+    }
+
+    public void handleSave(ActionEvent event) {
+        currentAppointment.setStatus("completed");
+        currentAppointment.setUpdatedAt(java.sql.Timestamp.valueOf(LocalDate.now().atStartOfDay()));
+        appointmentDao.updateAppointment(currentAppointment);
+        SceneSwitcher.loadViewSeeDoctor("list-appointment.fxml", event);
     }
 }

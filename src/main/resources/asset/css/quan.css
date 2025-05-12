@@ -80,3 +80,7 @@
     -fx-text-fill: #3871c1;
     -fx-font-weight: bold;
 }
+
+#loginButton:hover{
+    -fx-font-size: 17px;
+}

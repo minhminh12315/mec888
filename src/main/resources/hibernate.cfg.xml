@@ -11,7 +11,7 @@
         <property name="hibernate.connection.password"></property>
 
         <!-- Other settings -->
-        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.show_sql">false</property>
         <property name="hibernate.format_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
 
@@ -27,9 +27,16 @@
         <mapping class="com.home.mec888.entity.Doctor"/>
         <mapping class="com.home.mec888.entity.Patient"/>
         <mapping class="com.home.mec888.entity.Room"/>
+        <mapping class="com.home.mec888.entity.RoomService"/>
         <mapping class="com.home.mec888.entity.Service"/>
         <mapping class="com.home.mec888.entity.DoctorSchedule"/>
         <mapping class="com.home.mec888.entity.Appointment"/>
+        <mapping class="com.home.mec888.entity.TreatmentSteps"/>
+        <mapping class="com.home.mec888.entity.TreatmentStepServices"/>
+        <mapping class="com.home.mec888.entity.Specialization"/>
+        <mapping class="com.home.mec888.entity.MedicalRecord"/>
+        <mapping class="com.home.mec888.entity.Prescription"/>
+        <mapping class="com.home.mec888.entity.PrescriptionDetail"/>
 
 
     </session-factory>

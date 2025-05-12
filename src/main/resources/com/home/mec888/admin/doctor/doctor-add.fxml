@@ -21,7 +21,7 @@
             <Button fx:id="backButton" layoutX="14.0" layoutY="14.0"
                     mnemonicParsing="false" onAction="#handleBack"
                     prefHeight="30.0" prefWidth="75.0" styleClass="back-btn" text="Back"/>
-<!--            <Button fx:id="addUserButton" text="Add New User" onAction="#goToDoctorAdd" />-->
+            <!--            <Button fx:id="addUserButton" text="Add New User" onAction="#goToDoctorAdd" />-->
             <Text text="Add New Doctor" styleClass="titlePage"/>
         </HBox>
 
@@ -73,10 +73,10 @@
                 <Label fx:id="roomErrorLabel" textFill="red"/> <!-- Thông báo lỗi -->
             </VBox>
 
-            <!-- Specialization Field -->
+            <!-- Specialization Field - Changed from TextField to ComboBox -->
             <VBox>
                 <Label styleClass="label-input" text="Specialization:"/>
-                <TextField fx:id="specializationField" styleClass="input-field"/>
+                <ComboBox fx:id="specializationComboBox" prefWidth="Infinity" styleClass="input-field"/>
                 <Label fx:id="specializationErrorLabel" textFill="red"/> <!-- Thông báo lỗi -->
             </VBox>
 

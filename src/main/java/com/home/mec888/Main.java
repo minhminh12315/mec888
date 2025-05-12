@@ -1,6 +1,7 @@
 package com.home.mec888;
 
 import com.home.mec888.controller.email.SendMail;
+import com.home.mec888.controller.report.ReportController;
 import com.home.mec888.dao.AuditLogDao;
 import com.home.mec888.dao.DepartmentDao;
 import com.home.mec888.dao.MedicineDao;
@@ -20,10 +21,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import static com.home.mec888.controller.report.ReportController.handleReport;
+
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/home/mec888/admin/index.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/home/mec888/login/login.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         // title
         stage.setTitle("Mec888");
@@ -58,15 +61,15 @@ public class Main extends Application {
     public static void main(String[] args) {
 
         launch();
-//
+
+
+//        handleReport("serviceReport.jrxml");
 //        SendMail sendMail = new SendMail();
 //        String to = "qunnguyn956@gmail.com";
 //        String subject = "Tạo tài khoản thành công";
 //        String content = "Chào bạn,\nTài khoản của bạn đã được tạo.\nTên đăng nhập: user123\nMật khẩu: abc123";
 //
 //        sendMail.btnSend(to, subject, content);
-
-
 
 
     }

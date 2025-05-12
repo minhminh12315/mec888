@@ -3,7 +3,9 @@ package com.home.mec888.controller;
 
 import com.home.mec888.controller.settings.SettingsController;
 import com.home.mec888.dao.AuditLogDao;
+import com.home.mec888.dao.DoctorDao;
 import com.home.mec888.entity.AuditLog;
+import com.home.mec888.entity.Doctor;
 import com.home.mec888.entity.User;
 import com.home.mec888.util.SceneSwitcher;
 import javafx.application.Platform;
@@ -25,6 +27,11 @@ import java.io.IOException;
 public class IndexController {
     public static String userRole;
     public static User user;
+    public static Doctor doctor;
+    public static Long doctorId;
+
+    DoctorDao doctorDao = new DoctorDao();
+
     //
     // Staff
     @FXML
@@ -54,11 +61,17 @@ public class IndexController {
     public Button moveRoomButton;
     @FXML
     public Button moveServiceButton;
+    @FXML
+    public Button moveSpecializationButton;
+    @FXML
+    public Button moveExtractPDF;
 
     @FXML
     public Button moveSettingsButton;
     @FXML
     public Button moveListAppointmentForDoctor;
+    @FXML
+    public Button moveListAppointmentForStaff;
     private Button currentActiveButton;
 
     @FXML
@@ -96,16 +109,27 @@ public class IndexController {
                         moveDoctorButton,
                         moveUserButton,
                         movePatientButton,
-                        moveSettingsButton
+                        moveSettingsButton,
+                        moveServiceButton,
+                        moveSpecializationButton
                 );
                 break;
             case "staff":
                 navigationBar.getChildren().addAll(
-                        moveAppointmentButton
+                        moveAppointmentButton,
+                        moveExtractPDF,
+                        moveListAppointmentForStaff
                 );
 
                 break;
             case "doctor":
+                doctorDao.findDoctorByUserId(user.getId());
+                doctor = doctorDao.findDoctorByUserId(user.getId());
+                doctorId = doctor.getId();
+                System.out.println("-----------------------");
+                System.out.println(doctor);
+                System.out.println(doctor.getRoom().getId());
+                System.out.println(doctorId);
                 navigationBar.getChildren().addAll(
                         moveDoctorSchedule,
                         moveListAppointmentForDoctor
@@ -230,5 +254,20 @@ public class IndexController {
     public void handleDoctorAppointment(ActionEvent event) {
         highlightActiveButton(moveListAppointmentForDoctor);
         SceneSwitcher.loadView("doctor/appointment/list-appointment.fxml", event);
+    }
+
+    public void handleStaffAppointment(ActionEvent event) {
+        highlightActiveButton(moveListAppointmentForStaff);
+        SceneSwitcher.loadView("staff/payment/list-appointment.fxml", event);
+    }
+
+    public void handleSpecialization(ActionEvent actionEvent) {
+        highlightActiveButton(moveSpecializationButton);
+        SceneSwitcher.loadView("admin/specialization/specialization-management.fxml", actionEvent);
+    }
+
+    public void handleExtractPDF(ActionEvent actionEvent){
+        highlightActiveButton(moveExtractPDF);
+        SceneSwitcher.loadView("extractPDF/MedicalReport.fxml", actionEvent);
     }
 }

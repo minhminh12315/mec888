@@ -2,9 +2,11 @@ package com.home.mec888.controller.admin.doctor;
 
 import com.home.mec888.dao.DoctorDao;
 import com.home.mec888.dao.RoomDao;
+import com.home.mec888.dao.SpecializationDao;
 import com.home.mec888.dao.UserDao;
 import com.home.mec888.entity.Doctor;
 import com.home.mec888.entity.Room;
+import com.home.mec888.entity.Specialization;
 import com.home.mec888.entity.User;
 import com.home.mec888.util.SceneSwitcher;
 import javafx.collections.FXCollections;
@@ -22,15 +24,16 @@ public class DoctorUpdateController {
     @FXML
     public ComboBox<Room> roomComboBox;
     @FXML
-    public TextField specializationField;
-    @FXML
     public TextField licenseField;
     @FXML
     private Label userErrorLabel;
     @FXML
     private Label roomErrorLabel;
     @FXML
+    public ComboBox<Specialization> specializationComboBox;
+    @FXML
     private Label specializationErrorLabel;
+
     @FXML
     private Label licenseErrorLabel;
 
@@ -44,6 +47,8 @@ public class DoctorUpdateController {
     private UserDao userDao;
     private RoomDao roomDao;
     private DoctorDao doctorDao;
+    private SpecializationDao specializationDao;
+
     private Long doctorId;
     private User user;
 
@@ -52,8 +57,11 @@ public class DoctorUpdateController {
         userDao = new UserDao();
         roomDao = new RoomDao();
         doctorDao = new DoctorDao();
+        specializationDao = new SpecializationDao(); // Initialize the specialization DAO
 //        userComboBox.getItems().addAll(userDao.getAllUsers());
         roomComboBox.getItems().addAll(roomDao.getAllRooms());
+
+        specializationComboBox.getItems().addAll(specializationDao.getAllSpecializations());
 
 //        userComboBox.setCellFactory(param -> new ListCell<>() {
 //            @Override
@@ -94,6 +102,28 @@ public class DoctorUpdateController {
                 return null;
             }
         });
+
+        // Set up display for specialization combobox
+        specializationComboBox.setCellFactory(param -> new ListCell<>() {
+            @Override
+            protected void updateItem(Specialization specialization, boolean empty) {
+                super.updateItem(specialization, empty);
+                setText((specialization == null || empty) ? "" : specialization.getName());
+            }
+        });
+
+        specializationComboBox.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Specialization specialization) {
+                return (specialization != null) ? specialization.getName() : "";
+            }
+
+            @Override
+            public Specialization fromString(String string) {
+                return null;
+            }
+        });
+
         try {
             genderComboBox.setItems(FXCollections.observableArrayList("Male", "Female"));
         } catch (Exception e) {
@@ -146,11 +176,11 @@ public class DoctorUpdateController {
         }
 
         // Kiểm tra Specialization Field
-        if (specializationField.getText().trim().isEmpty()) {
-            showError(specializationField, specializationErrorLabel, "Please select a user.");
+        if (specializationComboBox.getValue() == null) {
+            showError(specializationComboBox, specializationErrorLabel, "Please select a specialization.");
             isValid = false;
         } else {
-            clearError(specializationField, specializationErrorLabel);
+            clearError(specializationComboBox, specializationErrorLabel);
         }
 
         // Kiểm tra License Field
@@ -203,7 +233,7 @@ public class DoctorUpdateController {
     }
 
     private boolean isValidEmail(String email) {
-        String emailRegex = "^[A-Za-z0-9+_.-]+@gmail\\.com$";
+        String emailRegex = "^[A-Za-z0-9+_.-]+\\d\\.com$";
         return email.matches(emailRegex);
     }
 
@@ -218,7 +248,14 @@ public class DoctorUpdateController {
         }
         doctorId = doctor.getId();
         // Gán dữ liệu vào các TextField
-        specializationField.setText(doctor.getSpecialization());
+        if (doctor.getSpecialization() != null) {
+            for (Specialization spec : specializationComboBox.getItems()) {
+                if (spec.getId().equals(doctor.getSpecialization().getId())) {
+                    specializationComboBox.setValue(spec);
+                    break;
+                }
+            }
+        }
         licenseField.setText(doctor.getLicense_number());
 //        if (doctor.getUser().getId()!= null) {
 //            User user = userDao.getUserById(doctor.getUser().getId());
@@ -251,13 +288,14 @@ public class DoctorUpdateController {
         // Xóa lựa chọn của các ComboBox
 //        userComboBox.getSelectionModel().clearSelection();
         roomComboBox.getSelectionModel().clearSelection();
+        specializationComboBox.getSelectionModel().clearSelection();
 
         // Đặt giá trị ComboBox về null để đảm bảo xóa hoàn toàn
 //        userComboBox.setValue(null);
         roomComboBox.setValue(null);
+        specializationComboBox.setValue(null);
 
         // Xóa nội dung của các TextField
-        specializationField.clear();
         licenseField.clear();
 
         firstNameField.clear();
@@ -300,7 +338,7 @@ public class DoctorUpdateController {
         {
 //            User user = userComboBox.getValue();
             Room roomId = roomComboBox.getValue();
-            String specialization = specializationField.getText().trim();
+            Specialization specialization = specializationComboBox.getValue();
             String license_number = licenseField.getText().trim();
 
             try {
