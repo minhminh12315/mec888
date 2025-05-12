@@ -21,11 +21,11 @@
               AnchorPane.rightAnchor="24.0"
               AnchorPane.topAnchor="24.0">
 
-            <HBox spacing="500">
-                <Text text="Add New Appointment" styleClass="titlePage"/>
+            <HBox alignment="CENTER">
+                <Text text="Add New Appointment" styleClass="titlePage" textAlignment="CENTER"/>
             </HBox>
 
-            <VBox spacing="6">
+            <VBox spacing="20" alignment="CENTER" styleClass="display-flex">
 
                 <HBox spacing="20" alignment="CENTER" styleClass="display-flex">
                     <!-- First Name Field -->
@@ -118,6 +118,7 @@
                 <VBox>
                     <Label layoutX="20" layoutY="100" text="Select a Time Slot:"/>
                     <GridPane fx:id="timeSlotGrid" layoutX="20" layoutY="130" hgap="10" vgap="10" />
+                    <Label fx:id="timeErrorLabel" textFill="red"/>
                 </VBox>
                 <ComboBox fx:id="timePicker" visible="false" managed="false"/>
 

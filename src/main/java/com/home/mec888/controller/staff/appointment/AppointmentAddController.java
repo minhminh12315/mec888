@@ -7,9 +7,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -169,6 +174,13 @@ public class AppointmentAddController {
             btn.getStyleClass().add("time-slot-button");
             btn.getStyleClass().add("disabled-button");
 
+            // Highlight the selected slot
+            if (slot.equals(selectedTimeSlot)) {
+                btn.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
+            } else {
+                btn.setStyle(""); // Reset style
+            }
+
             btn.setOnAction(e -> {
                 selectedTimeSlot = slot;
                 if (timePicker != null) {
@@ -183,6 +195,7 @@ public class AppointmentAddController {
 
             if (slotTime.isBefore(startTime) || !slotTime.isBefore(endTime)) {
                 btn.setDisable(true);
+                btn.setStyle("-fx-background-color: #eeeeee;");
             } else {
                 btn.setDisable(false);
             }
@@ -582,6 +595,8 @@ public class AppointmentAddController {
 
         // Disable Save button
         saveButton.setDisable(true);
+
+        buildTimeSlotGrid();
     }
 
     public void handleBack(ActionEvent actionEvent) {
