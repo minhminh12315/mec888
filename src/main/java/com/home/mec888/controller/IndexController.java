@@ -168,7 +168,7 @@ public class IndexController {
     // Admin
     public void handleHome(ActionEvent actionEvent) {
         highlightActiveButton(moveHomeButton);
-        SceneSwitcher.loadView("admin/dashboard.fxml", actionEvent);
+        SceneSwitcher.loadView("admin/dashboard/dashboard.fxml", actionEvent);
     }
 
     public void handleMedicine(ActionEvent actionEvent) {

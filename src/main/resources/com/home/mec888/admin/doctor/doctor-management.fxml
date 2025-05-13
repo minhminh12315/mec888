@@ -19,6 +19,9 @@
             </Button>
         </HBox>
         <TableView fx:id="doctorManagementTable" layoutX="250.0" layoutY="86.0" prefHeight="460.0" prefWidth="1000.0" styleClass="table">
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
             <columns>
                 <TableColumn fx:id="idColumn" text="ID" />
                 <TableColumn fx:id="userIdColumn" prefWidth="100.0" text="User ID" />

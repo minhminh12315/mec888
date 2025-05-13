@@ -37,6 +37,8 @@
         <mapping class="com.home.mec888.entity.MedicalRecord"/>
         <mapping class="com.home.mec888.entity.Prescription"/>
         <mapping class="com.home.mec888.entity.PrescriptionDetail"/>
+        <mapping class="com.home.mec888.entity.Invoices"/>
+
 
 
     </session-factory>

@@ -1,12 +1,15 @@
 package com.home.mec888.controller.admin.dashboard;
 
+import com.home.mec888.dao.InvoicesDao;
 import com.home.mec888.entity.Appointment;
+import com.home.mec888.entity.Invoices;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -27,11 +30,15 @@ import javafx.scene.shape.SVGPath;
 import javafx.util.Duration;
 
 import java.net.URL;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Dashboard implements Initializable {
+    @FXML
+    private AnchorPane rootPane;
     @FXML
     private ComboBox<String> surveyTimeRangeComboBox;
 
@@ -42,8 +49,8 @@ public class Dashboard implements Initializable {
     @FXML private javafx.scene.shape.Circle hoverCardColor1;
     @FXML private javafx.scene.shape.Circle hoverCardColor2;
 
-    @FXML private AnchorPane cardPane;
-    @FXML private AnchorPane chartPane;
+    @FXML private AnchorPane cardPane_1;
+    @FXML private AnchorPane chartPane_1;
     @FXML private Label appointmentCount;
     @FXML private VBox hoverCard;
     @FXML private Label hoverCardDate;
@@ -66,6 +73,7 @@ public class Dashboard implements Initializable {
     @FXML private TableColumn<AppointmentView, String> diseaseColumn;
     @FXML
     private TableColumn<Appointment, Void> actionsColumn;
+    private final List<Invoices> allInvoices = new ArrayList<>();
     private final Map<String, Integer> appointmentData = new LinkedHashMap<>();
     private final Map<String, Integer> newPatientsData = new LinkedHashMap<>();
     private final Map<String, Integer> earningsData = new LinkedHashMap<>();
@@ -74,9 +82,32 @@ public class Dashboard implements Initializable {
     private double ChartSurveyWidth;
     private double ChartSurveyHeight;
     private final LinkedHashMap<Appointment, String> appointmentMap = new LinkedHashMap<>();
+    private void loadInvoicesFromDatabase() {
+        InvoicesDao dao = new InvoicesDao();
+        List<Invoices> fetched = dao.getAllInvoices();
+
+        if (fetched == null || fetched.isEmpty()) return;
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        allInvoices.clear();      // Xóa danh sách cũ
+        earningsData.clear();     // Xóa dữ liệu biểu đồ cũ
+
+        for (Invoices invoice : fetched) {
+            allInvoices.add(invoice); // Thêm vào danh sách hiển thị
+            System.out.println(invoice);
+            Timestamp ts = invoice.getInvoiceDate();
+            Double amount = invoice.getTotalAmount();
+
+            if (ts != null && amount != null) {
+                String dateKey = new SimpleDateFormat("dd-MM-yyyy").format(ts);
+                earningsData.put(dateKey, amount.intValue());
+            }
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        loadInvoicesFromDatabase();
         setupAppointmentTable(); // cấu hình hiển thị bảng
         loadSampleData();
 // Set mặc định nếu chưa chọn
@@ -138,14 +169,6 @@ public class Dashboard implements Initializable {
 
 
 
-        earningsData.put("17-07-2018", 1500);
-        earningsData.put("18-07-2018", 1700);
-        earningsData.put("19-07-2018", 1600);
-        earningsData.put("20-07-2018", 2100);
-        earningsData.put("21-07-2018", 1800);
-        earningsData.put("22-07-2018", 2500);
-        earningsData.put("23-07-2018", 1900);
-        earningsData.put("24-07-2018", 2200);
 
         appointmentCount.setText("650");
         newPatientCount.setText("129");
@@ -176,11 +199,11 @@ public class Dashboard implements Initializable {
 
             PauseTransition wait = new PauseTransition(Duration.millis(200));
             wait.setOnFinished(event -> {
-                double width1 = chartPane.getLayoutBounds().getWidth();
+                double width1 = chartPane_1.getLayoutBounds().getWidth();
                 double width2 = chartPane2.getLayoutBounds().getWidth();
                 double width3 = chartPane3.getLayoutBounds().getWidth();
 
-                drawSmoothChart("Appointments",chartPane, cardPane, appointmentData, width1, Color.web("#7D3EF0"));
+                drawSmoothChart("Appointments",chartPane_1, cardPane_1, appointmentData, width1, Color.web("#7D3EF0"));
                 drawSmoothChart("New Patients",chartPane2, cardPane2, newPatientsData, width2, Color.web("#23A455"));
                 drawSmoothChart("Earning",chartPane3,cardPane3, earningsData, width3, Color.web("#007BFF"));
                 ChartSurveyWidth = surveyChartPane.getLayoutBounds().getWidth();
@@ -369,6 +392,11 @@ public class Dashboard implements Initializable {
             double maxWidth,
             Color baseColor
     ) {
+        if (data == null || data.isEmpty()) {
+            chartPane.getChildren().clear(); // Xoá biểu đồ nếu có
+            return;
+        }
+
         hoverCardValue.setText(null);
         hoverCardValue_2.setText(null);
         hoverCardColor1.setFill(Color.TRANSPARENT);
@@ -470,26 +498,40 @@ public class Dashboard implements Initializable {
                 hoverCardValue.setText(ChartName + " : " + values[index]);
                 hoverCardColor1.setFill(baseColor);
 
+                // Lấy tọa độ dot trên Scene
                 double sceneX = dot.localToScene(dot.getCenterX(), dot.getCenterY()).getX();
                 double sceneY = dot.localToScene(dot.getCenterX(), dot.getCenterY()).getY();
-                double localX = hoverCard.getParent().sceneToLocal(sceneX, sceneY).getX();
-                double localY = hoverCard.getParent().sceneToLocal(sceneX, sceneY).getY();
 
-                double offsetX = (localX < hoverCard.getParent().getLayoutBounds().getWidth() / 2)
-                        ? localX + 20
-                        : localX - hoverCard.getPrefWidth() - 20;
-                double offsetY = Math.max(0, localY - hoverCard.getPrefHeight() - 10);
+                // Tự động lấy cardPane (cha chứa chartPane)
+                Region cardPane_X = (Region) dot.getParent().getParent(); // dot -> chartPane -> cardPane
 
-                hoverCard.setLayoutX(offsetX);
+                // Lấy tọa độ dot trong hệ tọa độ của cardPane
+                double localX = cardPane_X.sceneToLocal(sceneX, sceneY).getX();
+//                double localY = cardPane_X.sceneToLocal(sceneX, sceneY).getY();
+
+                // So sánh vị trí dot với trung tâm của cardPane
+                double offsetX;
+                if (localX < cardPane_X.getWidth() / 2) {
+                    offsetX = localX + 30; // hiển thị bên phải
+                } else {
+                    offsetX = localX - hoverCard.getPrefWidth() - 160; // hiển thị bên trái
+                }
+
+                // Vị trí Y vẫn cần đặt theo rootPane vì hoverCard nằm trong đó
+                double offsetY = Math.max(0, rootPane.sceneToLocal(sceneX, sceneY).getY() - hoverCard.getPrefHeight() - 30);
+
+                // Đặt vị trí hoverCard theo rootPane (vì nó nằm trong root)
+                hoverCard.setLayoutX(rootPane.sceneToLocal(sceneX, sceneY).getX() + (offsetX - localX)); // điều chỉnh tương đối
                 hoverCard.setLayoutY(offsetY);
                 hoverCard.setVisible(true);
-                hoverCard.setMouseTransparent(true); // để không chặn hover tiếp
+                hoverCard.setMouseTransparent(true);
                 hoverCard.setOpacity(1);
                 hoverCard.toFront();
 
                 vLineRef.setVisible(true);
                 dotRef.setVisible(true);
             });
+
 
             hoverZone.setOnMouseExited(e -> {
                 hideDelay.setOnFinished(ev -> {
