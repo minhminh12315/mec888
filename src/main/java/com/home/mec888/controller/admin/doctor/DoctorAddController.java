@@ -44,7 +44,7 @@ public class DoctorAddController {
     private UserDao userDao;
     private RoomDao roomDao;
     private DoctorDao doctorDao;
-    private SpecializationDao specializationDao;
+    private SpecializationDao specializationDao = new SpecializationDao();
 
     private static final String word = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private static final String digits = "0123456789";
