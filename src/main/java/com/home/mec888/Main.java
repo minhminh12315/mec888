@@ -34,10 +34,10 @@ public class Main extends Application {
 
         // css tung thang
         scene.getStylesheets().add(getClass().getResource("/asset/css/main.css").toExternalForm());
-        scene.getStylesheets().add(getClass().getResource("/asset/css/duong.css").toExternalForm());
-        scene.getStylesheets().add(getClass().getResource("/asset/css/minh.css").toExternalForm());
-        scene.getStylesheets().add(getClass().getResource("/asset/css/quan.css").toExternalForm());
-        scene.getStylesheets().add(getClass().getResource("/asset/css/an.css").toExternalForm());
+//        scene.getStylesheets().add(getClass().getResource("/asset/css/duong.css").toExternalForm());
+//        scene.getStylesheets().add(getClass().getResource("/asset/css/minh.css").toExternalForm());
+//        scene.getStylesheets().add(getClass().getResource("/asset/css/quan.css").toExternalForm());
+//        scene.getStylesheets().add(getClass().getResource("/asset/css/an.css").toExternalForm());
         scene.getStylesheets().add(getClass().getResource("/asset/css/cong.css").toExternalForm());
 
 

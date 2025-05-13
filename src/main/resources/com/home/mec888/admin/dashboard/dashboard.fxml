@@ -8,12 +8,12 @@
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
 <AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
+            xmlns:fx="http://javafx.com/fxml" fx:id="rootPane"
             fx:controller="com.home.mec888.controller.admin.dashboard.Dashboard"
             style="-fx-background-color: #F9F9F9;" >
 
     <GridPane hgap="40" vgap="30"
-              AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20"
+              AnchorPane.leftAnchor="30" AnchorPane.rightAnchor="30"
               AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20">
         <columnConstraints>
             <ColumnConstraints hgrow="ALWAYS" percentWidth="33.33"/>
@@ -22,7 +22,7 @@
         </columnConstraints>
 
         <!-- Dòng 1: Ba biểu đồ nhỏ -->
-        <AnchorPane fx:id="cardPane" GridPane.columnIndex="0" GridPane.rowIndex="0" maxWidth="600" prefHeight="160"
+        <AnchorPane fx:id="cardPane_1" GridPane.columnIndex="0" GridPane.rowIndex="0" maxWidth="600" prefHeight="160"
                     style="-fx-background-color: white; -fx-background-radius: 16;
                            -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0.3, 0, 2);">
             <HBox fx:id="infor" maxWidth="600" alignment="CENTER" spacing="10"
@@ -36,7 +36,7 @@
                     <Label fx:id="appointmentCount" text="650" style="-fx-font-size: 28px; -fx-text-fill: #1F1F1F;"/>
                 </VBox>
             </HBox>
-            <AnchorPane fx:id="chartPane" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="-3"/>
+            <AnchorPane fx:id="chartPane_1" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="-3"/>
         </AnchorPane>
 
         <AnchorPane fx:id="cardPane2" GridPane.columnIndex="1" GridPane.rowIndex="0" maxWidth="600" prefHeight="160"

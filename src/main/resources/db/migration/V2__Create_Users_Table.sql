@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS users (
     role_id BIGINT NOT NULL,
     otp varchar(10) NULL,
     otp_expired_date DATE NULL,
+    avatar_url VARCHAR(255) NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT fk_users_role FOREIGN KEY (role_id) REFERENCES roles(id)
