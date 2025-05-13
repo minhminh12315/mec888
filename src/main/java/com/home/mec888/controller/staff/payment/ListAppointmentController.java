@@ -3,9 +3,7 @@ package com.home.mec888.controller.staff.payment;
 
 import com.home.mec888.controller.IndexController;
 import com.home.mec888.dao.AppointmentDao;
-import com.home.mec888.dao.DoctorDao;
 import com.home.mec888.entity.Appointment;
-import com.home.mec888.entity.Doctor;
 import com.home.mec888.util.SceneSwitcher;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
