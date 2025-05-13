@@ -80,7 +80,7 @@
                 </VBox>
                 <VBox styleClass="label-welcome" alignment="CENTER_LEFT" AnchorPane.leftAnchor="16.0">
                     <Label fx:id="labelWelcome" style="-fx-text-fill: white;"/>
-                    <Label styleClass="slogan" style="-fx-text-fill: white;"
+                    <Label styleClass="slogan" style="-fx-text-fill: white; -fx-font-size: 18px"
                            text="Efficient Hospital Management, Exceptional Patient Care."/>
                 </VBox>
                 <Region HBox.hgrow="ALWAYS"/>
@@ -90,7 +90,7 @@
                     <Label fx:id="labelRole" style="-fx-text-fill: white; -fx-font-size: 14px"/>
                 </VBox>
                 <VBox styleClass="avatar" alignment="CENTER">
-                    <ImageView fitHeight="50.0" fitWidth="50.0">
+                    <ImageView onMouseClicked="#handleSettings" style="-fx-cursor: hand" fitHeight="50.0" fitWidth="50.0">
                         <Image url="@../../../../asset/images/avatar.png"/>
                     </ImageView>
                 </VBox>

@@ -16,6 +16,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
@@ -76,6 +77,8 @@ public class IndexController {
     public Label labelUserName;
     @FXML
     public Label labelRole;
+    @FXML
+    public VBox openSetting;
 
     @FXML
     public void initialize() {
@@ -105,7 +108,6 @@ public class IndexController {
                         moveDoctorButton,
                         moveUserButton,
                         movePatientButton,
-                        moveSettingsButton,
                         moveServiceButton,
                         moveSpecializationButton
                 );
@@ -196,7 +198,7 @@ public class IndexController {
         SceneSwitcher.loadView("admin/patient/patient-management.fxml", actionEvent);
     }
 
-    public void handleSettings(ActionEvent event) {
+    public void handleSettings(MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/home/mec888/settings/settings.fxml"));
             Parent newView = loader.load();
@@ -208,6 +210,7 @@ public class IndexController {
             // Gắn vào phần center của BorderPane
             AnchorPane anchorPane = (AnchorPane) ((Node) event.getSource()).getScene().getRoot();
             BorderPane mainPane = (BorderPane) anchorPane.lookup("#mainBorderPane");
+            highlightActiveButton(moveSettingsButton);
             if (mainPane != null) {
                 mainPane.setCenter(newView);
             } else {
