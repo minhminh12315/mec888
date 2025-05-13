@@ -1,5 +1,9 @@
 module com.home.mec888 {
     requires javafx.fxml;
+    requires javafx.base;
+    requires javafx.graphics;
+    requires javafx.controls;
+    requires javafx.swing;
 
     // Hibernate và JPA
     requires java.naming;
@@ -23,6 +27,8 @@ module com.home.mec888 {
     requires java.desktop;
     requires javax.mail.api;
     requires jasperreports;
+    requires itextpdf;
+    requires org.apache.pdfbox;
 
     // Mở package chứa entity cho Hibernate ORM (để nó có thể quét bằng reflection)
     opens com.home.mec888.entity to org.hibernate.orm.core, javafx.base;
@@ -30,6 +36,7 @@ module com.home.mec888 {
     // Nếu sử dụng JavaFX với FXML, cần mở package chứa controller
     opens com.home.mec888.controller to javafx.fxml;
     opens com.home.mec888.controller.login to javafx.fxml;
+    opens com.home.mec888.controller.extractPDF to javafx.fxml;
     // opens com.home.mec888.controller.admin to javafx.fxml;
     opens com.home.mec888.controller.admin.medicine to javafx.fxml;
     opens com.home.mec888.controller.admin.department to javafx.fxml;
@@ -41,6 +48,12 @@ module com.home.mec888 {
     opens com.home.mec888.controller.admin.patient to javafx.fxml;
     opens com.home.mec888.controller.settings to javafx.fxml;
     opens com.home.mec888.controller.staff.appointment to javafx.fxml;
+    opens com.home.mec888.controller.admin.dashboard to javafx.fxml;
+//    opens com.home.mec888.controller.admin to javafx.fxml;
+//    opens com.home.mec888.controller.doctor to javafx.fxml;
+//    opens com.home.mec888.controller.patient to javafx.fxml;
+//    opens com.home.mec888.controller.staff to javafx.fxml;
+    opens com.home.mec888.controller.staff.payment to javafx.fxml;
     // opens com.home.mec888.controller.doctor to javafx.fxml;
     // opens com.home.mec888.controller.patient to javafx.fxml;
     // opens com.home.mec888.controller.staff to javafx.fxml;
@@ -56,6 +69,7 @@ module com.home.mec888 {
     exports com.home.mec888.controller;
     exports com.home.mec888.controller.login;
     exports com.home.mec888.controller.admin;
+    exports com.home.mec888.controller.extractPDF;
     exports com.home.mec888.controller.admin.medicine;
     exports com.home.mec888.controller.admin.patient;
     exports com.home.mec888.controller.admin.specialization;
@@ -63,4 +77,5 @@ module com.home.mec888 {
     exports com.home.mec888.controller.doctor.appointment;
     exports com.home.mec888.controller.patient;
     exports com.home.mec888.controller.doctor.appointment.modal to javafx.fxml;
+    exports  com.home.mec888.controller.admin.dashboard;
 }

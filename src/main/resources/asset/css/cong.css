@@ -1,0 +1,32 @@
+#hoverCard {
+    -fx-background-color: black; /* Dark background */
+    -fx-background-radius: 8px; /* Rounded corners */
+    -fx-border-radius: 8px; /* Border radius for smooth edges */
+    -fx-border-color: #3b3b3b; /* Border color */
+}
+
+#hoverCardDate {
+    -fx-text-fill: white; /* White text color */
+    -fx-font-size: 14px; /* Slightly smaller font size */
+    -fx-font-weight: bold; /* Bold font weight */
+        -fx-padding: 8px 10px 8px 10px; /* Thêm padding cho trên, dưới, trái, phải */
+
+}
+
+.ValueBox {
+    -fx-background-color: #2c2c2c; /* Dark background */
+    -fx-background-radius: 0 0 6px 6px; /* Bỏ 2 góc trên, giữ 2 góc dưới tròn */
+    -fx-padding: 8px 10px 8px 10px; /* Thêm padding cho trên, dưới, trái, phải */
+
+}
+
+
+#hoverCardValue {
+    -fx-text-fill: white; /* White text for value */
+    -fx-font-size: 14px; /* Smaller font size for value */
+}
+
+#hoverCardValue_2 {
+    -fx-text-fill: white; /* White text for value */
+    -fx-font-size: 14px; /* Smaller font size for value */
+}

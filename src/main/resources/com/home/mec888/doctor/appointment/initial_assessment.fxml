@@ -14,170 +14,174 @@
                 AnchorPane.leftAnchor="0"
                 AnchorPane.rightAnchor="0"
                 AnchorPane.topAnchor="0"
-                style="-fx-background-color:transparent;">
-        <VBox>
+                style="-fx-background:white;
+                       -fx-background-color:white;
+                       -fx-border-width: 0;">
+        <VBox fx:id="initialAssessmentVBoxContainer" style="-fx-padding: 32 16 64 16;">
             <VBox alignment="CENTER" spacing="8" style="-fx-padding: 0 0 32 0;">
                 <Text styleClass="titlePage" text="Initial Assessment" textAlignment="CENTER"/>
             </VBox>
 
-        </VBox>
-
-        <VBox spacing="16">
-            <HBox prefHeight="70.0" prefWidth="200.0" spacing="16">
-                <children>
-                    <HBox>
-                        <children>
-                            <Label styleClass="label-input" text="Pulse Rate: "/>
-                            <TextField fx:id="pulseRateField" styleClass="input-field" prefWidth="10"/>
-                            <Label fx:id="pulse_rate_error" style="-fx-text-fill: red"/>
-                        </children>
-                    </HBox>
-                    <HBox>
-                        <children>
-                            <Label styleClass="label-input" text="Temperature: "/>
-                            <TextField fx:id="temperatureField" styleClass="input-field"/>
-                            <Label fx:id="temperature_error" style="-fx-text-fill: red"/>
-                        </children>
-                    </HBox>
-                    <HBox>
-                        <children>
-
+            <VBox alignment="TOP_CENTER" spacing="16">
+                <HBox spacing="8">
+                    <VBox HBox.hgrow="ALWAYS" spacing="4">
+                        <Label styleClass="label-input" text="Pulse Rate: "/>
+                        <TextField fx:id="pulseRateField" styleClass="input-field" prefWidth="10"/>
+                        <Label fx:id="pulse_rate_error" style="-fx-text-fill: red"/>
+                    </VBox>
+                    <VBox HBox.hgrow="ALWAYS" spacing="4">
+                        <Label styleClass="label-input" text="Temperature: "/>
+                        <TextField fx:id="temperatureField" styleClass="input-field"/>
+                        <Label fx:id="temperature_error" style="-fx-text-fill: red"/>
+                    </VBox>
+                    <VBox HBox.hgrow="ALWAYS" spacing="4">
+                        <VBox HBox.hgrow="ALWAYS" spacing="4">
                             <Label styleClass="label-input" text="Blood Pressure: "/>
-                            <TextField fx:id="bpSystolicField" styleClass="input-field"/>
-                            <Label fx:id="bp_systolic_error" style="-fx-text-fill: red"/>
-                            <Label styleClass="label-input" text="/"/>
-                            <TextField fx:id="bpDiastolicField" styleClass="input-field"/>
-                            <Label fx:id="bp_diastolic_error" style="-fx-text-fill: red"/>
 
-                        </children>
-                    </HBox>
+                            <HBox>
+                                <VBox HBox.hgrow="ALWAYS" spacing="4">
+                                    <TextField fx:id="bpSystolicField" styleClass="input-field"/>
+                                    <Label fx:id="bp_systolic_error" style="-fx-text-fill: red"/>
+                                </VBox>
 
-                </children>
-            </HBox>
+                                <Label styleClass="label-input" text="/"/>
+
+                                <VBox HBox.hgrow="ALWAYS" spacing="4">
+                                    <TextField fx:id="bpDiastolicField" styleClass="input-field"/>
+                                    <Label fx:id="bp_diastolic_error" style="-fx-text-fill: red"/>
+                                </VBox>
+                            </HBox>
+
+                        </VBox>
+                    </VBox>
+                </HBox>
 
 
-            <HBox prefHeight="70.0" prefWidth="200.0" spacing="16">
-                <HBox>
-                    <children>
+                <HBox spacing="8">
+                    <VBox HBox.hgrow="ALWAYS" spacing="4">
                         <Label styleClass="label-input" text="Respiratory Rate: "/>
                         <TextField fx:id="respiratoryRateField" styleClass="input-field"/>
                         <Label fx:id="respiratory_rate_error" style="-fx-text-fill: red"/>
-                    </children>
-                </HBox>
-                <HBox>
-                    <children>
+                    </VBox>
+                    <VBox HBox.hgrow="ALWAYS" spacing="4">
                         <Label styleClass="label-input" text="Weight: "/>
                         <TextField fx:id="weightField" styleClass="input-field"/>
                         <Label fx:id="weight_error" style="-fx-text-fill: red"/>
-                    </children>
+                    </VBox>
                 </HBox>
-            </HBox>
+
+                <HBox spacing="8">
+                    <VBox HBox.hgrow="ALWAYS" spacing="4">
+                        <Label styleClass="label-input" text="Treatment Sheet Count: "/>
+                        <TextField fx:id="treatmentSheetCountField" styleClass="input-field"/>
+                        <Label fx:id="treatment_sheet_count_error" style="-fx-text-fill: red"/>
+                    </VBox>
+                </HBox>
+
+                <HBox spacing="8">
+                    <VBox HBox.hgrow="ALWAYS" spacing="4">
+                        <Label styleClass="label-input" text="Disease Progress: "/>
+                        <TextField fx:id="diseaseProgressField" styleClass="input-field"/>
+                        <Label fx:id="disease_progress_error" style="-fx-text-fill: red"/>
+                    </VBox>
+
+                    <VBox HBox.hgrow="ALWAYS" spacing="4">
+                        <Label styleClass="label-input" text="General Examination: "/>
+                        <TextField fx:id="examGeneralField" styleClass="input-field"/>
+                        <Label fx:id="exam_general_error" style="-fx-text-fill: red"/>
+                    </VBox>
+
+                    <VBox HBox.hgrow="ALWAYS" spacing="4">
+                        <Label styleClass="label-input" text="Examination Systems: "/>
+                        <TextField fx:id="examSystemsField" styleClass="input-field"/>
+                        <Label fx:id="exam_systems_error" style="-fx-text-fill: red"/>
+                    </VBox>
+
+                    <VBox HBox.hgrow="ALWAYS" spacing="4">
+                        <Label styleClass="label-input" text="Lab Results: "/>
+                        <TextField fx:id="labResultsField" styleClass="input-field"/>
+                        <Label fx:id="lab_results_error" style="-fx-text-fill: red"/>
+                    </VBox>
+                </HBox>
+
+                <HBox spacing="8">
+                    <VBox HBox.hgrow="ALWAYS" spacing="4">
+                        <Label styleClass="label-input" text="Primary Diagnosis Code: "/>
+                        <TextField fx:id="primaryDiagnosisCodeField" styleClass="input-field"/>
+                        <Label fx:id="primary_diagnosis_code_error" style="-fx-text-fill: red"/>
+                    </VBox>
+
+                    <VBox HBox.hgrow="ALWAYS" spacing="4">
+                        <Label styleClass="label-input" text="Primary Diagnosis Note: "/>
+                        <TextField fx:id="primaryDiagnosisNoteField" styleClass="input-field"/>
+                        <Label fx:id="primary_diagnosis_note_error" style="-fx-text-fill: red"/>
+                    </VBox>
+                    <VBox HBox.hgrow="ALWAYS" spacing="4">
+                        <Label styleClass="label-input" text="Secondary Diagnosis Code: "/>
+                        <TextField fx:id="secondaryDiagnosisCodeField" styleClass="input-field"/>
+                        <Label fx:id="secondary_diagnosis_code_error" style="-fx-text-fill: red"/>
+                    </VBox>
+                    <VBox HBox.hgrow="ALWAYS" spacing="4">
+                        <Label styleClass="label-input" text="Secondary Diagnosis Note: "/>
+                        <TextField fx:id="secondaryDiagnosisNoteField" styleClass="input-field"/>
+                        <Label fx:id="secondary_diagnosis_note_error" style="-fx-text-fill: red"/>
+                    </VBox>
+                </HBox>
+
+                <HBox spacing="8">
+                    <VBox HBox.hgrow="ALWAYS" spacing="4">
+                        <Label styleClass="label-input" text="Diagnosis: "/>
+                        <TextField fx:id="diagnosisField" styleClass="input-field"/>
+                        <Label fx:id="diagnosis_error" style="-fx-text-fill: red"/>
+                    </VBox>
+                    <VBox HBox.hgrow="ALWAYS" spacing="4">
+                        <Label styleClass="label-input" text="Treatment: "/>
+                        <TextField fx:id="treatmentField" styleClass="input-field"/>
+                        <Label fx:id="treatment_error" style="-fx-text-fill: red"/>
+                    </VBox>
+
+                    <VBox HBox.hgrow="ALWAYS" spacing="4">
+                        <Label styleClass="label-input" text="Notes: "/>
+                        <TextField fx:id="notesField" styleClass="input-field"/>
+                        <Label fx:id="notes_error" style="-fx-text-fill: red"/>
+                    </VBox>
+                </HBox>
 
 
-            <HBox>
-                <Label styleClass="label-input" text="Treatment Sheet Count: "/>
-                <TextField fx:id="treatmentSheetCountField" styleClass="input-field"/>
-                <Label fx:id="treatment_sheet_count_error" style="-fx-text-fill: red"/>
-            </HBox>
+                <HBox spacing="8">
+                    <VBox HBox.hgrow="ALWAYS" spacing="4">
+                        <Label styleClass="label-input" text="Nutrition Mode: "/>
+                        <TextField fx:id="nutritionModeField" styleClass="input-field"/>
+                        <Label fx:id="nutrition_mode_error" style="-fx-text-fill: red"/>
+                    </VBox>
+                    <VBox HBox.hgrow="ALWAYS" spacing="4">
+                        <Label styleClass="label-input" text="Nutrition Note: "/>
+                        <TextField fx:id="nutritionNoteField" styleClass="input-field"/>
+                        <Label fx:id="nutrition_note_error" style="-fx-text-fill: red"/>
+                    </VBox>
 
-            <HBox>
-                <Label styleClass="label-input" text="Disease Progress: "/>
-                <TextField fx:id="diseaseProgressField" styleClass="input-field"/>
-                <Label fx:id="disease_progress_error" style="-fx-text-fill: red"/>
-            </HBox>
+                    <VBox HBox.hgrow="ALWAYS" spacing="4">
+                        <Label styleClass="label-input" text="Care Mode: "/>
+                        <TextField fx:id="careModeField" styleClass="input-field"/>
+                        <Label fx:id="care_mode_error" style="-fx-text-fill: red"/>
+                    </VBox>
 
-            <HBox>
-                <Label styleClass="label-input" text="General Examination: "/>
-                <TextField fx:id="examGeneralField" styleClass="input-field"/>
-                <Label fx:id="exam_general_error" style="-fx-text-fill: red"/>
-            </HBox>
+                    <VBox HBox.hgrow="ALWAYS" spacing="4">
+                        <Label styleClass="label-input" text="Care Note: "/>
+                        <TextField fx:id="careNoteField" styleClass="input-field"/>
+                        <Label fx:id="care_note_error" style="-fx-text-fill: red"/>
+                    </VBox>
+                </HBox>
 
-            <HBox>
-                <Label styleClass="label-input" text="Examination Systems: "/>
-                <TextField fx:id="examSystemsField" styleClass="input-field"/>
-                <Label fx:id="exam_systems_error" style="-fx-text-fill: red"/>
-            </HBox>
-
-            <HBox>
-                <Label styleClass="label-input" text="Lab Results: "/>
-                <TextField fx:id="labResultsField" styleClass="input-field"/>
-                <Label fx:id="lab_results_error" style="-fx-text-fill: red"/>
-            </HBox>
-
-            <HBox>
-                <Label styleClass="label-input" text="Primary Diagnosis Code: "/>
-                <TextField fx:id="primaryDiagnosisCodeField" styleClass="input-field"/>
-                <Label fx:id="primary_diagnosis_code_error" style="-fx-text-fill: red"/>
-            </HBox>
-
-            <HBox>
-                <Label styleClass="label-input" text="Primary Diagnosis Note: "/>
-                <TextField fx:id="primaryDiagnosisNoteField" styleClass="input-field"/>
-                <Label fx:id="primary_diagnosis_note_error" style="-fx-text-fill: red"/>
-            </HBox>
-
-            <HBox>
-                <Label styleClass="label-input" text="Secondary Diagnosis Code: "/>
-                <TextField fx:id="secondaryDiagnosisCodeField" styleClass="input-field"/>
-                <Label fx:id="secondary_diagnosis_code_error" style="-fx-text-fill: red"/>
-            </HBox>
-
-            <HBox>
-                <Label styleClass="label-input" text="Secondary Diagnosis Note: "/>
-                <TextField fx:id="secondaryDiagnosisNoteField" styleClass="input-field"/>
-                <Label fx:id="secondary_diagnosis_note_error" style="-fx-text-fill: red"/>
-            </HBox>
-
-            <HBox>
-                <Label styleClass="label-input" text="Diagnosis: "/>
-                <TextField fx:id="diagnosisField" styleClass="input-field"/>
-                <Label fx:id="diagnosis_error" style="-fx-text-fill: red"/>
-            </HBox>
-
-            <HBox>
-                <Label styleClass="label-input" text="Treatment: "/>
-                <TextField fx:id="treatmentField" styleClass="input-field"/>
-                <Label fx:id="treatment_error" style="-fx-text-fill: red"/>
-            </HBox>
-
-            <HBox>
-                <Label styleClass="label-input" text="Notes: "/>
-                <TextField fx:id="notesField" styleClass="input-field"/>
-                <Label fx:id="notes_error" style="-fx-text-fill: red"/>
-            </HBox>
-
-            <HBox>
-                <Label styleClass="label-input" text="Nutrition Mode: "/>
-                <TextField fx:id="nutritionModeField" styleClass="input-field"/>
-                <Label fx:id="nutrition_mode_error" style="-fx-text-fill: red"/>
-            </HBox>
-
-            <HBox>
-                <Label styleClass="label-input" text="Nutrition Note: "/>
-                <TextField fx:id="nutritionNoteField" styleClass="input-field"/>
-                <Label fx:id="nutrition_note_error" style="-fx-text-fill: red"/>
-            </HBox>
-
-            <HBox>
-                <Label styleClass="label-input" text="Care Mode: "/>
-                <TextField fx:id="careModeField" styleClass="input-field"/>
-                <Label fx:id="care_mode_error" style="-fx-text-fill: red"/>
-            </HBox>
-
-            <HBox>
-                <Label styleClass="label-input" text="Care Note: "/>
-                <TextField fx:id="careNoteField" styleClass="input-field"/>
-                <Label fx:id="care_note_error" style="-fx-text-fill: red"/>
-            </HBox>
-
-            <HBox alignment="CENTER_RIGHT" spacing="24">
-                <Button fx:id="clearButton" mnemonicParsing="false"
-                        onAction="#handleClear" prefHeight="30.0" prefWidth="120.0" text="Clear"
-                        styleClass="clear-btn"/>
-                <Button fx:id="saveButton" mnemonicParsing="false"
-                        onAction="#handleSave" prefHeight="30.0" prefWidth="120.0" text="Save" styleClass="save-btn"/>
-            </HBox>
-
+                <HBox alignment="CENTER_RIGHT" spacing="24">
+                    <Button fx:id="clearButton" mnemonicParsing="false"
+                            onAction="#handleClear" prefHeight="30.0" prefWidth="120.0" text="Clear"
+                            styleClass="clear-btn"/>
+                    <Button fx:id="saveButton" mnemonicParsing="false"
+                            onAction="#handleSave" prefHeight="30.0" prefWidth="120.0" text="Save"
+                            styleClass="save-btn"/>
+                </HBox>
+            </VBox>
         </VBox>
     </ScrollPane>
 </AnchorPane>

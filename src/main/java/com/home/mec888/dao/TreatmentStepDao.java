@@ -4,7 +4,9 @@ import com.home.mec888.entity.TreatmentSteps;
 import com.home.mec888.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
+import java.util.Collections;
 import java.util.List;
 
 public class TreatmentStepDao {
@@ -81,6 +83,25 @@ public class TreatmentStepDao {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public List<TreatmentSteps> getAllTreatmentStepsByAppointmentIdAndRoomId(Long appointmentId, Long roomId) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            String sql = "SELECT DISTINCT ts.* FROM treatment_steps ts " +
+                    "JOIN treatment_steps_service tss ON tss.treatment_step_id = ts.id " +
+                    "JOIN services s ON s.id = tss.service_id " +
+                    "JOIN room r ON r.id = s.room_id " +
+                    "WHERE ts.appointment_id = :appointmentId AND r.id = :roomId";
+
+            Query<TreatmentSteps> query = session.createNativeQuery(sql, TreatmentSteps.class);
+            query.setParameter("appointmentId", appointmentId);
+            query.setParameter("roomId", roomId);
+
+            return query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList(); // Tránh lỗi NullPointerException
         }
     }
 }

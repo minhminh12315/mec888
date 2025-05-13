@@ -7,12 +7,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 public class InitialAssessmentController {
-
-
+    @FXML
+    public VBox initialAssessmentVBoxContainer;
     @FXML
     private TextField pulseRateField, temperatureField, bpSystolicField, bpDiastolicField, respiratoryRateField, weightField,
             treatmentSheetCountField, diseaseProgressField, examGeneralField, examSystemsField, labResultsField,
@@ -139,7 +140,7 @@ public class InitialAssessmentController {
     private Integer validateIntegerField(TextField field, Label errorLabel, String fieldName) {
         try {
             String value = field.getText().trim();
-            if (value.isEmpty()) throw new IllegalArgumentException(fieldName + " is required.");
+            if (value.isEmpty()) return null; // Allow empty field
             return Integer.parseInt(value);
         } catch (NumberFormatException e) {
             errorLabel.setText(fieldName + " must be a valid number.");
@@ -150,7 +151,7 @@ public class InitialAssessmentController {
     private Double validateDoubleField(TextField field, Label errorLabel, String fieldName) {
         try {
             String value = field.getText().trim();
-            if (value.isEmpty()) throw new IllegalArgumentException(fieldName + " is required.");
+            if (value.isEmpty()) return null; // Allow empty field
             return Double.parseDouble(value);
         } catch (NumberFormatException e) {
             errorLabel.setText(fieldName + " must be a valid decimal number.");
@@ -160,16 +161,14 @@ public class InitialAssessmentController {
 
     private String validateTextField(TextField field, Label errorLabel, String fieldName) {
         String value = field.getText().trim();
-        if (value.isEmpty()) {
-            errorLabel.setText(fieldName + " is required.");
-            throw new IllegalArgumentException(fieldName + " is required.");
-        }
+        if (value.isEmpty()) return null; // Allow empty field
         return value;
     }
 
     @FXML
     public void initialize() {
         loadExistingMedicalRecord();
+        initialAssessmentVBoxContainer.setDisable(!SeeADoctorContainerController.isMainDoctor);
     }
 
     private void loadExistingMedicalRecord() {

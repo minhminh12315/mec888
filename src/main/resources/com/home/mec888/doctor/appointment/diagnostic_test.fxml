@@ -21,22 +21,34 @@
             <VBox alignment="CENTER" spacing="8" style="-fx-padding: 0 0 32 0;">
                 <Text styleClass="titlePage" text="Diagnostic Test" textAlignment="CENTER"/>
             </VBox>
-            <HBox alignment="CENTER_RIGHT">
-                <Button onAction="#openModalDiagnosticTest" fx:id="btn_addServices" styleClass="add-new-btn" style="-fx-font-size: 16; -fx-font-weight: bold;"
+            <HBox alignment="CENTER_RIGHT" fx:id="filterColorAndButtonContainer" >
+                <HBox spacing="16" fx:id="serviceFilterColor">
+                    <HBox spacing="4" alignment="CENTER">
+                        <Label text="Service in this room"/>
+                        <Label prefHeight="40" prefWidth="40" style="-fx-background-color:#FFFFFF; -fx-border-radius:4px; -fx-background-radius: 4px; -fx-border-color: #F0F0F0;"/>
+                    </HBox>
+                    <HBox spacing="4" alignment="CENTER">
+                        <Label text="Service in other room"/>
+                        <Label prefHeight="40" prefWidth="40" style="-fx-background-color: #ffcccc; -fx-border-radius:4px; -fx-background-radius: 4px;"/>
+                    </HBox>
+                </HBox>
+                <Region HBox.hgrow="ALWAYS" />
+                <Button onAction="#openModalDiagnosticTest" fx:id="btn_addServices" styleClass="add-new-btn"
+                        style="-fx-font-size: 16; -fx-font-weight: bold;"
                         text="Add Services"/>
             </HBox>
             <VBox spacing="16" style="-fx-padding: 16 0 0 0;">
-                <HBox>
-                    <Label text="Service Name" style="-fx-font-weight: bold; -fx-font-size: 20;" prefWidth="400"/>
-                    <Label text="|  Room" style="-fx-font-weight: bold; -fx-font-size: 20;" prefWidth="150"/>
-                    <Label text="|  Note" style="-fx-font-weight: bold; -fx-font-size: 20;" prefWidth="250"/>
-                    <Label text="|  Start Time" style="-fx-font-weight: bold; -fx-font-size: 20;" prefWidth="150"/>
-                    <Label text="|  End Time" style="-fx-font-weight: bold; -fx-font-size: 20;" prefWidth="150"/>
-                    <Label text="|  Diagnostic" style="-fx-font-weight: bold; -fx-font-size: 20;" prefWidth="300"/>
-                </HBox>
-                <VBox fx:id="diagnosticListContainer" spacing="16">
-
-                </VBox>
+                <TableView fx:id="diagnosticTestTabelView">
+                    <columns>
+                        <TableColumn fx:id="serviceNameColumn" text="Service Name" prefWidth="400"/>
+                        <TableColumn fx:id="roomColumn" text="Room" prefWidth="150"/>
+                        <TableColumn fx:id="noteColumn" text="Note" prefWidth="250"/>
+                        <TableColumn fx:id="startTimeColumn" text="Start Time" prefWidth="150"/>
+                        <TableColumn fx:id="endTimeColumn" text="End Time" prefWidth="150"/>
+                        <TableColumn fx:id="diagnosticColumn" text="Diagnostic" prefWidth="300"/>
+                        <TableColumn fx:id="actionColumn" text="Action" prefWidth="75"/>
+                    </columns>
+                </TableView>
             </VBox>
         </VBox>
     </ScrollPane>

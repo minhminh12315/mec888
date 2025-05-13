@@ -23,7 +23,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ListAppointmentController {
     @FXML
@@ -65,9 +68,23 @@ public class ListAppointmentController {
                 Appointment selectedAppointment = appointmentTable.getSelectionModel().getSelectedItem();
                 FXMLLoader loader = SceneSwitcher.loadViewToCallController("doctor/appointment/see-a-doctor-container.fxml", actionEvent);
                 SeeADoctorContainerController controller = loader.getController();
-                controller.setAppointment(selectedAppointment);
+                boolean isMainDoctor = selectedAppointment != null
+                        && selectedAppointment.getDoctor() != null
+                        && selectedAppointment.getDoctor().getId() != null
+                        && selectedAppointment.getDoctor().getId().equals(IndexController.doctor.getId());
+
+                System.out.println("is main doctor: " + isMainDoctor);
+                System.out.println("is main doctor: " + isMainDoctor);
+                controller.setAppointment(selectedAppointment, isMainDoctor);
             }
         });
+        appointmentTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        colId.setPrefWidth(1f * Integer.MAX_VALUE * 0.5);
+        colPatientId.setPrefWidth(1f * Integer.MAX_VALUE * 1.0);
+        colDoctorName.setPrefWidth(1f * Integer.MAX_VALUE * 1.0);
+        colAppointmentDate.setPrefWidth(1f * Integer.MAX_VALUE * 1.0);
+        colAppointmentTime.setPrefWidth(1f * Integer.MAX_VALUE * 1.0);
+
         getListAppointment();
     }
 
@@ -75,9 +92,9 @@ public class ListAppointmentController {
         try {
             Long userId = IndexController.user.getId();
             Doctor currentDoctor = doctorDao.findDoctorByUserId(userId);
-            List<Appointment> appointments = List.of();
+            List<Appointment> appointments = new ArrayList<>();
             if (currentDoctor != null) {
-                appointments = appointmentDao.getAppointmentByDoctorId(currentDoctor.getId());
+                appointments = appointmentDao.getAppointmentsServiceByDoctorId(currentDoctor.getId());
             }
             if (appointments != null) {
                 ObservableList<Appointment> observableList = FXCollections.observableArrayList(appointments);

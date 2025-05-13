@@ -1,5 +1,6 @@
 package com.home.mec888.controller.doctor.appointment;
 
+import com.home.mec888.dao.AppointmentDao;
 import com.home.mec888.entity.Appointment;
 import com.home.mec888.entity.Patient;
 import com.home.mec888.util.SceneSwitcher;
@@ -31,6 +32,8 @@ public class SeeADoctorContainerController {
 
     public static Appointment currentAppointment;
     public static Patient currentPatient;
+    AppointmentDao appointmentDao = new AppointmentDao();
+    public static boolean isMainDoctor = false;
 
     @FXML
     public void initialize() {
@@ -60,10 +63,11 @@ public class SeeADoctorContainerController {
         }
     }
 
-    public void setAppointment(Appointment appointment) {
+    public void setAppointment(Appointment appointment, boolean isMainDoctor) {
         try {
             currentAppointment = appointment;
             currentPatient = currentAppointment.getPatient();
+            SeeADoctorContainerController.isMainDoctor = isMainDoctor;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -108,5 +112,12 @@ public class SeeADoctorContainerController {
     public void handleMoveToTreatmentPlan(ActionEvent event) {
         highlightActiveButton(treatmentPlanButton);
 
+    }
+
+    public void handleSave(ActionEvent event) {
+        currentAppointment.setStatus("completed");
+        currentAppointment.setUpdatedAt(java.sql.Timestamp.valueOf(LocalDate.now().atStartOfDay()));
+        appointmentDao.updateAppointment(currentAppointment);
+        SceneSwitcher.loadViewSeeDoctor("list-appointment.fxml", event);
     }
 }
