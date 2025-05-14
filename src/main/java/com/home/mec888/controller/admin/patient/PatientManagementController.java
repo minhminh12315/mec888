@@ -62,7 +62,14 @@ public class PatientManagementController {
 
     private void loadPatientData() {
         patientColId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        userColId.setCellValueFactory(new PropertyValueFactory<>("user_id"));
+        userColId.setCellValueFactory(cellData -> {
+            User user = cellData.getValue().getUser();
+            if (user != null && user.getId() != null) {
+                return new javafx.beans.property.SimpleObjectProperty<>(user.getId());
+            } else {
+                return new javafx.beans.property.SimpleObjectProperty<>(null);
+            }
+        });
         firstNameColumn.setCellValueFactory(cellData -> {
             if (cellData.getValue() != null && cellData.getValue().getUser().getId() != null) {
                 User user = userDao.getUserById((long) cellData.getValue().getUser().getId());

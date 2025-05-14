@@ -202,13 +202,13 @@ public class ListPatientsController implements Initializable {
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 
         TableColumn<Medicine, String> descriptionCol = new TableColumn<>("Description");
-        descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+        descriptionCol.setCellValueFactory(new PropertyValueFactory<>("usageInstructions"));
 
         TableColumn<Medicine, Double> priceCol = new TableColumn<>("Price");
         priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
 
-        TableColumn<Medicine, String> manufacturerCol = new TableColumn<>("Manufacturer");
-        manufacturerCol.setCellValueFactory(new PropertyValueFactory<>("manufacturer"));
+        TableColumn<Medicine, String> manufacturerCol = new TableColumn<>("Manufacturer Code");
+        manufacturerCol.setCellValueFactory(new PropertyValueFactory<>("manufacturerCode"));
 
         medicineTable.getColumns().addAll(idCol, nameCol, descriptionCol, priceCol, manufacturerCol);
         medicineTable.setItems(medicines);
@@ -222,7 +222,14 @@ public class ListPatientsController implements Initializable {
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
 
         TableColumn<PrescriptionDetail, String> medicineCol = new TableColumn<>("Medicine");
-        medicineCol.setCellValueFactory(new PropertyValueFactory<>("medicineName"));
+        medicineCol.setCellValueFactory(cellData -> {
+            Medicine medicine = cellData.getValue().getMedicine();
+            if (medicine != null && medicine.getId() != null) {
+                return new javafx.beans.property.SimpleObjectProperty<>(medicine.getName());
+            } else {
+                return new javafx.beans.property.SimpleObjectProperty<>(null);
+            }
+        });
 
         TableColumn<PrescriptionDetail, String> dosageCol = new TableColumn<>("Dosage");
         dosageCol.setCellValueFactory(new PropertyValueFactory<>("dosage"));
