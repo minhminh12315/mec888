@@ -139,7 +139,7 @@ public class PatientManagementController {
                     private final FontIcon editIcon = new FontIcon(FontAwesomeSolid.EDIT);
                     private final FontIcon deleteIcon = new FontIcon(FontAwesomeSolid.TRASH_ALT);
                     private final HBox actionBox = new HBox(10); // spacing between icons
-                    private final FontIcon recordIcon = new FontIcon(FontAwesomeSolid.FILE);
+//                    private final FontIcon recordIcon = new FontIcon(FontAwesomeSolid.FILE);
 
                     {
                         // Style the icons
@@ -147,8 +147,8 @@ public class PatientManagementController {
                         editIcon.setIconColor(Paint.valueOf("#4CAF50")); // Green
                         deleteIcon.setIconSize(20);
                         deleteIcon.setIconColor(Paint.valueOf("#F44336")); // Red
-                        recordIcon.setIconSize(20);
-                        recordIcon.setIconColor(Paint.valueOf("#6236f4")); // Red
+//                        recordIcon.setIconSize(20);
+//                        recordIcon.setIconColor(Paint.valueOf("#6236f4")); // Red
 
                         // Add event handlers
                         editIcon.setOnMouseClicked(event -> {
@@ -161,13 +161,13 @@ public class PatientManagementController {
                             handleDelete(patient);
                         });
 
-                        recordIcon.setOnMouseClicked(event -> {
-                            Patient patient = getTableView().getItems().get(getIndex());
-                            handleRecord(patient, new ActionEvent());
-                        });
+//                        recordIcon.setOnMouseClicked(event -> {
+//                            Patient patient = getTableView().getItems().get(getIndex());
+//                            handleRecord(patient, new ActionEvent());
+//                        });
 
                         // Configure HBox
-                        actionBox.getChildren().addAll(editIcon, deleteIcon, recordIcon);
+                        actionBox.getChildren().addAll(editIcon, deleteIcon); //, recordIcon
                         actionBox.setAlignment(Pos.CENTER);
                     }
 

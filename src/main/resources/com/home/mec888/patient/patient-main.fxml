@@ -17,7 +17,7 @@
                 AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                 AnchorPane.topAnchor="0.0">
         <top>
-            <HBox styleClass="headerPatient" prefHeight="100.0" style="-fx-alignment: CENTER">
+            <HBox fx:id="mainBox" styleClass="headerPatient" prefHeight="100.0" style="-fx-alignment: CENTER">
                 <VBox prefWidth="240.0" styleClass="logo-image">
                     <ImageView fitHeight="80.0" fitWidth="80">
                         <Image url="@../../../../asset/images/logo2.png"/>
