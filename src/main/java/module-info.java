@@ -60,6 +60,7 @@ module com.home.mec888 {
     opens com.home.mec888.controller.doctor.schedule to javafx.fxml;
     opens com.home.mec888.controller.doctor.appointment to javafx.fxml;
     opens com.home.mec888.controller.doctor.appointment.modal to javafx.fxml;
+    opens com.home.mec888.controller.patient to javafx.fxml;
 
     opens com.home.mec888 to javafx.fxml;
 

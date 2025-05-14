@@ -1,68 +1,63 @@
 package com.home.mec888.controller.patient;
 
-import com.home.mec888.dao.AuditLogDao;
-import com.home.mec888.entity.AuditLog;
+import com.home.mec888.dao.PatientDao;
+import com.home.mec888.entity.Patient;
 import com.home.mec888.entity.User;
 import com.home.mec888.session.UserSession;
-import com.home.mec888.util.SceneSwitcher;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.stage.Stage;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 
-public class DashboardController {
-    public static User user;
-    @FXML
-    public Button moveF1;
-    @FXML
-    public Button moveF2;
-    @FXML
-    public Button moveHomeButton;
-    @FXML
-    public Button buttonLogout;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.ResourceBundle;
 
-    private Button currentActiveButton;
+public class DashboardController implements Initializable {
+    @FXML private Label firstNameLabel;
+    @FXML private Label lastNameLabel;
+    @FXML private Label genderLabel;
+    @FXML private Label dobLabel;
+    @FXML private Label addressLabel;
+    @FXML private Label emailLabel;
+    @FXML private Label phoneLabel;
+    @FXML private Label nationalityLabel;
+    @FXML private Label emergencyContactLabel;
+    @FXML private Label medicalHistoryLabel;
+    @FXML private Label labelError;
 
-    public void handleHome(ActionEvent actionEvent) {
-        highlightActiveButton(moveHomeButton);
-        SceneSwitcher.loadView("patient/dashboard.fxml", actionEvent);
-    }
-
-    public void handleF1(ActionEvent actionEvent){
-        highlightActiveButton(moveF1);
-        SceneSwitcher.loadView("patient/f1.fxml", actionEvent);
-    }
-
-    public void handleF2(ActionEvent actionEvent){
-        highlightActiveButton(moveF2);
-        SceneSwitcher.loadView("patient/f2.fxml", actionEvent);
-    }
-
-    public void logout(ActionEvent actionEvent) {
-        Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        currentStage.close();
-
-        user = UserSession.getInstance().getUser();
-        AuditLogDao auditLogDao = new AuditLogDao();
-        AuditLog auditLog = new AuditLog(user.getId().intValue(), "Logout", "Logout");
-        auditLogDao.saveAuditLog(auditLog);
-
-        SceneSwitcher.switchTo(new Stage(), "login/login.fxml");
-    }
-
-    private void highlightActiveButton(Button button) {
-        if (currentActiveButton != null) {
-            // Xóa class "active-button" khỏi nút đang được chọn trước đó
-            currentActiveButton.getStyleClass().remove("dashboard-active");
-            currentActiveButton.getStyleClass().add("dashboard-btn");
+    private PatientDao patientDao;
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        patientDao = new PatientDao();
+        User user = UserSession.getInstance().getUser();
+        if (user == null) {
+            labelError.setText("Phiên người dùng không hợp lệ.");
+            return;
         }
 
-        // Thêm class "dashboard-active" cho nút hiện tại
-        button.getStyleClass().remove("dashboard-btn");
-        button.getStyleClass().add("dashboard-active");
+        Patient patient = patientDao.findPatientByUserId(user.getId());
+        if (patient == null) {
+            labelError.setText("Không tìm thấy dữ liệu bệnh nhân.");
+            return;
+        }
 
-        // Cập nhật nút hiện tại
-        currentActiveButton = button;
+        // Fill user labels
+        firstNameLabel.setText(safe(user.getFirstName()));
+        lastNameLabel.setText(safe(user.getLastName()));
+        genderLabel.setText(safe(user.getGender()));
+        dobLabel.setText(user.getDateOfBirth() != null ? user.getDateOfBirth().toString() : "N/A");
+        addressLabel.setText(safe(user.getAddress()));
+        emailLabel.setText(safe(user.getEmail()));
+        phoneLabel.setText(safe(user.getPhone()));
+        nationalityLabel.setText(safe(user.getNationality()));
+
+        // Fill patient labels
+        emergencyContactLabel.setText(safe(patient.getEmergency_contact()));
+        medicalHistoryLabel.setText(safe(patient.getMedical_history()));
+    }
+
+    private String safe(String value) {
+        return value != null ? value : "N/A";
     }
 }

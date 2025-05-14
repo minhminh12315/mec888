@@ -29,7 +29,6 @@ public class IndexController {
     public static User user;
     public static Doctor doctor;
     public static Long doctorId;
-
     DoctorDao doctorDao = new DoctorDao();
 
     //
@@ -123,7 +122,6 @@ public class IndexController {
 
                 break;
             case "doctor":
-                doctorDao.findDoctorByUserId(user.getId());
                 doctor = doctorDao.findDoctorByUserId(user.getId());
                 doctorId = doctor.getId();
                 System.out.println("-----------------------");
@@ -203,6 +201,7 @@ public class IndexController {
     }
 
     public void handleSettings(ActionEvent event) {
+        highlightActiveButton(moveSettingsButton);
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/home/mec888/settings/settings.fxml"));
             Parent newView = loader.load();
