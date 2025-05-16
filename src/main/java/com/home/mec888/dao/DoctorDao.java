@@ -1,5 +1,6 @@
 package com.home.mec888.dao;
 
+import com.home.mec888.entity.Appointment;
 import com.home.mec888.entity.Department;
 import com.home.mec888.entity.Doctor;
 import com.home.mec888.entity.DoctorSchedule;
@@ -23,6 +24,18 @@ public class DoctorDao {
                 transaction.rollback();
             }
             e.printStackTrace();
+        }
+    }
+    public List<Appointment> findAppointmentsByDoctorId(Long doctorId) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery(
+                            "FROM Appointment a WHERE a.doctor.id = :doctorId ORDER BY a.appointmentDate DESC, a.appointmentTime DESC",
+                            Appointment.class)
+                    .setParameter("doctorId", doctorId)
+                    .getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
         }
     }
 

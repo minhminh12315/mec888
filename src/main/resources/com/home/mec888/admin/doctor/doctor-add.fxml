@@ -26,62 +26,52 @@
         </HBox>
 
         <VBox spacing="16">
-            <HBox prefHeight="70.0" prefWidth="200.0" spacing="16">
-                <children>
-                    <Label fx:id="username_error" style="-fx-text-fill: red"/>
-                    <VBox HBox.hgrow="ALWAYS">
-                        <children>
-                            <Label styleClass="label-input" text="first name" />
-                            <TextField fx:id="firstNameField" styleClass="input-field" />
-                            <Label fx:id="first_name_error" style="-fx-text-fill: red"/>
-                        </children>
-                    </VBox>
-                    <VBox HBox.hgrow="ALWAYS">
-                        <children>
-                            <Label styleClass="label-input" text="last name" />
-                            <TextField fx:id="lastNameField" styleClass="input-field" />
-                            <Label fx:id="last_name_error" style="-fx-text-fill: red"/>
-                        </children>
-                    </VBox>
-                    <VBox HBox.hgrow="ALWAYS">
-                        <children>
-                            <Label styleClass="label-input" text="phone" />
-                            <TextField fx:id="phoneField" styleClass="input-field" />
-                            <Label fx:id="phone_error" style="-fx-text-fill: red"/>
-                        </children>
-                    </VBox>
-                    <VBox HBox.hgrow="ALWAYS">
-                        <children>
-                            <Label styleClass="label-input" text="email" />
-                            <TextField fx:id="emailField" styleClass="input-field" />
-                            <Label fx:id="email_error" style="-fx-text-fill: red"/>
-                        </children>
-                    </VBox>
-                    <!-- User ID Input -->
-                    <VBox HBox.hgrow="ALWAYS">
-                        <Label styleClass="label-input" text="gender" />
-                        <ComboBox fx:id="genderComboBox" styleClass="input-field" />
-                        <Label fx:id="gender_error" style="-fx-text-fill: red"/>
-                    </VBox>
-                </children>
+            <HBox  spacing="16">
+                <Label fx:id="username_error" style="-fx-text-fill: red"/>
+                <VBox HBox.hgrow="ALWAYS">
+                    <Label styleClass="label-input" text="First Name"/>
+                    <TextField fx:id="firstNameField" styleClass="input-field" prefHeight="55.0"/>
+                    <Label fx:id="first_name_error" style="-fx-text-fill: red"/>
+                </VBox>
+                <VBox HBox.hgrow="ALWAYS">
+                    <Label styleClass="label-input" text="Last Name"/>
+                    <TextField fx:id="lastNameField" styleClass="input-field" prefHeight="55.0"/>
+                    <Label fx:id="last_name_error" style="-fx-text-fill: red"/>
+                </VBox>
+                <VBox HBox.hgrow="ALWAYS">
+                    <Label styleClass="label-input" text="Phone"/>
+                    <TextField fx:id="phoneField" styleClass="input-field" prefHeight="55.0"/>
+                    <Label fx:id="phone_error" style="-fx-text-fill: red"/>
+                </VBox>
+                <VBox HBox.hgrow="ALWAYS">
+                    <Label styleClass="label-input" text="Email"/>
+                    <TextField fx:id="emailField" styleClass="input-field" prefHeight="55.0"/>
+                    <Label fx:id="email_error" style="-fx-text-fill: red"/>
+                </VBox>
+                <!-- User ID Input -->
+                <VBox HBox.hgrow="ALWAYS">
+                    <Label styleClass="label-input" text="Gender"/>
+                    <ComboBox fx:id="genderComboBox" styleClass="input-field" prefHeight="55.0"/>
+                    <Label fx:id="gender_error" style="-fx-text-fill: red"/>
+                </VBox>
             </HBox>
 
             <!-- Department Field -->
-            <VBox>
+            <VBox styleClass="field-box">
                 <Label styleClass="label-input" text="Department:"/>
-                <ComboBox fx:id="roomComboBox" prefWidth="Infinity" styleClass="input-field"/>
+                <ComboBox fx:id="roomComboBox" prefWidth="Infinity" styleClass="input-field" prefHeight="55.0"/>
                 <Label fx:id="roomErrorLabel" textFill="red"/> <!-- Thông báo lỗi -->
             </VBox>
 
             <!-- Specialization Field - Changed from TextField to ComboBox -->
-            <VBox>
+            <VBox styleClass="field-box">
                 <Label styleClass="label-input" text="Specialization:"/>
                 <ComboBox fx:id="specializationComboBox" prefWidth="Infinity" styleClass="input-field"/>
                 <Label fx:id="specializationErrorLabel" textFill="red"/> <!-- Thông báo lỗi -->
             </VBox>
 
             <!-- License Field -->
-            <VBox>
+            <VBox styleClass="field-box">
                 <Label styleClass="label-input" text="License Number:"/>
                 <TextField fx:id="licenseField" styleClass="input-field"/>
                 <Label fx:id="licenseErrorLabel" textFill="red"/> <!-- Thông báo lỗi -->

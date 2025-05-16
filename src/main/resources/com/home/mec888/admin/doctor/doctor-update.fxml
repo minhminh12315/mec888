@@ -34,35 +34,35 @@
                 <children>
                     <VBox HBox.hgrow="ALWAYS">
                         <children>
-                            <Label styleClass="label-input" text="first name" />
+                            <Label styleClass="label-input" text="First Name" />
                             <TextField fx:id="firstNameField" styleClass="input-field" />
                             <Label fx:id="first_name_error" style="-fx-text-fill: red"/>
                         </children>
                     </VBox>
                     <VBox HBox.hgrow="ALWAYS">
                         <children>
-                            <Label styleClass="label-input" text="last name" />
+                            <Label styleClass="label-input" text="Last Name" />
                             <TextField fx:id="lastNameField" styleClass="input-field" />
                             <Label fx:id="last_name_error" style="-fx-text-fill: red"/>
                         </children>
                     </VBox>
                     <VBox HBox.hgrow="ALWAYS">
                         <children>
-                            <Label styleClass="label-input" text="phone" />
+                            <Label styleClass="label-input" text="Phone" />
                             <TextField fx:id="phoneField" styleClass="input-field" />
                             <Label fx:id="phone_error" style="-fx-text-fill: red"/>
                         </children>
                     </VBox>
                     <VBox HBox.hgrow="ALWAYS">
                         <children>
-                            <Label styleClass="label-input" text="email" />
+                            <Label styleClass="label-input" text="Email" />
                             <TextField fx:id="emailField" styleClass="input-field" />
                             <Label fx:id="email_error" style="-fx-text-fill: red"/>
                         </children>
                     </VBox>
                     <!-- User ID Input -->
                     <VBox HBox.hgrow="ALWAYS">
-                        <Label styleClass="label-input" text="gender" />
+                        <Label styleClass="label-input" text="Gender" />
                         <ComboBox fx:id="genderComboBox" styleClass="input-field" />
                         <Label fx:id="gender_error" style="-fx-text-fill: red"/>
                     </VBox>

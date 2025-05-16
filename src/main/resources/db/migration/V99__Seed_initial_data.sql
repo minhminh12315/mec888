@@ -231,8 +231,7 @@ VALUES
 (2, 1, 5, 'Skin examination', '2025-05-13 14:45:00', '2025-05-13 15:15:00', 'No concerning skin lesions', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (3, 2, 2, 'Neurological evaluation', '2025-05-14 09:30:00', '2025-05-14 10:15:00', 'Mild tension headaches', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (4, 3, 3, 'Pediatric checkup', '2025-05-15 16:00:00', '2025-05-15 16:45:00', 'Normal development for age', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(5, 4, 4, 'Cancer screening', '2025-05-16 13:30:00', '2025-05-16 14:30:00', 'No signs of malignancy', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-
+(5, 4, 4, 'Cancer screening', '2025-05-16 13:30:00', '2025-05-16 14:30:00', 'No signs of malignancy', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (6, 7, 1, 'General follow-up', '2025-01-15 10:30:00', '2025-01-15 11:00:00', 'Stable', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (7, 8, 5, 'Dermatology follow-up', '2025-02-20 11:15:00', '2025-02-20 11:45:00', 'Improved skin condition', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (8, 9, 3, 'Pediatric growth check', '2025-03-10 09:00:00', '2025-03-10 09:30:00', 'Normal', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
@@ -267,8 +266,7 @@ VALUES
 
 -- Step 5: Cancer screening → Ultrasound + Blood Test
 (5, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(5, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-
+(5, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (6, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- General Consultation
 (7, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- Ultrasound
 (8, 6, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- Vaccination

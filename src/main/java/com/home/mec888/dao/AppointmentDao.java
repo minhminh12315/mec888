@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -59,7 +60,40 @@ public class AppointmentDao {
             return null;
         }
     }
+    public List<Appointment> getAppointmentsLast15Days() {
+        LocalDate today = LocalDate.now();
+        LocalDate fromDate = today.minusDays(15);
 
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery(
+                            "from Appointment where appointmentDate between :fromDate and :toDate order by appointmentDate asc", Appointment.class)
+                    .setParameter("fromDate", java.sql.Date.valueOf(fromDate))
+                    .setParameter("toDate", java.sql.Date.valueOf(today))
+                    .list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static void main(String[] args) {
+        AppointmentDao dao = new AppointmentDao();
+        List<Appointment> allAppointments = dao.getAppointmentsLast15Days();
+
+        if (allAppointments != null && !allAppointments.isEmpty()) {
+            for (Appointment appointment : allAppointments) {
+                System.out.println("Patient name         : " + (appointment.getPatient() != null ? appointment.getPatient().getUser().getFullName() : "null"));
+                System.out.println("Doctor name          : " + (appointment.getDoctor() != null ? appointment.getDoctor().getUser().getFullName() : "null"));
+                System.out.println("Doctor Field          : " + (appointment.getDoctor() != null ? appointment.getDoctor().getSpecialization() : "null"));
+                System.out.println("Appointment Date   : " + appointment.getAppointmentDate());
+                System.out.println("Appointment Time   : " + appointment.getAppointmentTime());
+                System.out.println("Status             : " + appointment.getStatus());
+                System.out.println("--------------------------------------");
+            }
+        } else {
+            System.out.println("No appointments found or an error occurred.");
+        }
+    }
     public void deleteAppointment(Long id) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
