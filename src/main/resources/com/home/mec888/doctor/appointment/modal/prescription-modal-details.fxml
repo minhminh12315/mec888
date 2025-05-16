@@ -56,9 +56,9 @@
             </VBox>
         </HBox>
         <HBox spacing="10">
-            <VBox maxWidth="Infinity">
+            <VBox HBox.hgrow="ALWAYS" maxWidth="Infinity">
                 <Label text="Instruction"/>
-                <TextArea fx:id="prescInstruction"/>
+                <TextArea fx:id="prescInstruction" styleClass="input-field"/>
                 <Label fx:id="prescInstructionError" style="-fx-text-fill: red"/>
             </VBox>
         </HBox>

@@ -221,10 +221,8 @@
     -fx-alignment: center;
 }
 
-.BackGround {
-    -fx-background-color: #f2f6fc;
+.BackGround_123 {
     -fx-padding: 24;
-    -fx-background-radius: 12;
 }
 
 

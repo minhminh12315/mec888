@@ -14,7 +14,7 @@
 <?import java.lang.String?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.home.mec888.controller.settings.SettingsController"
-            styleClass="BackGround">
+            styleClass="BackGround_123">
 
     <GridPane hgap="40" vgap="12"
               AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
@@ -28,13 +28,13 @@
         </columnConstraints>
 
         <!-- Tiêu đề -->
-        <Label text="Thông Tin Người Dùng"
-               style="-fx-font-size: 20px; -fx-font-weight: bold;"
+        <Label  text="Thông Tin Người Dùng"
+               styleClass="titlePage"
                GridPane.columnSpan="2" GridPane.rowIndex="0" GridPane.halignment="CENTER"/>
 
         <!-- Row 1: Label Họ & Tên -->
-        <Label text="Họ:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-        <Label text="Tên:" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+        <Label styleClass="label-input" text="Họ:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <Label styleClass="label-input" text="Tên:" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
         <!-- Row 2: Input Họ & Tên -->
         <TextField fx:id="firstNameField" promptText="Nhập họ" disable="true"
@@ -45,8 +45,8 @@
                    GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
         <!-- Row 3: Label Giới tính & Ngày sinh -->
-        <Label text="Giới tính:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-        <Label text="Ngày sinh:" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+        <Label styleClass="label-input" text="Giới tính:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <Label styleClass="label-input" text="Ngày sinh:" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
 
         <!-- Row 4: Input Giới tính & Ngày sinh -->
         <TextField fx:id="gender" disable="true" styleClass="readonly-field"
@@ -55,8 +55,8 @@
                    GridPane.rowIndex="4" GridPane.columnIndex="1"/>
 
         <!-- Row 5: Label Địa chỉ & Email -->
-        <Label text="Địa chỉ:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
-        <Label text="Email:" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+        <Label styleClass="label-input" text="Địa chỉ:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+        <Label styleClass="label-input" text="Email:" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
 
         <!-- Row 6: Input Địa chỉ & Email -->
         <TextField fx:id="addressField" promptText="Nhập địa chỉ" styleClass="input-field"
@@ -65,8 +65,8 @@
                    GridPane.rowIndex="6" GridPane.columnIndex="1"/>
 
         <!-- Row 7: Label SĐT & Vai trò -->
-        <Label text="Số điện thoại:" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
-        <Label text="Vai trò:" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+        <Label styleClass="label-input" text="Số điện thoại:" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+        <Label styleClass="label-input" text="Vai trò:" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
 
         <!-- Row 8: Input SĐT & Vai trò -->
         <TextField fx:id="phoneField" promptText="Nhập số điện thoại" styleClass="input-field"
@@ -76,7 +76,7 @@
                    GridPane.rowIndex="8" GridPane.columnIndex="1"/>
 
         <!-- Row 9: Error message -->
-        <Label fx:id="labelError" text=""
+        <Label  fx:id="labelError" text=""
                style="-fx-text-fill: red; -fx-font-style: italic;"
                GridPane.rowIndex="9" GridPane.columnSpan="2" GridPane.halignment="CENTER"/>
 

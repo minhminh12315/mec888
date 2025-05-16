@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "appointments")
@@ -74,6 +75,12 @@ public class Appointment {
 
     public Date getAppointmentDate() {
         return appointmentDate;
+    }
+    public LocalDate getLocalDateAppointmentDate() {
+        if (appointmentDate == null) {
+            return null;
+        }
+        return appointmentDate.toLocalDate();
     }
 
     public void setAppointmentDate(Date appointmentDate) {

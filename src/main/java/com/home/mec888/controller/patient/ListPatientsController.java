@@ -1,4 +1,4 @@
-package com.home.mec888.controller.admin.patient;
+package com.home.mec888.controller.patient;
 
 import com.home.mec888.dao.*;
 import com.home.mec888.entity.*;
@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class PatientAppointmentController implements Initializable {
+public class ListPatientsController implements Initializable {
     @FXML
     private VBox medicineBox;
     @FXML
@@ -222,7 +222,14 @@ public class PatientAppointmentController implements Initializable {
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
 
         TableColumn<PrescriptionDetails, String> medicineCol = new TableColumn<>("Medicine");
-        medicineCol.setCellValueFactory(new PropertyValueFactory<>("medicineName"));
+        medicineCol.setCellValueFactory(cellData -> {
+            Medicine medicine = cellData.getValue().getMedicine();
+            if (medicine != null && medicine.getId() != null) {
+                return new javafx.beans.property.SimpleObjectProperty<>(medicine.getName());
+            } else {
+                return new javafx.beans.property.SimpleObjectProperty<>(null);
+            }
+        });
 
         TableColumn<PrescriptionDetails, String> dosageCol = new TableColumn<>("Dosage");
         dosageCol.setCellValueFactory(new PropertyValueFactory<>("dosage"));
@@ -315,7 +322,7 @@ public class PatientAppointmentController implements Initializable {
                     btnMedicalRecords.setText("Hide");
 
                     // Show success message
-                    showAlert("Appointment Selected", "Appointment ID: " + appointment.getId() + " has been selected.");
+//                    showAlert("Appointment Selected", "Appointment ID: " + appointment.getId() + " has been selected.");
                 });
             }
 

@@ -9,6 +9,7 @@ import com.home.mec888.dao.TreatmentStepServiceDao;
 import com.home.mec888.entity.Service;
 import com.home.mec888.entity.TreatmentStepServices;
 import com.home.mec888.entity.TreatmentSteps;
+import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
@@ -52,6 +53,8 @@ public class DiagnosticTestController {
     public HBox serviceFilterColor;
     @FXML
     public HBox filterColorAndButtonContainer;
+    @FXML
+    public VBox diagnosticTestVBoxContainer;
     ServiceDao serviceDao;
     TreatmentStepServiceDao treatmentStepServiceDao;
     TreatmentStepDao treatmentStepDao;
@@ -70,6 +73,14 @@ public class DiagnosticTestController {
         if(!SeeADoctorContainerController.isMainDoctor){
             filterColorAndButtonContainer.getChildren().removeAll(serviceFilterColor, btn_addServices);
         }
+
+        Platform.runLater(() -> {
+            if (SeeADoctorContainerController.currentMedicalRecord == null) {
+                diagnosticTestVBoxContainer.setDisable(true);
+            } else {
+                diagnosticTestVBoxContainer.setDisable(false);
+            }
+        });
     }
 
     public void setUpDiagnosticCell() {

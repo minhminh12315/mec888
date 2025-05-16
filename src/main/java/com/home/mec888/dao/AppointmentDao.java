@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -59,7 +60,40 @@ public class AppointmentDao {
             return null;
         }
     }
+    public List<Appointment> getAppointmentsLast15Days() {
+        LocalDate today = LocalDate.now();
+        LocalDate fromDate = today.minusDays(15);
 
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery(
+                            "from Appointment where appointmentDate between :fromDate and :toDate order by appointmentDate asc", Appointment.class)
+                    .setParameter("fromDate", java.sql.Date.valueOf(fromDate))
+                    .setParameter("toDate", java.sql.Date.valueOf(today))
+                    .list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static void main(String[] args) {
+        AppointmentDao dao = new AppointmentDao();
+        List<Appointment> allAppointments = dao.getAppointmentsLast15Days();
+
+        if (allAppointments != null && !allAppointments.isEmpty()) {
+            for (Appointment appointment : allAppointments) {
+                System.out.println("Patient name         : " + (appointment.getPatient() != null ? appointment.getPatient().getUser().getFullName() : "null"));
+                System.out.println("Doctor name          : " + (appointment.getDoctor() != null ? appointment.getDoctor().getUser().getFullName() : "null"));
+                System.out.println("Doctor Field          : " + (appointment.getDoctor() != null ? appointment.getDoctor().getSpecialization() : "null"));
+                System.out.println("Appointment Date   : " + appointment.getAppointmentDate());
+                System.out.println("Appointment Time   : " + appointment.getAppointmentTime());
+                System.out.println("Status             : " + appointment.getStatus());
+                System.out.println("--------------------------------------");
+            }
+        } else {
+            System.out.println("No appointments found or an error occurred.");
+        }
+    }
     public void deleteAppointment(Long id) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -111,8 +145,8 @@ public class AppointmentDao {
                     "LEFT JOIN services s ON tss.service_id = s.id " +
                     "LEFT JOIN room r ON r.id = s.room_id " +
                     "LEFT JOIN doctors d2 ON d2.room_id = r.id " +
-                    "WHERE d1.id = :doctorId OR d2.id = :doctorId " +
-                    "AND ts.status = 'PENDING'";
+                    "WHERE (d1.id = :doctorId OR d2.id = :doctorId AND ts.status = 'PENDING') " +
+                    "AND a.status = 'scheduled'";
 
             Query query = session.createNativeQuery(sql, Appointment.class);
             query.setParameter("doctorId", doctorId);
@@ -151,4 +185,16 @@ public class AppointmentDao {
             return Collections.emptyList(); // Trả về danh sách rỗng nếu có lỗi
         }
     }
+
+    public Appointment getPatientAppointmentById(Long id) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery(
+                            "SELECT a FROM Appointment a " +
+                                    "JOIN FETCH a.patient " +  // Eagerly fetch patient
+                                    "WHERE a.id = :id", Appointment.class)
+                    .setParameter("id", id)
+                    .uniqueResult();
+        }
+    }
+
 }

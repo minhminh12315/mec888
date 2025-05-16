@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.home.mec888.controller.doctor.appointment.TreatmentPlanController">
+    <ScrollPane fitToWidth="true" style="-fx-background:white;                        -fx-background-color:white;                        -fx-border-width: 0;" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+        <VBox fx:id="treatmentPlanVBoxContainer" style="-fx-padding: 32 16 64 16;">
+            <VBox alignment="CENTER" spacing="8" style="-fx-padding: 0 0 32 0;">
+                <Text styleClass="titlePage" text="Treatment Plan" textAlignment="CENTER" />
+            </VBox>
+            <VBox alignment="TOP_CENTER" spacing="16">
+                <HBox spacing="8">
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label styleClass="label-input" text="Primary diagnosis: " />
+                        <TextField fx:id="primary_diagnosis" styleClass="input-field" />
+                    </VBox>
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label styleClass="label-input" text="Primary diagnosis: " />
+                        <TextField fx:id="secondary_diagnosis" styleClass="input-field" />
+                    </VBox>
+
+                </HBox>
+                <HBox spacing="8">
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label styleClass="label-input" text="Patient health status: " />
+                        <TextArea fx:id="patient_health_status" prefHeight="200" styleClass="input-field" />
+                    </VBox>
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label styleClass="label-input" text="Plan details: " />
+                        <TextArea fx:id="plan_details" prefHeight="200" styleClass="input-field" />
+                    </VBox>
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label styleClass="label-input" text="Treatment method: " />
+                        <TextArea fx:id="treatment_method" prefHeight="200" styleClass="input-field" />
+                    </VBox>
+                </HBox>
+                <HBox spacing="8">
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label styleClass="label-input" text="Priority: " />
+                        <ComboBox fx:id="priority" styleClass="input-field" prefWidth="Infinity">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="CRITICAL" />
+                                    <String fx:value="URGENT" />
+                                    <String fx:value="MODERATE" />
+                                    <String fx:value="NON_URGENT" />
+                                </FXCollections>
+                            </items>
+                        </ComboBox>
+                    </VBox>
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label styleClass="label-input" text="Expected duration: " />
+                        <TextField fx:id="expected_duration" styleClass="input-field"/>
+                    </VBox>
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label styleClass="label-input" text="Follow up date: " />
+                        <DatePicker prefWidth="Infinity" fx:id="follow_up_date"/>
+                    </VBox>
+                </HBox>
+                <HBox spacing="8">
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label styleClass="label-input" text="Priority: " />
+                        <TextArea fx:id="note" styleClass="input-field" />
+                    </VBox>
+                </HBox>
+            </VBox>
+            <HBox alignment="CENTER_RIGHT" spacing="8" style="-fx-padding: 16 0 0 0;">
+                <Button prefHeight="30.0" prefWidth="120.0" onAction="#handleClearTreatmentPlan" styleClass="clear-btn" text="Clear" />
+                <Button prefHeight="30.0" prefWidth="120.0" onAction="#handleSaveTreatmentPlan" styleClass="save-btn" text="Save" />
+            </HBox>
+        </VBox>
+    </ScrollPane>
+</AnchorPane>

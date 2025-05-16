@@ -30,7 +30,6 @@ public class IndexController {
     public static User user;
     public static Doctor doctor;
     public static Long doctorId;
-
     DoctorDao doctorDao = new DoctorDao();
 
     //
@@ -125,13 +124,8 @@ public class IndexController {
 
                 break;
             case "doctor":
-                doctorDao.findDoctorByUserId(user.getId());
                 doctor = doctorDao.findDoctorByUserId(user.getId());
                 doctorId = doctor.getId();
-                System.out.println("-----------------------");
-                System.out.println(doctor);
-                System.out.println(doctor.getRoom().getId());
-                System.out.println(doctorId);
                 navigationBar.getChildren().addAll(
                         moveDoctorSchedule,
                         moveListAppointmentForDoctor

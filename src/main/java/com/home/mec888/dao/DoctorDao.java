@@ -1,5 +1,6 @@
 package com.home.mec888.dao;
 
+import com.home.mec888.entity.Appointment;
 import com.home.mec888.entity.Department;
 import com.home.mec888.entity.Doctor;
 import com.home.mec888.entity.DoctorSchedule;
@@ -23,6 +24,18 @@ public class DoctorDao {
                 transaction.rollback();
             }
             e.printStackTrace();
+        }
+    }
+    public List<Appointment> findAppointmentsByDoctorId(Long doctorId) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery(
+                            "FROM Appointment a WHERE a.doctor.id = :doctorId ORDER BY a.appointmentDate DESC, a.appointmentTime DESC",
+                            Appointment.class)
+                    .setParameter("doctorId", doctorId)
+                    .getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
         }
     }
 
@@ -79,7 +92,6 @@ public class DoctorDao {
     public List<Doctor> findDoctorByWorkDate(LocalDate workDate) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.createQuery(
-                            "SELECT d " +
                                     "FROM DoctorSchedule ds " +
                                     "join ds.doctor d " +
                                     "WHERE ds.workDate = :workDate", Doctor.class)
@@ -94,7 +106,7 @@ public class DoctorDao {
     public Doctor findDoctorByUserId(long userID) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.createQuery(
-                            "SELECT d FROM Doctor d WHERE d.user.id = :userID", Doctor.class)
+                            "FROM Doctor d WHERE d.user.id = :userID", Doctor.class)
                     .setParameter("userID", userID)
                     .uniqueResult();
         } catch (Exception e) {
@@ -105,7 +117,7 @@ public class DoctorDao {
     public Doctor findDoctorByRoomId(Long id) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.createQuery(
-                            "SELECT d FROM Doctor d WHERE d.room.id = :id", Doctor.class)
+                            "FROM Doctor d WHERE d.room.id = :id", Doctor.class)
                     .setParameter("id", id)
                     .uniqueResult();
         } catch (Exception e) {

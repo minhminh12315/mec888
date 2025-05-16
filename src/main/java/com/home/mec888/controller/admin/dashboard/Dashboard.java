@@ -1,10 +1,13 @@
 package com.home.mec888.controller.admin.dashboard;
 
+import com.home.mec888.dao.AppointmentDao;
 import com.home.mec888.dao.InvoicesDao;
 import com.home.mec888.entity.Appointment;
 import com.home.mec888.entity.Invoices;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -41,7 +44,14 @@ public class Dashboard implements Initializable {
     private AnchorPane rootPane;
     @FXML
     private ComboBox<String> surveyTimeRangeComboBox;
+    @FXML
+    private Label totalAppointmentsLabel;
 
+    @FXML
+    private Label completedCountLabel;
+
+    @FXML
+    private Label upcomingCountLabel;
     @FXML private AnchorPane revenueChartPane;
     @FXML private Label revenueAmountLabel;
     @FXML private Label revenueGrowthLabel;
@@ -66,14 +76,14 @@ public class Dashboard implements Initializable {
 
     @FXML private AnchorPane surveyPane;
     @FXML private AnchorPane surveyChartPane;
-    @FXML private TableView<AppointmentView> appointmentTable;
-    @FXML private TableColumn<AppointmentView, String> patientNameColumn;
-    @FXML private TableColumn<AppointmentView, String> assignedDoctorColumn;
-    @FXML private TableColumn<AppointmentView, LocalDate> dateColumn;
-    @FXML private TableColumn<AppointmentView, String> diseaseColumn;
+    @FXML private TableView<Appointment> appointmentTable;
+    @FXML private TableColumn<Appointment, String> patientNameColumn;
+    @FXML private TableColumn<Appointment, String> assignedDoctorColumn;
+    @FXML private TableColumn<Appointment, LocalDate> dateColumn;
+    @FXML private TableColumn<Appointment, String> diseaseColumn;
     @FXML
     private TableColumn<Appointment, Void> actionsColumn;
-    private final List<Invoices> allInvoices = new ArrayList<>();
+
     private final Map<String, Integer> appointmentData = new LinkedHashMap<>();
     private final Map<String, Integer> newPatientsData = new LinkedHashMap<>();
     private final Map<String, Integer> earningsData = new LinkedHashMap<>();
@@ -82,18 +92,18 @@ public class Dashboard implements Initializable {
     private double ChartSurveyWidth;
     private double ChartSurveyHeight;
     private final LinkedHashMap<Appointment, String> appointmentMap = new LinkedHashMap<>();
-    private void loadInvoicesFromDatabase() {
+    private void loadInvoicesFromDatabaseForEarningAmount() {
         InvoicesDao dao = new InvoicesDao();
         List<Invoices> fetched = dao.getAllInvoices();
 
         if (fetched == null || fetched.isEmpty()) return;
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        allInvoices.clear();      // Xóa danh sách cũ
         earningsData.clear();     // Xóa dữ liệu biểu đồ cũ
 
+        int totalAmount = 0; // Khởi tạo biến tính tổng
+
         for (Invoices invoice : fetched) {
-            allInvoices.add(invoice); // Thêm vào danh sách hiển thị
             System.out.println(invoice);
             Timestamp ts = invoice.getInvoiceDate();
             Double amount = invoice.getTotalAmount();
@@ -101,20 +111,175 @@ public class Dashboard implements Initializable {
             if (ts != null && amount != null) {
                 String dateKey = new SimpleDateFormat("dd-MM-yyyy").format(ts);
                 earningsData.put(dateKey, amount.intValue());
+                totalAmount += amount.intValue(); // Cộng dồn tổng
             }
         }
+
+        // Cập nhật tổng doanh thu thực tế
+        earningAmount.setText(String.format("$%,d", totalAmount));
     }
 
+    private void loadDataForRevenue() {
+        InvoicesDao dao = new InvoicesDao();
+        List<Invoices> fetched = dao.getAllInvoices();
+
+        if (fetched == null || fetched.isEmpty()) return;
+
+        revenueData.clear();
+
+        for (Invoices invoice : fetched) {
+
+            Timestamp ts = invoice.getInvoiceDate();
+            Double amount = invoice.getTotalAmount();
+
+            if (ts != null && amount != null) {
+                String dateKey = new SimpleDateFormat("dd-MM-yyyy").format(ts); // giữ nguyên format ngày-tháng-năm
+
+                revenueData.put(dateKey, revenueData.getOrDefault(dateKey, 0) + amount.intValue());
+            }
+        }
+        calculateAndDisplayRevenueStats();
+
+    }
+
+    public void loadAndAggregateAppointments() {
+        // Xóa dữ liệu cũ nếu cần
+        appointmentData.clear();
+        AppointmentDao dao = new AppointmentDao();
+        List<Appointment> allAppointments = dao.getAppointmentsLast15Days();
+
+        // Map tạm để lưu số lượng cuộc hẹn theo ngày, key = ngày dạng String "dd-MM-yyyy"
+        Map<String, Integer> tempMap = new LinkedHashMap<>();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+
+        for (Appointment appointment : allAppointments) {
+            if (appointment.getAppointmentDate() != null) {
+                String dateKey = sdf.format(appointment.getAppointmentDate());
+
+                // Nếu đã có ngày đó, cộng thêm 1, nếu chưa có thì khởi tạo = 1
+                tempMap.put(dateKey, tempMap.getOrDefault(dateKey, 0) + 1);
+            }
+        }
+
+        // Đổ dữ liệu đã gộp vào biến toàn cục
+        appointmentData.putAll(tempMap);
+
+        // Tính tổng số cuộc hẹn
+        int totalAppointments = appointmentData.values().stream().mapToInt(Integer::intValue).sum();
+
+        // Gán tổng vào label (chuyển sang String)
+        appointmentCount.setText(String.valueOf(totalAppointments));
+    }
+    public void loadAppointmentStatusCounts() {
+        AppointmentDao dao = new AppointmentDao();
+        List<Appointment> allAppointments = dao.getAllAppointments();
+
+        if (allAppointments == null || allAppointments.isEmpty()) {
+            totalAppointmentsLabel.setText("0");
+            completedCountLabel.setText("0");
+            upcomingCountLabel.setText("0");
+            return;
+        }
+
+        int completedCount = 0;
+        int upcomingCount = 0; // pending
+
+        for (Appointment appt : allAppointments) {
+            if (appt.getStatus() == null) continue;
+
+            switch (appt.getStatus().toLowerCase()) {
+                case "completed":
+                    completedCount++;
+                    break;
+                case "pending":
+                    upcomingCount++;
+                    break;
+                default:
+                    // trạng thái khác không quan tâm
+                    break;
+            }
+        }
+
+        int total = completedCount + upcomingCount;
+
+        totalAppointmentsLabel.setText(String.valueOf(total));
+        completedCountLabel.setText(String.valueOf(completedCount));
+        upcomingCountLabel.setText(String.valueOf(upcomingCount));
+    }
+    public void loadPatientsData() {
+        AppointmentDao dao = new AppointmentDao();
+        List<Appointment> allAppointments = dao.getAllAppointments();
+
+        newPatientsData.clear();
+        oldPatientsData.clear();
+
+        if (allAppointments == null || allAppointments.isEmpty()) {
+            newPatientCount.setText("0");
+            return;
+        }
+
+        Map<Long, List<Appointment>> completedByPatient = new HashMap<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+
+        // Gom các appointment completed theo patient
+        for (Appointment appt : allAppointments) {
+            if ("completed".equalsIgnoreCase(appt.getStatus()) && appt.getPatient() != null) {
+                Long patientId = appt.getPatient().getId();
+                completedByPatient.computeIfAbsent(patientId, k -> new ArrayList<>()).add(appt);
+            }
+        }
+
+        // Đếm số lần appointment theo ngày cho newPatientsData và oldPatientsData
+        Map<String, Integer> tempNewPatients = new HashMap<>();
+        Map<String, Integer> tempOldPatients = new HashMap<>();
+
+        for (Map.Entry<Long, List<Appointment>> entry : completedByPatient.entrySet()) {
+            List<Appointment> appts = entry.getValue();
+            if (appts.size() == 1) {
+                // Bệnh nhân mới, 1 lần completed
+                Appointment appt = appts.get(0);
+                if (appt.getAppointmentDate() != null) {
+                    String dateKey = sdf.format(appt.getAppointmentDate());
+                    tempNewPatients.put(dateKey, tempNewPatients.getOrDefault(dateKey, 0) + 1);
+                }
+            } else if (appts.size() > 1) {
+                // Bệnh nhân cũ, nhiều hơn 1 lần completed
+                for (Appointment appt : appts) {
+                    if (appt.getAppointmentDate() != null) {
+                        String dateKey = sdf.format(appt.getAppointmentDate());
+                        tempOldPatients.put(dateKey, tempOldPatients.getOrDefault(dateKey, 0) + 1);
+                    }
+                }
+            }
+        }
+
+        // Gán vào biến toàn cục
+        newPatientsData.putAll(new LinkedHashMap<>(tempNewPatients));
+        oldPatientsData.putAll(new LinkedHashMap<>(tempOldPatients));
+
+        // Tính tổng bệnh nhân mới để hiển thị lên label
+        int totalNewPatients = newPatientsData.values().stream().mapToInt(Integer::intValue).sum();
+        newPatientCount.setText(String.valueOf(totalNewPatients));
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadInvoicesFromDatabase();
-        setupAppointmentTable(); // cấu hình hiển thị bảng
-        loadSampleData();
-// Set mặc định nếu chưa chọn
+
+        loadAndAggregateAppointments();
+        loadInvoicesFromDatabaseForEarningAmount();
+        loadDataForRevenue();
+        //Status Table
+        loadAppointmentStatusCounts();
+        // hiển thị bảng danh sách bs
+        setupAppointmentTable();
+        loadAppointmentData();
+        //load data cho bieu do benh nhan moi va cu
+        loadPatientsData();
+        loadSampleDashboardData();
+        // Set mặc định nếu chưa chọn
         if (surveyTimeRangeComboBox.getValue() == null) {
             surveyTimeRangeComboBox.setValue("Daily");
         }
-
         // ✨ Lắng nghe sự kiện chọn ComboBox
         surveyTimeRangeComboBox.setOnAction(event -> {
             redrawSurveyChart(); // khi chọn lại gọi hàm vẽ lại
@@ -122,78 +287,7 @@ public class Dashboard implements Initializable {
         hoverCard.setVisible(true);
         hoverCard.setMouseTransparent(true);
         hoverCard.setOpacity(0);
-        // Tháng 1 - January
-        revenueData.put("10-01-2024", 600);
-        revenueData.put("25-01-2024", 550);
 
-// Tháng 2 - February
-        revenueData.put("05-02-2024", 520);
-        revenueData.put("20-02-2024", 510);
-
-// Tháng 3 - March
-        revenueData.put("10-03-2024", 500);
-        revenueData.put("25-03-2024", 480);
-
-// Tháng 4 - April
-        revenueData.put("05-04-2024", 470);
-        revenueData.put("20-04-2024", 450);
-
-// Tháng 5 - May
-        revenueData.put("10-05-2024", 430);
-        revenueData.put("25-05-2024", 400);
-
-// Tháng 6 - June
-        revenueData.put("05-06-2024", 390);
-        revenueData.put("20-06-2024", 370);
-
-// Tháng 7 - July
-        revenueData.put("10-07-2024", 360);
-        revenueData.put("25-07-2024", 340);
-
-// Tháng 8 - August
-        revenueData.put("05-08-2024", 330);
-        revenueData.put("20-08-2024", 300);
-
-
-
-
-        // Dữ liệu mẫu
-        appointmentData.put("17-07-2018", 40);
-        appointmentData.put("18-07-2018", 55);
-        appointmentData.put("19-07-2018", 45);
-        appointmentData.put("20-07-2018", 70);
-        appointmentData.put("21-07-2018", 52);
-        appointmentData.put("22-07-2018", 80);
-        appointmentData.put("23-07-2018", 50);
-        appointmentData.put("24-07-2018", 65);
-
-
-
-
-        appointmentCount.setText("650");
-        newPatientCount.setText("129");
-        earningAmount.setText("20125");
-        // oldPatientsData
-        oldPatientsData.put("17-07-2018", 10);
-        oldPatientsData.put("18-07-2018", 168);
-        oldPatientsData.put("19-08-2018", 15);
-        oldPatientsData.put("20-08-2018", 22);
-        oldPatientsData.put("21-09-2018", 17);
-        oldPatientsData.put("22-09-2019", 26);
-        oldPatientsData.put("23-10-2019", 23);
-        oldPatientsData.put("24-11-2020", 28);
-
-// newPatientsData
-        newPatientsData.put("17-07-2018", 20);
-        newPatientsData.put("18-07-2018", 335);
-        newPatientsData.put("19-08-2018", 28);
-        newPatientsData.put("20-08-2018", 45);
-        newPatientsData.put("21-09-2018", 30);
-        newPatientsData.put("22-09-2019", 55);
-        newPatientsData.put("23-10-2019", 42);
-        newPatientsData.put("24-11-2020", 60);
-
-        calculateAndDisplayRevenueStats();
         Platform.runLater(() -> {
 
 
@@ -251,23 +345,24 @@ public class Dashboard implements Initializable {
 
             if (revenueData == null || revenueData.isEmpty()) return;
 
-            // 1. Gom doanh thu theo tháng
-            Map<String, Integer> monthRevenueMap = new LinkedHashMap<>();
+            // Dùng TreeMap với LocalDate key để đảm bảo thứ tự tháng
+            Map<LocalDate, Integer> monthRevenueMap = new TreeMap<>();
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
             for (Map.Entry<String, Integer> entry : revenueData.entrySet()) {
-                String fullDate = entry.getKey(); // "10-01-2024"
-                String[] parts = fullDate.split("-"); // parts[0] = day, parts[1] = month, parts[2] = year
-
-                int monthNumber = Integer.parseInt(parts[1]);
-                String year = parts[2];
-
-                String monthName = getShortMonthName(monthNumber); // Gọi hàm convert
-                String monthKey = monthName + " " + year; // Ví dụ: "Jan 2024"
-
-                monthRevenueMap.put(monthKey, monthRevenueMap.getOrDefault(monthKey, 0) + entry.getValue());
+                try {
+                    LocalDate date = LocalDate.parse(entry.getKey(), inputFormatter);
+                    LocalDate monthKey = LocalDate.of(date.getYear(), date.getMonth(), 1);
+                    monthRevenueMap.put(monthKey, monthRevenueMap.getOrDefault(monthKey, 0) + entry.getValue());
+                } catch (Exception e) {
+                    System.err.println("Invalid date format: " + entry.getKey());
+                }
             }
 
-
-            String[] months = monthRevenueMap.keySet().toArray(new String[0]);
+            DateTimeFormatter monthYearFormatter = DateTimeFormatter.ofPattern("MMM yyyy", Locale.ENGLISH);
+            String[] months = monthRevenueMap.keySet().stream()
+                    .map(d -> d.format(monthYearFormatter))
+                    .toArray(String[]::new);
             Integer[] revenues = monthRevenueMap.values().toArray(new Integer[0]);
 
             int maxRevenue = Arrays.stream(revenues).max(Integer::compareTo).orElse(1);
@@ -296,20 +391,25 @@ public class Dashboard implements Initializable {
                 final int index = i;
 
                 bar.setOnMouseEntered(e -> {
-                    hoverCardDate.setText(months[index]); // Tháng thay vì ngày
+                    hoverCardDate.setText(months[index]);
                     hoverCardValue.setText("Revenue : " + revenues[index]);
                     hoverCardColor1.setFill(Color.web("#2D8CFF"));
                     hoverCardColor2.setFill(Color.TRANSPARENT);
 
-                    double sceneX = bar.localToScene(bar.getX() + bar.getWidth() / 2, bar.getY()).getX();
-                    double sceneY = bar.localToScene(bar.getX() + bar.getWidth() / 2, bar.getY()).getY();
+                    double sceneX = bar.localToScene(bar.getWidth() / 2, 0).getX();
+                    double sceneY = bar.localToScene(bar.getWidth() / 2, 0).getY();
 
                     double localX = hoverCard.getParent().sceneToLocal(sceneX, sceneY).getX();
                     double localY = hoverCard.getParent().sceneToLocal(sceneX, sceneY).getY();
 
-                    double offsetX = (localX < hoverCard.getParent().getLayoutBounds().getWidth() / 2)
+                    double tentativeX = (localX < hoverCard.getParent().getLayoutBounds().getWidth() / 2)
                             ? localX + 20
-                            : localX - hoverCard.getPrefWidth() - 20;
+                            : localX - hoverCard.getPrefWidth() - 150;
+
+                    // Giới hạn hoverCard không ra ngoài vùng nhìn thấy
+                    double maxX = hoverCard.getParent().getLayoutBounds().getWidth() - hoverCard.getPrefWidth() - 10;
+                    double offsetX = Math.min(Math.max(tentativeX, 10), maxX);
+
                     double offsetY = Math.max(0, localY - hoverCard.getPrefHeight() - 10);
 
                     hoverCard.setLayoutX(offsetX);
@@ -567,14 +667,14 @@ public class Dashboard implements Initializable {
                 String key;
                 switch (rangeType) {
                     case "Monthly":
-                        key = String.format("%02d-%d", date.getMonthValue(), date.getYear()); // "08-2018"
+                        key = String.format("%02d-%d", date.getMonthValue(), date.getYear()); // "08-2025"
                         break;
                     case "Yearly":
                         key = String.valueOf(date.getYear()); // "2019"
                         break;
                     case "Daily":
                     default:
-                        key = dateStr; // giữ nguyên "19-08-2018"
+                        key = dateStr; // giữ nguyên "19-08-2025"
                 }
 
                 // Nếu key đã tồn tại thì cộng dồn
@@ -879,26 +979,12 @@ public class Dashboard implements Initializable {
         }
     }
 
-    private void loadSampleData() {
-        Image avatar = new Image(getClass().getResourceAsStream("/asset/images/avatar.png")); // ✔ Đường dẫn đúng theo folder chị gửi
-
-        ObservableList<AppointmentView> data = FXCollections.observableArrayList(
-                new AppointmentView(avatar, "John Doe", "Dr. Jacob Ryan", LocalDate.of(2016, 5, 12), "Fever"),
-                new AppointmentView(avatar, "Sarah Smith", "Dr. Rajesh", LocalDate.of(2016, 5, 12), "Cholera"),
-                new AppointmentView(avatar, "Airi Satou", "Dr. Jay Soni", LocalDate.of(2016, 5, 12), "Jaundice"),
-                new AppointmentView(avatar, "Angelica Ramos", "Dr. John Deo", LocalDate.of(2016, 5, 12), "Typhoid"),
-                new AppointmentView(avatar, "Ashton Cox", "Dr. Megha Trivedi", LocalDate.of(2016, 5, 12), "Malaria"),
-                new AppointmentView(avatar, "Cara Stevens", "Dr. Sarah Smith", LocalDate.of(2016, 5, 12), "Infection"),
-                new AppointmentView(avatar, "Michael Bruce", "Dr. Anna Taylor", LocalDate.of(2016, 5, 12), "Pneumonia")
-        );
-
-        appointmentTable.setItems(data);
-    }
+private final Image avatar = new Image(getClass().getResourceAsStream("/asset/images/avatar.png"));
 
     private void setupAppointmentTable() {
-        // BÁC SĨ: hiển thị ảnh đại diện + tên bác sĩ trong cùng một ô
-        assignedDoctorColumn.setCellFactory(col -> new TableCell<>() {
-            private final HBox container = new HBox(8); // khoảng cách giữa ảnh và tên
+        // Cột bác sĩ: ảnh + tên
+        assignedDoctorColumn.setCellFactory(col -> new TableCell<Appointment, String>() {
+            private final HBox container = new HBox(8);
             private final ImageView imgView = new ImageView();
             private final Label doctorLabel = new Label();
 
@@ -919,26 +1005,40 @@ public class Dashboard implements Initializable {
                     return;
                 }
 
-                AppointmentView item = getTableView().getItems().get(index);
-                if (item.getImage() == null) {
+                Appointment appointment = getTableView().getItems().get(index);
+                if (appointment.getDoctor() == null || appointment.getDoctor().getUser() == null) {
                     setGraphic(null);
                     return;
                 }
 
-                imgView.setImage(item.getImage());
+                imgView.setImage(avatar);
                 doctorLabel.setText(doctorName);
                 doctorLabel.setStyle("-fx-text-fill: #007bff; -fx-underline: true;");
                 setGraphic(container);
             }
         });
-        assignedDoctorColumn.setCellValueFactory(new PropertyValueFactory<>("doctorName"));
+        assignedDoctorColumn.setCellValueFactory(cellData -> {
+            Appointment appt = cellData.getValue();
+            if (appt.getDoctor() != null && appt.getDoctor().getUser() != null) {
+                return new SimpleStringProperty(appt.getDoctor().getUser().getFullName());
+            } else {
+                return new SimpleStringProperty("Unknown Doctor");
+            }
+        });
 
-        // TÊN BỆNH NHÂN
-        patientNameColumn.setCellValueFactory(new PropertyValueFactory<>("patientName"));
+        // Cột tên bệnh nhân
+        patientNameColumn.setCellValueFactory(cellData -> {
+            Appointment appt = cellData.getValue();
+            if (appt.getPatient() != null && appt.getPatient().getUser() != null) {
+                return new SimpleStringProperty(appt.getPatient().getUser().getFullName());
+            } else {
+                return new SimpleStringProperty("Unknown Patient");
+            }
+        });
 
-        // NGÀY: hiển thị theo định dạng dd/MM/yyyy
-        dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-        dateColumn.setCellFactory(col -> new TableCell<>() {
+        // Cột ngày, định dạng dd/MM/yyyy
+        dateColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getLocalDateAppointmentDate()));
+        dateColumn.setCellFactory(col -> new TableCell<Appointment, LocalDate>() {
             private final DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
             @Override
@@ -948,36 +1048,158 @@ public class Dashboard implements Initializable {
             }
         });
 
-        // DISEASE: hiển thị label có màu theo loại bệnh
-        diseaseColumn.setCellFactory(col -> new TableCell<>() {
+        // Cột lĩnh vực chuyên môn bác sĩ, với màu sắc
+        diseaseColumn.setCellValueFactory(cellData -> {
+            Appointment appt = cellData.getValue();
+            if (appt.getDoctor() != null && appt.getDoctor().getSpecialization() != null) {
+                return new SimpleStringProperty(appt.getDoctor().getSpecialization().getName());
+            } else {
+                return new SimpleStringProperty("Unknown Specialization");
+            }
+        });
+        diseaseColumn.setCellFactory(col -> new TableCell<Appointment, String>() {
             private final Label label = new Label();
+
             {
                 label.setStyle("-fx-padding: 2 8; -fx-border-radius: 6; -fx-background-radius: 6; -fx-border-width: 1; -fx-font-size: 11px;");
             }
 
             @Override
-            protected void updateItem(String dis, boolean empty) {
-                super.updateItem(dis, empty);
-                if (empty || dis == null) {
+            protected void updateItem(String spec, boolean empty) {
+                super.updateItem(spec, empty);
+                if (empty || spec == null) {
                     setGraphic(null);
                 } else {
-                    label.setText(dis);
-                    switch (dis.toLowerCase()) {
-                        case "fever":
+                    label.setText(spec);
+                    switch (spec.toLowerCase()) {
+                        case "cardiology":
                             label.setStyle(label.getStyle() + "-fx-border-color: #e74c3c; -fx-text-fill: #e74c3c;");
                             break;
-                        case "cholera":
+                        case "neurology":
                             label.setStyle(label.getStyle() + "-fx-border-color: #2ecc71; -fx-text-fill: #2ecc71;");
+                            break;
+                        case "pediatrics":
+                            label.setStyle(label.getStyle() + "-fx-border-color: #3498db; -fx-text-fill: #3498db;");
+                            break;
+                        case "dermatology":
+                            label.setStyle(label.getStyle() + "-fx-border-color: #9b59b6; -fx-text-fill: #9b59b6;");
+                            break;
+                        case "gastroenterology":
+                            label.setStyle(label.getStyle() + "-fx-border-color: #e67e22; -fx-text-fill: #e67e22;");
+                            break;
+                        case "oncology":
+                            label.setStyle(label.getStyle() + "-fx-border-color: #e79c3c; -fx-text-fill: #e74c3c;");
+                            break;
+                        case "orthopedics":
+                            label.setStyle(label.getStyle() + "-fx-border-color: #1abc9c; -fx-text-fill: #1abc9c;");
+                            break;
+                        case "psychiatry":
+                            label.setStyle(label.getStyle() + "-fx-border-color: #34495e; -fx-text-fill: #34495e;");
+                            break;
+                        case "ophthalmology":
+                            label.setStyle(label.getStyle() + "-fx-border-color: #f1c40f; -fx-text-fill: #f1c40f;");
+                            break;
+                        case "endocrinology":
+                            label.setStyle(label.getStyle() + "-fx-border-color: #7f8c8d; -fx-text-fill: #7f8c8d;");
                             break;
                         default:
                             label.setStyle(label.getStyle() + "-fx-border-color: gray; -fx-text-fill: gray;");
+                            break;
                     }
                     setGraphic(label);
                 }
             }
+
         });
-        diseaseColumn.setCellValueFactory(new PropertyValueFactory<>("disease"));
+    }
+    private void loadAppointmentData() {
+        AppointmentDao dao = new AppointmentDao();
+        List<Appointment> allAppointments = dao.getAppointmentsLast15Days();
+
+        if (allAppointments != null && !allAppointments.isEmpty()) {
+            ObservableList<Appointment> data = FXCollections.observableArrayList(allAppointments);
+            appointmentTable.setItems(data);
+        } else {
+            appointmentTable.setItems(FXCollections.observableArrayList());
+        }
     }
 
+
+    private void loadSampleDashboardData() {
+        earningsData.put("16-05-2025", 1200000);
+        earningsData.put("01-05-2025", 1350000);
+        earningsData.put("16-04-2025", 1420000);
+        earningsData.put("01-04-2025", 1500000);
+        earningsData.put("16-03-2025", 1650000);
+        earningsData.put("01-03-2025", 1700000);
+        earningsData.put("14-02-2025", 1750000);
+        earningsData.put("30-01-2025", 1850000);
+        earningsData.put("15-01-2025", 1900000);
+        earningsData.put("31-12-2024", 2000000);
+        earningsData.put("16-12-2024", 2100000);
+        earningsData.put("01-12-2024", 2200000);
+        earningsData.put("16-11-2024", 2300000);
+        earningsData.put("01-11-2024", 2400000);
+        earningsData.put("16-10-2024", 2500000);
+        earningsData.put("01-10-2024", 2600000);
+        earningsData.put("16-09-2024", 2700000);
+        earningsData.put("01-09-2024", 2800000);
+        earningsData.put("16-08-2024", 2900000);
+        earningsData.put("01-08-2024", 3000000);
+
+
+        revenueData.put("13-05-2025", 4500000);
+        revenueData.put("14-05-2025", 4700000);
+        revenueData.put("15-05-2025", 4900000);
+        revenueData.put("16-05-2025", 5100000);
+        revenueData.put("20-06-2025", 5300000);
+        revenueData.put("10-07-2025", 5500000);
+        revenueData.put("25-07-2025", 5700000);
+        revenueData.put("05-08-2025", 5900000);
+        revenueData.put("20-08-2025", 6100000);
+        revenueData.put("10-09-2025", 6300000);
+
+
+        // Dữ liệu cuộc hẹn dao động xen kẽ
+        appointmentData.put("13-05-2025", 40);
+        appointmentData.put("14-05-2025", 48);
+        appointmentData.put("15-05-2025", 43);
+        appointmentData.put("16-05-2025", 57);
+        appointmentData.put("20-06-2025", 62);
+        appointmentData.put("10-07-2025", 60);
+        appointmentData.put("25-07-2025", 72);
+        appointmentData.put("05-08-2025", 73);
+        appointmentData.put("20-08-2025", 79);
+        appointmentData.put("10-09-2025", 83);
+
+        // Dữ liệu bệnh nhân cũ dao động xen kẽ
+        oldPatientsData.put("13-05-2025", 10);
+        oldPatientsData.put("14-05-2025", 17);
+        oldPatientsData.put("15-05-2025", 16);
+        oldPatientsData.put("16-05-2025", 23);
+        oldPatientsData.put("20-06-2025", 26);
+        oldPatientsData.put("10-07-2025", 27);
+        oldPatientsData.put("25-07-2025", 29);
+        oldPatientsData.put("05-08-2025", 34);
+        oldPatientsData.put("20-08-2025", 36);
+        oldPatientsData.put("10-09-2025", 38);
+
+        // Dữ liệu bệnh nhân mới dao động xen kẽ
+        newPatientsData.put("13-05-2025", 22);
+        newPatientsData.put("14-05-2025", 26);
+        newPatientsData.put("15-05-2025", 28);
+        newPatientsData.put("16-05-2025", 31);
+        newPatientsData.put("20-06-2025", 39);
+        newPatientsData.put("10-07-2025", 42);
+        newPatientsData.put("25-07-2025", 48);
+        newPatientsData.put("05-08-2025", 53);
+        newPatientsData.put("20-08-2025", 58);
+        newPatientsData.put("10-09-2025", 62);
+        newPatientCount.setText("350");  // Ví dụ số bệnh nhân mới là 350
+        appointmentCount.setText("650"); // Ví dụ số cuộc hẹn là 650
+        totalAppointmentsLabel.setText("50");
+        completedCountLabel.setText("70");
+        upcomingCountLabel.setText("120");
+    }
 
 }

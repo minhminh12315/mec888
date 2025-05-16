@@ -100,4 +100,15 @@ public class PrescriptionDetailsDao {
             return null;
         }
     }
+
+    public List<PrescriptionDetails> getPrescriptionsBySelectedAppointmentId(Long selectedAppointmentId) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("FROM PrescriptionDetails WHERE prescription.record.appointment.id = :selectedAppointmentId", PrescriptionDetails.class)
+                    .setParameter("selectedAppointmentId", selectedAppointmentId)
+                    .list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package com.home.mec888.entity;
 
 import jakarta.persistence.*;
+
 import java.sql.Date;
 import java.sql.Timestamp;
 
@@ -11,30 +12,29 @@ public class Prescription {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "record_id", nullable = false)
-    private MedicalRecord medicalRecord;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "record_id")
+    private MedicalRecord record;
 
-    @Column(name = "issued_date", nullable = false)
+    @Column(name = "issued_date")
     private Date issuedDate;
 
     @Column(name = "notes")
     private String notes;
 
-    @Column(name = "created_at", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "created_at", nullable = false, updatable = false, insertable = false,
+            columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp createdAt;
 
-    @Column(name = "updated_at", nullable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    @Column(name = "updated_at", nullable = false, insertable = false,
+            columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Timestamp updatedAt;
-
-    @OneToMany(mappedBy = "prescription", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private java.util.List<PrescriptionDetail> prescriptionDetails;
 
     public Prescription() {
     }
 
-    public Prescription(MedicalRecord medicalRecord, Date issuedDate, String notes) {
-        this.medicalRecord = medicalRecord;
+    public Prescription(MedicalRecord record, Date issuedDate, String notes) {
+        this.record = record;
         this.issuedDate = issuedDate;
         this.notes = notes;
     }
@@ -47,12 +47,12 @@ public class Prescription {
         this.id = id;
     }
 
-    public MedicalRecord getMedicalRecord() {
-        return medicalRecord;
+    public MedicalRecord getRecord() {
+        return record;
     }
 
-    public void setMedicalRecord(MedicalRecord medicalRecord) {
-        this.medicalRecord = medicalRecord;
+    public void setRecord(MedicalRecord record) {
+        this.record = record;
     }
 
     public Date getIssuedDate() {
@@ -87,11 +87,15 @@ public class Prescription {
         this.updatedAt = updatedAt;
     }
 
-    public java.util.List<PrescriptionDetail> getPrescriptionDetails() {
-        return prescriptionDetails;
-    }
-
-    public void setPrescriptionDetails(java.util.List<PrescriptionDetail> prescriptionDetails) {
-        this.prescriptionDetails = prescriptionDetails;
+    @Override
+    public String toString() {
+        return "Prescription{" +
+                "id=" + id +
+                ", record=" + (record != null ? record.getId() : "null") +
+                ", issuedDate=" + issuedDate +
+                ", notes='" + notes + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 }

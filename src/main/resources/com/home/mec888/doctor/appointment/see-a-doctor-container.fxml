@@ -37,15 +37,8 @@
                 </HBox>
             </VBox>
         </top>
-
         <center>
 
         </center>
-
-        <bottom>
-            <HBox alignment="CENTER" spacing="8">
-                <Button fx:id="btnSave" text="Save" onAction="#handleSave" styleClass="buttonSeeDoctor"/>
-            </HBox>
-        </bottom>
     </BorderPane>
 </AnchorPane>

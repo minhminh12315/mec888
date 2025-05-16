@@ -237,6 +237,22 @@ public class User {
         this.place_of_origin = place_of_origin;
     }
 
+    public String getFullName() {
+        String fName = (firstName != null) ? firstName.trim() : "";
+        String lName = (lastName != null) ? lastName.trim() : "";
+
+        if (!fName.isEmpty() && !lName.isEmpty()) {
+            return fName + " " + lName;
+        } else if (!fName.isEmpty()) {
+            return fName;
+        } else if (!lName.isEmpty()) {
+            return lName;
+        } else {
+            return "";
+        }
+    }
+
+
     @Override
     public String toString() {
         return "User{" +

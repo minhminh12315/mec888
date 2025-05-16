@@ -124,7 +124,7 @@ public class LoginController {
                 SceneSwitcher.switchTo(currentStage, "admin/index.fxml");
             } else if (IndexController.userRole.equalsIgnoreCase("patient")) {
                 Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-                SceneSwitcher.switchTo(currentStage, "patient/dashboard.fxml");
+                SceneSwitcher.switchTo(currentStage, "patient/patient-main.fxml");
             }
 
 

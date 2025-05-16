@@ -38,6 +38,17 @@ CREATE TABLE IF NOT EXISTS medical_records (
     care_mode VARCHAR(100)                 COMMENT 'Chế độ chăm sóc',
     care_note TEXT                         COMMENT 'Ghi chú chăm sóc',
 
+    -- Treatment plan
+    primary_diagnosis VARCHAR(100) NULL, -- Chẩn đoán chính
+    secondary_diagnosis VARCHAR(100) NULL, -- Chẩn đoán phụ
+    plan_details TEXT NULL, -- Mô tả kế hoạch xử trí
+    treatment_method TEXT NULL ,-- Phương pháp điều trị
+    expected_duration INT NULL, -- Thời gian dự kiến (ngày)
+    follow_up_date DATE NULL, -- Ngày tái khám (nếu cần)
+    patient_health_status TEXT NULL,
+    priority ENUM('CRITICAL', 'URGENT', 'MODERATE', 'NON_URGENT') DEFAULT 'NON_URGENT' COMMENT 'Độ ưu tiên của kế hoạch' NULl,
+    doctor_notes TEXT NULL,
+
     created_at TIMESTAMP                   DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP                   DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 

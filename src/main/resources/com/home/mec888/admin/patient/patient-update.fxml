@@ -23,42 +23,32 @@
         </HBox>
         <VBox spacing="16">
             <HBox prefHeight="70.0" prefWidth="200.0" spacing="16">
-                <children>
-                    <VBox HBox.hgrow="ALWAYS">
-                        <children>
-                            <Label styleClass="label-input" text="First name" />
-                            <TextField fx:id="firstNameField" onKeyReleased="#validateInput" styleClass="input-field" />
-                            <Label fx:id="first_name_error" style="-fx-text-fill: red"/>
-                        </children>
-                    </VBox>
-                    <VBox HBox.hgrow="ALWAYS">
-                        <children>
-                            <Label styleClass="label-input" text="Last name" />
-                            <TextField fx:id="lastNameField" onKeyReleased="#validateInput" styleClass="input-field" />
-                            <Label fx:id="last_name_error" style="-fx-text-fill: red"/>
-                        </children>
-                    </VBox>
-                    <VBox HBox.hgrow="ALWAYS">
-                        <children>
-                            <Label styleClass="label-input" text="Phone" />
-                            <TextField fx:id="phoneField" onKeyReleased="#validateInput" styleClass="input-field" />
-                            <Label fx:id="phone_error" style="-fx-text-fill: red"/>
-                        </children>
-                    </VBox>
-                    <VBox HBox.hgrow="ALWAYS">
-                        <children>
-                            <Label styleClass="label-input" text="Email" />
-                            <TextField fx:id="emailField" onKeyReleased="#validateInput" styleClass="input-field" />
-                            <Label fx:id="email_error" style="-fx-text-fill: red"/>
-                        </children>
-                    </VBox>
-                    <!-- User ID Input -->
-                    <VBox HBox.hgrow="ALWAYS">
-                        <Label styleClass="label-input" text="Gender" />
-                        <ComboBox fx:id="genderComboBox" onKeyReleased="#validateInput" styleClass="input-field" />
-                        <Label fx:id="gender_error" style="-fx-text-fill: red"/>
-                    </VBox>
-                </children>
+                <VBox HBox.hgrow="ALWAYS">
+                    <Label styleClass="label-input" text="First name"/>
+                    <TextField fx:id="firstNameField" onKeyReleased="#validateInput" styleClass="input-field" prefHeight="55.0"/>
+                    <Label fx:id="first_name_error" style="-fx-text-fill: red"/>
+                </VBox>
+                <VBox HBox.hgrow="ALWAYS">
+                    <Label styleClass="label-input" text="Last name"/>
+                    <TextField fx:id="lastNameField" onKeyReleased="#validateInput" styleClass="input-field" prefHeight="55.0"/>
+                    <Label fx:id="last_name_error" style="-fx-text-fill: red"/>
+                </VBox>
+                <VBox HBox.hgrow="ALWAYS">
+                    <Label styleClass="label-input" text="Phone"/>
+                    <TextField fx:id="phoneField" onKeyReleased="#validateInput" styleClass="input-field" prefHeight="55.0"/>
+                    <Label fx:id="phone_error" style="-fx-text-fill: red"/>
+                </VBox>
+                <VBox HBox.hgrow="ALWAYS">
+                    <Label styleClass="label-input" text="Email"/>
+                    <TextField fx:id="emailField" onKeyReleased="#validateInput" styleClass="input-field" prefHeight="55.0"/>
+                    <Label fx:id="email_error" style="-fx-text-fill: red"/>
+                </VBox>
+                <!-- User ID Input -->
+                <VBox HBox.hgrow="ALWAYS">
+                    <Label styleClass="label-input" text="Gender"/>
+                    <ComboBox fx:id="genderComboBox" onKeyReleased="#validateInput" styleClass="input-field" prefHeight="55.0"/>
+                    <Label fx:id="gender_error" style="-fx-text-fill: red"/>
+                </VBox>
             </HBox>
             <VBox>
                 <Label styleClass="label-input" text="Emergency Contact"/>
