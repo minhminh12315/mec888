@@ -1,6 +1,8 @@
 package com.home.mec888.entity;
 
 import jakarta.persistence.*;
+
+import java.sql.Date;
 import java.sql.Timestamp;
 
 @Entity
@@ -93,6 +95,33 @@ public class MedicalRecord {
 
     @Column(name = "care_note")
     private String careNote;
+
+    @Column(name = "primary_diagnosis")
+    private String primaryDiagnosis;
+
+    @Column(name = "secondary_diagnosis")
+    private String secondaryDiagnosis;
+
+    @Column(name = "plan_details")
+    private String planDetails;
+
+    @Column(name = "treatment_method")
+    private String treatmentMethod;
+
+    @Column(name = "patient_health_status")
+    private String patientHealthStatus;
+
+    @Column(name = "expected_duration")
+    private Integer expectedDuration;
+
+    @Column(name = "follow_up_date")
+    private Date followUpDate;
+
+    @Column(name = "doctor_notes")
+    private String doctorNotes;
+
+    @Column(name = "priority")
+    private String priority;
 
     @Column(name = "created_at", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp createdAt;
@@ -363,5 +392,77 @@ public class MedicalRecord {
 
     public void setCareNote(String careNote) {
         this.careNote = careNote;
+    }
+
+    public String getPrimaryDiagnosis() {
+        return primaryDiagnosis;
+    }
+
+    public void setPrimaryDiagnosis(String primaryDiagnosis) {
+        this.primaryDiagnosis = primaryDiagnosis;
+    }
+
+    public String getSecondaryDiagnosis() {
+        return secondaryDiagnosis;
+    }
+
+    public void setSecondaryDiagnosis(String secondaryDiagnosis) {
+        this.secondaryDiagnosis = secondaryDiagnosis;
+    }
+
+    public String getPlanDetails() {
+        return planDetails;
+    }
+
+    public void setPlanDetails(String planDetails) {
+        this.planDetails = planDetails;
+    }
+
+    public String getTreatmentMethod() {
+        return treatmentMethod;
+    }
+
+    public void setTreatmentMethod(String treatmentMethod) {
+        this.treatmentMethod = treatmentMethod;
+    }
+
+    public String getPatientHealthStatus() {
+        return patientHealthStatus;
+    }
+
+    public void setPatientHealthStatus(String patientHealthStatus) {
+        this.patientHealthStatus = patientHealthStatus;
+    }
+
+    public Date getFollowUpDate() {
+        return followUpDate;
+    }
+
+    public void setFollowUpDate(Date followUpDate) {
+        this.followUpDate = followUpDate;
+    }
+
+    public String getDoctorNotes() {
+        return doctorNotes;
+    }
+
+    public void setDoctorNotes(String doctorNotes) {
+        this.doctorNotes = doctorNotes;
+    }
+
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
+    public Integer getExpectedDuration() {
+        return expectedDuration;
+    }
+
+    public void setExpectedDuration(Integer expectedDuration) {
+        this.expectedDuration = expectedDuration;
     }
 }

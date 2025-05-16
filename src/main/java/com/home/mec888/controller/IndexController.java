@@ -124,10 +124,6 @@ public class IndexController {
             case "doctor":
                 doctor = doctorDao.findDoctorByUserId(user.getId());
                 doctorId = doctor.getId();
-                System.out.println("-----------------------");
-                System.out.println(doctor);
-                System.out.println(doctor.getRoom().getId());
-                System.out.println(doctorId);
                 navigationBar.getChildren().addAll(
                         moveDoctorSchedule,
                         moveListAppointmentForDoctor

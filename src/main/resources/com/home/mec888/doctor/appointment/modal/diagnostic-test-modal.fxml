@@ -26,17 +26,23 @@
                 </graphic>
             </Button>
         </HBox>
-        <ScrollPane style="-fx-background:white;
+        <ScrollPane fitToWidth="true" fitToHeight="true" style="-fx-background:white;
                        -fx-background-color:white;
                        -fx-border-width: 0;
                        -fx-padding: 32 16 32 16;">
-            <VBox fx:id="diagnosticListContainer" spacing="24">
-                <HBox>
-                    <Label text="X-Ray" prefWidth="200"/>
-                    <Label text="Basic health consultation with a general practitioner" prefWidth="418"/>
-                    <Label text="300,000" prefWidth="75"/>
-                    <Label text="Room 1" prefWidth="75"/>
+            <VBox spacing="24">
+                <HBox alignment="CENTER_LEFT" >
+                    <TextField fx:id="searchBox" promptText="Search service name" styleClass="input-field"/>
                 </HBox>
+                <Region VBox.vgrow="ALWAYS"/>
+                <VBox fx:id="diagnosticListContainer"  spacing="24">
+                    <HBox>
+                        <Label text="X-Ray" prefWidth="200"/>
+                        <Label text="Basic health consultation with a general practitioner" prefWidth="418"/>
+                        <Label text="300,000" prefWidth="75"/>
+                        <Label text="Room 1" prefWidth="75"/>
+                    </HBox>
+                </VBox>
             </VBox>
         </ScrollPane>
     </VBox>

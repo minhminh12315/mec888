@@ -32,7 +32,7 @@
                     <VBox>
                         <Label styleClass="label-input" text="First Name:"/>
                         <TextField fx:id="firstNameField" onKeyReleased="#validateInput" prefWidth="250" styleClass="input-field"/>
-                        <Label fx:id="firstNameErrorLabel" textFill="red"/> <!-- Thông báo lỗi -->
+                        <Label fx:id="usernameErrorLabel" textFill="red"/> <!-- Thông báo lỗi -->
                     </VBox>
                     <!-- Last Name Field -->
                     <VBox>

@@ -49,7 +49,7 @@ public class ListPatientsController implements Initializable {
     @FXML
     private TableView<Medicine> medicineTable;
     @FXML
-    private TableView<PrescriptionDetail> prescriptionTable;
+    private TableView<PrescriptionDetails> prescriptionTable;
     @FXML
     private TableView<MedicalRecord> medicalRecordTable;
     @FXML
@@ -57,7 +57,7 @@ public class ListPatientsController implements Initializable {
 
     // Observable lists for tables
     private ObservableList<Medicine> medicines = FXCollections.observableArrayList();
-    private ObservableList<PrescriptionDetail> prescriptions = FXCollections.observableArrayList();
+    private ObservableList<PrescriptionDetails> prescriptions = FXCollections.observableArrayList();
     private ObservableList<MedicalRecord> medicalRecords = FXCollections.observableArrayList();
     private ObservableList<Appointment> appointments = FXCollections.observableArrayList();
 
@@ -218,10 +218,10 @@ public class ListPatientsController implements Initializable {
     }
 
     private void setupPrescriptionTable() {
-        TableColumn<PrescriptionDetail, Integer> idCol = new TableColumn<>("ID");
+        TableColumn<PrescriptionDetails, Integer> idCol = new TableColumn<>("ID");
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
 
-        TableColumn<PrescriptionDetail, String> medicineCol = new TableColumn<>("Medicine");
+        TableColumn<PrescriptionDetails, String> medicineCol = new TableColumn<>("Medicine");
         medicineCol.setCellValueFactory(cellData -> {
             Medicine medicine = cellData.getValue().getMedicine();
             if (medicine != null && medicine.getId() != null) {
@@ -231,13 +231,13 @@ public class ListPatientsController implements Initializable {
             }
         });
 
-        TableColumn<PrescriptionDetail, String> dosageCol = new TableColumn<>("Dosage");
+        TableColumn<PrescriptionDetails, String> dosageCol = new TableColumn<>("Dosage");
         dosageCol.setCellValueFactory(new PropertyValueFactory<>("dosage"));
 
-        TableColumn<PrescriptionDetail, String> frequencyCol = new TableColumn<>("Frequency");
+        TableColumn<PrescriptionDetails, String> frequencyCol = new TableColumn<>("Frequency");
         frequencyCol.setCellValueFactory(new PropertyValueFactory<>("frequency"));
 
-        TableColumn<PrescriptionDetail, String> instructionsCol = new TableColumn<>("Instructions");
+        TableColumn<PrescriptionDetails, String> instructionsCol = new TableColumn<>("Instructions");
         instructionsCol.setCellValueFactory(new PropertyValueFactory<>("instructions"));
 
         prescriptionTable.getColumns().addAll(idCol, medicineCol, dosageCol, frequencyCol, instructionsCol);
@@ -388,8 +388,8 @@ public class ListPatientsController implements Initializable {
         }
 
         prescriptions.clear(); // Clear the list before adding new items
-        PrescriptionDetailDao prescriptionDetailsDao = new PrescriptionDetailDao();
-        List<PrescriptionDetail> prescriptionList = prescriptionDetailsDao.getPrescriptionsBySelectedAppointmentId(selectedAppointmentId);
+        PrescriptionDetailsDao prescriptionDetailsDao = new PrescriptionDetailsDao();
+        List<PrescriptionDetails> prescriptionList = prescriptionDetailsDao.getPrescriptionsBySelectedAppointmentId(selectedAppointmentId);
 
         if (prescriptionList != null && !prescriptionList.isEmpty()) {
             prescriptions.addAll(prescriptionList);

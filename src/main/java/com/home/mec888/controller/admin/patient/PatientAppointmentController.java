@@ -49,7 +49,7 @@ public class PatientAppointmentController implements Initializable {
     @FXML
     private TableView<Medicine> medicineTable;
     @FXML
-    private TableView<PrescriptionDetail> prescriptionTable;
+    private TableView<PrescriptionDetails> prescriptionTable;
     @FXML
     private TableView<MedicalRecord> medicalRecordTable;
     @FXML
@@ -57,7 +57,7 @@ public class PatientAppointmentController implements Initializable {
 
     // Observable lists for tables
     private ObservableList<Medicine> medicines = FXCollections.observableArrayList();
-    private ObservableList<PrescriptionDetail> prescriptions = FXCollections.observableArrayList();
+    private ObservableList<PrescriptionDetails> prescriptions = FXCollections.observableArrayList();
     private ObservableList<MedicalRecord> medicalRecords = FXCollections.observableArrayList();
     private ObservableList<Appointment> appointments = FXCollections.observableArrayList();
 
@@ -218,26 +218,19 @@ public class PatientAppointmentController implements Initializable {
     }
 
     private void setupPrescriptionTable() {
-        TableColumn<PrescriptionDetail, Integer> idCol = new TableColumn<>("ID");
+        TableColumn<PrescriptionDetails, Integer> idCol = new TableColumn<>("ID");
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
 
-        TableColumn<PrescriptionDetail, String> medicineCol = new TableColumn<>("Medicine");
-        medicineCol.setCellValueFactory(cellData -> {
-            Medicine medicine = cellData.getValue().getMedicine();
-            if (medicine != null && medicine.getId() != null) {
-                return new javafx.beans.property.SimpleObjectProperty<>(medicine.getName());
-            } else {
-                return new javafx.beans.property.SimpleObjectProperty<>(null);
-            }
-        });
+        TableColumn<PrescriptionDetails, String> medicineCol = new TableColumn<>("Medicine");
+        medicineCol.setCellValueFactory(new PropertyValueFactory<>("medicineName"));
 
-        TableColumn<PrescriptionDetail, String> dosageCol = new TableColumn<>("Dosage");
+        TableColumn<PrescriptionDetails, String> dosageCol = new TableColumn<>("Dosage");
         dosageCol.setCellValueFactory(new PropertyValueFactory<>("dosage"));
 
-        TableColumn<PrescriptionDetail, String> frequencyCol = new TableColumn<>("Frequency");
+        TableColumn<PrescriptionDetails, String> frequencyCol = new TableColumn<>("Frequency");
         frequencyCol.setCellValueFactory(new PropertyValueFactory<>("frequency"));
 
-        TableColumn<PrescriptionDetail, String> instructionsCol = new TableColumn<>("Instructions");
+        TableColumn<PrescriptionDetails, String> instructionsCol = new TableColumn<>("Instructions");
         instructionsCol.setCellValueFactory(new PropertyValueFactory<>("instructions"));
 
         prescriptionTable.getColumns().addAll(idCol, medicineCol, dosageCol, frequencyCol, instructionsCol);
@@ -388,8 +381,8 @@ public class PatientAppointmentController implements Initializable {
         }
 
         prescriptions.clear(); // Clear the list before adding new items
-        PrescriptionDetailDao prescriptionDetailsDao = new PrescriptionDetailDao();
-        List<PrescriptionDetail> prescriptionList = prescriptionDetailsDao.getPrescriptionsBySelectedAppointmentId(selectedAppointmentId);
+        PrescriptionDetailsDao prescriptionDetailsDao = new PrescriptionDetailsDao();
+        List<PrescriptionDetails> prescriptionList = prescriptionDetailsDao.getPrescriptionsBySelectedAppointmentId(selectedAppointmentId);
 
         if (prescriptionList != null && !prescriptionList.isEmpty()) {
             prescriptions.addAll(prescriptionList);

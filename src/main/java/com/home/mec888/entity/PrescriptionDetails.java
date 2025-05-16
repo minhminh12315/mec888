@@ -1,51 +1,48 @@
 package com.home.mec888.entity;
 
 import jakarta.persistence.*;
+
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "prescription_details")
-public class PrescriptionDetail {
+public class PrescriptionDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "prescription_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "prescription_id")
     private Prescription prescription;
 
-    @ManyToOne
-    @JoinColumn(name = "medicine_id", nullable = false)
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "medicine_id")
     private Medicine medicine;
 
-    @Column(name = "dosage", nullable = false)
+    @Column(name = "dosage")
     private String dosage;
 
-    @Column(name = "frequency", nullable = false)
-    private String frequency;
+    @Column(name = "amount")
+    private Double amount;
 
-    @Column(name = "duration", nullable = false)
+    @Column(name = "duration")
     private String duration;
+
+    @Column(name = "frequency")
+    private String frequency;
 
     @Column(name = "instructions")
     private String instructions;
 
-    @Column(name = "created_at", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "created_at", nullable = false, updatable = false, insertable = false,
+            columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp createdAt;
 
-    @Column(name = "updated_at", nullable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    @Column(name = "updated_at", nullable = false, insertable = false,
+            columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Timestamp updatedAt;
 
-    public PrescriptionDetail() {
-    }
-
-    public PrescriptionDetail(Prescription prescription, Medicine medicine, String dosage, String frequency, String duration, String instructions) {
-        this.prescription = prescription;
-        this.medicine = medicine;
-        this.dosage = dosage;
-        this.frequency = frequency;
-        this.duration = duration;
-        this.instructions = instructions;
+    public PrescriptionDetails() {
     }
 
     public Long getId() {
@@ -88,14 +85,6 @@ public class PrescriptionDetail {
         this.frequency = frequency;
     }
 
-    public String getDuration() {
-        return duration;
-    }
-
-    public void setDuration(String duration) {
-        this.duration = duration;
-    }
-
     public String getInstructions() {
         return instructions;
     }
@@ -118,5 +107,37 @@ public class PrescriptionDetail {
 
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    @Override
+    public String toString() {
+        return "PrescriptionDetails{" +
+                "id=" + id +
+                ", prescription=" + prescription +
+                ", medicine=" + medicine +
+                ", dosage='" + dosage + '\'' +
+                ", amount=" + amount +
+                ", duration='" + duration + '\'' +
+                ", frequency='" + frequency + '\'' +
+                ", instructions='" + instructions + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 }

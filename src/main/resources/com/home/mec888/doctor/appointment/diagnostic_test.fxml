@@ -17,7 +17,7 @@
                 style="-fx-background:white;
                        -fx-background-color:white;
                        -fx-border-width: 0;">
-        <VBox style="-fx-padding: 32 16 64 16;">
+        <VBox style="-fx-padding: 32 16 64 16;" fx:id="diagnosticTestVBoxContainer">
             <VBox alignment="CENTER" spacing="8" style="-fx-padding: 0 0 32 0;">
                 <Text styleClass="titlePage" text="Diagnostic Test" textAlignment="CENTER"/>
             </VBox>
@@ -25,7 +25,7 @@
                 <HBox spacing="16" fx:id="serviceFilterColor">
                     <HBox spacing="4" alignment="CENTER">
                         <Label text="Service in this room"/>
-                        <Label prefHeight="40" prefWidth="40" style="-fx-background-color:#FFFFFF; -fx-border-radius:4px; -fx-background-radius: 4px; -fx-border-color: #F0F0F0;"/>
+                        <Label prefHeight="40" prefWidth="40" style="-fx-background-color:#FFFFFF; -fx-border-radius:4px; -fx-background-radius: 4px; -fx-border-color: #CCCCCC;"/>
                     </HBox>
                     <HBox spacing="4" alignment="CENTER">
                         <Label text="Service in other room"/>

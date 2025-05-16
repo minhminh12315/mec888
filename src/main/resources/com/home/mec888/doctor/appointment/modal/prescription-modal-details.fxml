@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.*?>
+
+<?import javafx.scene.shape.Rectangle?>
+<?import org.controlsfx.control.ListActionView?>
+<StackPane fx:id="modalPrescriptionDetail" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.home.mec888.controller.doctor.appointment.modal.PrescriptionDetailsModalController">
+    <Rectangle fx:id="overlay" fill="black" opacity="0.3"/>
+    <VBox alignment="CENTER" spacing="10"
+          style="-fx-background-color: white; -fx-padding: 20; -fx-border-radius: 8; -fx-background-radius: 8;"
+          maxWidth="600" maxHeight="400">
+        <HBox alignment="CENTER"
+              style="-fx-border-color: transparent transparent #F0F0F0 transparent; -fx-border-width: 0 0 1 0; -fx-padding: 8 8 8 8;">
+            <Label style="-fx-font-weight: 600; -fx-font-size: 18;" text="Medicine Details"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button onAction="#closeModalDetails"
+                    style="-fx-background-color:transparent; -fx-border:none; -fx-cursor: pointer">
+                <graphic>
+                    <FontIcon iconLiteral="fas-times"/>
+                </graphic>
+            </Button>
+        </HBox>
+        <HBox spacing="10">
+            <VBox>
+                <Label text="Medicine name"/>
+                <TextField fx:id="medicineName"/>
+            </VBox>
+            <VBox>
+                <Label text="Active Ingredient"/>
+                <TextField fx:id="medicineIngredient"/>
+            </VBox>
+        </HBox>
+        <HBox spacing="10">
+            <VBox>
+                <Label text="Quantity"/>
+                <TextField fx:id="prescDosage"/>
+                <Label fx:id="prescDosageError" style="-fx-text-fill: red"/>
+            </VBox>
+            <VBox>
+                <Label text="Frequency"/>
+                <TextField fx:id="prescFrequency"/>
+                <Label fx:id="prescFrequencyError" style="-fx-text-fill: red"/>
+            </VBox>
+        </HBox>
+        <HBox spacing="10">
+            <VBox>
+                <Label text="Duration"/>
+                <TextField fx:id="prescDuration"/>
+                <Label fx:id="prescDurationError" style="-fx-text-fill: red"/>
+            </VBox>
+        </HBox>
+        <HBox spacing="10">
+            <VBox HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                <Label text="Instruction"/>
+                <TextArea fx:id="prescInstruction" styleClass="input-field"/>
+                <Label fx:id="prescInstructionError" style="-fx-text-fill: red"/>
+            </VBox>
+        </HBox>
+        <HBox alignment="CENTER_RIGHT" spacing="10">
+            <Button fx:id="clearButton" onAction="#handleClear" styleClass="save-btn" text="Clear"/>
+            <Button fx:id="saveButton" onAction="#handleSave" styleClass="clear-btn" text="Save"/>
+        </HBox>
+    </VBox>
+</StackPane>
