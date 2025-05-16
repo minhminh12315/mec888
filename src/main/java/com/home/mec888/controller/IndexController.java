@@ -92,9 +92,9 @@ public class IndexController {
         labelUserName.setText(user.getLastName());
         labelRole.setText(userRole);
 
-//        Platform.runLater(() -> {
-//            handleHome(new ActionEvent(moveHomeButton, null));
-//        });
+        Platform.runLater(() -> {
+            handleHome(new ActionEvent(moveHomeButton, null));
+        });
     }
 
     private void configureNavigationButtons() {

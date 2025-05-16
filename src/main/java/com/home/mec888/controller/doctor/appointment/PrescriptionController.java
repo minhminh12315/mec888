@@ -34,8 +34,8 @@ public class PrescriptionController {
     @FXML
     public void initialize() {
         prescDao = new PrescriptionDetailsDao();
-        prescriptionTable.setItems(STORE);
         loadShowMedicineData();
+        prescriptionTable.setItems(STORE);
     }
 
     public void loadShowMedicineData() {

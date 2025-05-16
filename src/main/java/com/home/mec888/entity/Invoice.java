@@ -22,7 +22,7 @@ public class Invoice {
             columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp invoiceDate;
 
-    @Column(name = "total_amount", nullable = false, precision = 10, scale = 2)
+    @Column(name = "total_amount", nullable = false, precision = 10)
     private Double totalAmount;
 
     @Column(name = "details", columnDefinition = "TEXT")
