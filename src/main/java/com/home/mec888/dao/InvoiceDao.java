@@ -9,33 +9,44 @@ import java.util.List;
 
 public class InvoiceDao {
 
-    public boolean saveInvoice(Invoice invoice) {
+    public void saveInvoice(Invoice invoice) {
+        Session session = null;
         Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            session.save(invoice); // Save the invoice object to the database
-            transaction.commit(); // Commit the transaction
-            return true; // Successfully saved
+            session.save(invoice);
+            transaction.commit();
         } catch (Exception e) {
             if (transaction != null && transaction.isActive()) {
-                transaction.rollback(); // Rollback the transaction if an error occurs
+                transaction.rollback();
             }
             e.printStackTrace();
-            return false; // Failed to save
+            throw e;  // Re-throw to handle in controller
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
         }
     }
 
     public void updateInvoice(Invoice invoice) {
+        Session session = null;
         Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            session.update(invoice); // Update the invoice object
-            transaction.commit(); // Commit the transaction
+            session.update(invoice);
+            transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback(); // Rollback the transaction if an error occurs
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
             }
             e.printStackTrace();
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
         }
     }
 

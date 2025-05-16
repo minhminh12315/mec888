@@ -233,6 +233,59 @@ VALUES
 (4, 3, 3, 'Pediatric checkup', '2025-05-15 16:00:00', '2025-05-15 16:45:00', 'Normal development for age', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (5, 4, 4, 'Cancer screening', '2025-05-16 13:30:00', '2025-05-16 14:30:00', 'No signs of malignancy', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
+(6, 7, 1, 'General follow-up', '2025-01-15 10:30:00', '2025-01-15 11:00:00', 'Stable', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(7, 8, 5, 'Dermatology follow-up', '2025-02-20 11:15:00', '2025-02-20 11:45:00', 'Improved skin condition', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(8, 9, 3, 'Pediatric growth check', '2025-03-10 09:00:00', '2025-03-10 09:30:00', 'Normal', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(9, 10, 2, 'Neurology review', '2025-04-05 14:30:00', '2025-04-05 15:00:00', 'No abnormalities', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(10, 13, 5, 'Skin evaluation', '2025-01-25 13:45:00', '2025-01-25 14:15:00', 'No issues', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(11, 14, 1, 'General consultation', '2025-02-28 09:15:00', '2025-02-28 09:45:00', 'Stable vitals', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(12, 15, 4, 'Cancer screening', '2025-03-18 16:00:00', '2025-03-18 16:30:00', 'Negative', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(13, 16, 3, 'Child health check', '2025-04-22 11:30:00', '2025-04-22 12:00:00', 'Healthy', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(14, 19, 4, 'Oncology follow-up', '2025-01-10 15:15:00', '2025-01-10 15:45:00', 'Clear', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(15, 20, 3, 'Child fever review', '2025-02-15 10:45:00', '2025-02-15 11:15:00', 'Resolved', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(16, 21, 1, 'Routine checkup', '2025-03-25 13:30:00', '2025-03-25 14:00:00', 'Normal', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(17, 22, 5, 'Dermatitis treatment', '2025-04-18 09:45:00', '2025-04-18 10:15:00', 'Improving', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(18, 26, 4, 'Cancer follow-up', '2025-01-20 14:15:00', '2025-01-20 14:45:00', 'No recurrence', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(19, 27, 5, 'Skin rash assessment', '2025-02-10 11:45:00', '2025-02-10 12:15:00', 'Prescribed cream', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(20, 28, 2, 'Headache consultation', '2025-03-15 15:30:00', '2025-03-15 16:00:00', 'Likely tension type', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(21, 29, 1, 'Routine examination', '2025-04-25 10:00:00', '2025-04-25 10:30:00', 'All normal', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+INSERT INTO mec888.treatment_steps_service (treatment_step_id, service_id, created_at, updated_at)
+VALUES
+-- Step 1: Initial cardiac assessment → General Consultation + Blood Test
+(1, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(1, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+
+-- Step 2: Skin examination → General Consultation
+(2, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+
+-- Step 3: Neurological evaluation → MRI Scan
+(3, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+
+-- Step 4: Pediatric checkup → Vaccination
+(4, 6, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+
+-- Step 5: Cancer screening → Ultrasound + Blood Test
+(5, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(5, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+(6, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- General Consultation
+(7, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- Ultrasound
+(8, 6, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- Vaccination
+(9, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),  -- MRI
+(10, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Ultrasound
+(11, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(12, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Blood Test
+(13, 6, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(14, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(15, 6, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(16, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(17, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(18, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(19, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(20, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(21, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
 -- 14. Medical Records
 INSERT INTO mec888.medical_records
 (id, patient_id, doctor_id, appointment_id, diagnosis, treatment, notes, created_at, updated_at)

@@ -2,6 +2,7 @@ package com.home.mec888.dao;
 
 import com.home.mec888.entity.Payment;
 import com.home.mec888.util.HibernateUtil;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -9,33 +10,44 @@ import java.util.List;
 
 public class PaymentDao {
 
-    public boolean savePayment(Payment payment) {
+    public void savePayment(Payment payment) {
+        Session session = null;
         Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            session.save(payment); // Save the payment object to the database
-            transaction.commit(); // Commit the transaction
-            return true; // Successfully saved
+            session.save(payment);
+            transaction.commit();
         } catch (Exception e) {
             if (transaction != null && transaction.isActive()) {
-                transaction.rollback(); // Rollback the transaction if an error occurs
+                transaction.rollback();
             }
             e.printStackTrace();
-            return false; // Failed to save
+            throw e;  // Re-throw to handle in controller
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
         }
     }
 
     public void updatePayment(Payment payment) {
+        Session session = null;
         Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            session.update(payment); // Update the payment object
-            transaction.commit(); // Commit the transaction
+            session.update(payment);
+            transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback(); // Rollback the transaction if an error occurs
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
             }
             e.printStackTrace();
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
         }
     }
 
