@@ -151,4 +151,16 @@ public class AppointmentDao {
             return Collections.emptyList(); // Trả về danh sách rỗng nếu có lỗi
         }
     }
+
+    public Appointment getPatientAppointmentById(Long id) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery(
+                            "SELECT a FROM Appointment a " +
+                                    "JOIN FETCH a.patient " +  // Eagerly fetch patient
+                                    "WHERE a.id = :id", Appointment.class)
+                    .setParameter("id", id)
+                    .uniqueResult();
+        }
+    }
+
 }

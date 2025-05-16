@@ -13,12 +13,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
 import java.sql.Time;
@@ -62,9 +60,19 @@ public class ListAppointmentController {
             ActionEvent actionEvent = new ActionEvent(event.getSource(), event.getTarget());
             if (event.getClickCount() == 2 && appointmentTable.getSelectionModel().getSelectedItem() != null) {
                 Appointment selectedAppointment = appointmentTable.getSelectionModel().getSelectedItem();
-                FXMLLoader loader = SceneSwitcher.loadViewToCallController("staff/payment/payment.fxml", actionEvent);
+                FXMLLoader loader = SceneSwitcher.loadViewToUpdate("staff/payment/payment.fxml");
                 PaymentController controller = loader.getController();
                 controller.setAppointment(selectedAppointment);
+
+                Parent newView = loader.getRoot();
+                AnchorPane anchorPane = (AnchorPane) appointmentTable.getScene().getRoot();
+                BorderPane mainPane = (BorderPane) anchorPane.lookup("#mainBorderPane");
+
+                if (mainPane != null) {
+                    mainPane.setCenter(newView);
+                } else {
+                    System.err.println("BorderPane with ID 'mainBorderPane' not found");
+                }
             }
         });
         getListAppointment();
