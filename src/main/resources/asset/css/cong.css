@@ -30,3 +30,9 @@
     -fx-text-fill: white; /* White text for value */
     -fx-font-size: 14px; /* Smaller font size for value */
 }
+
+
+
+.field-box {
+    -fx-padding: 0 0 0 16; /* padding trái 16px */
+}
