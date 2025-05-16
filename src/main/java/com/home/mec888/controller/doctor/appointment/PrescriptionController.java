@@ -46,8 +46,8 @@ public class PrescriptionController {
         prescDetailDao = new PrescriptionDetailsDao();
         prescriptionDao = new PrescriptionDao();
         medicalRecordDao = new MedicalRecordDao();
-        prescriptionTable.setItems(STORE);
         loadShowMedicineData();
+        prescriptionTable.setItems(STORE);
 
         Platform.runLater(() -> {
             if (SeeADoctorContainerController.currentMedicalRecord == null) {
