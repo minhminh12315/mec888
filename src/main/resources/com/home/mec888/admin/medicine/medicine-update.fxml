@@ -10,87 +10,91 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.ScrollPane?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             prefHeight="700.0" prefWidth="800.0"
             fx:controller="com.home.mec888.controller.admin.medicine.MedicineUpdateController">
-    <VBox spacing="24" AnchorPane.bottomAnchor="24.0"
-          AnchorPane.leftAnchor="24.0"
-          AnchorPane.rightAnchor="24.0"
-          AnchorPane.topAnchor="24.0">
-        <HBox spacing="500">
-            <!-- Back button -->
-            <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleBack"
-                    prefHeight="30.0" prefWidth="75.0" styleClass="back-btn" text="Back"/>
-            <Text text="Update Medicine" styleClass="titlePage"/>
-        </HBox>
-        <VBox spacing="16">
-            <VBox spacing="4">
-                <Label styleClass="label-input" text="Name:"/>
-                <TextField fx:id="nameField" styleClass="input-field"/>
-            </VBox>
-
-            <!-- Active Ingredient -->
-            <VBox spacing="4">
-                <Label styleClass="label-input" text="Active ingredient:"/>
-                <TextField fx:id="activeIngredientField" styleClass="input-field"/>
-            </VBox>
-
-            <!-- Dosage and Unit (in same row) -->
-            <HBox spacing="16">
-                <VBox spacing="4" HBox.hgrow="ALWAYS">
-                    <Label styleClass="label-input" text="Dosage:"/>
-                    <TextField fx:id="dosageField" styleClass="input-field"/>
-                </VBox>
-                <VBox spacing="4" HBox.hgrow="ALWAYS">
-                    <Label styleClass="label-input" text="Unit:"/>
-                    <TextField fx:id="unitField" styleClass="input-field"/>
-                </VBox>
+    <ScrollPane fitToWidth="true" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="24.0"
+                AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="24.0"
+                style="-fx-background-color: #FFFFFF;">
+        <VBox spacing="24">
+            <HBox spacing="500">
+                <!-- Back button -->
+                <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleBack"
+                        prefHeight="30.0" prefWidth="75.0" styleClass="back-btn" text="Back"/>
+                <Text text="Update Medicine" styleClass="titlePage"/>
             </HBox>
-
-            <!-- Form -->
-            <VBox spacing="4">
-                <Label styleClass="label-input" text="Form:"/>
-                <TextField fx:id="formField" styleClass="input-field"/>
-            </VBox>
-
-            <!-- Manufacturer Code and SL Code (in same row) -->
-            <HBox spacing="16">
-                <VBox spacing="4" HBox.hgrow="ALWAYS">
-                    <Label styleClass="label-input" text="Manufacturer Code:"/>
-                    <TextField fx:id="manufacturerCodeField" styleClass="input-field"/>
+            <VBox spacing="16">
+                <VBox spacing="4">
+                    <Label styleClass="label-input" text="Name:"/>
+                    <TextField fx:id="nameField" styleClass="input-field"/>
                 </VBox>
-                <VBox spacing="4" HBox.hgrow="ALWAYS">
-                    <Label styleClass="label-input" text="SL Code:"/>
-                    <TextField fx:id="slCodeField" styleClass="input-field"/>
+
+                <!-- Active Ingredient -->
+                <VBox spacing="4">
+                    <Label styleClass="label-input" text="Active ingredient:"/>
+                    <TextField fx:id="activeIngredientField" styleClass="input-field"/>
                 </VBox>
-            </HBox>
 
-            <!-- Price -->
-            <VBox spacing="4">
-                <Label styleClass="label-input" text="Price:"/>
-                <TextField fx:id="priceField" styleClass="input-field"/>
+                <!-- Dosage and Unit (in same row) -->
+                <HBox spacing="16">
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label styleClass="label-input" text="Dosage:"/>
+                        <TextField fx:id="dosageField" styleClass="input-field"/>
+                    </VBox>
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label styleClass="label-input" text="Unit:"/>
+                        <TextField fx:id="unitField" styleClass="input-field"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Form -->
+                <VBox spacing="4">
+                    <Label styleClass="label-input" text="Form:"/>
+                    <TextField fx:id="formField" styleClass="input-field"/>
+                </VBox>
+
+                <!-- Manufacturer Code and SL Code (in same row) -->
+                <HBox spacing="16">
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label styleClass="label-input" text="Manufacturer Code:"/>
+                        <TextField fx:id="manufacturerCodeField" styleClass="input-field"/>
+                    </VBox>
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label styleClass="label-input" text="SL Code:"/>
+                        <TextField fx:id="slCodeField" styleClass="input-field"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Price -->
+                <VBox spacing="4">
+                    <Label styleClass="label-input" text="Price:"/>
+                    <TextField fx:id="priceField" styleClass="input-field"/>
+                </VBox>
+
+
+                <!-- Expiry Date -->
+                <VBox spacing="4">
+                    <Label styleClass="label-input" text="Expiry Date:"/>
+                    <DatePicker fx:id="expiryDatePicker" styleClass="input-field"/>
+                </VBox>
+
+                <!-- Usage Instructions -->
+                <VBox spacing="4">
+                    <Label styleClass="label-input" text="Usage Instructions:"/>
+                    <TextArea fx:id="usageInstructionsField" styleClass="input-field"/>
+                </VBox>
+
+                <HBox alignment="CENTER_RIGHT" spacing="24">
+                    <Button fx:id="clearButton" mnemonicParsing="false"
+                            onAction="#handleClear" prefHeight="30.0" prefWidth="120.0" styleClass="clear-btn"
+                            text="Clear"/>
+                    <Button fx:id="saveButton" mnemonicParsing="false"
+                            onAction="#handleUpdate" prefHeight="30.0" prefWidth="120.0" styleClass="save-btn"
+                            text="Save"/>
+                </HBox>
             </VBox>
-
-
-            <!-- Expiry Date -->
-            <VBox spacing="4">
-                <Label styleClass="label-input" text="Expiry Date:"/>
-                <DatePicker fx:id="expiryDatePicker" styleClass="input-field"/>
-            </VBox>
-
-            <!-- Usage Instructions -->
-            <VBox spacing="4">
-                <Label styleClass="label-input" text="Usage Instructions:"/>
-                <TextArea fx:id="usageInstructionsField" styleClass="input-field"/>
-            </VBox>
-
-            <HBox alignment="CENTER_RIGHT" spacing="24">
-                <Button fx:id="clearButton" mnemonicParsing="false"
-                        onAction="#handleClear" prefHeight="30.0" prefWidth="120.0" styleClass="clear-btn" text="Clear"/>
-                <Button fx:id="saveButton" mnemonicParsing="false"
-                        onAction="#handleUpdate" prefHeight="30.0" prefWidth="120.0" styleClass="save-btn" text="Save"/>
-            </HBox>
         </VBox>
-    </VBox>
+    </ScrollPane>
 </AnchorPane>

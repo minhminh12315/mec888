@@ -46,7 +46,12 @@ public class ListAppointmentController {
     public void initialize() {
         appointmentDao = new AppointmentDao();
 
-        appointmentTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        appointmentTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        colId.setPrefWidth(1f * Integer.MAX_VALUE * 0.5);
+        colPatientId.setPrefWidth(1f * Integer.MAX_VALUE * 1.0);
+        colDoctorName.setPrefWidth(1f * Integer.MAX_VALUE * 1.0);
+        colAppointmentDate.setPrefWidth(1f * Integer.MAX_VALUE * 1.0);
+        colAppointmentTime.setPrefWidth(1f * Integer.MAX_VALUE * 1.0);
         colId.setCellValueFactory(cellData -> new SimpleLongProperty(cellData.getValue().getId()).asObject());
         colPatientId.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPatient().getUser().getFirstName()));
         colDoctorName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDoctor().getUser().getFirstName()));
