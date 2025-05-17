@@ -350,111 +350,111 @@ VALUES
 INSERT INTO mec888.prescription_details
 (id, prescription_id, medicine_id, dosage, frequency, duration, instructions, created_at, updated_at)
 VALUES
-(1, 4, 4, '75 mg', 'Once daily', '30 days', 'Take with breakfast', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(2, 1, 7, '10 mg', 'Once daily', '30 days', 'Take in the evening', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(3, 3, 1, '500 mg', 'As needed', '14 days', 'Take for headache pain, maximum 4 tablets daily', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(4, 2, 9, '20 mg', 'Once daily', '30 days', 'Take in the morning before breakfast', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(5, 1, 6, '850 mg', 'Twice daily', '90 days', 'Take with meals', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(1, 4, 4, '75', 'Once daily', '30 days', 'Take with breakfast', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(2, 1, 7, '10', 'Once daily', '30 days', 'Take in the evening', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(3, 3, 1, '500', 'As needed', '14 days', 'Take for headache pain, maximum 4 tablets daily', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(4, 2, 9, '20', 'Once daily', '30 days', 'Take in the morning before breakfast', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(5, 1, 6, '850', 'Twice daily', '90 days', 'Take with meals', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- For prescription 1 (Angina management)
-(6, 4, 8, '20 mg', 'Once daily', '30 days', 'Take in the evening with food to lower cholesterol', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(7, 3, 9, '20 mg', 'Once daily', '30 days', 'Take before breakfast for stomach protection', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(6, 4, 8, '20', 'Once daily', '30 days', 'Take in the evening with food to lower cholesterol', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(7, 3, 9, '20', 'Once daily', '30 days', 'Take before breakfast for stomach protection', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- For prescription 2 (Headache management)
-(8, 5, 2, '200 mg', 'Every 6 hours', '14 days', 'Take as needed for inflammation and pain relief', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(9, 2, 9, '20 mg', 'Once daily', '14 days', 'Take to protect stomach while on pain medication', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(8, 5, 2, '200', 'Every 6 hours', '14 days', 'Take as needed for inflammation and pain relief', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(9, 2, 9, '20', 'Once daily', '14 days', 'Take to protect stomach while on pain medication', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- For prescription 3 (Allergy control)
-(10, 1, 3, '250 mg', 'Twice daily', '7 days', 'Take if signs of secondary infection appear', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(11, 3, 1, '500 mg', 'As needed', '30 days', 'Take for fever or discomfort, maximum 4 daily', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(10, 1, 3, '250', 'Twice daily', '7 days', 'Take if signs of secondary infection appear', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(11, 3, 1, '500', 'As needed', '30 days', 'Take for fever or discomfort, maximum 4 daily', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- For prescription 4 (Diabetes management)
-(12, 2, 8, '20 mg', 'Once daily', '90 days', 'Take in the evening to manage cholesterol', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(13, 4, 7, '10 mg', 'Once daily', '90 days', 'Take in the morning to control blood pressure', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(12, 2, 8, '20', 'Once daily', '90 days', 'Take in the evening to manage cholesterol', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(13, 4, 7, '10', 'Once daily', '90 days', 'Take in the morning to control blood pressure', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- For prescription 5 (Neurological assessment)
-(14, 5, 1, '500 mg', 'Every 6 hours', '14 days', 'Take for migraine pain as needed', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(15, 3, 2, '200 mg', 'Every 8 hours', '14 days', 'Take for inflammation and pain', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(14, 5, 1, '500', 'Every 6 hours', '14 days', 'Take for migraine pain as needed', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(15, 3, 2, '200', 'Every 8 hours', '14 days', 'Take for inflammation and pain', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- For prescription 6 (Pediatric check-up)
-(16, 6, 3, '250 mg', 'Three times daily', '10 days', 'Complete full course even if feeling better', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(17, 8, 1, '250 mg', 'Every 6 hours', '10 days', 'Take for fever or discomfort', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(16, 6, 3, '250', 'Three times daily', '10 days', 'Complete full course even if feeling better', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(17, 8, 1, '250', 'Every 6 hours', '10 days', 'Take for fever or discomfort', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- For prescription 7 (Cardiac follow-up)
-(18, 7, 4, '75 mg', 'Once daily', '90 days', 'Take with breakfast', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(19, 9, 7, '10 mg', 'Once daily', '90 days', 'Take in the evening to control blood pressure', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(20, 10, 9, '20 mg', 'Once daily', '90 days', 'Take for stomach protection', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(18, 7, 4, '75', 'Once daily', '90 days', 'Take with breakfast', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(19, 9, 7, '10', 'Once daily', '90 days', 'Take in the evening to control blood pressure', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(20, 10, 9, '20', 'Once daily', '90 days', 'Take for stomach protection', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- For prescription 8 (Oncology screening)
-(21, 11, 1, '500 mg', 'As needed', '30 days', 'Take for discomfort after screening procedure', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(22, 8, 9, '20 mg', 'Once daily', '14 days', 'Take for stomach protection', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(21, 11, 1, '500', 'As needed', '30 days', 'Take for discomfort after screening procedure', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(22, 8, 9, '20', 'Once daily', '14 days', 'Take for stomach protection', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- For prescriptions 9-20 (Various medical conditions)
-(23, 9, 3, '250 mg', 'Three times daily', '10 days', 'Take with food for respiratory infection', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(24, 12, 1, '500 mg', 'As needed', '7 days', 'Take for discomfort after screening procedure', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(25, 13, 2, '200 mg', 'Every 6 hours', '30 days', 'Take for chronic headache management', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(26, 15, 5, '500 mg', 'Twice daily', '14 days', 'Take for skin infection treatment', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(27, 14, 7, '10 mg', 'Once daily', '90 days', 'Take for blood pressure management', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(28, 16, 1, '500 mg', 'Every 6 hours', '10 days', 'Take for dizziness-related discomfort', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(29, 17, 5, '500 mg', 'Twice daily', '14 days', 'Take for psoriasis-related infection prevention', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(30, 19, 1, '500 mg', 'As needed', '7 days', 'Take for post-screening discomfort', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(31, 18, 2, '200 mg', 'Every 8 hours', '14 days', 'Take for skin inflammation', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(32, 20, 7, '10 mg', 'Once daily', '90 days', 'Take for hypertension management', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(33, 13, 3, '250 mg', 'Three times daily', '10 days', 'Complete full course for respiratory infection', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(34, 12, 2, '200 mg', 'Every 6 hours', '30 days', 'Take for chronic back pain management', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(35, 14, 10, '50 mcg', 'Once daily', '90 days', 'Take for thyroid management', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(23, 9, 3, '250', 'Three times daily', '10 days', 'Take with food for respiratory infection', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(24, 12, 1, '500', 'As needed', '7 days', 'Take for discomfort after screening procedure', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(25, 13, 2, '200', 'Every 6 hours', '30 days', 'Take for chronic headache management', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(26, 15, 5, '500', 'Twice daily', '14 days', 'Take for skin infection treatment', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(27, 14, 7, '10', 'Once daily', '90 days', 'Take for blood pressure management', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(28, 16, 1, '500', 'Every 6 hours', '10 days', 'Take for dizziness-related discomfort', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(29, 17, 5, '500', 'Twice daily', '14 days', 'Take for psoriasis-related infection prevention', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(30, 19, 1, '500', 'As needed', '7 days', 'Take for post-screening discomfort', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(31, 18, 2, '200', 'Every 8 hours', '14 days', 'Take for skin inflammation', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(32, 20, 7, '10', 'Once daily', '90 days', 'Take for hypertension management', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(33, 13, 3, '250', 'Three times daily', '10 days', 'Complete full course for respiratory infection', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(34, 12, 2, '200', 'Every 6 hours', '30 days', 'Take for chronic back pain management', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(35, 14, 10, '50', 'Once daily', '90 days', 'Take for thyroid management', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- Enhanced prescription 1 (Angina management) - adding cardiovascular medications
-(36, 5, 15, '20 mg', 'Once daily', '30 days', 'Take in the evening to manage cholesterol', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(37, 3, 16, '5 mg', 'Once daily', '30 days', 'Take in the morning to control blood pressure', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(36, 5, 15, '20', 'Once daily', '30 days', 'Take in the evening to manage cholesterol', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(37, 3, 16, '5', 'Once daily', '30 days', 'Take in the morning to control blood pressure', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- Enhanced prescription 2 (Headache management) - adding nervous system medications
-(38, 2, 21, '25 mg', 'Once daily', '30 days', 'Take at bedtime for migraine prevention', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(39, 7, 13, '50 mg', 'Twice daily', '14 days', 'Take with meals for pain relief', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(38, 2, 21, '25', 'Once daily', '30 days', 'Take at bedtime for migraine prevention', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(39, 7, 13, '50', 'Twice daily', '14 days', 'Take with meals for pain relief', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- Enhanced prescription 3 (Allergy control) - adding antihistamines and respiratory meds
-(40, 8, 23, '10 mg', 'Once daily', '30 days', 'Take in the morning for daily allergy control', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(41, 10, 17, '10 mg', 'Once daily', '30 days', 'Take in the evening to prevent nighttime symptoms', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(42, 11, 18, '2 mg', 'As needed', '30 days', 'Take only when experiencing breathing difficulties', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(40, 8, 23, '10', 'Once daily', '30 days', 'Take in the morning for daily allergy control', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(41, 10, 17, '10', 'Once daily', '30 days', 'Take in the evening to prevent nighttime symptoms', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(42, 11, 18, '2', 'As needed', '30 days', 'Take only when experiencing breathing difficulties', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- Enhanced prescription 4 (Diabetes management) - adding gastro protection
-(43, 17, 19, '20 mg', 'Twice daily', '90 days', 'Take before meals to reduce acid production', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(44, 19, 15, '20 mg', 'Once daily', '90 days', 'Take in the evening to control cholesterol', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(43, 17, 19, '20', 'Twice daily', '90 days', 'Take before meals to reduce acid production', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(44, 19, 15, '20', 'Once daily', '90 days', 'Take in the evening to control cholesterol', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- Enhanced prescription 5 (Neurological assessment) - adding anxiolytics
-(45, 20, 22, '0.5 mg', 'Twice daily', '14 days', 'Take for acute anxiety, may cause drowsiness', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(46, 18, 21, '25 mg', 'Once daily', '30 days', 'Take at bedtime for migraine prevention', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(45, 20, 22, '0.5', 'Twice daily', '14 days', 'Take for acute anxiety, may cause drowsiness', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(46, 18, 21, '25', 'Once daily', '30 days', 'Take at bedtime for migraine prevention', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- Enhanced prescription 6 (Pediatric check-up) - adding antihistamine for child
-(47, 6, 24, '5 mg', 'Once daily', '14 days', 'Half tablet for child under 12, for seasonal allergies', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(47, 6, 24, '5', 'Once daily', '14 days', 'Half tablet for child under 12, for seasonal allergies', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- Enhanced prescription 7 (Cardiac follow-up) - adding additional cardiac meds
-(48, 7, 15, '20 mg', 'Once daily', '90 days', 'Take in the evening for cholesterol management', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(49, 9, 16, '5 mg', 'Once daily', '90 days', 'Take in the morning for blood pressure control', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(48, 7, 15, '20', 'Once daily', '90 days', 'Take in the evening for cholesterol management', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(49, 9, 16, '5', 'Once daily', '90 days', 'Take in the morning for blood pressure control', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- Enhanced prescription 12 (Eczema treatment) - adding topical medication
 (50, 12, 25, '1%', 'Three times daily', '14 days', 'Apply thin layer to affected areas, avoid face', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(51, 15, 23, '10 mg', 'Once daily', '14 days', 'Take at night to control itching', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(51, 15, 23, '10', 'Once daily', '14 days', 'Take at night to control itching', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- Enhanced prescription 13 (Hypertension) - complete cardiovascular regimen
-(52, 13, 16, '5 mg', 'Once daily', '90 days', 'Take in the morning for blood pressure control', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(53, 16, 4, '75 mg', 'Once daily', '90 days', 'Take with breakfast for cardiovascular protection', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(54, 14, 15, '20 mg', 'Once daily', '90 days', 'Take in the evening for cholesterol management', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(52, 13, 16, '5', 'Once daily', '90 days', 'Take in the morning for blood pressure control', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(53, 16, 4, '75', 'Once daily', '90 days', 'Take with breakfast for cardiovascular protection', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(54, 14, 15, '20', 'Once daily', '90 days', 'Take in the evening for cholesterol management', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- Enhanced prescription 15 (Psoriasis) - advanced skin treatment
 (55, 15, 25, '1%', 'Twice daily', '30 days', 'Apply to affected areas after bathing', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(56, 16, 14, '5 mg', 'Once daily', '14 days', 'Take in the morning, taper down over 2 weeks', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(57, 17, 23, '10 mg', 'Once daily', '30 days', 'Take at night to control itching', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(56, 16, 14, '5', 'Once daily', '14 days', 'Take in the morning, taper down over 2 weeks', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(57, 17, 23, '10', 'Once daily', '30 days', 'Take at night to control itching', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- Enhanced prescription 19 (Respiratory infection) - complete respiratory treatment
-(58, 19, 11, '500 mg', 'Once daily', '5 days', 'Take for 5 full days to treat infection', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(59, 20, 18, '2 mg', 'As needed', '14 days', 'Take for shortness of breath, up to 4 times daily', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(60, 18, 17, '10 mg', 'Once daily', '14 days', 'Take in the evening to prevent night symptoms', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(58, 19, 11, '500', 'Once daily', '5 days', 'Take for 5 full days to treat infection', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(59, 20, 18, '2', 'As needed', '14 days', 'Take for shortness of breath, up to 4 times daily', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(60, 18, 17, '10', 'Once daily', '14 days', 'Take in the evening to prevent night symptoms', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- Enhanced prescription 20 (Chronic back pain) - comprehensive pain management
-(61, 16, 13, '50 mg', 'Three times daily', '30 days', 'Take with meals for pain management', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(62, 12, 21, '25 mg', 'Once daily', '30 days', 'Take at bedtime for pain and sleep', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(63, 11, 19, '20 mg', 'Twice daily', '30 days', 'Take before meals to protect stomach', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+(61, 16, 13, '50', 'Three times daily', '30 days', 'Take with meals for pain management', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(62, 12, 21, '25', 'Once daily', '30 days', 'Take at bedtime for pain and sleep', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(63, 11, 19, '20', 'Twice daily', '30 days', 'Take before meals to protect stomach', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 -- 17. Payments
 INSERT INTO mec888.payments
 (id, patient_id, appointment_id, amount, payment_method, payment_date, status, created_at, updated_at)

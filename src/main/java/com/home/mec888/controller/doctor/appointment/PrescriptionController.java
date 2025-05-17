@@ -21,6 +21,7 @@ import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PrescriptionController {
     @FXML
@@ -56,11 +57,19 @@ public class PrescriptionController {
                 prescriptionVBoxContainer.setDisable(false);
             }
         });
-
-
     }
 
     public void loadShowMedicineData() {
+        prescriptionTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        STORE.clear();
+        Prescription existingPrescription = prescriptionDao.getPrescriptionByRecord(SeeADoctorContainerController.currentMedicalRecord);
+        if (existingPrescription != null) {
+            List<PrescriptionDetails> prescriptionDetailsList = prescDetailDao.getAllPrescriptionDetailsByPrescription(existingPrescription);
+            for (PrescriptionDetails presc : prescriptionDetailsList) {
+                presc.setSaved(true);
+                STORE.add(presc);
+            }
+        }
         colMedicineName.setCellValueFactory(cd -> {
             PrescriptionDetails prescDetails = cd.getValue();
             String name = (prescDetails.getMedicine() != null) ? prescDetails.getMedicine().getName() : "";
@@ -100,7 +109,23 @@ public class PrescriptionController {
         colPrescInstruction.setCellValueFactory(new PropertyValueFactory<>("instructions"));
         colPrescAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
 
-        prescriptionTable.getItems().clear();
+        prescriptionTable.setRowFactory(tv -> new TableRow<PrescriptionDetails>() {
+            @Override
+            protected void updateItem(PrescriptionDetails item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+                    setStyle("");
+                } else if (item.isSaved()) {
+                    setStyle("-fx-background-color: #ededed;");
+                    setDisable(true);
+                } else {
+                    setStyle("");
+                }
+            }
+        });
+
+
+//        prescriptionTable.getItems().clear();
     }
 
     public void openModal() {
@@ -138,12 +163,19 @@ public class PrescriptionController {
             prescription.setRecord(SeeADoctorContainerController.currentMedicalRecord);
             prescriptionDao.savePrescription(prescription);
         }
-        for (PrescriptionDetails presc : STORE) {
+        List<PrescriptionDetails> newEntries = STORE.stream()
+                .filter(presc -> !presc.isSaved())
+                .collect(Collectors.toList());
+        for (PrescriptionDetails presc : newEntries) {
             presc.setPrescription(prescription);
+            presc.setSaved(true);
             System.out.println(presc);
+            prescDetailDao.savePrescriptionDetails(presc);
         }
-        prescriptionTable.getItems().clear();
-        STORE.clear();
+
+        loadShowMedicineData();
+//        prescriptionTable.getItems().clear();
+//        STORE.clear();
     }
 
     public void handleClear() {
@@ -153,8 +185,7 @@ public class PrescriptionController {
         alert.setContentText("Are you sure you want to clear the prescription?");
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-                prescriptionTable.getItems().clear();
-                STORE.clear();
+                STORE.removeIf(presc -> !presc.isSaved());
             }
         });
     }

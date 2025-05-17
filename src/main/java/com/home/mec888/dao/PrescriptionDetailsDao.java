@@ -111,4 +111,14 @@ public class PrescriptionDetailsDao {
             return null;
         }
     }
+    public List<PrescriptionDetails> getAllPrescriptionDetailsByPrescription(Prescription prescription){
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("FROM PrescriptionDetails WHERE prescription = :prescription", PrescriptionDetails.class)
+                    .setParameter("prescription", prescription)
+                    .list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

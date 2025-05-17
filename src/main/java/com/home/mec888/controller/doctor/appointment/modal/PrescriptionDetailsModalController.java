@@ -143,7 +143,7 @@ public class PrescriptionDetailsModalController {
 
         for (int i = 0; i < PrescriptionController.STORE.size(); i++) {
             PrescriptionDetails presc = PrescriptionController.STORE.get(i);
-            if (presc.getMedicine().getName().equals(selectedMedicine.getName())) {
+            if (presc.getMedicine().getName().equals(selectedMedicine.getName()) && !presc.isSaved()) {
                 int newQty = Integer.parseInt(presc.getDosage()) + Integer.parseInt(prescDosage.getText());
                 presc.setDosage(String.valueOf(newQty));
                 presc.setAmount(presc.getMedicine().getPrice() * newQty);
