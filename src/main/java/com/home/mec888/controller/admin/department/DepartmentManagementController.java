@@ -61,17 +61,14 @@ public class DepartmentManagementController {
             private final HBox actionBox = new HBox(10);
 
             private final FontIcon editIcon = new FontIcon(FontAwesomeSolid.EDIT);
-            private final FontIcon deleteIcon = new FontIcon(FontAwesomeSolid.TRASH_ALT);
 
             {
                 // Đặt kích thước và màu sắc cho các biểu tượng
                 editIcon.setIconSize(20);
                 editIcon.setIconColor(Paint.valueOf("#4CAF50")); // Màu xanh lá cho "Sửa"
 
-                deleteIcon.setIconSize(20);
-                deleteIcon.setIconColor(Paint.valueOf("#F44336")); // Màu đỏ cho "Xóa"
 
-                actionBox.getChildren().addAll(editIcon, deleteIcon);
+                actionBox.getChildren().addAll(editIcon);
                 actionBox.setAlignment(Pos.CENTER); // Căn giữa HBox
             }
 
@@ -91,10 +88,8 @@ public class DepartmentManagementController {
 
     private void setActionHandlers(HBox actionBox, Department department) {
         FontIcon editIcon = (FontIcon) actionBox.getChildren().get(0);
-        FontIcon trashIcon = (FontIcon) actionBox.getChildren().get(1);
 
         editIcon.setOnMouseClicked(event -> handleUpdate(department));
-        trashIcon.setOnMouseClicked(event -> handleDelete(department));
     }
 
     private void handleUpdate(Department department) {
@@ -115,28 +110,6 @@ public class DepartmentManagementController {
         } else {
             System.err.println("Could not load edit-showtime.fxml");
         }
-    }
-
-    private void handleDelete(Department department) {
-        System.out.println(department);
-        // Show a confirmation dialog before deleting
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Delete Confirmation");
-        alert.setHeaderText("Are you sure you want to delete this medicine?");
-        alert.setContentText("This action cannot be undone.");
-        ButtonType confirmButton = new ButtonType("Delete");
-        ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-        alert.getButtonTypes().setAll(confirmButton, cancelButton);
-        alert.showAndWait().ifPresent(response -> {
-            if (response == cancelButton) {
-                // User chose cancel, do nothing
-                alert.close();
-            } else if (response == confirmButton) {
-                // User chose delete, proceed with deletion
-                departmentDao.deleteDepartment(department.getId());
-                loadDepartmentData();
-            }
-        });
     }
 
     public void handleAdd(ActionEvent event) {

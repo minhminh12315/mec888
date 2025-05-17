@@ -70,17 +70,13 @@ public class SpecializationManagementController {
             private final HBox actionBox = new HBox(10);
 
             private final FontIcon editIcon = new FontIcon(FontAwesomeSolid.EDIT);
-            private final FontIcon deleteIcon = new FontIcon(FontAwesomeSolid.TRASH_ALT);
 
             {
                 // Set size and color for icons
                 editIcon.setIconSize(20);
                 editIcon.setIconColor(Paint.valueOf("#4CAF50")); // Green for "Edit"
 
-                deleteIcon.setIconSize(20);
-                deleteIcon.setIconColor(Paint.valueOf("#F44336")); // Red for "Delete"
-
-                actionBox.getChildren().addAll(editIcon, deleteIcon);
+                actionBox.getChildren().addAll(editIcon);
                 actionBox.setAlignment(Pos.CENTER); // Center align the HBox
             }
 
@@ -100,10 +96,8 @@ public class SpecializationManagementController {
 
     private void setActionHandlers(HBox actionBox, Specialization specialization) {
         FontIcon editIcon = (FontIcon) actionBox.getChildren().get(0);
-        FontIcon trashIcon = (FontIcon) actionBox.getChildren().get(1);
 
         editIcon.setOnMouseClicked(event -> handleUpdate(specialization));
-        trashIcon.setOnMouseClicked(event -> handleDelete(specialization));
     }
 
     @FXML
@@ -125,26 +119,6 @@ public class SpecializationManagementController {
         } else {
             System.err.println("Could not load specialization-update.fxml");
         }
-    }
-
-    private void handleDelete(Specialization specialization) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Delete Confirmation");
-        alert.setHeaderText("Are you sure you want to delete this specialization?");
-        alert.setContentText("This action cannot be undone.");
-        ButtonType confirmButton = new ButtonType("Delete");
-        ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-        alert.getButtonTypes().setAll(confirmButton, cancelButton);
-        alert.showAndWait().ifPresent(response -> {
-            if (response == cancelButton) {
-                // User chose cancel, do nothing
-                alert.close();
-            } else if (response == confirmButton) {
-                // User chose delete, proceed with deletion
-                specializationDao.deleteSpecialization(specialization.getId());
-                loadSpecializationData();
-            }
-        });
     }
 
     @FXML
